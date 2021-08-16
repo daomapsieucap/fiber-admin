@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.0.2 =
+* Fix bug: Color picker not working
+* Update link color setting
+
 = 1.0.1 =
 * Fix default option with Hide WordPress branding option
 
