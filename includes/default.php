@@ -13,9 +13,9 @@ class Fiber_Admin_Default{
 	
 	public function __construct(){
 		//default value
-		$this->fiber_admin_branding = get_option('fiber_admin_branding');
+		$this->fiber_admin = get_option('fiber_admin');
 		
-		if($this->fiber_admin_branding == 'yes'){
+		if($this->fiber_admin['hide_wordpress_branding']){
 			// Replace WordPress in the page titles.
 			add_filter('admin_title', array($this, 'fiber_admin_title'), 10, 2);
 			
