@@ -122,6 +122,14 @@ class Fiber_Admin_White_Label_Settings{
 			'fiber-admin',
 			'fiber_admin_white_label_section'
 		);
+		
+		add_settings_field(
+			'login_extra_css',
+			'Extra CSS',
+			array($this, 'fiber_login_extra_css'),
+			'fiber-admin',
+			'fiber_admin_white_label_section'
+		);
 	}
 	
 	public function fiber_admin_section_info(){
@@ -166,15 +174,9 @@ class Fiber_Admin_White_Label_Settings{
 		$logo = $this->fiber_admin['login_logo'];
 		?>
         <fieldset class="fiber-admin-input__img">
-			<?php
-			if($logo){
-				?>
-                <div class="fiber-preview">
-                    <img src="<?= $logo; ?>" alt="<?= get_bloginfo('name'); ?>"/>
-                </div>
-				<?php
-			}
-			?>
+            <div class="fiber-preview">
+                <img src="<?= $logo; ?>" alt="<?= get_bloginfo('name'); ?>"/>
+            </div>
             <label>
                 <input class="regular-text" type="text" name="fiber_admin[login_logo]" value="<?= $logo; ?>"/>
             </label>
@@ -245,6 +247,15 @@ class Fiber_Admin_White_Label_Settings{
                        value="yes" <?= $disable_border; ?> />
                 <span class="slider round"></span>
             </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiber_login_extra_css(){
+		$login_extra_css = $this->fiber_admin['login_extra_css'];
+		?>
+        <fieldset>
+            <textarea name="fiber_admin[login_extra_css]"><?= $login_extra_css; ?></textarea>
         </fieldset>
 		<?php
 	}
