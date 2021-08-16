@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Fiber Admin
- * Plugin URI:        https://daochau.com/
+ * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Another helpful tool for WordPress admin
  * Version:           1.0.2
  * Requires at least: 5.2
