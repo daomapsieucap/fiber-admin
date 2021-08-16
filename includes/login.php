@@ -21,11 +21,11 @@ class Fiber_Admin_Login{
 	public function fiber_login_css(){
 		// Logo CSS
 		$login_logo_css = '#login h1 a, .login h1 a { ';
+		
 		if($login_logo = $this->helper->fiber_get_settings('login_logo')){
 			$login_logo_css .= 'background-image: url(' . $login_logo . ');';
 		}
 		
-		// Add logo max-width same width with the form
 		$login_logo_css .= 'max-width:100%;';
 		
 		$has_width = false;
@@ -42,23 +42,23 @@ class Fiber_Admin_Login{
 			$login_logo_css .= 'height:' . $logo_height . 'px;';
 		}
 		
-		//Add logo background size
+		// Add logo background size
 		$logo_background_size = 'background-size:contain;background-position-y: center;';
 		if($has_height && $has_width){
 			$logo_background_size = sprintf('background-size:%s %s;', $logo_width . 'px', $logo_height . 'px');
 		}
 		$login_logo_css .= $logo_background_size;
 		
+		// Add bottom spacing
 		$login_logo_css .= 'margin-bottom: 60px!important;';
 		
 		$login_logo_css .= '}';
 		
-		//Login Background Color CSS
-		$bg_css = 'body.login{';
+		// Login Background Color CSS
+		$bg_css = '';
 		if($background_color = $this->helper->fiber_get_settings('login_bg_color')){
-			$bg_css .= 'background-color:' . $background_color . '!important;';
+			$bg_css = 'body.login{ background-color:' . $background_color . '!important;' . '}';
 		}
-		$bg_css .= '}';
 		
 		// Form CSS
 		$form_css = '';
@@ -77,7 +77,7 @@ class Fiber_Admin_Login{
 		$form_btn_color      = $this->helper->fiber_get_settings('form_button_color');
 		
 		if($form_btn_text_color || $form_btn_color){
-			$form_css .= '#loginform input[type=submit],#loginform .submit input[type=button]{ ';
+			$form_css .= '#loginform input[type=submit]{ ';
 			if($form_btn_text_color){
 				$form_css .= 'color:' . $form_btn_text_color . '!important;';
 				$form_css .= 'text-shadow: none;';
@@ -96,11 +96,18 @@ class Fiber_Admin_Login{
 		if($form_link_color = $this->helper->fiber_get_settings('form_link_color')){
 			$form_css .= '#login a{ color: ' . $form_link_color . ';}';
 		}
+		
+		// Extra CSS
+		$extra_css = '';
+		if($form_extra_css = $this->helper->fiber_get_settings('login_extra_css')){
+			$extra_css = $form_extra_css;
+		}
 		?>
         <style>
             <?= $login_logo_css; ?>
             <?= $bg_css; ?>
             <?= $form_css; ?>
+            <?= $extra_css; ?>
         </style>
 	<?php }
 }
