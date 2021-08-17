@@ -36,17 +36,17 @@ define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 add_action('init', 'fiberadmin_init');
 function fiberadmin_init(){
 	// helper
-	include_once('includes/helper.php');
+	include_once(FIBERADMIN_DIR . 'includes/helper.php');
 	
 	// options pages
-	include_once('includes/settings/setting.php');
-	include_once('includes/settings/white-label.php');
-	include_once('includes/settings/miscellaneous.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/setting.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/white-label.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
 	
 	//default functions
-	include_once('includes/default.php');
+	include_once(FIBERADMIN_DIR . 'includes/default.php');
 	
 	//functions
-	include_once('includes/login.php');
-	include_once('includes/image.php');
+	include_once(FIBERADMIN_DIR . 'includes/login.php');
+	include_once(FIBERADMIN_DIR . 'includes/image.php');
 }

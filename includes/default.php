@@ -8,9 +8,6 @@ if(!defined('ABSPATH')){
  * Default functions
  */
 class Fiber_Admin_Default{
-	
-	private $fiber_admin_branding;
-	
 	public function __construct(){
 		//default value
 		$this->fiber_admin = get_option('fiber_admin');

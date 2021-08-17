@@ -1,11 +1,12 @@
 == Changelog ==
 
 = 1.0.2 =
-*Release Date - 16 August 2021*
+*Release Date - 17 August 2021*
 
 * Fix: Color picker not working
 * Fix: Link color setting not working
 * Add: Extra CSS for login page
+* Fix: Update include directory
 
 = 1.0.1 =
 * Fix default option with Hide WordPress branding option
