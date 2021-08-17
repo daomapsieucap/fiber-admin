@@ -109,8 +109,8 @@ class Fiber_Admin_White_Label_Settings{
 		
 		add_settings_field(
 			'login_bg_color',
-			'Background Color',
-			array($this, 'fiber_login_bg_color'),
+			'Background',
+			array($this, 'fiber_login_bg'),
 			'fiber-admin',
 			'fiber_admin_white_label_section'
 		);
@@ -201,14 +201,24 @@ class Fiber_Admin_White_Label_Settings{
 		<?php
 	}
 	
-	public function fiber_login_bg_color(){
+	public function fiber_login_bg(){
 		$bg_color = $this->fiber_admin['login_bg_color'];
+		$bg_img   = $this->fiber_admin['login_bg_img'];
 		?>
         <fieldset>
             <label>
                 <input class="fiber-color-field" name="fiber_admin[login_bg_color]" type="text"
                        value="<?= $bg_color; ?>"/>
             </label>
+        </fieldset>
+        <fieldset class="fiber-admin-input__img">
+            <div class="fiber-preview">
+                <img src="<?= $bg_img; ?>" alt="<?= get_bloginfo('name'); ?>"/>
+            </div>
+            <label>
+                <input class="regular-text" type="text" name="fiber_admin[login_bg_img]" value="<?= $bg_img; ?>"/>
+            </label>
+            <button class="button fiberadmin-upload"><?= __('Insert / Replace Image', 'fiberadmin'); ?></button>
         </fieldset>
 		<?php
 	}
