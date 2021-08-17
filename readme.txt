@@ -29,8 +29,11 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.0.2 =
-*Release Date - 16 August 2021*
+*Release Date - 17 August 2021*
 
 * Fix: Color picker not working
 * Fix: Link color setting not working
 * Add: Extra CSS for login page
+* Fix: Update include directory
+* Improve preview image upload
+* Add: Background image for login page

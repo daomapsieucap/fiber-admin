@@ -54,10 +54,19 @@ class Fiber_Admin_Login{
 		
 		$login_logo_css .= '}';
 		
-		// Login Background Color CSS
 		$bg_css = '';
+		
+		// Login Background Color CSS
 		if($background_color = $this->helper->fiber_get_settings('login_bg_color')){
 			$bg_css = 'body.login{ background-color:' . $background_color . '!important;' . '}';
+		}
+		
+		// Login Background Image CSS
+		$background_image = $this->helper->fiber_get_settings('login_bg_img');
+		if($background_image && !$bg_css){
+			$bg_css = 'body.login{';
+			$bg_css .= 'background:url("' . $background_image . '") center / cover no-repeat !important;';
+			$bg_css .= '}';
 		}
 		
 		// Form CSS
