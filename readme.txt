@@ -37,3 +37,4 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Fix: Update include directory
 * Improve preview image upload
 * Add: Background image for login page
+* Add: Auto convert email text to a link
