@@ -75,6 +75,21 @@ class Fiber_Admin_Miscellaneous{
 			'fiber-admin-miscellaneous', // page
 			'fiber_admin_image_section' // section
 		);
+		
+		add_settings_section(
+			'fiber_admin_content_section',
+			'<span class="dashicons dashicons-editor-table"></span> Content',
+			array($this, 'fiber_admin_section_info'),
+			'fiber-admin-miscellaneous'
+		);
+		
+		add_settings_field(
+			'disable_email_converter', // id
+			'Disable Convert Email Text to Link', // title
+			array($this, 'disable_email_converter'), // callback
+			'fiber-admin-miscellaneous', // page
+			'fiber_admin_content_section' // section
+		);
 	}
 	
 	public function fiber_admin_section_info(){
@@ -83,17 +98,9 @@ class Fiber_Admin_Miscellaneous{
 	public function fiber_miscellaneous_sanitize($input){
 		$sanitary_values = array();
 		
-		if($input['auto_img_meta']){
-			$sanitary_values['auto_img_meta'] = true;
-		}else{
-			$sanitary_values['auto_img_meta'] = false;
-		}
-		
-		if($input['disable_img_right_click']){
-			$sanitary_values['disable_img_right_click'] = true;
-		}else{
-			$sanitary_values['disable_img_right_click'] = false;
-		}
+		$sanitary_values['auto_img_meta']           = (bool) $input['auto_img_meta'];
+		$sanitary_values['disable_img_right_click'] = (bool) $input['disable_img_right_click'];
+		$sanitary_values['disable_email_converter'] = (bool) $input['disable_email_converter'];
 		
 		return $sanitary_values;
 	}
@@ -118,6 +125,20 @@ class Fiber_Admin_Miscellaneous{
             <label for="disable_img_right_click" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[disable_img_right_click]"
                        id="disable_img_right_click"
+                       value="yes" <?= $checked; ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function disable_email_converter(){
+		$checked = ($this->fiber_admin['disable_email_converter'] == true) ? 'checked' : '';
+		?>
+        <fieldset>
+            <label for="disable_email_converter" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiber_admin_miscellaneous[disable_email_converter]"
+                       id="disable_email_converter"
                        value="yes" <?= $checked; ?> />
                 <span class="slider round"></span>
             </label>
