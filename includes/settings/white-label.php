@@ -109,7 +109,7 @@ class Fiber_Admin_White_Label_Settings{
 		
 		add_settings_field(
 			'login_bg_color',
-			'Background',
+			'Background Color / Image',
 			array($this, 'fiber_login_bg'),
 			'fiber-admin',
 			'fiber_admin_white_label_section'
@@ -178,7 +178,9 @@ class Fiber_Admin_White_Label_Settings{
                 <img src="<?= $logo; ?>" alt="<?= get_bloginfo('name'); ?>"/>
             </div>
             <label>
-                <input class="regular-text" type="text" name="fiber_admin[login_logo]" value="<?= $logo; ?>"/>
+                <input class="regular-text" type="text" name="fiber_admin[login_logo]"
+                       placeholder="<?= __('Input or choose your logo URL', 'fiber-admin'); ?>"
+                       value="<?= $logo; ?>"/>
             </label>
             <button class="button fiberadmin-upload"><?= __('Insert / Replace Image', 'fiberadmin'); ?></button>
         </fieldset>
@@ -190,11 +192,11 @@ class Fiber_Admin_White_Label_Settings{
 		$height = $this->fiber_admin['login_logo_height'];
 		?>
         <fieldset class="fiber-admin-input__multiples">
-            <label class="fiber-admin-input__label" for="login_logo_width"><?= __('Width', 'fiberadmin'); ?></label>
+            <label class="fiber-admin-input__label" for="login_logo_width"><?= __('Width', 'fiber-admin'); ?></label>
             <input class="small-text" type="number" name="fiber_admin[login_logo_width]" id="login_logo_width"
                    value="<?= $width; ?>"/> px
             <br/>
-            <label class="fiber-admin-input__label" for="login_logo_height"><?= __('Height', 'fiberadmin'); ?></label>
+            <label class="fiber-admin-input__label" for="login_logo_height"><?= __('Height', 'fiber-admin'); ?></label>
             <input class="small-text" type="number" name="fiber_admin[login_logo_height]" id="login_logo_height"
                    value="<?= $height; ?>"/> px
         </fieldset>
@@ -216,9 +218,12 @@ class Fiber_Admin_White_Label_Settings{
                 <img src="<?= $bg_img; ?>" alt="<?= get_bloginfo('name'); ?>"/>
             </div>
             <label>
-                <input class="regular-text" type="text" name="fiber_admin[login_bg_img]" value="<?= $bg_img; ?>"/>
+                <input class="regular-text" type="text" name="fiber_admin[login_bg_img]"
+                       placeholder="<?= __('Input or choose your background URL', 'fiber-admin'); ?>"
+                       value="<?= $bg_img; ?>"/>
             </label>
-            <button class="button fiberadmin-upload"><?= __('Insert / Replace Image', 'fiberadmin'); ?></button>
+            <button class="button fiberadmin-upload"><?= __('Insert / Replace Image', 'fiber-admin'); ?></button>
+            <p class="description"><?= __('The minimum sizes should be 2000px width and 1000px height', 'fiber-admin'); ?></p>
         </fieldset>
 		<?php
 	}
@@ -232,26 +237,27 @@ class Fiber_Admin_White_Label_Settings{
 		?>
         <fieldset class="fiber-admin-input__multiples fiber-color-group">
             <label class="fiber-admin-input__label"
-                   for="form_bg_color"><?= __('Background Color', 'fiberadmin'); ?></label>
+                   for="form_bg_color"><?= __('Background Color', 'fiber-admin'); ?></label>
             <input id="form_bg_color" class="fiber-color-field" name="fiber_admin[form_bg_color]" type="text"
                    value="<?= $bg_color; ?>"/>
             <br/>
             <label class="fiber-admin-input__label"
-                   for="form_button_color"><?= __('Button Color', 'fiberadmin'); ?></label>
+                   for="form_button_color"><?= __('Button Color', 'fiber-admin'); ?></label>
             <input id="form_button_color" class="fiber-color-field" name="fiber_admin[form_button_color]" type="text"
                    value="<?= $button_color; ?>"/>
             <br/>
             <label class="fiber-admin-input__label"
-                   for="form_btn_text_color"><?= __('Button Text Color', 'fiberadmin'); ?></label>
+                   for="form_btn_text_color"><?= __('Button Text Color', 'fiber-admin'); ?></label>
             <input id="form_btn_text_color" class="fiber-color-field" name="fiber_admin[form_btn_text_color]"
                    type="text"
                    value="<?= $btn_text_color; ?>"/>
             <br/>
-            <label class="fiber-admin-input__label" for="form_link_color"><?= __('Link Color', 'fiberadmin'); ?></label>
+            <label class="fiber-admin-input__label"
+                   for="form_link_color"><?= __('Link Color', 'fiber-admin'); ?></label>
             <input id="form_link_color" class="fiber-color-field" name="fiber_admin[form_link_color]" type="text"
                    value="<?= $link_color; ?>"/>
             <br/>
-            <div class="fiber-admin-input__label"><?= __('Disable Form Border', 'fiberadmin'); ?></div>
+            <div class="fiber-admin-input__label"><?= __('Disable Form Border', 'fiber-admin'); ?></div>
             <label for="form_disable_border" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin[form_disable_border]" id="form_disable_border"
                        value="yes" <?= $disable_border; ?> />
