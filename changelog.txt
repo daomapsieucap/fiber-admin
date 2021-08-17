@@ -9,6 +9,7 @@
 * Fix: Update include directory
 * Improve preview image upload
 * Add: Background image for login page
+* Add: Auto convert email text to a link
 
 = 1.0.1 =
 * Fix default option with Hide WordPress branding option

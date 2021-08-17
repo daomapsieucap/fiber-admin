@@ -138,11 +138,7 @@ class Fiber_Admin_White_Label_Settings{
 	public function fiber_admin_sanitize($input){
 		$sanitary_values = array();
 		
-		if($input['hide_wordpress_branding']){
-			$sanitary_values['hide_wordpress_branding'] = true;
-		}else{
-			$sanitary_values['hide_wordpress_branding'] = false;
-		}
+		$sanitary_values['hide_wordpress_branding'] = (bool) $input['hide_wordpress_branding'];
 		
 		if($input){
 			foreach($input as $key => $item){

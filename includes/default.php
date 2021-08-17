@@ -10,7 +10,8 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Default{
 	public function __construct(){
 		//default value
-		$this->fiber_admin = get_option('fiber_admin');
+		$this->fiber_admin               = get_option('fiber_admin');
+		$this->fiber_admin_miscellaneous = get_option('fiber_admin_miscellaneous');
 		
 		if($this->fiber_admin['hide_wordpress_branding']){
 			// Replace WordPress in the page titles.
@@ -40,6 +41,11 @@ class Fiber_Admin_Default{
 			
 			// Hide Admin Bar Frontend for all users
 			add_filter('show_admin_bar', '__return_false');
+		}
+		
+		if(!$this->fiber_admin_miscellaneous['disable_email_converter']){
+			// Convert email text to link
+			add_filter('the_content', array($this, 'fiber_auto_convert_email_address'));
 		}
 	}
 	
@@ -94,6 +100,18 @@ class Fiber_Admin_Default{
 	
 	public function fiber_remove_backtoblog(){
 		echo '<style>#nav,#backtoblog{display:none}</style>';
+	}
+	
+	public function fiber_auto_convert_email_address($content){
+		// Skip if the content has mailto link
+		if(strpos($content, 'mailto') !== false){
+			return $content;
+		}
+		
+		// Detect and create email link
+		$mail_pattern = "/([A-z0-9\._-]+\@[A-z0-9_-]+\.)([A-z0-9\_\-\.]{1,}[A-z])/";
+		
+		return preg_replace($mail_pattern, '<a href="mailto:$1$2">$1$2</a>', $content);
 	}
 }
 
