@@ -109,9 +109,10 @@ class Fiber_Admin_Default{
 		}
 		
 		// Detect and create email link
-		$mail_pattern = "/([A-z0-9\._-]+\@[A-z0-9_-]+\.)([A-z0-9\_\-\.]{1,}[A-z])/";
+		$search  = array('/([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/');
+		$replace = array('<a href="mailto:$1">$1</a>');
 		
-		return preg_replace($mail_pattern, '<a href="mailto:$1$2">$1$2</a>', $content);
+		return preg_replace($search, $replace, $content);
 	}
 }
 
