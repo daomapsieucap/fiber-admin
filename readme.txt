@@ -2,7 +2,7 @@
 Contributors: daomapsieucap
 Tags: white label, admin login, admin tool
 Requires at least: 4.7
-Tested up to: 5.6
+Tested up to: 5.8
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,23 +18,17 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 = Features =
 
-* Use your Site Title and Theme Author to replace default WordPress in header and footer automatically
-* Remove WordPress admin bar logo as default
+* Use your Site Title and Theme Author to white label WordPress automatically
 * Remove Lost your password link and Back to blog in admin login form as default
-* Hide Admin Bar Frontend for all users
 * Customize Admin Login Form by settings
 * Set Image Metadata automatically when uploading
 * Disable Image Right Click on frontend
+* Convert email text into link automatically
 
 == Changelog ==
 
-= 1.0.2 =
-*Release Date - 17 August 2021*
+= 1.0.3 =
+*Release Date - 18 August 2021*
 
-* Fix: Color picker not working
-* Fix: Link color setting not working
-* Add: Extra CSS for login page
-* Fix: Update include directory
-* Improve preview image upload
-* Add: Background image for login page
-* Add: Auto convert email text to a link
+* Fix: Some minor bugs, security issues
+* Update source code by WordPress review

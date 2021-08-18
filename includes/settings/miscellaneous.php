@@ -50,7 +50,7 @@ class Fiber_Admin_Miscellaneous{
 		register_setting(
 			'fiber_admin_miscellaneous_group',
 			'fiber_admin_miscellaneous',
-			array($this, 'fiber_miscellaneous_sanitize')
+			array($this, 'sanitize_text_field')
 		);
 		
 		add_settings_section(
@@ -95,23 +95,12 @@ class Fiber_Admin_Miscellaneous{
 	public function fiber_admin_section_info(){
 	}
 	
-	public function fiber_miscellaneous_sanitize($input){
-		$sanitary_values = array();
-		
-		$sanitary_values['auto_img_meta']           = (bool) $input['auto_img_meta'];
-		$sanitary_values['disable_img_right_click'] = (bool) $input['disable_img_right_click'];
-		$sanitary_values['disable_email_converter'] = (bool) $input['disable_email_converter'];
-		
-		return $sanitary_values;
-	}
-	
 	public function fiber_auto_image_meta(){
-		$checked = ($this->fiber_admin['auto_img_meta'] == true) ? 'checked' : '';
 		?>
         <fieldset>
             <label for="auto_img_meta" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[auto_img_meta]" id="auto_img_meta"
-                       value="yes" <?= $checked; ?> />
+                       value="yes" <?php checked(esc_attr($this->fiber_admin['auto_img_meta']), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
@@ -119,13 +108,12 @@ class Fiber_Admin_Miscellaneous{
 	}
 	
 	public function fiber_disable_image_right_click(){
-		$checked = ($this->fiber_admin['disable_img_right_click'] == true) ? 'checked' : '';
 		?>
         <fieldset>
             <label for="disable_img_right_click" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[disable_img_right_click]"
                        id="disable_img_right_click"
-                       value="yes" <?= $checked; ?> />
+                       value="yes" <?php checked(esc_attr($this->fiber_admin['disable_img_right_click']), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
@@ -133,13 +121,12 @@ class Fiber_Admin_Miscellaneous{
 	}
 	
 	public function disable_email_converter(){
-		$checked = ($this->fiber_admin['disable_email_converter'] == true) ? 'checked' : '';
 		?>
         <fieldset>
             <label for="disable_email_converter" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[disable_email_converter]"
                        id="disable_email_converter"
-                       value="yes" <?= $checked; ?> />
+                       value="yes" <?php checked(esc_attr($this->fiber_admin['disable_email_converter']), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

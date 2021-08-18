@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.0.3 =
+*Release Date - 18 August 2021*
+
+* Fix: Some minor bugs, security issues
+* Update source code by WordPress review
+
 = 1.0.2 =
 *Release Date - 17 August 2021*
 
