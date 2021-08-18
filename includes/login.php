@@ -113,10 +113,10 @@ class Fiber_Admin_Login{
 		}
 		?>
         <style>
-            <?= $login_logo_css; ?>
-            <?= $bg_css; ?>
-            <?= $form_css; ?>
-            <?= $extra_css; ?>
+            <?php echo $login_logo_css; ?>
+            <?php echo $bg_css; ?>
+            <?php echo $form_css; ?>
+            <?php echo $extra_css; ?>
         </style>
 	<?php }
 }
