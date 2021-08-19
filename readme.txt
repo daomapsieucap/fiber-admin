@@ -4,6 +4,7 @@ Tags: white label, admin login, admin tool
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,8 +28,8 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.0.3 =
-*Release Date - 18 August 2021*
+= 1.0.4 =
+*Release Date - 19 August 2021*
 
-* Fix: Some minor bugs, security issues
-* Update source code by WordPress review
+* Fixed: Some minor bugs, security issues
+* Changed: Update Stable Tag

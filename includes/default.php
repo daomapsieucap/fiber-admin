@@ -13,7 +13,7 @@ class Fiber_Admin_Default{
 		$this->fiber_admin               = get_option('fiber_admin');
 		$this->fiber_admin_miscellaneous = get_option('fiber_admin_miscellaneous');
 		
-		if($this->fiber_admin['hide_wordpress_branding']){
+		if(esc_attr($this->fiber_admin['hide_wordpress_branding'])){
 			// Replace WordPress in the page titles.
 			add_filter('admin_title', array($this, 'fiber_admin_title'), 10, 2);
 			
@@ -43,14 +43,14 @@ class Fiber_Admin_Default{
 			add_filter('show_admin_bar', '__return_false');
 		}
 		
-		if(!$this->fiber_admin_miscellaneous['disable_email_converter']){
+		if(!esc_html($this->fiber_admin_miscellaneous['disable_email_converter'])){
 			// Convert email text to link
 			add_filter('the_content', array($this, 'fiber_auto_convert_email_address'));
 		}
 	}
 	
 	public function fiber_admin_title($admin_title, $title){
-		return get_bloginfo('name') . ' &bull; ' . $title;
+		return esc_html(get_bloginfo('name')) . ' &bull; ' . esc_html($title);
 	}
 	
 	public function fiber_remove_admin_bar_logo(){
@@ -71,7 +71,7 @@ class Fiber_Admin_Default{
 			return;
 		}
 		
-		$GLOBALS['title'] = get_bloginfo('name');
+		$GLOBALS['title'] = esc_html(get_bloginfo('name'));
 	}
 	
 	public function fiber_remove_dashboard_widgets(){
@@ -83,11 +83,11 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiber_login_logo_url(){
-		return home_url();
+		return esc_url(home_url());
 	}
 	
 	public function fiber_login_logo_title(){
-		return get_bloginfo('name');
+		return esc_html(get_bloginfo('name'));
 	}
 	
 	public function fiber_remove_lostpassword($text){

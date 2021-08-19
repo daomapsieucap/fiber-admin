@@ -1,24 +1,30 @@
 == Changelog ==
 
+= 1.0.4 =
+*Release Date - 19 August 2021*
+
+* Fixed: Some minor bugs, security issues
+* Changed: Update Stable Tag
+
 = 1.0.3 =
 *Release Date - 18 August 2021*
 
-* Fix: Some minor bugs, security issues
-* Update source code by WordPress review
+* Fixed: Some minor bugs, security issues
+* Changed: Update source code by WordPress review
 
 = 1.0.2 =
 *Release Date - 17 August 2021*
 
-* Fix: Color picker not working
-* Fix: Link color setting not working
-* Add: Extra CSS for login page
-* Fix: Update include directory
-* Improve preview image upload
-* Add: Background image for login page
-* Add: Auto convert email text to a link
+* Fixed: Color picker not working
+* Fixed: Link color setting not working
+* Added: Extra CSS for login page
+* Fixed: Update include directory
+* Changed: Improve preview image upload
+* Added: Background image for login page
+* Added: Auto convert email text to a link
 
 = 1.0.1 =
-* Fix default option with Hide WordPress branding option
+* Fixed: default option with Hide WordPress branding option
 
 = 1.0.0 =
 *Release Date - 15 August 2021*
