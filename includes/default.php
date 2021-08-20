@@ -50,7 +50,7 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiber_admin_title($admin_title, $title){
-		return esc_html(get_bloginfo('name')) . ' &bull; ' . esc_html($title);
+		return get_bloginfo('name') . ' &bull; ' . $title;
 	}
 	
 	public function fiber_remove_admin_bar_logo(){
@@ -60,8 +60,8 @@ class Fiber_Admin_Default{
 	
 	public function fiber_update_admin_footer(){
 		$current_theme            = wp_get_theme();
-		$current_theme_author_url = esc_html($current_theme->get('AuthorURI'));
-		$current_theme_author     = esc_html($current_theme->get('Author'));
+		$current_theme_author_url = $current_theme->get('AuthorURI');
+		$current_theme_author     = $current_theme->get('Author');
 		
 		echo '<span id="footer-thankyou">Developed by <a href="' . $current_theme_author_url . '" target="_blank">' . $current_theme_author . '</a></span>';
 	}
@@ -71,7 +71,7 @@ class Fiber_Admin_Default{
 			return;
 		}
 		
-		$GLOBALS['title'] = esc_html(get_bloginfo('name'));
+		$GLOBALS['title'] = get_bloginfo('name');
 	}
 	
 	public function fiber_remove_dashboard_widgets(){
@@ -83,11 +83,11 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiber_login_logo_url(){
-		return esc_url(home_url());
+		return home_url();
 	}
 	
 	public function fiber_login_logo_title(){
-		return esc_html(get_bloginfo('name'));
+		return get_bloginfo('name');
 	}
 	
 	public function fiber_remove_lostpassword($text){

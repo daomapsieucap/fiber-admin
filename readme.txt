@@ -28,8 +28,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.0.4 =
-*Release Date - 19 August 2021*
+= 1.0.5 =
+*Release Date - 20 August 2021*
 
 * Fixed: Some minor bugs, security issues
-* Changed: Update Stable Tag
