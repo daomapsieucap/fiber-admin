@@ -241,10 +241,8 @@ class Fiber_Admin_White_Label_Settings{
 	public function fiber_login_extra_css(){
 		?>
         <fieldset>
-            <label>
-                <textarea
-                        name="fiber_admin[login_extra_css]"><?php echo esc_html($this->fiber_admin['login_extra_css']); ?></textarea>
-            </label>
+            <textarea
+                    name="fiber_admin[login_extra_css]"><?php echo esc_html($this->fiber_admin['login_extra_css']); ?></textarea>
         </fieldset>
 		<?php
 	}
