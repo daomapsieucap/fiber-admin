@@ -63,7 +63,8 @@ class Fiber_Admin_Default{
 		$current_theme_author_url = $current_theme->get('AuthorURI');
 		$current_theme_author     = $current_theme->get('Author');
 		
-		echo '<span id="footer-thankyou">Developed by <a href="' . $current_theme_author_url . '" target="_blank">' . $current_theme_author . '</a></span>';
+		echo '<span id="footer-thankyou">Developed by <a href="' . esc_url($current_theme_author_url) . '" target="_blank">' . esc_attr($current_theme_author) . '</a></span>';
+		
 	}
 	
 	public function fiber_update_dashboard_name(){

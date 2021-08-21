@@ -25,7 +25,7 @@ class Fiber_Admin_White_Label_Settings{
 		// Upload field
 		wp_enqueue_media();
 		
-		// Colorpicker field
+		// Color picker field
 		wp_enqueue_style('wp-color-picker');
 		wp_enqueue_script('wp-color-picker');
 		
