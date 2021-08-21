@@ -10,7 +10,7 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Setting{
 	
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiberadmin_setting_admin'));
+		add_action('admin_menu', array($this, 'fiber_admin_setting'));
 		
 		// register styles
 		add_action("admin_enqueue_scripts", array($this, 'fiber_enqueue_styles'));
@@ -20,7 +20,7 @@ class Fiber_Admin_Setting{
 		wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/admin.css', false, FIBERADMIN_VERSION, 'all');
 	}
 	
-	public function fiberadmin_setting_admin(){
+	public function fiber_admin_setting(){
 		add_menu_page(
 			'Fiber Admin',
 			'Fiber Admin',
