@@ -6,7 +6,7 @@
  * Version:           1.0.6
  * Requires at least: 5.2
  * Requires PHP:      7.2
- * Author:            Dau Chau
+ * Author:            Dao Chau
  * Author URI:        https://daochau.com/
  * Text Domain:       fiber-admin
  */
