@@ -8,19 +8,12 @@ if(!defined('ABSPATH')){
  * Image
  */
 class Fiber_Admin_Image{
-	private $helper;
-	
-	private $option;
-	
 	public function __construct(){
-		$this->helper = new Fiber_Admin_Helper();
-		$this->option = 'fiber_admin_miscellaneous';
-		
-		if($this->helper->fiber_get_settings('auto_img_meta', $this->option)){
+		if(fiber_get_miscellaneous_option('auto_img_meta')){
 			add_action('add_attachment', array($this, 'fiber_set_image_meta_on_image_upload'));
 		}
 		
-		if($this->helper->fiber_get_settings('disable_img_right_click', $this->option)){
+		if(fiber_get_miscellaneous_option('disable_img_right_click')){
 			add_action('wp_enqueue_scripts', array($this, 'fiber_image_scripts'));
 		}
 	}
@@ -33,9 +26,9 @@ class Fiber_Admin_Image{
 			$fiber_image_title = ucwords(strtolower($fiber_image_title));
 			
 			$fiber_image_meta = array(
-				'ID'           => $post_id,            // Specify the image (ID) to be updated
-				'post_title'   => $fiber_image_title,        // Set image Title to sanitized title
-				'post_excerpt' => $fiber_image_title,        // Set image Caption (Excerpt) to sanitized title
+				'ID'           => $post_id,
+				'post_title'   => $fiber_image_title,
+				'post_excerpt' => $fiber_image_title,
 			);
 			
 			update_post_meta($post_id, '_wp_attachment_image_alt', $fiber_image_title);
