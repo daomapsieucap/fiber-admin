@@ -13,7 +13,7 @@ class Fiber_Admin_Default{
 		$this->fiber_admin               = get_option('fiber_admin');
 		$this->fiber_admin_miscellaneous = get_option('fiber_admin_miscellaneous');
 		
-		if(esc_attr($this->fiber_admin['hide_wordpress_branding'])){
+		if($this->fiber_admin['hide_wordpress_branding']){
 			// Replace WordPress in the page titles.
 			add_filter('admin_title', array($this, 'fiber_admin_title'), 10, 2);
 			
@@ -43,7 +43,7 @@ class Fiber_Admin_Default{
 			add_filter('show_admin_bar', '__return_false');
 		}
 		
-		if(!esc_html($this->fiber_admin_miscellaneous['disable_email_converter'])){
+		if(!$this->fiber_admin_miscellaneous['disable_email_converter']){
 			// Convert email text to link
 			add_filter('the_content', array($this, 'fiber_auto_convert_email_address'));
 		}
