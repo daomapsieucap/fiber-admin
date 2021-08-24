@@ -29,7 +29,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.0.6 =
-*Release Date - 21 August 2021*
+*Release Date - 24 August 2021*
 
 * Fixed: Some minor bugs, security issues
 * Changed: Revise code for PHP warnings
