@@ -8,11 +8,7 @@ if(!defined('ABSPATH')){
  * Miscellaneous page
  */
 class Fiber_Admin_Miscellaneous{
-	private $fiber_admin;
-	
 	public function __construct(){
-		$this->fiber_admin = get_option('fiber_admin_miscellaneous');
-		
 		add_action('admin_menu', array($this, 'fiber_miscellaneous_admin'));
 		add_action('admin_init', array($this, 'fiber_admin_miscellaneous_init'));
 	}
@@ -100,7 +96,7 @@ class Fiber_Admin_Miscellaneous{
         <fieldset>
             <label for="auto_img_meta" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[auto_img_meta]" id="auto_img_meta"
-                       value="yes" <?php checked(esc_attr($this->fiber_admin['auto_img_meta']), 'yes'); ?> />
+                       value="yes" <?php checked(esc_attr(fiber_get_miscellaneous_option('auto_img_meta')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
@@ -113,7 +109,7 @@ class Fiber_Admin_Miscellaneous{
             <label for="disable_img_right_click" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[disable_img_right_click]"
                        id="disable_img_right_click"
-                       value="yes" <?php checked(esc_attr($this->fiber_admin['disable_img_right_click']), 'yes'); ?> />
+                       value="yes" <?php checked(esc_attr(fiber_get_miscellaneous_option('disable_img_right_click')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
@@ -126,7 +122,7 @@ class Fiber_Admin_Miscellaneous{
             <label for="disable_email_converter" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin_miscellaneous[disable_email_converter]"
                        id="disable_email_converter"
-                       value="yes" <?php checked(esc_attr($this->fiber_admin['disable_email_converter']), 'yes'); ?> />
+                       value="yes" <?php checked(esc_attr(fiber_get_miscellaneous_option('disable_email_converter')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

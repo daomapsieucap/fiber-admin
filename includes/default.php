@@ -10,10 +10,7 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Default{
 	public function __construct(){
 		//default value
-		$this->fiber_admin               = get_option('fiber_admin');
-		$this->fiber_admin_miscellaneous = get_option('fiber_admin_miscellaneous');
-		
-		if($this->fiber_admin['hide_wordpress_branding']){
+		if(fiber_get_general_option('hide_wordpress_branding')){
 			// Replace WordPress in the page titles.
 			add_filter('admin_title', array($this, 'fiber_admin_title'), 10, 2);
 			
@@ -31,7 +28,7 @@ class Fiber_Admin_Default{
 			
 			// Update logo link and title
 			add_filter('login_headerurl', array($this, 'fiber_login_logo_url'));
-			add_filter('login_headertitle', array($this, 'fiber_login_logo_title'));
+			add_filter('login_headertext', array($this, 'fiber_login_logo_title'));
 			
 			// Remove Lost your password link
 			add_filter('gettext', array($this, 'fiber_remove_lostpassword'));
@@ -43,7 +40,7 @@ class Fiber_Admin_Default{
 			add_filter('show_admin_bar', '__return_false');
 		}
 		
-		if(!$this->fiber_admin_miscellaneous['disable_email_converter']){
+		if(!fiber_get_miscellaneous_option('disable_email_converter')){
 			// Convert email text to link
 			add_filter('the_content', array($this, 'fiber_auto_convert_email_address'));
 		}

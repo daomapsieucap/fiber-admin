@@ -35,7 +35,7 @@ define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 
 add_action('init', 'fiber_admin_init');
 function fiber_admin_init(){
-	// helper
+	// helper functions
 	include_once(FIBERADMIN_DIR . 'includes/helper.php');
 	
 	// options pages

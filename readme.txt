@@ -32,3 +32,4 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 *Release Date - 21 August 2021*
 
 * Fixed: Some minor bugs, security issues
+* Changed: Revise code for PHP warnings
