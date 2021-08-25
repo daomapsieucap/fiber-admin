@@ -15,16 +15,20 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 1. Download Fiber Admin plugin
 2. Upload it to your wp-content/plugins directory
 3. Go to CMS admin plugins list and activate the plugin
-4. Go to Fiber Admin and update the settings.
+4. Go to Fiber Admin setting page and update the options.
 
-= Features =
+#### FEATURES
 
-* Use your Site Title and Theme Author to white label WordPress automatically
-* Remove Lost your password link and Back to blog in admin login form as default
+* Use your Site Settings to white label WordPress automatically
 * Customize Admin Login Form by settings
-* Set Image Metadata automatically when uploading
-* Disable Image Right Click on frontend
-* Convert email text into link automatically
+* Set Image Metadata automatically after uploading
+* Disable Right Click on Image
+* Convert plain email text into link automatically
+
+== Screenshots ==
+
+1. Main setting page with multiple options
+2. Miscellaneous page to control some default features
 
 == Changelog ==
 
