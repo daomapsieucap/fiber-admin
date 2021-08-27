@@ -4,7 +4,7 @@ Tags: white label, admin login, admin tool
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,8 +32,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.0.6 =
-*Release Date - 24 August 2021*
+= 1.0.7 =
+*Release Date - 27 August 2021*
 
-* Fixed: Some minor bugs, security issues
-* Changed: Revise code for PHP warnings
+* Fixed: Skip convert plain text to email address if content has input type email address
