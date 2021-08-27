@@ -101,8 +101,8 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiber_auto_convert_email_address($content){
-		// Skip if the content has mailto link
-		if(strpos($content, 'mailto') !== false){
+		// Skip if the content has mailto link or input type email
+		if(strpos($content, 'mailto') !== false || strpos($content, 'type="email"') !== false){
 			return $content;
 		}
 		
