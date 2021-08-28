@@ -33,6 +33,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.0.7 =
-*Release Date - 27 August 2021*
+*Release Date - 28 August 2021*
 
 * Fixed: Skip convert plain text to email address if content has input type email address
+* New: Add option to allow using SVG images

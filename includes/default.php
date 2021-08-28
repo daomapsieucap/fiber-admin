@@ -39,11 +39,6 @@ class Fiber_Admin_Default{
 			// Hide Admin Bar Frontend for all users
 			add_filter('show_admin_bar', '__return_false');
 		}
-		
-		if(!fiad_get_miscellaneous_option('disable_email_converter')){
-			// Convert email text to link
-			add_filter('the_content', array($this, 'fiad_auto_convert_email_address'));
-		}
 	}
 	
 	public function fiad_title($admin_title, $title){
@@ -98,19 +93,6 @@ class Fiber_Admin_Default{
 	
 	public function fiad_remove_backtoblog(){
 		echo '<style>#nav,#backtoblog{display:none}</style>';
-	}
-	
-	public function fiad_auto_convert_email_address($content){
-		// Skip if the content has mailto link or input type email
-		if(strpos($content, 'mailto') !== false || strpos($content, 'type="email"') !== false){
-			return $content;
-		}
-		
-		// Detect and create email link
-		$search  = array('/([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/');
-		$replace = array('<a href="mailto:$1">$1</a>');
-		
-		return preg_replace($search, $replace, $content);
 	}
 }
 
