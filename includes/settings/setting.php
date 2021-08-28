@@ -10,17 +10,17 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Setting{
 	
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiber_admin_setting'));
+		add_action('admin_menu', array($this, 'fiad_setting'));
 		
 		// register styles
-		add_action("admin_enqueue_scripts", array($this, 'fiber_enqueue_styles'));
+		add_action("admin_enqueue_scripts", array($this, 'fiad_styles'));
 	}
 	
-	public function fiber_enqueue_styles(){
+	public function fiad_styles(){
 		wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/admin.css', false, FIBERADMIN_VERSION, 'all');
 	}
 	
-	public function fiber_admin_setting(){
+	public function fiad_setting(){
 		add_menu_page(
 			'Fiber Admin',
 			'Fiber Admin',

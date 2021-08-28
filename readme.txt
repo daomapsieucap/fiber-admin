@@ -17,7 +17,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 3. Go to CMS admin plugins list and activate the plugin
 4. Go to Fiber Admin setting page and update the options.
 
-#### FEATURES
+**FEATURES**
 
 * Use your Site Settings to white label WordPress automatically
 * Customize Admin Login Form by settings
