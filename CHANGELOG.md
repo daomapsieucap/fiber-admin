@@ -1,36 +1,32 @@
-== Changelog ==
+# Changelog
 
-= 1.0.7 =
-*Release Date - 28 August 2021*
+All notable changes to this project will be documented in this file.
+
+## [Unreleased] - 2021-08-xx
 
 * Fixed: Skip convert plain text to email address if content has input type email address
 * New: Add option to allow using SVG images
 
-= 1.0.6 =
-*Release Date - 24 August 2021*
+## 1.0.6 - 2021-08-24
 
 * Fixed: Some minor bugs, security issues
 * Changed: Revise code for PHP warnings
 
-= 1.0.5 =
-*Release Date - 20 August 2021*
+## 1.0.5 - 2021-08-20
 
 * Fixed: Some minor bugs, security issues
 
-= 1.0.4 =
-*Release Date - 19 August 2021*
+## 1.0.4 - 2021-08-19
 
 * Fixed: Some minor bugs, security issues
 * Changed: Update Stable Tag
 
-= 1.0.3 =
-*Release Date - 18 August 2021*
+## 1.0.3 - 2021-08-18
 
 * Fixed: Some minor bugs, security issues
 * Changed: Update source code by WordPress review
 
-= 1.0.2 =
-*Release Date - 17 August 2021*
+## 1.0.2 - 2021-08-17
 
 * Fixed: Color picker not working
 * Fixed: Link color setting not working
@@ -40,12 +36,10 @@
 * Added: Background image for login page
 * Added: Auto convert email text to a link
 
-= 1.0.1 =
-*Release Date - 16 August 2021*
+## 1.0.1 - 2021-08-16
 
 * Fixed: default option with Hide WordPress branding option
 
-= 1.0.0 =
-*Release Date - 15 August 2021*
+## 1.0.0 - 2021-08-15
 
 * The very first version
