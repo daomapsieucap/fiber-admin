@@ -86,6 +86,14 @@ class Fiber_Admin_Miscellaneous{
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
+		
+		add_settings_field(
+			'enable_svg', // id
+			'Enable SVG', // title
+			array($this, 'fiad_enable_svg'), // callback
+			'fiber-admin-miscellaneous', // page
+			'fiad_content_section' // section
+		);
 	}
 	
 	public function fiad_section_info(){
@@ -123,6 +131,19 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[disable_email_converter]"
                        id="disable_email_converter"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_email_converter')), 'yes'); ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_enable_svg(){
+		?>
+        <fieldset>
+            <label for="enable_svg" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_miscellaneous[enable_svg]"
+                       id="enable_svg"
+                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_svg')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

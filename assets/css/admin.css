@@ -42,9 +42,12 @@
  * Checkbox toggle
  */
 
+.form-table td fieldset label.fiber-admin-toggle {
+    margin:0.5em 0 0.5em !important;
+}
+
 .fiber-admin-toggle {
     position:relative;
-    display:inline-block;
     width:2em;
     height:1em;
 }

@@ -49,4 +49,5 @@ function fiad_init(){
 	//functions
 	include_once(FIBERADMIN_DIR . 'includes/login.php');
 	include_once(FIBERADMIN_DIR . 'includes/image.php');
+	include_once(FIBERADMIN_DIR . 'includes/content.php');
 }
