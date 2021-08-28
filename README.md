@@ -18,10 +18,7 @@
 * Convert plain email text into link automatically
 * Enable SVG support
 
-== Changelog ==
+## Changelog
 
-= 1.0.7 =
-*Release Date - 28 August 2021*
-
-* Fixed: Skip convert plain text to email address if content has input type email address
-* New: Add option to allow using SVG images
+A complete listing of all notable changes to Fiber Admin are documented
+in [CHANGELOG.md](https://github.com/daomapsieucap/fiber-admin/blob/master/CHANGELOG.md).
