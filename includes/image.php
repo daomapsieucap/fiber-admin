@@ -9,16 +9,16 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Image{
 	public function __construct(){
-		if(fiber_get_miscellaneous_option('auto_img_meta')){
-			add_action('add_attachment', array($this, 'fiber_set_image_meta_on_image_upload'));
+		if(fiad_get_miscellaneous_option('auto_img_meta')){
+			add_action('add_attachment', array($this, 'fiad_set_image_meta_on_image_upload'));
 		}
 		
-		if(fiber_get_miscellaneous_option('disable_img_right_click')){
-			add_action('wp_enqueue_scripts', array($this, 'fiber_image_scripts'));
+		if(fiad_get_miscellaneous_option('disable_img_right_click')){
+			add_action('wp_enqueue_scripts', array($this, 'fiad_image_scripts'));
 		}
 	}
 	
-	public function fiber_set_image_meta_on_image_upload($post_id){
+	public function fiad_set_image_meta_on_image_upload($post_id){
 		if(wp_attachment_is_image($post_id)){
 			$fiber_image_title = get_post($post_id)->post_title;
 			
@@ -36,7 +36,7 @@ class Fiber_Admin_Image{
 		}
 	}
 	
-	public function fiber_image_scripts(){
+	public function fiad_image_scripts(){
 		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/image.js', array('jquery'), FIBERADMIN_VERSION, true);
 	}
 }

@@ -10,52 +10,52 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Default{
 	public function __construct(){
 		//default value
-		if(fiber_get_general_option('hide_wordpress_branding')){
+		if(fiad_get_general_option('hide_wordpress_branding')){
 			// Replace WordPress in the page titles.
-			add_filter('admin_title', array($this, 'fiber_admin_title'), 10, 2);
+			add_filter('admin_title', array($this, 'fiad_title'), 10, 2);
 			
 			// Remove WordPress admin bar logo
-			add_action('wp_before_admin_bar_render', array($this, 'fiber_remove_admin_bar_logo'), 0);
+			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
 			
 			// Admin footer modification
-			add_filter('admin_footer_text', array($this, 'fiber_update_admin_footer'));
+			add_filter('admin_footer_text', array($this, 'fiad_update_admin_footer'));
 			
 			// Update dashboard title
-			add_action('admin_head', array($this, 'fiber_update_dashboard_name'));
+			add_action('admin_head', array($this, 'fiad_update_dashboard_name'));
 			
 			// Remove unused dashboard widgets
-			add_action('admin_init', array($this, 'fiber_remove_dashboard_widgets'));
+			add_action('admin_init', array($this, 'fiad_remove_dashboard_widgets'));
 			
 			// Update logo link and title
-			add_filter('login_headerurl', array($this, 'fiber_login_logo_url'));
-			add_filter('login_headertext', array($this, 'fiber_login_logo_title'));
+			add_filter('login_headerurl', array($this, 'fiad_login_logo_url'));
+			add_filter('login_headertext', array($this, 'fiad_login_logo_title'));
 			
 			// Remove Lost your password link
-			add_filter('gettext', array($this, 'fiber_remove_lostpassword'));
+			add_filter('gettext', array($this, 'fiad_remove_lostpassword'));
 			
 			// Remove Back to blog
-			add_action('login_enqueue_scripts', array($this, 'fiber_remove_backtoblog'));
+			add_action('login_enqueue_scripts', array($this, 'fiad_remove_backtoblog'));
 			
 			// Hide Admin Bar Frontend for all users
 			add_filter('show_admin_bar', '__return_false');
 		}
 		
-		if(!fiber_get_miscellaneous_option('disable_email_converter')){
+		if(!fiad_get_miscellaneous_option('disable_email_converter')){
 			// Convert email text to link
-			add_filter('the_content', array($this, 'fiber_auto_convert_email_address'));
+			add_filter('the_content', array($this, 'fiad_auto_convert_email_address'));
 		}
 	}
 	
-	public function fiber_admin_title($admin_title, $title){
+	public function fiad_title($admin_title, $title){
 		return get_bloginfo('name') . ' &bull; ' . $title;
 	}
 	
-	public function fiber_remove_admin_bar_logo(){
+	public function fiad_remove_admin_bar_logo(){
 		global $wp_admin_bar;
 		$wp_admin_bar->remove_menu('wp-logo');
 	}
 	
-	public function fiber_update_admin_footer(){
+	public function fiad_update_admin_footer(){
 		$current_theme            = wp_get_theme();
 		$current_theme_author_url = $current_theme->get('AuthorURI');
 		$current_theme_author     = $current_theme->get('Author');
@@ -64,7 +64,7 @@ class Fiber_Admin_Default{
 		
 	}
 	
-	public function fiber_update_dashboard_name(){
+	public function fiad_update_dashboard_name(){
 		if($GLOBALS['title'] != 'Dashboard'){
 			return;
 		}
@@ -72,7 +72,7 @@ class Fiber_Admin_Default{
 		$GLOBALS['title'] = get_bloginfo('name');
 	}
 	
-	public function fiber_remove_dashboard_widgets(){
+	public function fiad_remove_dashboard_widgets(){
 		remove_meta_box('dashboard_primary', 'dashboard', 'core');
 		remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
 		remove_meta_box('dashboard_activity', 'dashboard', 'normal');
@@ -80,15 +80,15 @@ class Fiber_Admin_Default{
 		remove_meta_box('dashboard_site_health', 'dashboard', 'normal');
 	}
 	
-	public function fiber_login_logo_url(){
+	public function fiad_login_logo_url(){
 		return home_url();
 	}
 	
-	public function fiber_login_logo_title(){
+	public function fiad_login_logo_title(){
 		return get_bloginfo('name');
 	}
 	
-	public function fiber_remove_lostpassword($text){
+	public function fiad_remove_lostpassword($text){
 		if($text == 'Lost your password?'){
 			$text = '';
 		}
@@ -96,11 +96,11 @@ class Fiber_Admin_Default{
 		return $text;
 	}
 	
-	public function fiber_remove_backtoblog(){
+	public function fiad_remove_backtoblog(){
 		echo '<style>#nav,#backtoblog{display:none}</style>';
 	}
 	
-	public function fiber_auto_convert_email_address($content){
+	public function fiad_auto_convert_email_address($content){
 		// Skip if the content has mailto link or input type email
 		if(strpos($content, 'mailto') !== false || strpos($content, 'type="email"') !== false){
 			return $content;
