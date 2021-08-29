@@ -10,13 +10,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Another helpful tool for WordPress admin help you do more cool things in WordPress backend.
 
-== Installation ==
-
-1. Download Fiber Admin plugin
-2. Upload it to your wp-content/plugins directory
-3. Go to CMS admin plugins list and activate the plugin
-4. Go to Fiber Admin setting page and update the options.
-
 **FEATURES**
 
 * Use your Site Settings to white label WordPress automatically
@@ -25,6 +18,13 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Disable Right Click on Image
 * Convert plain email text into link automatically
 * Enable SVG support
+
+== Installation ==
+
+1. Download Fiber Admin plugin
+2. Upload it to your wp-content/plugins directory
+3. Go to CMS admin plugins list and activate the plugin
+4. Go to Fiber Admin setting page and update the options.
 
 == Screenshots ==
 
