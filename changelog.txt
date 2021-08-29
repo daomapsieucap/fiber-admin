@@ -1,4 +1,7 @@
 == Changelog ==
 
+= 1.0.1 =
+* Fix default option with Hide WordPress branding option
+
 = 1.0.0 =
 * The very first version
