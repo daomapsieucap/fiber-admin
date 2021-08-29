@@ -18,6 +18,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Disable Right Click on Image
 * Convert plain email text into link automatically
 * Enable SVG support
+* Drag and drop post order
 
 == Installation ==
 
