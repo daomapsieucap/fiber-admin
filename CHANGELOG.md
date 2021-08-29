@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - 2021-08-xx
+## 1.0.7 - 2021-08-29
 
 * Fixed: Skip convert plain text to email address if content has input type email address
 * New: Add option to allow using SVG images
+* New: Drag and drop post order
 
 ## 1.0.6 - 2021-08-24
 

@@ -17,7 +17,7 @@ class Fiber_Admin_Setting{
 	}
 	
 	public function fiad_styles(){
-		wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/admin.css', false, FIBERADMIN_VERSION, 'all');
+		wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/fiber-admin.css', false, FIBERADMIN_VERSION, 'all');
 	}
 	
 	public function fiad_setting(){
@@ -31,7 +31,6 @@ class Fiber_Admin_Setting{
 			80
 		);
 	}
-	
 }
 
 new Fiber_Admin_Setting();
