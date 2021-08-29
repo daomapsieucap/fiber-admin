@@ -30,7 +30,7 @@ class Fiber_Admin_Miscellaneous{
             <h2>Fiber Admin Miscellaneous</h2>
 			<?php settings_errors(); ?>
 
-            <form method="post" action="options.php">
+            <form class="fiber-admin" method="post" action="options.php">
 				<?php
 				settings_fields('fiad_miscellaneous_group');
 				do_settings_sections('fiber-admin-miscellaneous');
@@ -149,7 +149,6 @@ class Fiber_Admin_Miscellaneous{
         </fieldset>
 		<?php
 	}
-	
 }
 
 new Fiber_Admin_Miscellaneous();

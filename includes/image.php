@@ -37,7 +37,7 @@ class Fiber_Admin_Image{
 	}
 	
 	public function fiad_image_scripts(){
-		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/image.js', array('jquery'), FIBERADMIN_VERSION, true);
+		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-image.js', array('jquery'), FIBERADMIN_VERSION, true);
 	}
 }
 

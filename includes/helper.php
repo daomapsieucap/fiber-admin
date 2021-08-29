@@ -31,3 +31,33 @@ if(!function_exists('fiad_get_miscellaneous_option')){
 		return fiad_get_option($key, get_option('fiad_miscellaneous'));
 	}
 }
+
+if(!function_exists('fiad_get_cpo_option')){
+	function fiad_get_cpo_option($key){
+		return fiad_get_option($key, get_option('fiad_cpo'));
+	}
+}
+
+if(!function_exists('fiad_is_screen_sortable')){
+	function fiad_is_screen_sortable(){
+		if(is_admin()){
+			$post_types = fiad_get_cpo_option('post_types');
+			
+			if(!function_exists('get_current_screen')){
+				require_once ABSPATH . '/wp-admin/includes/screen.php';
+			}
+			$screen = get_current_screen();
+			
+			if($post_types && $screen){
+				if($screen->base == 'edit'){
+					$screen_post_type = $screen->post_type;
+					if(in_array($screen_post_type, $post_types)){
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+}
