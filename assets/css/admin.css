@@ -1,0 +1,99 @@
+/**
+ * Setting page
+ */
+
+.fiber-admin button {
+    vertical-align:middle !important;
+}
+
+.fiber-admin .fiber-admin-input__multiples input {
+    margin:0 0 1em;
+}
+
+.fiber-admin .fiber-admin-input__multiples .fiber-admin-input__label {
+    min-width:10em;
+    vertical-align:middle;
+    margin:.35em 0 .75em !important;
+    display:inline-block;
+}
+
+.fiber-admin-input__img label {
+    margin-top:0 !important;
+}
+
+.fiber-admin .wp-picker-container {
+    margin-bottom:1em;
+}
+
+.fiber-preview img {
+    display:block;
+    height:auto;
+    max-width:100px;
+    padding-bottom:10px;
+}
+
+/**
+ * Checkbox toggle
+ */
+
+.fiber-admin-toggle {
+    position:relative;
+    display:inline-block;
+    width:2em;
+    height:1em;
+}
+
+/* Hide default HTML checkbox */
+.fiber-admin-toggle input {
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+/* The slider */
+.fiber-admin-toggle .slider {
+    position:absolute;
+    cursor:pointer;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#ccc;
+    -webkit-transition:.4s;
+    transition:.4s;
+}
+
+.fiber-admin-toggle .slider:before {
+    position:absolute;
+    content:"";
+    height:11px;
+    width:11px;
+    left:2px;
+    bottom:2px;
+    background-color:white;
+    -webkit-transition:.4s;
+    transition:.4s;
+}
+
+.fiber-admin-toggle input:checked + .slider {
+    background-color:#9fd6ae;
+}
+
+.fiber-admin-toggle input:focus + .slider {
+    box-shadow:0 0 1px #9fd6ae;
+}
+
+.fiber-admin-toggle input:checked + .slider:before {
+    -webkit-transform:translateX(13px);
+    -ms-transform:translateX(13px);
+    transform:translateX(13px);
+}
+
+/* Rounded sliders */
+.fiber-admin-toggle .slider.round {
+    border-radius:34px;
+}
+
+.fiber-admin-toggle .slider.round:before {
+    border-radius:50%;
+}
