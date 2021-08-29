@@ -27,6 +27,7 @@ class Fiber_Admin_White_Label_Settings{
 		
 		// Colorpicker field
 		wp_enqueue_style('wp-color-picker');
+		wp_enqueue_script('wp-color-picker');
 		
 		// Plugin scripts
 		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/admin.js', array('jquery'), FIBERADMIN_VERSION);

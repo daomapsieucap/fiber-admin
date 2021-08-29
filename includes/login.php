@@ -91,6 +91,11 @@ class Fiber_Admin_Login{
 			
 			$form_css .= '}';
 		}
+		
+		// Link
+		if($form_link_color = $this->helper->fiber_get_settings('form_link_color')){
+			$form_css .= '#login a{ color: ' . $form_link_color . ';}';
+		}
 		?>
         <style>
             <?= $login_logo_css; ?>
