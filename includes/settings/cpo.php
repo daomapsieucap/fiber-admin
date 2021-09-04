@@ -71,6 +71,22 @@ class Fiber_Admin_Setting_CPO{
 			'fiber-admin-cpo', // page
 			'fiad_cpo_section' // section
 		);
+		
+		add_settings_field(
+			'taxonomies', // id
+			'Taxonomies', // title
+			array($this, 'fiad_cpo_taxonomies'), // callback
+			'fiber-admin-cpo', // page
+			'fiad_cpo_section' // section
+		);
+		
+		add_settings_field(
+			'override_default_tax_query', // id
+			'Override Default Taxonomy Query', // title
+			array($this, 'fiad_cpo_override_tax_query'), // callback
+			'fiber-admin-cpo', // page
+			'fiad_cpo_section' // section
+		);
 	}
 	
 	public function fiad_section_info(){
@@ -113,6 +129,49 @@ class Fiber_Admin_Setting_CPO{
                 <input type="checkbox" name="fiad_cpo[override_default_query]"
                        id="override_default_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_query')), 'yes'); ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_cpo_taxonomies(){
+		$taxonomies          = get_taxonomies(array('public' => true), 'objects');
+		$selected_taxonomies = fiad_get_cpo_option('taxonomies');
+		if(!$selected_taxonomies){
+			$selected_taxonomies = array();
+		}
+		?>
+        <fieldset>
+            <label for="taxonomies">
+                <select class="fiber-admin-selection--multiple" id="taxonomies" name='fiad_cpo[taxonomies][]' multiple>
+					<?php
+					if($taxonomies){
+						foreach($taxonomies as $slug => $taxonomy){
+							$list[$slug] = $taxonomy->label;
+							$selected    = '';
+							if(in_array($slug, $selected_taxonomies)){
+								$selected = 'selected';
+							}
+							?>
+                            <option value="<?php echo $slug; ?>" <?php echo $selected; ?>><?php echo $taxonomy->label; ?></option>
+							<?php
+						}
+					}
+					?>
+                </select>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_cpo_override_tax_query(){
+		?>
+        <fieldset>
+            <label for="override_default_tax_query" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_cpo[override_default_tax_query]"
+                       id="override_default_tax_query"
+                       value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_tax_query')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

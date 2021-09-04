@@ -42,14 +42,20 @@ if(!function_exists('fiad_is_screen_sortable')){
 	function fiad_is_screen_sortable(){
 		if(is_admin()){
 			$post_types = fiad_get_cpo_option('post_types');
+			$taxonomies = fiad_get_cpo_option('taxonomies');
 			
 			if(!function_exists('get_current_screen')){
 				require_once ABSPATH . '/wp-admin/includes/screen.php';
 			}
 			$screen = get_current_screen();
 			
-			if($post_types && $screen){
-				if($screen->base == 'edit'){
+			if(($post_types || $taxonomies) && $screen){
+				if($screen->taxonomy && $taxonomies && strpos($screen->base, 'edit') !== false){
+					$screen_tax = $screen->taxonomy;
+					if(in_array($screen_tax, $taxonomies)){
+						return true;
+					}
+				}elseif($post_types && $screen->base == 'edit'){
 					$screen_post_type = $screen->post_type;
 					if(in_array($screen_post_type, $post_types)){
 						return true;

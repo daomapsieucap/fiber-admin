@@ -3,7 +3,7 @@
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Another helpful tool for WordPress admin
- * Version:           1.0.7
+ * Version:           1.0.8
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Dao Chau
@@ -25,7 +25,7 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-define('FIBERADMIN_VERSION', '1.0.7');
+define('FIBERADMIN_VERSION', '1.0.8');
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 
@@ -52,4 +52,38 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/image.php');
 	include_once(FIBERADMIN_DIR . 'includes/content.php');
 	include_once(FIBERADMIN_DIR . 'includes/cpo.php');
+}
+
+/**
+ * Update Database for CPO
+ */
+
+add_action('plugins_loaded', 'fiad_update_db_check');
+function fiad_update_db_check(){
+	if(get_option('fiber_admin_db_version') != FIBERADMIN_VERSION){
+		fiad_update_db();
+	}
+}
+
+function fiad_update_db(){
+	global $wpdb;
+	$charset_collate = $wpdb->get_charset_collate();
+	
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	$wpdb->query("ALTER TABLE $wpdb->terms ADD `term_order` INT (11) NOT NULL DEFAULT 0;");
+	update_option('fiber_admin_db_version', FIBERADMIN_VERSION);
+}
+
+/**
+ * Delete data after uninstall
+ */
+
+register_uninstall_hook(__FILE__, 'fiad_db_uninstall');
+function fiad_db_uninstall(){
+	if(get_option('fiber_admin_db_version')){
+		global $wpdb;
+		// Delete plugin data
+		$wpdb->query("ALTER TABLE $wpdb->terms DROP `term_order`");
+		delete_option('fiber_admin_db_version');
+	}
 }
