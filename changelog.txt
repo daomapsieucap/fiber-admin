@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.0.8 =
+*Release Date - 04 September 2021*
+
+* New: Drag and drop taxonomy order
+* Changed: Restructure and cleanup code
+
 = 1.0.7 =
 *Release Date - 29 August 2021*
 

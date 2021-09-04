@@ -1,132 +1,66 @@
 /**
  * Setting page
  */
-
-.fiber-admin button {
-    vertical-align:middle !important;
-}
-
-.fiber-admin .fiber-admin-input__multiples input {
-    margin:0 0 1em;
-}
-
+.fiber-admin button {vertical-align:middle !important;}
+.fiber-admin .fiber-admin-input__multiples input {margin:0 0 1em;}
 .fiber-admin .fiber-admin-input__multiples .fiber-admin-input__label {
-    min-width:10em;
-    vertical-align:middle;
+    display:inline-block;min-width:10em;vertical-align:middle;
     margin:.35em 0 .75em !important;
-    display:inline-block;
 }
-
-.fiber-admin-input__img label {
-    margin-top:0 !important;
-}
-
-.fiber-admin .wp-picker-container {
-    margin-bottom:1em;
-}
-
+.fiber-admin-input__img label {margin-top:0 !important;}
+.fiber-admin .wp-picker-container {margin-bottom:1em;}
 .fiber-admin-preview img {
-    display:block;
-    height:auto;
-    max-width:100px;
+    display:block;height:auto;max-width:100px;
     padding-bottom:10px;
 }
-
 .fiber-admin textarea {
-    width:80%;
-    min-height:300px;
+    width:80%;min-height:300px;
     padding:10px 10px 10px 20px;
 }
 
 /**
  * Checkbox toggle
  */
-
-.form-table td fieldset label.fiber-admin-toggle {
-    margin:0.5em 0 0.5em !important;
-}
-
-.fiber-admin-toggle {
-    position:relative;
-    width:2em;
-    height:1em;
-}
+.form-table td fieldset label.fiber-admin-toggle {margin:0.5em 0 0.5em !important;}
+.fiber-admin-toggle {position:relative;width:2em;height:1em;}
 
 /* Hide default HTML checkbox */
-.fiber-admin-toggle input {
-    opacity:0;
-    width:0;
-    height:0;
-}
+.fiber-admin-toggle input {opacity:0;width:0;height:0;}
 
 /* The slider */
 .fiber-admin-toggle .slider {
-    position:absolute;
+    position:absolute;top:0;left:0;right:0;bottom:0;
     cursor:pointer;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
     background-color:#ccc;
-    -webkit-transition:.4s;
-    transition:.4s;
+    -webkit-transition:.4s;transition:.4s;
 }
-
 .fiber-admin-toggle .slider:before {
-    position:absolute;
+    position:absolute;height:11px;width:11px;left:2px;bottom:2px;
     content:"";
-    height:11px;
-    width:11px;
-    left:2px;
-    bottom:2px;
     background-color:white;
-    -webkit-transition:.4s;
-    transition:.4s;
+    -webkit-transition:.4s;transition:.4s;
 }
-
-.fiber-admin-toggle input:checked + .slider {
-    background-color:#9fd6ae;
-}
-
-.fiber-admin-toggle input:focus + .slider {
-    box-shadow:0 0 1px #9fd6ae;
-}
-
+.fiber-admin-toggle input:checked + .slider {background-color:#9fd6ae;}
+.fiber-admin-toggle input:focus + .slider {box-shadow:0 0 1px #9fd6ae;}
 .fiber-admin-toggle input:checked + .slider:before {
-    -webkit-transform:translateX(13px);
-    -ms-transform:translateX(13px);
-    transform:translateX(13px);
+    -webkit-transform:translateX(13px);-ms-transform:translateX(13px);transform:translateX(13px);
 }
 
 /* Rounded sliders */
-.fiber-admin-toggle .slider.round {
-    border-radius:34px;
-}
-
-.fiber-admin-toggle .slider.round:before {
-    border-radius:50%;
-}
+.fiber-admin-toggle .slider.round {border-radius:34px;}
+.fiber-admin-toggle .slider.round:before {border-radius:50%;}
 
 /**
  * Multiple select
  */
-
-.fiber-admin .fiber-admin-selection--multiple {
-    min-width:300px;
-}
+.fiber-admin .fiber-admin-selection--multiple {min-width:300px;}
 
 /**
  * UI Sortable
  */
-
-.wp-list-table .ui-sortable tr {
-    cursor:grab;
-}
+.wp-list-table .ui-sortable tr {cursor:grab;}
 
 /**
  * Loading
  */
-
-.fa-loading .ui-sortable {
-    opacity:0.5;
-}
+.fa-loading .ui-sortable {opacity:0.5;}
