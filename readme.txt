@@ -22,10 +22,9 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Installation ==
 
-1. Download Fiber Admin plugin
-2. Upload it to your wp-content/plugins directory
-3. Go to CMS admin plugins list and activate the plugin
-4. Go to Fiber Admin setting page and update the options.
+1. Install either via the WordPress.org plugin directory, or by uploading the files to your server.
+2. Go to CMS admin plugins list and activate the plugin.
+3. Go to Fiber Admin setting page and update the options.
 
 == Screenshots ==
 
