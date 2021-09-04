@@ -118,6 +118,9 @@ class Fiber_Admin_Setting_CPO{
 					?>
                 </select>
             </label>
+            <p class="description">
+                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
+            </p>
         </fieldset>
 		<?php
 	}
@@ -161,6 +164,9 @@ class Fiber_Admin_Setting_CPO{
 					?>
                 </select>
             </label>
+            <p class="description">
+                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
+            </p>
         </fieldset>
 		<?php
 	}

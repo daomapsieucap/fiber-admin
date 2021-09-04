@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.0.8 - 2021-09-xx
+## 1.0.8 - 2021-09-04
 
 * New: Drag and drop taxonomy order
 * Changed: Restructure and cleanup code
