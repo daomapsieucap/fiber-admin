@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.0.9 =
+*Release Date - 07 September 2021*
+
+* Fixed: Drag and drop CPT order not working
+* Fixed: Table break when drag and drop
+
 = 1.0.8 =
 *Release Date - 04 September 2021*
 
