@@ -4,7 +4,7 @@ Tags: white label, admin login, admin tool
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.0.9
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,8 +34,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.0.9 =
-*Release Date - 07 September 2021*
+= 1.1 =
+*Release Date - xx September 2021*
 
-* Fixed: Drag and drop CPT order not working
-* Fixed: Table break when drag and drop
+* New: Duplicate post feature

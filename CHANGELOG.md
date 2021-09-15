@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1 - 2021-09-xx
+
+* New: Duplicate post feature
+
 ## 1.0.9 - 2021-09-07
 
 * Fixed: Drag and drop CPT order not working
