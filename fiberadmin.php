@@ -42,6 +42,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/settings/setting.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/white-label.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/cpo.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
 	
 	//default functions
@@ -52,6 +53,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/image.php');
 	include_once(FIBERADMIN_DIR . 'includes/content.php');
 	include_once(FIBERADMIN_DIR . 'includes/cpo.php');
+	include_once(FIBERADMIN_DIR . 'includes/duplicate.php');
 }
 
 /**

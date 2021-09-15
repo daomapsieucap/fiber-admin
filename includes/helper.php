@@ -67,3 +67,9 @@ if(!function_exists('fiad_is_screen_sortable')){
 		return false;
 	}
 }
+
+if(!function_exists('fiad_get_duplicate_option')){
+	function fiad_get_duplicate_option($key){
+		return fiad_get_option($key, get_option('fiad_duplicate'));
+	}
+}
