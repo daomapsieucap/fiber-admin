@@ -18,6 +18,8 @@
 * Disable Right Click on Image
 * Convert plain email text into link automatically
 * Enable SVG support
+* Drag and drop post / taxonomies order
+* Duplicate post
 
 ## Changelog
 

@@ -14,9 +14,23 @@ class Fiber_Admin_Duplicate{
 		// for hierarchy post types
 		add_filter('page_row_actions', array($this, 'fiad_duplicate_link'), 10, 2);
 		
+		// duplicate
 		add_action('admin_action_fiad_duplicate_post_as_draft', array($this, 'fiad_duplicate_post_as_draft'));
 		
-		add_action('admin_notices', array($this, 'fiad_duplication_admin_notice'));
+		// bulk actions
+		$duplicate_post_types = fiad_get_duplicate_option('post_types');
+		if($duplicate_post_types){
+			foreach($duplicate_post_types as $post_type){
+				add_filter('bulk_actions-edit-' . $post_type, array($this, 'fiad_bulk_duplicate'));
+				add_filter('handle_bulk_actions-edit-' . $post_type, array(
+					$this,
+					'fiad_bulk_duplicate_handler'
+				), 10, 3);
+			}
+		}
+		
+		// admin notices
+		add_action('admin_notices', array($this, 'fiad_duplicate_admin_notice'));
 	}
 	
 	public function fiad_duplicate_link($actions, $post){
@@ -49,36 +63,18 @@ class Fiber_Admin_Duplicate{
 		return $actions;
 	}
 	
-	public function fiad_duplicate_post_as_draft(){
-		
-		// check if post ID has been provided and action
-		if(empty($_GET['post'])){
-			wp_die('No post to duplicate has been provided!');
-		}
-		
-		// Nonce verification
-		if(!isset($_GET['duplicate_nonce']) || !wp_verify_nonce($_GET['duplicate_nonce'], basename(__FILE__))){
-			return;
-		}
-		
-		// Get the original post id
-		$post_id = absint($_GET['post']);
-		
-		// And all the original post data then
+	public function fiad_duplicate_post($post_id){
+		// post object
 		$post = get_post($post_id);
 		
-		/*
-		 * if you don't want current user to be the new post author,
-		 * then change next couple of lines to this: $new_post_author = $post->post_author;
-		 */
+		// post author
 		$current_user    = wp_get_current_user();
 		$new_post_author = $current_user->ID;
 		
-		// if post data exists (I am sure it is, but just in a case), create the post duplicate
+		// if post data exists
 		if($post){
-			
-			// new post data array
-			$args = array(
+			// insert new post
+			$args        = array(
 				'comment_status' => $post->comment_status,
 				'ping_status'    => $post->ping_status,
 				'post_author'    => $new_post_author,
@@ -92,18 +88,14 @@ class Fiber_Admin_Duplicate{
 				'post_type'      => $post->post_type,
 				'to_ping'        => $post->to_ping
 			);
-			
-			// insert the post by wp_insert_post() function
 			$new_post_id = wp_insert_post($args);
 			
-			/*
-			 * get all current post terms ad set them to the new post draft
-			 */
-			$taxonomies = get_object_taxonomies(get_post_type($post)); // returns array of taxonomy names for post type, ex array("category", "post_tag");
+			// copy taxonomies
+			$taxonomies = get_object_taxonomies(get_post_type($post));
 			if($taxonomies){
 				foreach($taxonomies as $taxonomy){
 					$post_terms = wp_get_object_terms($post_id, $taxonomy, array('fields' => 'slugs'));
-					wp_set_object_terms($new_post_id, $post_terms, $taxonomy, false);
+					wp_set_object_terms($new_post_id, $post_terms, $taxonomy);
 				}
 			}
 			
@@ -113,7 +105,7 @@ class Fiber_Admin_Duplicate{
 				
 				foreach($post_meta as $meta_key => $meta_values){
 					
-					if('_wp_old_slug' == $meta_key){ // do nothing for this meta key
+					if('_wp_old_slug' == $meta_key){ // exclude special meta key
 						continue;
 					}
 					
@@ -122,26 +114,78 @@ class Fiber_Admin_Duplicate{
 					}
 				}
 			}
+		}
+	}
+	
+	public function fiad_duplicate_post_as_draft(){
+		// check if post ID has been provided and action
+		if(empty($_GET['post'])){
+			wp_die('No post to duplicate has been provided!');
+		}
+		
+		// nonce verification
+		if(!isset($_GET['duplicate_nonce']) || !wp_verify_nonce($_GET['duplicate_nonce'], basename(__FILE__))){
+			return;
+		}
+		
+		// get the original post id
+		$post_id = absint($_GET['post']);
+		
+		$post = get_post($post_id);
+		
+		// if post data exists
+		if($post){
 			
+			// duplicate post
+			$this->fiad_duplicate_post($post_id);
+			
+			// finish
 			wp_safe_redirect(
 				add_query_arg(
 					array(
 						'post_type' => ('post' !== get_post_type($post) ? get_post_type($post) : false),
-						'saved'     => 'post_duplication_created' // just a custom slug here
+						'saved'     => 'fiad_post_duplication_created'
 					),
 					admin_url('edit.php')
 				)
 			);
 			exit;
-			
 		}else{
 			wp_die('Post creation failed, could not find original post.');
 		}
 		
 	}
 	
-	public function fiad_duplication_admin_notice(){
+	public function fiad_bulk_duplicate($bulk_array){
+		$bulk_array['fiad_duplicate'] = 'Duplicate';
 		
+		return $bulk_array;
+	}
+	
+	public function fiad_bulk_duplicate_handler($redirect, $doaction, $object_ids){
+		
+		// let's remove query args first
+		$redirect = remove_query_arg(array('fiad_duplicate'), $redirect);
+		
+		// bulk duplicate
+		if($doaction == 'fiad_duplicate'){
+			
+			foreach($object_ids as $post_id){
+				$this->fiad_duplicate_post($post_id);
+			}
+			
+			// do not forget to add query args to URL because we will show notices later
+			$redirect = add_query_arg(
+				'fiad_duplicate_created',
+				count($object_ids),
+				$redirect);
+			
+		}
+		
+		return $redirect;
+	}
+	
+	public function fiad_duplicate_admin_notice(){
 		// Get the current screen
 		$screen = get_current_screen();
 		
@@ -150,11 +194,14 @@ class Fiber_Admin_Duplicate{
 		}
 		
 		//Checks if settings updated
-		if(isset($_GET['saved']) && 'post_duplication_created' == $_GET['saved']){
-			echo '<div class="notice notice-success is-dismissible"><p>Post copy created.</p></div>';
+		if(isset($_GET['saved']) && 'fiad_post_duplication_created' == $_GET['saved']){
+			echo '<div class="notice notice-success"><p>Post duplicated.</p></div>';
+		}
+		
+		if(!empty($_REQUEST['fiad_duplicate_created'])){
+			echo '<div class="notice notice-success"><p>Bulk post duplicated.</p></div>';
 		}
 	}
-	
 }
 
 new Fiber_Admin_Duplicate();

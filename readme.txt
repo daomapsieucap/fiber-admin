@@ -18,7 +18,8 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Disable Right Click on Image
 * Convert plain email text into link automatically
 * Enable SVG support
-* Drag and drop post order
+* Drag and drop post / taxonomies order
+* Duplicate post
 
 == Installation ==
 
@@ -35,6 +36,6 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.1 =
-*Release Date - xx September 2021*
+*Release Date - 16 September 2021*
 
 * New: Duplicate post feature
