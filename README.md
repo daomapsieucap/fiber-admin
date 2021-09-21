@@ -18,8 +18,8 @@
 * Protect your site image by disable right click / drag image into html page *(only for non-admin users)*
 * Convert plain email text into link automatically
 * Enable SVG support
-* Drag and drop post / taxonomies order
-* Duplicate post
+* Drag and drop post types / taxonomies order
+* Duplicate post types with single item or bulk action
 * Protect your site content by disable these following keys: `Ctrl / Cmd + S`, `Ctrl / Cmd + A`, `Ctrl / Cmd + C`
   , `Ctrl / Cmd + X` , `Ctrl / Cmd + Shift + I` *(only for non-admin users)*
 
