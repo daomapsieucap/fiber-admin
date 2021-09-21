@@ -57,13 +57,13 @@ class Fiber_Admin_Content{
 	public function fiad_content_protection_scripts(){
 		echo '
 			<script type="text/javascript">
-				document.addEventListener("keydown", function(e) {
-                    if((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)){
-                        if(e.key === "s" || e.key === "a" || e.key === "c" || e.key === "x"){
-                             e.preventDefault();
-                        }
-                    }
-				}, false);
+				document.addEventListener("keydown", function(e){
+			        if((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)){
+			            if(e.key === "s" || e.key === "a" || e.key === "c" || e.key === "x" || (e.shiftKey && e.key === "I")){
+			                e.preventDefault();
+			            }
+			        }
+			    }, false);
 			</script>
 			';
 	}

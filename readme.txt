@@ -20,7 +20,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Enable SVG support
 * Drag and drop post / taxonomies order
 * Duplicate post
-* Protect your site content by disable these following keys: Ctrl + S, Ctrl + A, Ctrl + C, Ctrl + X *(only for non-admin users)*
+* Protect your site content by disable these following keys: Ctrl + S, Ctrl + A, Ctrl + C, Ctrl + X, Ctrl + Shift + I *(only for non-admin users)*
 
 == Installation ==
 
