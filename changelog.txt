@@ -1,6 +1,6 @@
 == Changelog ==
 
-= 1.1.2 =
+= 1.2.0 =
 *Release Date - 22 September 2021*
 
 * Fixed: Option Disable Right Click Image is not working
