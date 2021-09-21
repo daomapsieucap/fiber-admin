@@ -13,9 +13,7 @@ class Fiber_Admin_Image{
 			add_action('add_attachment', array($this, 'fiad_set_image_meta_on_image_upload'));
 		}
 		
-		/**
-		 * Disable right click and drag on image v1.1.2
-		 */
+		// Disable right click and drag on image v1.1.2
 		if(!fiad_get_miscellaneous_option('disable_image_protection')){
 			add_action('wp_footer', array($this, 'fiad_image_protection_scripts'));
 		}

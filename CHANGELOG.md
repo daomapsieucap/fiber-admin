@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 * Fixed: Option Disable Right Click Image is not working
 * Changed: Rename option Disable Right Click Image with Disable Image Protection
 * Changed: Improve script for image protection
+* New: Add option to protect content by default
 
 ## 1.1.1 - 2021-09-21
 

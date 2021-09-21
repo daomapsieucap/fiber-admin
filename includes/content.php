@@ -19,6 +19,11 @@ class Fiber_Admin_Content{
 			add_filter('upload_mimes', array($this, 'fiad_svg_mime_types'));
 			add_action('admin_head', array($this, 'fiad_fix_svg_display'));
 		}
+		
+		// Content protection
+		if(!fiad_get_miscellaneous_option('disable_content_protection')){
+			add_action('wp_footer', array($this, 'fiad_content_protection_scripts'));
+		}
 	}
 	
 	public function fiad_auto_convert_email_address($content){
@@ -47,6 +52,20 @@ class Fiber_Admin_Content{
 		      height: auto !important;
 		    }
 		  </style>';
+	}
+	
+	public function fiad_content_protection_scripts(){
+		echo '
+			<script type="text/javascript">
+				document.addEventListener("keydown", function(e) {
+                    if((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)){
+                        if(e.key === "s" || e.key === "a" || e.key === "c" || e.key === "x"){
+                             e.preventDefault();
+                        }
+                    }
+				}, false);
+			</script>
+			';
 	}
 }
 

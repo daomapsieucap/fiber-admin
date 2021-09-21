@@ -15,11 +15,12 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Use your Site Settings to white label WordPress automatically
 * Customize Admin Login Form by settings
 * Set Image Metadata automatically after uploading
-* Disable Right Click on Image
+* Protect your site image by disable right click / drag image into html page.
 * Convert plain email text into link automatically
 * Enable SVG support
 * Drag and drop post / taxonomies order
 * Duplicate post
+* Protect your site content by disable these following keys: Ctrl + S, Ctrl + A, Ctrl + C, Ctrl + X
 
 == Installation ==
 
@@ -41,3 +42,4 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Fixed: Option Disable Right Click Image is not working
 * Changed: Rename option Disable Right Click Image with Disable Image Protection
 * Changed: Improve script for image protection
+* New: Add option to protect content by default
