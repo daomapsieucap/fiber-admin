@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## 1.2.0 - 2021-09-22
 
 * Fixed: Option Disable Right Click Image is not working
+* Fixed: Issue with Custom Post Order feature in backend
 * Changed: Rename option Disable Right Click Image with Disable Image Protection
 * Changed: Improve script for image protection
 * New: Add option to protect content by default

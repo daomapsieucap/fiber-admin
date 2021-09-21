@@ -98,10 +98,12 @@ class Fiber_Admin_CPO{
 		if($query->is_main_query()){
 			if(is_admin()){
 				// Change post order by default in admin
-				$screen = get_current_screen();
-				if(fiad_is_screen_sortable() && !$screen->taxonomy){
-					$query->set('orderby', 'menu_order');
-					$query->set('order', 'ASC');
+				if(function_exists('get_current_screen')){
+					$screen = get_current_screen();
+					if(fiad_is_screen_sortable() && !$screen->taxonomy){
+						$query->set('orderby', 'menu_order');
+						$query->set('order', 'ASC');
+					}
 				}
 			}else{
 				// Only update post order on frontend if enable option
@@ -168,9 +170,11 @@ class Fiber_Admin_CPO{
 	public function fiad_cpo_update_term_order($orderby, $query_vars, $taxonomies){
 		if(is_admin()){
 			// Change taxonomy order by default in admin
-			$screen = get_current_screen();
-			if(fiad_is_screen_sortable() && $screen->taxonomy){
-				return 't.term_order';
+			if(function_exists('get_current_screen')){
+				$screen = get_current_screen();
+				if(fiad_is_screen_sortable() && $screen->taxonomy){
+					return 't.term_order';
+				}
 			}
 		}else{
 			// Only update post order on frontend if enable option
