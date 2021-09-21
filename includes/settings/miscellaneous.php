@@ -65,9 +65,9 @@ class Fiber_Admin_Miscellaneous{
 		);
 		
 		add_settings_field(
-			'disable_img_right_click', // id
-			'Disable Image Right Click', // title
-			array($this, 'fiad_disable_image_right_click'), // callback
+			'disable_image_protection', // id
+			'Disable Image Protection ', // title
+			array($this, 'fiad_disable_image_protection'), // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_image_section' // section
 		);
@@ -111,13 +111,13 @@ class Fiber_Admin_Miscellaneous{
 		<?php
 	}
 	
-	public function fiad_disable_image_right_click(){
+	public function fiad_disable_image_protection(){
 		?>
         <fieldset>
-            <label for="disable_img_right_click" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_miscellaneous[disable_img_right_click]"
-                       id="disable_img_right_click"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_img_right_click')), 'yes'); ?> />
+            <label for="disable_image_protection" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_miscellaneous[disable_image_protection]"
+                       id="disable_image_protection"
+                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_image_protection')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
