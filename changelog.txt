@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.1.1 =
+*Release Date - 21 September 2021*
+* Fixed: Issue with custom taxonomy when enabling Custom Post Order
+
 = 1.1 =
 *Release Date - 16 September 2021*
 
