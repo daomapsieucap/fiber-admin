@@ -1,7 +1,13 @@
 == Changelog ==
 
+= 1.1.2 =
+*Release Date - 22 September 2021*
+
+* Fixed: Option Disable Right Click Image is not working
+
 = 1.1.1 =
 *Release Date - 21 September 2021*
+
 * Fixed: Issue with custom taxonomy when enabling Custom Post Order
 
 = 1.1 =

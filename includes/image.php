@@ -13,7 +13,7 @@ class Fiber_Admin_Image{
 			add_action('add_attachment', array($this, 'fiad_set_image_meta_on_image_upload'));
 		}
 		
-		if(fiad_get_miscellaneous_option('disable_img_right_click')){
+		if(!fiad_get_miscellaneous_option('disable_img_right_click')){
 			add_action('wp_enqueue_scripts', array($this, 'fiad_image_scripts'));
 		}
 	}
