@@ -20,7 +20,7 @@
 * Enable SVG support
 * Drag and drop post / taxonomies order
 * Duplicate post
-* Protect your site content by disable these following keys: Ctrl + S, Ctrl + A, Ctrl + C, Ctrl + X
+* Protect your site content by disable these following keys: `Ctrl + S`, `Ctrl + A`, `Ctrl + C`, `Ctrl + X`
 
 ## Changelog
 
