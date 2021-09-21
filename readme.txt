@@ -1,6 +1,6 @@
 === Fiber Admin ===
 Contributors: daomapsieucap
-Tags: white label, admin login, admin tool
+Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
