@@ -15,12 +15,12 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Use your Site Settings to white label WordPress automatically
 * Customize Admin Login Form by settings
 * Set Image Metadata automatically after uploading
-* Protect your site image by disable right click / drag image into html page.
+* Protect your site image by disable right click / drag image into html page *(only for non-admin users)*
 * Convert plain email text into link automatically
 * Enable SVG support
 * Drag and drop post / taxonomies order
 * Duplicate post
-* Protect your site content by disable these following keys: Ctrl + S, Ctrl + A, Ctrl + C, Ctrl + X
+* Protect your site content by disable these following keys: Ctrl + S, Ctrl + A, Ctrl + C, Ctrl + X *(only for non-admin users)*
 
 == Installation ==
 

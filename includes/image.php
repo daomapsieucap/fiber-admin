@@ -15,7 +15,7 @@ class Fiber_Admin_Image{
 		}
 		
 		// Disable right click and drag on image v1.2.0
-		if(!fiad_get_miscellaneous_option('disable_image_protection')){
+		if(!fiad_get_miscellaneous_option('disable_image_protection') && !fiad_is_admin_user_role()){
 			add_action('wp_footer', array($this, 'fiad_image_protection_scripts'));
 		}
 	}

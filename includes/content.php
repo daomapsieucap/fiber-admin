@@ -21,7 +21,7 @@ class Fiber_Admin_Content{
 		}
 		
 		// Content protection
-		if(!fiad_get_miscellaneous_option('disable_content_protection')){
+		if(!fiad_get_miscellaneous_option('disable_content_protection') && !fiad_is_admin_user_role()){
 			add_action('wp_footer', array($this, 'fiad_content_protection_scripts'));
 		}
 	}
