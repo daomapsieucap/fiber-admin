@@ -13,8 +13,11 @@ class Fiber_Admin_Image{
 			add_action('add_attachment', array($this, 'fiad_set_image_meta_on_image_upload'));
 		}
 		
+		/**
+		 * Disable right click and drag on image v1.1.2
+		 */
 		if(!fiad_get_miscellaneous_option('disable_image_protection')){
-			add_action('wp_enqueue_scripts', array($this, 'fiad_image_scripts'));
+			add_action('wp_footer', array($this, 'fiad_image_protection_scripts'));
 		}
 	}
 	
@@ -36,8 +39,24 @@ class Fiber_Admin_Image{
 		}
 	}
 	
-	public function fiad_image_scripts(){
-		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-image.js', array('jquery'), FIBERADMIN_VERSION, true);
+	public function fiad_image_protection_scripts(){
+		echo "
+			<script type='text/javascript'>
+				setTimeout(function(){
+			        const currentURL = window.location.hostname,
+			            images = document.getElementsByTagName('img');
+			
+			        let imageURL = '';
+			        for(let i = 0; i < images.length; i++){
+			            imageURL = images[i].src;
+			            if(imageURL.includes(currentURL)){
+			                images[i].addEventListener('contextmenu', event => event.preventDefault());
+			                images[i].setAttribute('draggable', false);
+			            }
+			        }
+			    }, 1000);
+			</script>
+			";
 	}
 }
 

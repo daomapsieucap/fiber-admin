@@ -39,3 +39,5 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 *Release Date - 22 September 2021*
 
 * Fixed: Option Disable Right Click Image is not working
+* Changed: Rename option Disable Right Click Image with Disable Image Protection
+* Changed: Improve script for image protection
