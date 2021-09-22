@@ -77,9 +77,7 @@ if(!function_exists('fiad_get_duplicate_option')){
 if(!function_exists('fiad_admin_user_role')){
 	function fiad_is_admin_user_role(){
 		if(is_user_logged_in()){
-			$user          = wp_get_current_user();
-			$allowed_roles = array('editor', 'administrator', 'author');
-			if(array_intersect($allowed_roles, $user->roles)){
+			if(current_user_can('edit_posts')){
 				return true;
 			}
 		}

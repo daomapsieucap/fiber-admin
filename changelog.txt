@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.2.1 =
+*Release Date - 23 September 2021*
+
+* Changed: Disable Image / Content protection for users has `edit_posts` capability
+
 = 1.2.0 =
 *Release Date - 22 September 2021*
 

@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,11 +36,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.2.0 =
-*Release Date - 22 September 2021*
+= 1.2.1 =
+*Release Date - 23 September 2021*
 
-* Fixed: Option Disable Right Click Image is not working
-* Fixed: Issue with Custom Post Order feature in backend
-* Changed: Rename option Disable Right Click Image with Disable Image Protection
-* Changed: Improve script for image protection
-* New: Add option to protect content by default
+* Changed: Disable Image / Content protection for users has `edit_posts` capability
