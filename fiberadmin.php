@@ -72,8 +72,12 @@ function fiad_update_db(){
 	$charset_collate = $wpdb->get_charset_collate();
 	
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	$wpdb->query("ALTER TABLE $wpdb->terms ADD `term_order` INT (11) NOT NULL DEFAULT 0;");
-	update_option('fiber_admin_db_version', FIBERADMIN_VERSION);
+	
+	$check_column = $wpdb->get_results("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = $wpdb->terms AND column_name = 'term_order'");
+	if(empty($check_column)){
+		$wpdb->query("ALTER TABLE $wpdb->terms ADD `term_order` INT (11) NOT NULL DEFAULT 0;");
+		update_option('fiber_admin_db_version', FIBERADMIN_VERSION);
+	}
 }
 
 /**
