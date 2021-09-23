@@ -50,6 +50,21 @@ class Fiber_Admin_Miscellaneous{
 		);
 		
 		add_settings_section(
+			'fiad_miscellaneous_section',
+			'<span class="dashicons dashicons-admin-generic"></span> General',
+			array($this, 'fiad_section_info'),
+			'fiber-admin-miscellaneous'
+		);
+		
+		add_settings_field(
+			'enable_auto_update', // id
+			'Enable auto update', // title
+			array($this, 'fiad_enable_auto_update'), // callback
+			'fiber-admin-miscellaneous', // page
+			'fiad_miscellaneous_section' // section
+		);
+		
+		add_settings_section(
 			'fiad_image_section',
 			'<span class="dashicons dashicons-format-image"></span> Image',
 			array($this, 'fiad_section_info'),
@@ -105,6 +120,18 @@ class Fiber_Admin_Miscellaneous{
 	}
 	
 	public function fiad_section_info(){
+	}
+	
+	public function fiad_enable_auto_update(){
+		?>
+        <fieldset>
+            <label for="enable_auto_update" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_miscellaneous[enable_auto_update]" id="enable_auto_update"
+                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_auto_update')), 'yes'); ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
 	}
 	
 	public function fiad_auto_image_meta(){

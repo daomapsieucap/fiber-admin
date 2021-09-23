@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.2.2 - 2021-09-xx
+## 1.3.0 - 2021-09-xx
 
 * Fixed: Option Override Default Query is not working.
+* New: Disable WordPress Automatic Updates by default.
 
 ## 1.2.1 - 2021-09-23
 

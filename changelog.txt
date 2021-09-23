@@ -1,9 +1,10 @@
 == Changelog ==
 
-= 1.2.2 =
+= 1.3.0 =
 *Release Date - xx September 2021*
 
 * Fixed: Option Override Default Query for Post Type / Taxonomy is not working.
+* New: Disable WordPress Automatic Updates by default.
 
 = 1.2.1 =
 *Release Date - 23 September 2021*

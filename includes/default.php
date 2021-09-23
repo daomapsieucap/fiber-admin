@@ -39,6 +39,21 @@ class Fiber_Admin_Default{
 			// Hide Admin Bar Frontend for all users
 			add_filter('show_admin_bar', '__return_false');
 		}
+		
+		// disable auto update
+		if(!fiad_get_miscellaneous_option('enable_auto_update')){
+			// wordpress automatic udpate
+			add_filter('auto_update_core', '__return_false');
+			add_filter('automatic_updater_disabled', '__return_false');
+			add_filter('auto_update_theme', '__return_false');
+			add_filter('auto_update_plugin', '__return_false');
+			add_filter('auto_update_translation', '__return_false');
+			
+			// disable email notification
+			apply_filters('auto_core_update_send_email', '__return_false');
+			apply_filters('send_core_update_notification_email', '__return_false');
+			apply_filters('automatic_updates_send_debug_email', '__return_false');
+		}
 	}
 	
 	public function fiad_title($admin_title, $title){
