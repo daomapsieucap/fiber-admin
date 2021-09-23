@@ -41,4 +41,5 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 * New: Disable WordPress Automatic Updates by default.
 * New: Option to limit the number of revisions.
+* New: Disable comments completely as default.
 * Fixed: Option Override Default Query for Post Type / Taxonomy is not working.

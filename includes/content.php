@@ -34,6 +34,18 @@ class Fiber_Admin_Content{
 		if($revision_number > 0){
 			add_filter('wp_revisions_to_keep', array($this, 'fiad_limit_wp_revisions'), 10, 2);
 		}
+		
+		// Disable comments
+		if(!fiad_get_miscellaneous_option('enable_comments')){
+			// Remove from admin menu
+			add_action('admin_menu', array($this, 'fiad_remove_comment_admin_menus'));
+			
+			// Remove from post types
+			add_action('init', array($this, 'fiad_remove_comment_support'), 100);
+			
+			// Remove from admin bar
+			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_comment_admin_bar'));
+		}
 	}
 	
 	public function fiad_auto_convert_email_address($content){
@@ -85,6 +97,25 @@ class Fiber_Admin_Content{
 		}
 		
 		return intval($revision_number);
+	}
+	
+	public function fiad_remove_comment_admin_menus(){
+		remove_menu_page('edit-comments.php');
+	}
+	
+	public function fiad_remove_comment_support(){
+		$post_types = get_post_types();
+		foreach($post_types as $post_type){
+			if(post_type_supports($post_type, 'comments')){
+				remove_post_type_support($post_type, 'comments');
+				remove_post_type_support($post_type, 'trackbacks');
+			}
+		}
+	}
+	
+	public function fiad_remove_comment_admin_bar(){
+		global $wp_admin_bar;
+		$wp_admin_bar->remove_menu('comments');
 	}
 }
 

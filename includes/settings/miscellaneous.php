@@ -125,6 +125,14 @@ class Fiber_Admin_Miscellaneous{
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
+		
+		add_settings_field(
+			'enable_comments', // id
+			'Enable Comments', // title
+			array($this, 'fiad_enable_comments'), // callback
+			'fiber-admin-miscellaneous', // page
+			'fiad_content_section' // section
+		);
 	}
 	
 	public function fiad_section_info(){
@@ -216,6 +224,19 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[disable_content_protection]"
                        id="disable_content_protection"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_content_protection')), 'yes'); ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_enable_comments(){
+		?>
+        <fieldset>
+            <label for="enable_comments" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_miscellaneous[enable_comments]"
+                       id="enable_comments"
+                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_comments')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
