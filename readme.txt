@@ -37,5 +37,8 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.3.0 =
-*Release Date - xx September 2021*
+*Release Date - 24 September 2021*
 
+* New: Disable WordPress Automatic Updates by default.
+* New: Option to limit the number of revisions.
+* Fixed: Option Override Default Query for Post Type / Taxonomy is not working.

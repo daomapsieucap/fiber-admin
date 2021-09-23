@@ -95,6 +95,14 @@ class Fiber_Admin_Miscellaneous{
 		);
 		
 		add_settings_field(
+			'revision_number', // id
+			'Limit number of revisions', // title
+			array($this, 'fiad_revision_number'), // callback
+			'fiber-admin-miscellaneous', // page
+			'fiad_content_section' // section
+		);
+		
+		add_settings_field(
 			'disable_email_converter', // id
 			'Disable Convert Email Text to Link', // title
 			array($this, 'fiad_disable_email_converter'), // callback
@@ -154,6 +162,22 @@ class Fiber_Admin_Miscellaneous{
                        id="disable_image_protection"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_image_protection')), 'yes'); ?> />
                 <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_revision_number(){
+		$revision_number = 5;
+		if(fiad_get_miscellaneous_option('revision_number')){
+			$revision_number = intval(esc_attr(fiad_get_miscellaneous_option('revision_number')));
+		}
+		?>
+        <fieldset>
+            <label for="revision_number">
+                <input class="small-text" type="number" name="fiad_miscellaneous[revision_number]"
+                       id="revision_number" min="1" max="20"
+                       value="<?php echo $revision_number; ?>"/>
             </label>
         </fieldset>
 		<?php

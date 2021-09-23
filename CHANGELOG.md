@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.3.0 - 2021-09-xx
+## 1.3.0 - 2021-09-24
 
-* Fixed: Option Override Default Query is not working.
 * New: Disable WordPress Automatic Updates by default.
+* New: Option to limit the number of revisions.
+* Fixed: Option Override Default Query for Post Type / Taxonomy is not working.
 
 ## 1.2.1 - 2021-09-23
 

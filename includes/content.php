@@ -24,6 +24,16 @@ class Fiber_Admin_Content{
 		if(!fiad_get_miscellaneous_option('disable_content_protection') && !fiad_is_admin_user_role()){
 			add_action('wp_footer', array($this, 'fiad_content_protection_scripts'));
 		}
+		
+		// Revisions
+		$revision_number = fiad_get_miscellaneous_option('revision_number');
+		if(empty($revision_number)){
+			$revision_number = 5;
+		}
+		$revision_number = intval($revision_number);
+		if($revision_number > 0){
+			add_filter('wp_revisions_to_keep', array($this, 'fiad_limit_wp_revisions'), 10, 2);
+		}
 	}
 	
 	public function fiad_auto_convert_email_address($content){
@@ -66,6 +76,15 @@ class Fiber_Admin_Content{
 			    }, false);
 			</script>
 			';
+	}
+	
+	public function fiad_limit_wp_revisions($num, $post): int{
+		$revision_number = fiad_get_miscellaneous_option('revision_number');
+		if(empty($revision_number)){
+			$revision_number = 5;
+		}
+		
+		return intval($revision_number);
 	}
 }
 
