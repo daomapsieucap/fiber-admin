@@ -106,8 +106,8 @@ class Fiber_Admin_CPO{
 			}
 		}
 		
-		if(!is_admin()){
-			if(fiad_get_cpo_option('override_default_query') && in_array($query->get('post_type'), fiad_get_cpo_option('post_types'))){
+		if(!is_admin() && fiad_get_cpo_option('override_default_query') && fiad_get_cpo_option('post_types')){
+			if(is_home() || in_array($query->get('post_type'), fiad_get_cpo_option('post_types'))){
 				$query->set('orderby', 'menu_order');
 				$query->set('order', 'ASC');
 			}
@@ -175,10 +175,13 @@ class Fiber_Admin_CPO{
 					return 't.term_order';
 				}
 			}
-		}else{
-			// Only update post order on frontend if enable option
-			if(fiad_get_cpo_option('override_default_tax_query')){
-				return 't.term_order';
+		}elseif(fiad_get_cpo_option('override_default_tax_query') && fiad_get_cpo_option('taxonomies')){
+			if($taxonomies){
+				foreach($taxonomies as $taxonomy){
+					if(in_array($taxonomy, fiad_get_cpo_option('taxonomies'))){
+						return 't.term_order';
+					}
+				}
 			}
 		}
 		

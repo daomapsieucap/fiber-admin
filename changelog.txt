@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.2.2 =
+*Release Date - xx September 2021*
+
+* Fixed: Option Override Default Query for Post Type / Taxonomy is not working.
+
 = 1.2.1 =
 *Release Date - 23 September 2021*
 

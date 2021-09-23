@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.2.2 - 2021-09-xx
+
+* Fixed: Option Override Default Query is not working.
+
 ## 1.2.1 - 2021-09-23
 
 * Changed: Disable Image / Content protection for users has `edit_posts` capability.
