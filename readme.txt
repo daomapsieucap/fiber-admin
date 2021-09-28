@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,10 +37,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.3.0 =
-*Release Date - 24 September 2021*
+= 1.4.0 =
+*Release Date - xx September 2021*
 
-* New: Disable WordPress Automatic Updates by default.
-* New: Option to limit the number of revisions.
-* New: Disable comments completely as default.
-* Fixed: Option Override Default Query for Post Type / Taxonomy is not working.
+* New: Add Settings Link on Plugin list.

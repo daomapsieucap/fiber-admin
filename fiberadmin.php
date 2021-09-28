@@ -3,7 +3,7 @@
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Another helpful tool for WordPress admin
- * Version:           1.3.0
+ * Version:           1.4.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Dao Chau
@@ -25,7 +25,7 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-define('FIBERADMIN_VERSION', '1.3.0');
+define('FIBERADMIN_VERSION', '1.4.0');
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 
@@ -92,4 +92,18 @@ function fiad_db_uninstall(){
 		$wpdb->query("ALTER TABLE $wpdb->terms DROP `term_order`");
 		delete_option('fiber_admin_db_version');
 	}
+}
+
+/**
+ * Add Settings link
+ */
+
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'fiad_settings_page');
+function fiad_settings_page($links){
+	$url           = get_admin_url() . "options-general.php?page=fiber-admin";
+	$title         = __('Settings', 'fiber-admin');
+	$settings_link = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+	$links[]       = $settings_link;
+	
+	return $links;
 }

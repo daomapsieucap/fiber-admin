@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.4.0 - 2021-09-xx
+
+* New: Add Settings Link on Plugin list.
+
 ## 1.3.0 - 2021-09-24
 
 * New: Disable WordPress Automatic Updates by default.
