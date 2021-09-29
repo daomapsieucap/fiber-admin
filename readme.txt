@@ -41,3 +41,5 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 *Release Date - xx September 2021*
 
 * New: Add Settings Link on Plugin list.
+* New: Add Setting to update custom Admin Bar Logo.
+* Fixed: Preview image doesn't work when admin input image URL directly.

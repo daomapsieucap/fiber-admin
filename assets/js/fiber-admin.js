@@ -2,29 +2,34 @@ jQuery(document).ready(function($){
     /**
      * Upload field
      */
-    // preview
+
+    // $preview
     $('.fiber-admin-input__img input[type="text"]').on('change', function(){
-        const preview = $(this).closest('fieldset').find('img');
+        let $preview = $(this).closest('fieldset').find('img'),
+            $input = $(this).closest('fieldset').find('input');
         if(!$(this).val()){
-            preview.hide();
+            $preview.hide();
         }else{
-            preview.show();
+            if(!$preview.attr('src')){
+                $preview.attr('src', $input.val());
+            }
+            $preview.show();
         }
     });
 
     // image upload
     $('.fiber-admin-upload').each(function(){
-        const uploadElement = $(this),
-            target = uploadElement.closest('fieldset').find('input'),
-            preview = uploadElement.closest('fieldset').find('img');
+        const $uploadElement = $(this),
+            $target = $uploadElement.closest('fieldset').find('input'),
+            $preview = $uploadElement.closest('fieldset').find('img');
 
         let customUploader;
 
-        if(!preview.attr('src')){
-            preview.hide();
+        if(!$preview.attr('src')){
+            $preview.hide();
         }
 
-        uploadElement.click(function(e){
+        $uploadElement.click(function(e){
             e.preventDefault();
 
             //If the uploader object has already been created, reopen the dialog
@@ -45,8 +50,8 @@ jQuery(document).ready(function($){
             //When a file is selected, grab the URL and set it as the text field's value
             customUploader.on('select', function(){
                 const attachment = customUploader.state().get('selection').first().toJSON();
-                target.val(attachment.url);
-                preview.attr('src', attachment.url).show();
+                $target.val(attachment.url);
+                $preview.attr('src', attachment.url).show();
             });
 
             //Open the uploader dialog

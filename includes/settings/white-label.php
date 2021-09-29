@@ -80,6 +80,14 @@ class Fiber_Admin_White_Label_Settings{
 			'fiad_branding_section' // section
 		);
 		
+		add_settings_field(
+			'admin_bar_logo', // id
+			'Admin Bar Logo', // title
+			array($this, 'fiad_admin_bar_logo'), // callback
+			'fiber-admin', // page
+			'fiad_branding_section' // section
+		);
+		
 		add_settings_section(
 			'fiad_white_label_section',
 			'<span class="dashicons dashicons-admin-network"></span> Login',
@@ -143,6 +151,24 @@ class Fiber_Admin_White_Label_Settings{
 		<?php
 	}
 	
+	public function fiad_admin_bar_logo(){
+		$admin_bar_logo = fiad_get_general_option('admin_bar_logo');
+		?>
+        <fieldset class="fiber-admin-input__img">
+            <div class="fiber-admin-preview">
+                <img width="30" height="30" src="<?php echo esc_url($admin_bar_logo); ?>"
+                     alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+            </div>
+            <label>
+                <input class="regular-text" type="text" name="fiber_admin[admin_bar_logo]"
+                       placeholder="<?php echo __('Input / Choose your image', 'fiber-admin'); ?>"
+                       value="<?php echo esc_url($admin_bar_logo); ?>"/>
+            </label>
+            <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>
+        </fieldset>
+		<?php
+	}
+	
 	public function fiad_login_logo(){
 		$logo = fiad_get_general_option('login_logo');
 		?>
@@ -152,7 +178,7 @@ class Fiber_Admin_White_Label_Settings{
             </div>
             <label>
                 <input class="regular-text" type="text" name="fiber_admin[login_logo]"
-                       placeholder="<?php echo __('Input or choose your logo URL', 'fiber-admin'); ?>"
+                       placeholder="<?php echo __('Input / Choose your logo image', 'fiber-admin'); ?>"
                        value="<?php echo esc_url($logo); ?>"/>
             </label>
             <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>
@@ -191,7 +217,7 @@ class Fiber_Admin_White_Label_Settings{
             </div>
             <label>
                 <input class="regular-text" type="text" name="fiber_admin[login_bg_img]"
-                       placeholder="<?php echo __('Input or choose your background URL', 'fiber-admin'); ?>"
+                       placeholder="<?php echo __('Input / Choose your background image', 'fiber-admin'); ?>"
                        value="<?php echo esc_url($bg_img); ?>"/>
             </label>
             <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>

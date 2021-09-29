@@ -9,7 +9,16 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Login{
 	public function __construct(){
+		// Login Interface
 		add_action('login_enqueue_scripts', array($this, 'fiad_login_css'));
+		
+		// Admin Bar Logo
+		if(fiad_get_general_option('admin_bar_logo')){
+			add_action('wp_before_admin_bar_render', array($this, 'fiad_admin_bar_logo'));
+		}else{
+			// Remove WordPress admin bar logo
+			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
+		}
 	}
 	
 	public function fiad_login_css(){
@@ -112,7 +121,26 @@ class Fiber_Admin_Login{
             <?php echo esc_html($form_css); ?>
             <?php echo esc_html($extra_css); ?>
         </style>
-	<?php }
+		<?php
+	}
+	
+	public function fiad_admin_bar_logo(){
+		$logo_url = fiad_get_general_option('admin_bar_logo');
+		echo '<style>
+		    #wpadminbar #wp-admin-bar-wp-logo>.ab-item {
+                padding: 0 7px;
+                background-image: url(' . $logo_url . ') !important;
+                background-size: 70%;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 0.8;
+            }
+            #wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
+                content: " ";
+                top: 2px;
+            }
+		  </style>';
+	}
 }
 
 new Fiber_Admin_Login();

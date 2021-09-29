@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## 1.4.0 - 2021-09-xx
 
 * New: Add Settings Link on Plugin list.
+* New: Add Setting to update custom Admin Bar Logo.
+* Fixed: Preview image doesn't work when admin input image URL directly.
 
 ## 1.3.0 - 2021-09-24
 

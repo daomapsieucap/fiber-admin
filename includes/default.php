@@ -14,9 +14,6 @@ class Fiber_Admin_Default{
 			// Replace WordPress in the page titles.
 			add_filter('admin_title', array($this, 'fiad_title'), 10, 2);
 			
-			// Remove WordPress admin bar logo
-			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
-			
 			// Admin footer modification
 			add_filter('admin_footer_text', array($this, 'fiad_update_admin_footer'));
 			
