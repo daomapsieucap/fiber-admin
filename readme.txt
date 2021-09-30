@@ -39,7 +39,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.4.0 =
-*Release Date - xx September 2021*
+*Release Date - 30 September 2021*
 
 * New: Add Settings Link on Plugin list.
 * New: Add Setting to update custom Admin Bar Logo.
