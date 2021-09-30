@@ -5,6 +5,7 @@
 
 * Fixed: Wrong setting link on plugin page.
 * Changed: Delete admin bar logo since it's conflict with white label feature.
+* New: Remove Welcome Dashboard Widget.
 
 = 1.4.0 =
 *Release Date - 30 September 2021*

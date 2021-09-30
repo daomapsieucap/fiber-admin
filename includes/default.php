@@ -38,6 +38,9 @@ class Fiber_Admin_Default{
 			
 			// Remove WordPress admin bar logo
 			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
+			
+			// Remove Welcome Dashboard Widget
+			remove_action('welcome_panel', 'wp_welcome_panel');
 		}
 		
 		// disable auto update

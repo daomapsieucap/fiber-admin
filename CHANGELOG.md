@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 * Fixed: Wrong setting link on plugin page.
 * Changed: Delete admin bar logo since it's conflict with white label feature.
+* New: Remove Welcome Dashboard Widget.
 
 ## 1.4.0 - 2021-09-30
 

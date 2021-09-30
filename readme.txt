@@ -43,3 +43,4 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 * Fixed: Wrong setting link on plugin page.
 * Changed: Delete admin bar logo since it's conflict with white label feature.
+* New: Remove Welcome Dashboard Widget.
