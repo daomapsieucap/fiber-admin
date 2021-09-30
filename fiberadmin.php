@@ -100,7 +100,7 @@ function fiad_db_uninstall(){
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'fiad_settings_page');
 function fiad_settings_page($links){
-	$url           = get_admin_url() . "options-general.php?page=fiber-admin";
+	$url           = get_admin_url() . "admin.php?page=fiber-admin";
 	$title         = __('Settings', 'fiber-admin');
 	$settings_link = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
 	$links[]       = $settings_link;
