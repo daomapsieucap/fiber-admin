@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,9 +38,8 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 
 == Changelog ==
 
-= 1.4.0 =
-*Release Date - 30 September 2021*
+= 1.4.1 =
+*Release Date - 01 October 2021*
 
-* New: Add Settings Link on Plugin list.
-* New: Add Setting to update custom Admin Bar Logo.
-* Fixed: Preview image doesn't work when admin input image URL directly.
+* Fixed: Wrong setting link on plugin page.
+* Fixed: White label conflict when option admin bar logo empty.

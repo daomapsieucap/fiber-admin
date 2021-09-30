@@ -141,6 +141,11 @@ class Fiber_Admin_Login{
             }
 		  </style>';
 	}
+	
+	public function fiad_remove_admin_bar_logo(){
+		global $wp_admin_bar;
+		$wp_admin_bar->remove_menu('wp-logo');
+	}
 }
 
 new Fiber_Admin_Login();

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.4.1 - 2021-10-01
+
+* Fixed: Wrong setting link on plugin page.
+* Fixed: White label conflict when option admin bar logo empty.
+
 ## 1.4.0 - 2021-09-30
 
 * New: Add Settings Link on Plugin list.

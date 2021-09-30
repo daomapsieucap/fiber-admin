@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.4.1 =
+*Release Date - 01 October 2021*
+
+* Fixed: Wrong setting link on plugin page.
+* Fixed: White label conflict when option admin bar logo empty.
+
 = 1.4.0 =
 *Release Date - 30 September 2021*
 

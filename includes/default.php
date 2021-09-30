@@ -57,11 +57,6 @@ class Fiber_Admin_Default{
 		return get_bloginfo('name') . ' &bull; ' . $title;
 	}
 	
-	public function fiad_remove_admin_bar_logo(){
-		global $wp_admin_bar;
-		$wp_admin_bar->remove_menu('wp-logo');
-	}
-	
 	public function fiad_update_admin_footer(){
 		$current_theme            = wp_get_theme();
 		$current_theme_author_url = $current_theme->get('AuthorURI');
