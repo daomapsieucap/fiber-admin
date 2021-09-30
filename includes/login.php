@@ -11,14 +11,6 @@ class Fiber_Admin_Login{
 	public function __construct(){
 		// Login Interface
 		add_action('login_enqueue_scripts', array($this, 'fiad_login_css'));
-		
-		// Admin Bar Logo
-		if(fiad_get_general_option('admin_bar_logo')){
-			add_action('wp_before_admin_bar_render', array($this, 'fiad_admin_bar_logo'));
-		}else{
-			// Remove WordPress admin bar logo
-			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
-		}
 	}
 	
 	public function fiad_login_css(){
@@ -140,11 +132,6 @@ class Fiber_Admin_Login{
                 top: 2px;
             }
 		  </style>';
-	}
-	
-	public function fiad_remove_admin_bar_logo(){
-		global $wp_admin_bar;
-		$wp_admin_bar->remove_menu('wp-logo');
 	}
 }
 

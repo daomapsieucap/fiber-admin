@@ -42,4 +42,4 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 *Release Date - 01 October 2021*
 
 * Fixed: Wrong setting link on plugin page.
-* Fixed: White label conflict when option admin bar logo empty.
+* Changed: Delete admin bar logo since it's conflict with white label feature.

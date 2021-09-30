@@ -35,6 +35,9 @@ class Fiber_Admin_Default{
 			
 			// Hide Admin Bar Frontend for all users
 			add_filter('show_admin_bar', '__return_false');
+			
+			// Remove WordPress admin bar logo
+			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
 		}
 		
 		// disable auto update
@@ -100,6 +103,11 @@ class Fiber_Admin_Default{
 	
 	public function fiad_remove_backtoblog(){
 		echo '<style>#nav,#backtoblog{display:none}</style>';
+	}
+	
+	public function fiad_remove_admin_bar_logo(){
+		global $wp_admin_bar;
+		$wp_admin_bar->remove_menu('wp-logo');
 	}
 }
 
