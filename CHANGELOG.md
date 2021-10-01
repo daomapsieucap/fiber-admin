@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.0 - 2021-10-xx
+
+* New: Customized Database Error page
+
 ## 1.4.1 - 2021-10-01
 
 * Fixed: Wrong setting link on plugin page.
