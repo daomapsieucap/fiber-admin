@@ -6,7 +6,7 @@
  * Version:           1.5.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
- * Author:            Dao Chau
+ * Author:            Dao
  * Author URI:        https://daochau.com/
  * Text Domain:       fiber-admin
  */
@@ -44,6 +44,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/settings/cpo.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/db-error.php');
 	
 	//default functions
 	include_once(FIBERADMIN_DIR . 'includes/default.php');

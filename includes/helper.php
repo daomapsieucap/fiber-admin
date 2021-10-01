@@ -85,3 +85,9 @@ if(!function_exists('fiad_admin_user_role')){
 		return false;
 	}
 }
+
+if(!function_exists('fiad_get_db_error_option')){
+	function fiad_get_db_error_option($key){
+		return fiad_get_option($key, get_option('fiad_db_error'));
+	}
+}

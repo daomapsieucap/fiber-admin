@@ -56,6 +56,12 @@
 .fiber-admin .fiber-admin-selection--multiple {min-width:300px;}
 
 /**
+ * TinyMCE Editor
+ */
+
+.fiber-admin .fiber-admin-editor {width:80%;}
+
+/**
  * UI Sortable
  */
 .wp-list-table .ui-sortable tr {cursor:grab;}
