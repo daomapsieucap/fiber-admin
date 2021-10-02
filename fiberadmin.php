@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
- * Description:       💈 Another helpful tool for WordPress admin
+ * Description:       💈 Another helpful admin with some extra functions for WordPress backend
  * Version:           1.5.0
  * Requires at least: 5.2
  * Requires PHP:      7.2

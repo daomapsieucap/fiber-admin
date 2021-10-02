@@ -1,6 +1,6 @@
 # [Fiber Admin](https://wordpress.org/plugins/fiber-admin/)
 
-> Another helpful tool for WordPress admin help you do more cool things in WordPress backend.
+> Another helpful admin with some extra functions for WordPress backend.
 
 <img src="https://ps.w.org/fiber-admin/assets/banner-772x250.jpg" />
 
