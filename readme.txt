@@ -22,7 +22,7 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 * Protect your site image by disable right click / drag image into html page *(only for non-admin users)*.
 * Protect your site content by disable these following keys: Ctrl / Cmd + S, Ctrl / Cmd + A, Ctrl / Cmd + C, Ctrl / Cmd + X, Ctrl / Cmd + Shift + I *(only for non-admin users)*.
 * Disable WordPress comments in backend & WordPress Automatic Updates completely as default.
-* Customize WordPress Database Error.
+* Customize WordPress Database Error page.
 
 == Installation ==
 
@@ -40,6 +40,6 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 == Changelog ==
 
 = 1.5.0 =
-*Release Date - xx October 2021*
+*Release Date - 02 October 2021*
 
 * New: Customized Database Error page.

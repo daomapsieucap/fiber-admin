@@ -94,6 +94,14 @@ class Fiber_Admin_DB_Error_Settings{
 		);
 		
 		add_settings_field(
+			'db_error_title',
+			'Title',
+			array($this, 'fiad_db_error_title'),
+			'fiad-db-error',
+			'fiad_db_error_section'
+		);
+		
+		add_settings_field(
 			'db_error_logo',
 			'Logo',
 			array($this, 'fiad_db_error_logo'),
@@ -144,6 +152,18 @@ class Fiber_Admin_DB_Error_Settings{
                 <input type="checkbox" name="fiad_db_error[db_error_enable]" id="db_error_enable"
                        value="yes" <?php checked(esc_attr(fiad_get_db_error_option('db_error_enable')), 'yes'); ?> />
                 <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_db_error_title(){
+		$title = fiad_get_db_error_option('db_error_title') ? fiad_get_db_error_option('db_error_title') : get_bloginfo('name') . ' - Database Error';
+		?>
+        <fieldset>
+            <label for="db_error_title">
+                <input class="regular-text" type="text" name="fiad_db_error[db_error_title]"
+                       value="<?php echo esc_attr($title); ?>"/>
             </label>
         </fieldset>
 		<?php

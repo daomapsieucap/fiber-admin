@@ -23,6 +23,7 @@
 * Protect your site content by disable these following keys: `Ctrl / Cmd + S`, `Ctrl / Cmd + A`, `Ctrl / Cmd + C`
   , `Ctrl / Cmd + X` , `Ctrl / Cmd + Shift + I` *(only for non-admin users)*.
 * Disable WordPress comments in backend & WordPress Automatic Updates completely as default.
+* Customize WordPress Database Error page.
 
 ## Changelog
 

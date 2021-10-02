@@ -16,6 +16,7 @@ class Fiber_Admin_DB_Error{
 		$enable = fiad_get_db_error_option('db_error_enable');
 		if($enable){
 			$db_error_message = fiad_get_db_error_option('db_error_message');
+			$title            = fiad_get_db_error_option('db_error_title');
 			$logo             = fiad_get_db_error_option('db_error_logo');
 			$logo_width       = fiad_get_db_error_option('db_error_logo_width');
 			$logo_height      = fiad_get_db_error_option('db_error_logo_height');
@@ -36,7 +37,7 @@ class Fiber_Admin_DB_Error{
 			$html .= '<!DOCTYPE HTML>';
 			$html .= '<html ' . get_language_attributes() . '>';
 			$html .= '<head>';
-			$html .= '<title>Database Error</title>';
+			$html .= '<title>' . $title . '</title>';
 			$html .= "<style>
 					@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;900&display=swap');
 			        * {-webkit-box-sizing:border-box;box-sizing:border-box}
