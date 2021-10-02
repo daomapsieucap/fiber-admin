@@ -59,7 +59,7 @@ function fiad_init(){
 }
 
 /**
- * Update Database for CPO
+ * Update Database for CPO v1.1
  */
 
 add_action('plugins_loaded', 'fiad_update_db_check');
@@ -75,8 +75,12 @@ function fiad_update_db(){
 	
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	
-	$check_column = $wpdb->get_results("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = $wpdb->terms AND column_name = 'term_order'");
-	if(empty($check_column)){
+	$column = $wpdb->get_results($wpdb->prepare(
+		"SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s AND COLUMN_NAME = %s ",
+		DB_NAME, $wpdb->terms, 'term_order'
+	));
+	
+	if(empty($column)){
 		$wpdb->query("ALTER TABLE $wpdb->terms ADD `term_order` INT (11) NOT NULL DEFAULT 0;");
 		update_option('fiber_admin_db_version', FIBERADMIN_VERSION);
 	}

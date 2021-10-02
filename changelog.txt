@@ -4,6 +4,7 @@
 *Release Date - 03 October 2021*
 
 * Fixed: Set `max-width` for DB error logo image.
+* Fixed: Fix bug when checking table column exists for CPO.
 
 = 1.5.0 =
 *Release Date - 02 October 2021*

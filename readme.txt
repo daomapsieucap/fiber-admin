@@ -44,3 +44,4 @@ Another helpful admin with some extra functions for WordPress backend.
 *Release Date - 03 October 2021*
 
 * Fixed: Set `max-width` for DB error logo image.
+* Fixed: Fix bug when checking table column exists for CPO.
