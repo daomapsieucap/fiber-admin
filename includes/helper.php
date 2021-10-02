@@ -91,3 +91,9 @@ if(!function_exists('fiad_get_db_error_option')){
 		return fiad_get_option($key, get_option('fiad_db_error'));
 	}
 }
+
+if(!function_exists('fiad_check_db_error_file')){
+	function fiad_check_db_error_file(){
+		return (file_exists(WP_CONTENT_DIR . '/db-error.php'));
+	}
+}

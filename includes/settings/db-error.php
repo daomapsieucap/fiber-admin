@@ -50,8 +50,21 @@ class Fiber_Admin_DB_Error_Settings{
 				<?php
 				settings_fields('fiad_db_error_group');
 				do_settings_sections('fiad-db-error');
-				
-				submit_button();
+				?>
+
+                <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
+				<?php
+				if(!fiad_check_db_error_file()){
+					?>
+                    <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
+					<?php
+				}else{
+					?>
+                    <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank">
+						<?php echo __('Preview', 'fiber-admin'); ?>
+                    </a>
+					<?php
+				}
 				?>
             </form>
         </div>
@@ -98,7 +111,7 @@ class Fiber_Admin_DB_Error_Settings{
 		
 		add_settings_field(
 			'db_error_bg_color',
-			'Background Color / Image',
+			'Background Color',
 			array($this, 'fiad_db_error_bg'),
 			'fiad-db-error',
 			'fiad_db_error_section'
@@ -127,9 +140,9 @@ class Fiber_Admin_DB_Error_Settings{
 	public function fiad_db_error_enable(){
 		?>
         <fieldset>
-            <label for="hide_wordpress_branding" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_db_error[hide_wordpress_branding]" id="hide_wordpress_branding"
-                       value="yes" <?php checked(esc_attr(fiad_get_db_error_option('hide_wordpress_branding')), 'yes'); ?> />
+            <label for="db_error_enable" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_db_error[db_error_enable]" id="db_error_enable"
+                       value="yes" <?php checked(esc_attr(fiad_get_db_error_option('db_error_enable')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
@@ -158,8 +171,8 @@ class Fiber_Admin_DB_Error_Settings{
         <fieldset class="fiber-admin-input__multiples">
             <label class="fiber-admin-input__label"
                    for="db_error_logo_width"><?php echo __('Width', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiad_db_error[login_logo_width]" id="db_error_logo_width"
-                   value="<?php echo esc_attr(fiad_get_db_error_option('login_logo_width')); ?>"/> px
+            <input class="small-text" type="number" name="fiad_db_error[db_error_logo_width]" id="db_error_logo_width"
+                   value="<?php echo esc_attr(fiad_get_db_error_option('db_error_logo_width')); ?>"/> px
             <br/>
             <label class="fiber-admin-input__label"
                    for="db_error_logo_height"><?php echo __('Height', 'fiber-admin'); ?></label>
