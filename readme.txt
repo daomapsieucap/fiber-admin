@@ -35,7 +35,8 @@ Another helpful tool for WordPress admin help you do more cool things in WordPre
 1. Main setting page with multiple options
 2. Miscellaneous page to control some default features
 3. Simple Custom Post Order setting for drag and drop Post Type / Taxonomy Order
-4. Demo customized admin login page
+4. Demo of an admin login page customization
+5. Demo of a customized database error page
 
 == Changelog ==
 
