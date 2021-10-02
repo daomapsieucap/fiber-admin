@@ -81,25 +81,25 @@ class Fiber_Admin_DB_Error_Settings{
 		);
 		
 		add_settings_field(
-			'login_logo',
+			'db_error_logo',
 			'Logo',
-			array($this, 'fiad_login_logo'),
+			array($this, 'fiad_db_error_logo'),
 			'fiad-db-error',
 			'fiad_db_error_section'
 		);
 		
 		add_settings_field(
-			'login_logo_size',
+			'db_error_logo_size',
 			'Logo size',
-			array($this, 'fiad_login_logo_size'),
+			array($this, 'fiad_db_error_logo_size'),
 			'fiad-db-error',
 			'fiad_db_error_section'
 		);
 		
 		add_settings_field(
-			'login_bg_color',
+			'db_error_bg_color',
 			'Background Color / Image',
-			array($this, 'fiad_login_bg'),
+			array($this, 'fiad_db_error_bg'),
 			'fiad-db-error',
 			'fiad_db_error_section'
 		);
@@ -113,9 +113,9 @@ class Fiber_Admin_DB_Error_Settings{
 		);
 		
 		add_settings_field(
-			'login_extra_css',
+			'db_error_extra_css',
 			'Extra CSS',
-			array($this, 'fiad_login_extra_css'),
+			array($this, 'fiad_db_error_extra_css'),
 			'fiad-db-error',
 			'fiad_db_error_section'
 		);
@@ -136,15 +136,15 @@ class Fiber_Admin_DB_Error_Settings{
 		<?php
 	}
 	
-	public function fiad_login_logo(){
-		$logo = fiad_get_db_error_option('login_logo');
+	public function fiad_db_error_logo(){
+		$logo = fiad_get_db_error_option('db_error_logo');
 		?>
         <fieldset class="fiber-admin-input__img">
             <div class="fiber-admin-preview">
                 <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
             </div>
             <label>
-                <input class="regular-text" type="text" name="fiad_db_error[login_logo]"
+                <input class="regular-text" type="text" name="fiad_db_error[db_error_logo]"
                        placeholder="<?php echo __('Input / Choose your logo image', 'fiber-admin'); ?>"
                        value="<?php echo esc_url($logo); ?>"/>
             </label>
@@ -153,42 +153,29 @@ class Fiber_Admin_DB_Error_Settings{
 		<?php
 	}
 	
-	public function fiad_login_logo_size(){
+	public function fiad_db_error_logo_size(){
 		?>
         <fieldset class="fiber-admin-input__multiples">
             <label class="fiber-admin-input__label"
-                   for="login_logo_width"><?php echo __('Width', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiad_db_error[login_logo_width]" id="login_logo_width"
+                   for="db_error_logo_width"><?php echo __('Width', 'fiber-admin'); ?></label>
+            <input class="small-text" type="number" name="fiad_db_error[login_logo_width]" id="db_error_logo_width"
                    value="<?php echo esc_attr(fiad_get_db_error_option('login_logo_width')); ?>"/> px
             <br/>
             <label class="fiber-admin-input__label"
-                   for="login_logo_height"><?php echo __('Height', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiad_db_error[login_logo_height]" id="login_logo_height"
-                   value="<?php echo esc_attr(fiad_get_db_error_option('login_logo_height')); ?>"/> px
+                   for="db_error_logo_height"><?php echo __('Height', 'fiber-admin'); ?></label>
+            <input class="small-text" type="number" name="fiad_db_error[db_error_logo_height]" id="db_error_logo_height"
+                   value="<?php echo esc_attr(fiad_get_db_error_option('db_error_logo_height')); ?>"/> px
         </fieldset>
 		<?php
 	}
 	
-	public function fiad_login_bg(){
-		$bg_img = fiad_get_db_error_option('login_bg_img');
+	public function fiad_db_error_bg(){
 		?>
         <fieldset>
             <label>
-                <input class="fiber-color-field" name="fiad_db_error[login_bg_color]" type="text"
-                       value="<?php echo esc_attr(fiad_get_db_error_option('login_bg_color')); ?>"/>
+                <input class="fiber-color-field" name="fiad_db_error[db_error_bg]" type="text"
+                       value="<?php echo esc_attr(fiad_get_db_error_option('db_error_bg')); ?>"/>
             </label>
-        </fieldset>
-        <fieldset class="fiber-admin-input__img">
-            <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($bg_img); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-            </div>
-            <label>
-                <input class="regular-text" type="text" name="fiad_db_error[login_bg_img]"
-                       placeholder="<?php echo __('Input / Choose your background image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($bg_img); ?>"/>
-            </label>
-            <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>
-            <p class="description"><?php echo __('The minimum sizes should be 2000px width and 1000px height', 'fiber-admin'); ?></p>
         </fieldset>
 		<?php
 	}
@@ -201,20 +188,21 @@ class Fiber_Admin_DB_Error_Settings{
 			$default_error_message = "<h4 style='text-align: center;'>503 Service Temporarily Unavailable</h4><p style='text-align: center;'>We're currently experiencing technical issues connecting to the database. Please check back soon.</p>";
 			$db_error_message      = !empty($db_error_message) ? $db_error_message : $default_error_message;
 			wp_editor($db_error_message, 'db_error_message', array(
-				'textarea_name' => 'fiad_db_error[db_error_message]',
-				'media_buttons' => false,
-				'textarea_rows' => 5
+				'default_editor' => 'tinymce',
+				'textarea_name'  => 'fiad_db_error[db_error_message]',
+				'media_buttons'  => false,
+				'textarea_rows'  => 5
 			));
 			?>
         </fieldset>
 		<?php
 	}
 	
-	public function fiad_login_extra_css(){
+	public function fiad_db_error_extra_css(){
 		?>
         <fieldset>
             <textarea
-                    name="fiad_db_error[login_extra_css]"><?php echo esc_html(fiad_get_db_error_option('login_extra_css')); ?></textarea>
+                    name="fiad_db_error[db_error_extra_css]"><?php echo esc_html(fiad_get_db_error_option('db_error_extra_css')); ?></textarea>
         </fieldset>
 		<?php
 	}
