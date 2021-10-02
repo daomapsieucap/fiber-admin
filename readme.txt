@@ -40,7 +40,7 @@ Another helpful admin with some extra functions for WordPress backend.
 
 == Changelog ==
 
-= 1.5.0 =
-*Release Date - 02 October 2021*
+= 1.5.1 =
+*Release Date - 03 October 2021*
 
-* New: Customized Database Error page.
+* Fixed: Set `max-width` for DB error logo image.

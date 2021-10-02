@@ -47,6 +47,7 @@ class Fiber_Admin_DB_Error{
 			        .db-error__container .db-error__inner {position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
 			        .db-error__inner {max-width:920px;width:100%;line-height:1.4;text-align:center;padding-left:15px;padding-right:15px}
 			        .db-error__inner .db-error__logo {margin:0 auto 100px auto; max-width:300px; text-align:center;}
+			        .db-error__inner .db-error__logo img {max-width:300px;}
 			        .db-error__inner .db-error__content {position:relative;}
 			        .db-error__inner .db-error__error-503 {position:absolute;height:100px;top:0;left:50%;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%);z-index:-1}
 			        .db-error__inner .db-error__error-503 h1 {color:#ececec;font-weight:900;font-size:276px;margin:0;position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
