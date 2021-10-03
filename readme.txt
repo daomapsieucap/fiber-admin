@@ -45,3 +45,4 @@ Another helpful admin with some extra functions for WordPress backend.
 
 * Fixed: Set `max-width` for DB error logo image.
 * Fixed: Fix bug when checking table column exists for CPO.
+* Changed: Add error message when option Disable File Editor is activated.

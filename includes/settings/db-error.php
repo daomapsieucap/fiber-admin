@@ -44,6 +44,15 @@ class Fiber_Admin_DB_Error_Settings{
 		?>
         <div class="wrap">
             <h2>Database Error Page</h2>
+			<?php
+			if(DISALLOW_FILE_EDIT){
+				add_settings_error(
+					'fiad_db_error_group',
+					'fiad-db-error',
+					__("If you're using some security plugins that disable WordPress file editor for plugins and themes, please disable this option and re-save Fiber Admin DB Error again. You can enable the security option for File Editor again after the Preview button is displayed.", 'fiber-admin'), // error or notice works to make things pretty
+				);
+			}
+			?>
 			<?php settings_errors(); ?>
 
             <form class="fiber-admin" method="post" action="options.php">
