@@ -15,6 +15,19 @@ class Fiber_Admin_DB_Error{
 	public function fiad_db_error_file($old_value, $value){
 		$enable = fiad_get_db_error_option('db_error_enable');
 		if($enable){
+			// add rules to .htaccess file in wp-content if it exists
+			$content_htaccess = WP_CONTENT_DIR . '/.htaccess';
+			if(file_exists($content_htaccess)){
+				$lines   = array();
+				$lines[] = '<Files db-error.php>';
+				$lines[] = '    Allow From All';
+				$lines[] = '    Satisfy any';
+				$lines[] = '</Files>';
+				
+				insert_with_markers($content_htaccess, 'FIBER ADMIN DB ERROR PAGE', $lines);
+			}
+			
+			// generate DB Error content based on settings
 			$db_error_message = fiad_get_db_error_option('db_error_message');
 			$title            = fiad_get_db_error_option('db_error_title');
 			$logo             = fiad_get_db_error_option('db_error_logo');

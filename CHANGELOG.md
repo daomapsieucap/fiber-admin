@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.2 - 2021-10-03
+
+* Fixed: Only show DB Error Page error message only when Disable File Editor constant is defined.
+* Fixed: Fix the issue DB Error Page may not work with Hardening options in Sucuri.
+
 ## 1.5.1 - 2021-10-03
 
 * Fixed: Set `max-width` for DB error logo image.

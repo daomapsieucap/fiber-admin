@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.5.2 =
+*Release Date - 03 October 2021*
+
+* Fixed: Only show DB Error Page error message only when Disable File Editor constant is defined.
+* Fixed: Fix the issue DB Error Page may not work with Hardening options in Sucuri.
+
 = 1.5.1 =
 *Release Date - 03 October 2021*
 

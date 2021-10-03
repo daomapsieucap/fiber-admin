@@ -45,7 +45,7 @@ class Fiber_Admin_DB_Error_Settings{
         <div class="wrap">
             <h2>Database Error Page</h2>
 			<?php
-			if(DISALLOW_FILE_EDIT){
+			if(defined(DISALLOW_FILE_EDIT) && DISALLOW_FILE_EDIT){
 				add_settings_error(
 					'fiad_db_error_group',
 					'fiad-db-error',

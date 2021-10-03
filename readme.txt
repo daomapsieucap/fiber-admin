@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,9 +40,8 @@ Another helpful admin with some extra functions for WordPress backend.
 
 == Changelog ==
 
-= 1.5.1 =
+= 1.5.2 =
 *Release Date - 03 October 2021*
 
-* Fixed: Set `max-width` for DB error logo image.
-* Fixed: Fix bug when checking table column exists for CPO.
-* Changed: Add error message when option Disable File Editor is activated.
+* Fixed: Only show DB Error Page error message only when Disable File Editor constant is defined.
+* Fixed: Fix the issue DB Error Page may not work with Hardening options in Sucuri.
