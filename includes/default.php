@@ -41,6 +41,25 @@ class Fiber_Admin_Default{
 			
 			// Remove Welcome Dashboard Widget
 			remove_action('welcome_panel', 'wp_welcome_panel');
+			
+			// Remove generators from feed
+			remove_action('rss2_head', 'the_generator');
+			remove_action('rss_head', 'the_generator');
+			remove_action('rdf_header', 'the_generator');
+			remove_action('atom_head', 'the_generator');
+			remove_action('commentsrss2_head', 'the_generator');
+			remove_action('opml_head', 'the_generator');
+			remove_action('app_head', 'the_generator');
+			remove_action('comments_atom_head', 'the_generator');
+			
+			// Disable plugin generators tag
+			remove_action('wp_head', 'wp_generator'); // default WordPress
+			add_filter('the_generator', '__return_null'); // default WordPress
+			remove_filter('get_the_generator_html', 'wc_generator_tag'); // Woocommerce
+			remove_filter('get_the_generator_xhtml', 'wc_generator_tag'); // Woocommerce
+			add_filter('revslider_meta_generator', '__return_empty_string'); // revslider
+			remove_action('wp_head', 'xforwc__add_meta_information_action', 99); // Product Filter for WooCommerce
+			add_action('wp_head', array($this, 'fiad_remove_meta_generators'), 1); // other plugins
 		}
 		
 		// disable auto update
@@ -111,6 +130,23 @@ class Fiber_Admin_Default{
 	public function fiad_remove_admin_bar_logo(){
 		global $wp_admin_bar;
 		$wp_admin_bar->remove_menu('wp-logo');
+	}
+	
+	public function fiad_remove_meta_generators(){
+//		// WPBakery Page Builder
+//		if(class_exists('Vc_Manager')){
+//			remove_action('wp_head', array(visual_composer(), 'addMetaData'));
+//		}
+//
+//		// WPML
+//		if(function_exists('icl_object_id')){
+//			global $sitepress;
+//			remove_action('wp_head', array($sitepress, 'meta_generator_tag'));
+//		}
+//
+//		//
+		return '';
+		
 	}
 }
 

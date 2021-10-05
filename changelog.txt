@@ -4,6 +4,7 @@
 *Release Date - xx October 2021*
 
 * Changed: Delete `db-error.php` on uninstall or deactivate.
+* Added: Remove meta generator tags.
 
 = 1.5.2 =
 *Release Date - 03 October 2021*

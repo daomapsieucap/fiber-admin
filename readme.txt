@@ -54,3 +54,4 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 *Release Date - xx October 2021*
 
 * Changed: Delete `db-error.php` on uninstall or deactivate.
+* Added: Remove meta generator tags.
