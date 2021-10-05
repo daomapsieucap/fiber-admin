@@ -52,7 +52,7 @@ class Fiber_Admin_Default{
 			remove_action('app_head', 'the_generator');
 			remove_action('comments_atom_head', 'the_generator');
 			
-			// Disable plugin generators tag
+			// Disable plugin generator tags
 			remove_action('wp_head', 'wp_generator'); // default WordPress
 			add_filter('the_generator', '__return_null'); // default WordPress
 			remove_filter('get_the_generator_html', 'wc_generator_tag'); // Woocommerce
