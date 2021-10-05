@@ -64,7 +64,7 @@ class Fiber_Admin_Default{
 		
 		// disable auto update
 		if(!fiad_get_miscellaneous_option('enable_auto_update')){
-			// wordpress automatic udpate
+			// WordPress automatic update
 			add_filter('auto_update_core', '__return_false');
 			add_filter('automatic_updater_disabled', '__return_false');
 			add_filter('auto_update_theme', '__return_false');
