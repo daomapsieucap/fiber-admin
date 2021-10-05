@@ -133,20 +133,16 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiad_remove_meta_generators(){
-//		// WPBakery Page Builder
-//		if(class_exists('Vc_Manager')){
-//			remove_action('wp_head', array(visual_composer(), 'addMetaData'));
-//		}
-//
-//		// WPML
-//		if(function_exists('icl_object_id')){
-//			global $sitepress;
-//			remove_action('wp_head', array($sitepress, 'meta_generator_tag'));
-//		}
-//
-//		//
-		return '';
+		// WPBakery Page Builder
+		if(class_exists('Vc_Manager')){
+			remove_action('wp_head', array(visual_composer(), 'addMetaData'));
+		}
 		
+		// WPML
+		if(function_exists('icl_object_id')){
+			global $sitepress;
+			remove_action('wp_head', array($sitepress, 'meta_generator_tag'));
+		}
 	}
 }
 
