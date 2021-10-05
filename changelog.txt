@@ -1,5 +1,10 @@
 == Changelog ==
 
+= x.x.x =
+*Release Date - xx October 2021*
+
+* Changed: Delete `db-error.php` after uninstall.
+
 = 1.5.2 =
 *Release Date - 03 October 2021*
 

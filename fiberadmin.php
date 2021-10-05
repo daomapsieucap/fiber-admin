@@ -94,9 +94,15 @@ register_uninstall_hook(__FILE__, 'fiad_db_uninstall');
 function fiad_db_uninstall(){
 	if(get_option('fiber_admin_db_version')){
 		global $wpdb;
-		// Delete plugin data
+		
+		// Delete CPO data
 		$wpdb->query("ALTER TABLE $wpdb->terms DROP `term_order`");
 		delete_option('fiber_admin_db_version');
+		
+		// Delete db-error.php
+		if(fiad_check_db_error_file()){
+			wp_delete_file(WP_CONTENT_DIR . '/db-error.php');
+		}
 	}
 }
 

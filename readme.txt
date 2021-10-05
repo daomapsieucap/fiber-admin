@@ -50,8 +50,7 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 
 == Changelog ==
 
-= 1.5.2 =
-*Release Date - 03 October 2021*
+= x.x.x =
+*Release Date - xx October 2021*
 
-* Fixed: Only show DB Error Page error message only when Disable File Editor constant is defined.
-* Fixed: Fix the issue DB Error Page may not work with Hardening options in Sucuri.
+* Changed: Delete `db-error.php` after uninstall.

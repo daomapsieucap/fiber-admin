@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## x.x.x - 2021-10-xx
+
+- Changed: Delete `db-error.php` after uninstall.
+
 ## 1.5.2 - 2021-10-03
 
 * Fixed: Only show DB Error Page error message only when Disable File Editor constant is defined.
