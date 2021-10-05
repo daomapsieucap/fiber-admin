@@ -101,6 +101,11 @@ class Fiber_Admin_DB_Error{
 			$html .= '</html>';
 			
 			file_put_contents(WP_CONTENT_DIR . '/db-error.php', $html);
+		}else{
+			// Delete db-error.php on deactivate
+			if(fiad_check_db_error_file()){
+				wp_delete_file(WP_CONTENT_DIR . '/db-error.php');
+			}
 		}
 	}
 }

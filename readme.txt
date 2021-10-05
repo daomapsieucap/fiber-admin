@@ -53,4 +53,4 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 = x.x.x =
 *Release Date - xx October 2021*
 
-* Changed: Delete `db-error.php` after uninstall.
+* Changed: Delete `db-error.php` on uninstall or deactivate.

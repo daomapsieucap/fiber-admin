@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## x.x.x - 2021-10-xx
 
-- Changed: Delete `db-error.php` after uninstall.
+* Changed: Delete `db-error.php` on uninstall or deactivate.
 
 ## 1.5.2 - 2021-10-03
 
