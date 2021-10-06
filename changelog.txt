@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.5.4=
+*Release Date - 06 October 2021*
+
+* Fixed: Update enqueue scripts only in Fiber Admin pages.
+* Changed: Delivery the minified scripts.
+
 = 1.5.3 =
 *Release Date - 05 October 2021*
 

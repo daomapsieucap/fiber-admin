@@ -16,8 +16,10 @@ class Fiber_Admin_Setting{
 		add_action("admin_enqueue_scripts", array($this, 'fiad_styles'));
 	}
 	
-	public function fiad_styles(){
-		wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/fiber-admin.css', false, FIBERADMIN_VERSION, 'all');
+	public function fiad_styles($hook_suffix){
+		if(strpos($hook_suffix, 'fiber-admin') !== false){
+			wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/fiber-admin.css', false, FIBERADMIN_VERSION);
+		}
 	}
 	
 	public function fiad_setting(){

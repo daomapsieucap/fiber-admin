@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.4 - 2021-10-06
+
+* Fixed: Update enqueue scripts only in Fiber Admin pages.
+* Changed: Delivery the minified scripts.
+
 ## 1.5.3 - 2021-10-05
 
 * Changed: Delete `db-error.php` on uninstall or deactivate.

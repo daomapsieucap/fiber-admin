@@ -17,16 +17,22 @@ class Fiber_Admin_White_Label_Settings{
 		add_action("admin_enqueue_scripts", array($this, 'fiad_enqueue_scripts'));
 	}
 	
-	public function fiad_enqueue_scripts(){
-		// Upload field
-		wp_enqueue_media();
-		
-		// Color picker field
-		wp_enqueue_style('wp-color-picker');
-		wp_enqueue_script('wp-color-picker');
-		
-		// Plugin scripts
-		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin.js', array('jquery'), FIBERADMIN_VERSION);
+	public function fiad_enqueue_scripts($hook_suffix){
+		if(strpos($hook_suffix, 'fiber-admin') !== false){
+			// Upload field
+			wp_enqueue_media();
+			
+			// Color picker field
+			wp_enqueue_style('wp-color-picker');
+			wp_enqueue_script('wp-color-picker');
+			
+			// Plugin scripts
+			$suffix = '';
+			if(!FIBERADMIN_DEV_MODE){
+				$suffix = '.min';
+			}
+			wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', array('jquery'), FIBERADMIN_VERSION);
+		}
 	}
 	
 	public function fiad_white_label(){

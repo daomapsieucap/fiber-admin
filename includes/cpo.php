@@ -24,7 +24,11 @@ class Fiber_Admin_CPO{
 	
 	public function fiad_cpo_scripts(){
 		if(fiad_is_screen_sortable()){
-			wp_enqueue_script('fiber-admin-cpo', FIBERADMIN_ASSETS_URL . 'js/fiber-cpo.js', array('jquery-ui-sortable'), FIBERADMIN_VERSION, true);
+			$suffix = '';
+			if(!FIBERADMIN_DEV_MODE){
+				$suffix = '.min';
+			}
+			wp_enqueue_script('fiber-admin-cpo', FIBERADMIN_ASSETS_URL . 'js/fiber-cpo' . $suffix . '.js', array('jquery-ui-sortable'), FIBERADMIN_VERSION, true);
 			wp_localize_script(
 				'fiber-admin-cpo',
 				'fiad_cpo',

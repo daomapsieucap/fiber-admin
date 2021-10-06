@@ -12,21 +12,6 @@ class Fiber_Admin_DB_Error_Settings{
 	public function __construct(){
 		add_action('admin_menu', array($this, 'fiad_db_error'));
 		add_action('admin_init', array($this, 'fiad_db_error_page_init'));
-		
-		// Register scripts
-		add_action("admin_enqueue_scripts", array($this, 'fiad_enqueue_scripts'));
-	}
-	
-	public function fiad_enqueue_scripts(){
-		// Upload field
-		wp_enqueue_media();
-		
-		// Color picker field
-		wp_enqueue_style('wp-color-picker');
-		wp_enqueue_script('wp-color-picker');
-		
-		// Plugin scripts
-		wp_enqueue_script('fiad_db_error', FIBERADMIN_ASSETS_URL . 'js/fiber-admin.js', array('jquery'), FIBERADMIN_VERSION);
 	}
 	
 	public function fiad_db_error(){
