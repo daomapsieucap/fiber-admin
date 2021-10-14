@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.5 - 2021-10-14
+
+* Fixed: Missing drag and drop style on CPO page enabled.
+
 ## 1.5.4 - 2021-10-06
 
 * Fixed: Update enqueue scripts only in Fiber Admin pages.

@@ -24,6 +24,10 @@ class Fiber_Admin_CPO{
 	
 	public function fiad_cpo_scripts(){
 		if(fiad_is_screen_sortable()){
+			// styles
+			wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/fiber-admin.css', false, FIBERADMIN_VERSION);
+			
+			// scripts
 			$suffix = '';
 			if(!FIBERADMIN_DEV_MODE){
 				$suffix = '.min';
