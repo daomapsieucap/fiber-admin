@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.5.6 - 2021-10-xx
+## 1.5.6 - 2021-10-19
 
 * Fixed: Missing Woocommerce custom taxonomies in CPO.
 * Fixed: Disable CPO drag and drop on mobile.

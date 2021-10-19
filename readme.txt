@@ -51,7 +51,7 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 == Changelog ==
 
 = 1.5.6=
-*Release Date - xx October 2021*
+*Release Date - 19 October 2021*
 
 * Fixed: Missing Woocommerce custom taxonomies in CPO.
 * Fixed: Disable CPO drag and drop on mobile.
