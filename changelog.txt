@@ -4,6 +4,7 @@
 *Release Date - xx October 2021*
 
 * Fixed: Missing Woocommerce custom taxonomies in CPO.
+* Fixed: Disable CPO drag and drop on mobile.
 
 = 1.5.5=
 *Release Date - 14 October 2021*
