@@ -20,6 +20,7 @@ class Fiber_Admin_CPO{
 		
 		add_action('pre_get_posts', array($this, 'fiad_cpo_update_order'));
 		add_filter('get_terms_orderby', array($this, 'fiad_cpo_update_term_order'), 10, 3);
+		add_filter('get_terms_args', array($this, 'fiad_get_terms_args'), 10, 2);
 	}
 	
 	public function fiad_cpo_scripts(){
@@ -194,6 +195,28 @@ class Fiber_Admin_CPO{
 		}
 		
 		return $query_vars['orderby'] == 'term_order' ? 't.term_order' : $orderby;
+	}
+	
+	public function fiad_get_terms_args($args, $taxonomies){
+		if(is_admin()){
+			// Change taxonomy order by default in admin
+			if(function_exists('get_current_screen')){
+				$screen = get_current_screen();
+				if(fiad_is_screen_sortable() && $screen->taxonomy){
+					$args['orderby'] = 'term_order';
+				}
+			}
+		}elseif(fiad_get_cpo_option('override_default_tax_query') && fiad_get_cpo_option('taxonomies')){
+			if($taxonomies){
+				foreach($taxonomies as $taxonomy){
+					if(in_array($taxonomy, fiad_get_cpo_option('taxonomies'))){
+						$args['orderby'] = 'term_order';
+					}
+				}
+			}
+		}
+		
+		return $args;
 	}
 }
 
