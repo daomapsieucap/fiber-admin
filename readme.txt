@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 5.8
+Tested up to: 5.8.1
 Requires PHP: 5.6
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,8 +50,7 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 
 == Changelog ==
 
-= 1.5.6=
-*Release Date - 19 October 2021*
+= 1.5.7=
+*Release Date - 24 October 2021*
 
-* Fixed: Missing Woocommerce custom taxonomies in CPO.
-* Fixed: Disable CPO drag and drop on mobile.
+* Added: Remove `WordPress` in login title.

@@ -11,8 +11,11 @@ class Fiber_Admin_Default{
 	public function __construct(){
 		//default value
 		if(fiad_get_general_option('hide_wordpress_branding')){
-			// Replace WordPress in the page titles.
+			// Replace "WordPress" in the page titles.
 			add_filter('admin_title', array($this, 'fiad_title'), 10, 2);
+			
+			// Remove "WordPress" in login title
+			add_filter('login_title', array($this, 'fiad_admin_title'));
 			
 			// Admin footer modification
 			add_filter('admin_footer_text', array($this, 'fiad_update_admin_footer'));
@@ -80,6 +83,10 @@ class Fiber_Admin_Default{
 	
 	public function fiad_title($admin_title, $title){
 		return get_bloginfo('name') . ' &bull; ' . $title;
+	}
+	
+	public function fiad_admin_title($login_title){
+		return str_replace(array(' &lsaquo;', ' &#8212; WordPress'), array(' &lsaquo;', ''), $login_title);
 	}
 	
 	public function fiad_update_admin_footer(){
