@@ -26,10 +26,6 @@ Another helpful admin with some extra functions for WordPress backend.
 
 == Frequently Asked Questions ==
 
-= "Sorry, this file type is not permitted for security reasons" when enable SVG Support =
-
-This is the issue about your SVG files. WordPress now requires us to have a line such as <?xml version="1.0" encoding="utf-8"?>` in our SVG files.  So, if you receive an upload error "Sorry, this file type is not permitted for security reasons.", please try to add the xml tag mentioned above to the first line of you SVG file by code editor like sublime text or notepad++,... Then try to upload this file again.
-
 = Why can't I save the settings for Customized WordPress Database Error page? =
 
 At the first time using this setting, Fiber Admin will ask you to save it first. When your site has some security plugins like iThemes Security or Wordfence Security..., these plugins will have an option to prevent file editor. All you need is disable this option temporarily and save the Fiber Admin Database Error first, then you can activate the option to disable File Editor in security plugins.
