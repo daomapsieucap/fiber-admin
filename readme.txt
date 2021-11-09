@@ -55,3 +55,4 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 
 * Fixed: Database Error Page Settings is not working, can't create the file `db-error.php`.
 * Added: Remove `db-error.php` when deactivating plugin.
+* Added: Sanitize SVG images.

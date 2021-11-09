@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 * Fixed: Database Error Page Settings is not working, can't create the file `db-error.php`.
 * Added: Remove `db-error.php` when deactivating plugin, re-add `db-error.php` when activating plugin.
+* Added: Sanitize SVG images.
 
 ## 1.5.7 - 2021-10-24
 

@@ -4,6 +4,22 @@ if(!defined('ABSPATH')){
 	exit;
 }
 
+if(fiad_get_miscellaneous_option('enable_svg')){
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AttributeInterface.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/TagInterface.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AllowedAttributes.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AllowedTags.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/XPath.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/ElementReference/Resolver.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/ElementReference/Subject.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/ElementReference/Usage.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/Exceptions/NestingException.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/Helper.php');
+	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/Sanitizer.php');
+}
+
+use enshrined\svgSanitize\Sanitizer;
+
 /**
  * Image
  */
@@ -17,6 +33,14 @@ class Fiber_Admin_Image{
 		// Disable right click and drag on image v1.2.0
 		if(!fiad_get_miscellaneous_option('disable_image_protection') && !fiad_is_admin_user_role()){
 			add_action('wp_footer', array($this, 'fiad_image_protection_scripts'));
+		}
+		
+		// Enable SVG
+		if(fiad_get_miscellaneous_option('enable_svg')){
+			add_filter('upload_mimes', array($this, 'fiad_svg_mime_types'));
+			add_action('admin_head', array($this, 'fiad_fix_svg_display'));
+			
+			add_filter('wp_handle_upload', array($this, 'fiad_santialize_svg'), 10, 2);
 		}
 	}
 	
@@ -56,6 +80,44 @@ class Fiber_Admin_Image{
 			    }, 1000);
 			</script>
 			";
+	}
+	
+	public function fiad_svg_mime_types($mimes){
+		$mimes['svg'] = 'image/svg+xml';
+		
+		return $mimes;
+	}
+	
+	public function fiad_fix_svg_display(){
+		echo '<style>
+		    td.media-icon img[src$=".svg"], img[src$=".svg"].attachment-post-thumbnail{
+		      width: 100% !important;
+		      height: auto !important;
+		    }
+		  </style>';
+	}
+	
+	public function fiad_santialize_svg($upload, $context){
+		
+		$type = $upload['type'];
+		if($type == 'image/svg+xml'){
+			
+			$file_path = $upload['file'];
+			$file_url  = $upload['url'];
+			
+			// Create a new sanitizer instance
+			$sanitizer = new Sanitizer();
+			
+			// Load the dirty svg
+			$dirtySVG = file_get_contents($file_url);
+			
+			// Pass it to the sanitizer and get it back clean
+			$cleanSVG = $sanitizer->sanitize($dirtySVG);
+			
+			file_put_contents($file_path, $cleanSVG);
+		}
+		
+		return $upload;
 	}
 }
 
