@@ -10,6 +10,7 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_DB_Error{
 	public function __construct(){
 		add_action('admin_init', array($this, 'fiad_db_error_file'));
+		register_activation_hook(FIBERADMIN_FILENAME, array($this, 'fiad_db_error_file'));
 		register_deactivation_hook(FIBERADMIN_FILENAME, array($this, 'fiad_remove_db_error_file'));
 	}
 	
@@ -119,7 +120,10 @@ class Fiber_Admin_DB_Error{
 	public function fiad_remove_db_error_file(){
 		// Delete db-error.php on deactivate
 		if(fiad_check_db_error_file()){
+			$db_error_option = get_option('fiad_db_error');
 			wp_delete_file(WP_CONTENT_DIR . '/db-error.php');
+			$db_error_option['db_error_added'] = false;
+			update_option('fiad_db_error', $db_error_option);
 		}
 	}
 }

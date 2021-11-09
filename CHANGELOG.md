@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## 1.5.8 - 2021-11-09
 
 * Fixed: Database Error Page Settings is not working, can't create the file `db-error.php`.
-* Added: Remove `db-error.php` when deactivating plugin.
+* Added: Remove `db-error.php` when deactivating plugin, re-add `db-error.php` when activating plugin.
 
 ## 1.5.7 - 2021-10-24
 
