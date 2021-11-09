@@ -8,7 +8,7 @@ Stable tag: 1.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Another helpful admin with some extra functions for WordPress backend.
+Another admin tool with some extra functions for WordPress backend.
 
 **FEATURES**
 
