@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.8.1
 Requires PHP: 5.6
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,7 +50,8 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 
 == Changelog ==
 
-= 1.5.7=
-*Release Date - 24 October 2021*
+= 1.5.8=
+*Release Date - 09 November 2021*
 
-* Added: Remove `WordPress` in login title.
+* Fixed: Database Error Page Settings is not working, can't create the file `db-error.php`.
+* Added: Remove `db-error.php` when deactivating plugin.

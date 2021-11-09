@@ -9,12 +9,15 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_DB_Error{
 	public function __construct(){
-		add_action('update_option_fiad_db_error', array($this, 'fiad_db_error_file'), 10, 2);
+		add_action('admin_init', array($this, 'fiad_db_error_file'));
+		register_deactivation_hook(FIBERADMIN_FILENAME, array($this, 'fiad_remove_db_error_file'));
 	}
 	
-	public function fiad_db_error_file($old_value, $value){
-		$enable = fiad_get_db_error_option('db_error_enable');
-		if($enable){
+	public function fiad_db_error_file(){
+		$db_error_added  = fiad_get_db_error_option('db_error_added');
+		$enable          = fiad_get_db_error_option('db_error_enable');
+		$db_error_option = get_option('fiad_db_error');
+		if($enable && !$db_error_added){
 			// add rules to .htaccess file in wp-content if it exists
 			$content_htaccess = WP_CONTENT_DIR . '/.htaccess';
 			if(file_exists($content_htaccess)){
@@ -101,11 +104,22 @@ class Fiber_Admin_DB_Error{
 			$html .= '</html>';
 			
 			file_put_contents(WP_CONTENT_DIR . '/db-error.php', $html);
+			
+			$db_error_option['db_error_added'] = true;
 		}else{
-			// Delete db-error.php on deactivate
-			if(fiad_check_db_error_file()){
+			if(fiad_check_db_error_file() && !$enable){
 				wp_delete_file(WP_CONTENT_DIR . '/db-error.php');
+				$db_error_option['db_error_added'] = false;
 			}
+		}
+		
+		update_option('fiad_db_error', $db_error_option);
+	}
+	
+	public function fiad_remove_db_error_file(){
+		// Delete db-error.php on deactivate
+		if(fiad_check_db_error_file()){
+			wp_delete_file(WP_CONTENT_DIR . '/db-error.php');
 		}
 	}
 }
