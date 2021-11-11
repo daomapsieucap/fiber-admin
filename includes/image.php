@@ -83,7 +83,7 @@ class Fiber_Admin_Image{
 	}
 	
 	public function fiad_svg_mime_types($mimes){
-		$mimes['svg'] = 'image/svg+xml';
+		$mimes['svg'] = 'image/svg';
 		
 		return $mimes;
 	}
@@ -100,8 +100,7 @@ class Fiber_Admin_Image{
 	public function fiad_santialize_svg($upload, $context){
 		
 		$type = $upload['type'];
-		if($type == 'image/svg+xml'){
-			
+		if($type == 'image/svg'){
 			$file_path = $upload['file'];
 			$file_url  = $upload['url'];
 			
