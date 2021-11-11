@@ -41,6 +41,20 @@ class Fiber_Admin_Image{
 			add_action('admin_head', array($this, 'fiad_fix_svg_display'));
 			
 			add_filter('wp_handle_upload', array($this, 'fiad_santialize_svg'), 10, 2);
+			add_action("admin_enqueue_scripts", array($this, 'fiad_svg_enqueue_scripts'));
+		}
+	}
+	
+	public function fiad_svg_enqueue_scripts($hook_suffix){
+		$screen = get_current_screen();
+		if($screen->id == 'upload'){
+			$suffix = !FIBERADMIN_DEV_MODE ? '.min' : '';
+			wp_enqueue_script('fiber-admin-svg', FIBERADMIN_ASSETS_URL . 'js/fiber-svg' . $suffix . '.js', array('jquery'), FIBERADMIN_VERSION);
+			wp_localize_script('fiber-admin-svg', 'script_vars',
+				array(
+					'ajaxurl' => admin_url('admin-ajax.php')
+				)
+			);
 		}
 	}
 	

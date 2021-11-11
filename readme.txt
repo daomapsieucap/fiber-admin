@@ -50,3 +50,4 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 *Release Date - 11 November 2021*
 
 * Fixed: Fix error "This file type is not allowed for security reasons." when uploading SVG file.
+* Fixed: WordPress media preview is not working for SVG images.

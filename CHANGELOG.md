@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## 1.5.9 - 2021-11-11
 
 * Fixed: Fix error "This file type is not allowed for security reasons." when uploading SVG file.
+* Fixed: WordPress media preview is not working for SVG images.
 
 ## 1.5.8 - 2021-11-09
 
