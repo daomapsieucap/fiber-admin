@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.10 - 2021-11-16
+
+* Changed: Make "Convert email text to link" be compatible with Divi theme.
+
 ## 1.5.9 - 2021-11-11
 
 * Fixed: Fix error "This file type is not allowed for security reasons." when uploading SVG file.

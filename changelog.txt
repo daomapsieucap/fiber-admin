@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.5.10=
+*Release Date - 16 November 2021*
+
+* Changed: Make "Convert email text to link" be compatible with Divi theme.
+
 = 1.5.9=
 *Release Date - 11 November 2021*
 

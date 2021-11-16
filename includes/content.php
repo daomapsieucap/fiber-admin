@@ -12,6 +12,9 @@ class Fiber_Admin_Content{
 		// Convert email text to link
 		if(!fiad_get_miscellaneous_option('disable_email_converter')){
 			add_filter('the_content', array($this, 'fiad_auto_convert_email_address'));
+			
+			// Divi theme
+			add_filter('et_builder_render_layout', array($this, 'fiad_auto_convert_email_address'));
 		}
 		
 		// Content protection
