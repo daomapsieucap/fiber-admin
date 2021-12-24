@@ -62,6 +62,7 @@ class Fiber_Admin_Default{
 			remove_filter('get_the_generator_xhtml', 'wc_generator_tag'); // Woocommerce
 			add_filter('revslider_meta_generator', '__return_empty_string'); // Revolution Slider
 			remove_action('wp_head', 'xforwc__add_meta_information_action', 99); // Product Filter for WooCommerce
+			remove_action('wp_head', array('Redux_Functions_Ex', 'meta_tag')); // WP Mail Logging
 			add_action('wp_head', array($this, 'fiad_remove_meta_generators'), 1); // other plugins
 		}
 		

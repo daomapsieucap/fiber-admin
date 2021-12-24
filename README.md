@@ -28,4 +28,4 @@
 ## Changelog
 
 A complete listing of all notable changes to Fiber Admin are documented
-in [CHANGELOG.md](https://github.com/daomapsieucap/fiber-admin/blob/master/CHANGELOG.md).
+in [CHANGELOG.md](https://github.com/daomapsieucap/fiber-admin/blob/master/changelog.txt).

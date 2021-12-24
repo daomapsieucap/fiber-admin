@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.5.11=
+*Release Date - 24 November 2021*
+
+* Added: Remove meta generator for plugin WP Mail Logging.
+
 = 1.5.10=
 *Release Date - 16 November 2021*
 

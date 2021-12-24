@@ -3,7 +3,7 @@
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Another helpful admin with some extra functions for WordPress backend
- * Version:           1.5.10
+ * Version:           1.5.11
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Dao
@@ -25,7 +25,7 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-define('FIBERADMIN_VERSION', '1.5.10');
+define('FIBERADMIN_VERSION', '1.5.11');
 define("FIBERADMIN_FILENAME", __FILE__);
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
