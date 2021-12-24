@@ -50,3 +50,4 @@ At the first time using this setting, Fiber Admin will ask you to save it first.
 *Release Date - 24 November 2021*
 
 * Added: Remove meta generator for plugin WP Mail Logging.
+* Fixed: Wrong mime type for SVG images.

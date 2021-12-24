@@ -4,6 +4,7 @@
 *Release Date - 24 November 2021*
 
 * Added: Remove meta generator for plugin WP Mail Logging.
+* Fixed: Wrong mime type for SVG images.
 
 = 1.5.10=
 *Release Date - 16 November 2021*

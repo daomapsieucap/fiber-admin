@@ -97,7 +97,7 @@ class Fiber_Admin_Image{
 	}
 	
 	public function fiad_svg_mime_types($mimes){
-		$mimes['svg'] = 'image/svg';
+		$mimes['svg'] = 'image/svg+xml';
 		
 		return $mimes;
 	}
