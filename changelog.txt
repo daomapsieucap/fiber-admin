@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.5.12=
+*Release Date - 28 November 2021*
+
+* Fixed: PHP 8.0 compatibility.
+
 = 1.5.11=
 *Release Date - 24 November 2021*
 
