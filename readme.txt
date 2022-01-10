@@ -50,3 +50,4 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 *Release Date - xx January 2022*
 
 * Fixed: PHP 8.0 compatibility.
+* Fixed: Add missing metadata for SVG images.

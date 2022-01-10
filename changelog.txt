@@ -4,6 +4,7 @@
 *Release Date - xx January 2022*
 
 * Fixed: PHP 8.0 compatibility.
+* Fixed: Add missing metadata for SVG images.
 
 = 1.5.12=
 *Release Date - 28 November 2021*

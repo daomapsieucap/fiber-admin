@@ -42,6 +42,9 @@ class Fiber_Admin_Image{
 			
 			add_filter('wp_handle_upload', array($this, 'fiad_santialize_svg'), 10, 2);
 			add_action("admin_enqueue_scripts", array($this, 'fiad_svg_enqueue_scripts'));
+			
+			// SVG metadata
+			add_filter('wp_update_attachment_metadata', 'fiad_svg_attachment_metadata', 10, 2);
 		}
 	}
 	
@@ -131,6 +134,26 @@ class Fiber_Admin_Image{
 		}
 		
 		return $upload;
+	}
+	
+	public function fiad_svg_attachment_metadata($data, $id){
+		$attachment = get_post($id);
+		$mime_type  = $attachment->post_mime_type;
+		
+		//If the attachment is an SVG
+		if($mime_type == 'image/svg+xml'){
+			//If the svg metadata are empty or the width is empty or the height is empty
+			//then get the attributes from xml.
+			if(empty($data) || empty($data['width']) || empty($data['height'])){
+				$xml            = simplexml_load_file(wp_get_attachment_url($id));
+				$attr           = $xml->attributes();
+				$viewbox        = explode(' ', $attr->viewBox);
+				$data['width']  = isset($attr->width) && preg_match('/\d+/', $attr->width, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[2] : null);
+				$data['height'] = isset($attr->height) && preg_match('/\d+/', $attr->height, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[3] : null);
+			}
+		}
+		
+		return $data;
 	}
 }
 
