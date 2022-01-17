@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.5.14=
+*Release Date - 17 January 2022*
+
+* Added: Santialize SVG automatically.
+
 = 1.5.13=
 *Release Date - 11 January 2022*
 

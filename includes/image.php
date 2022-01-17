@@ -40,8 +40,8 @@ class Fiber_Admin_Image{
 			add_filter('upload_mimes', array($this, 'fiad_svg_mime_types'));
 			add_action('admin_head', array($this, 'fiad_fix_svg_display'));
 			
-			add_filter('wp_handle_upload', array($this, 'fiad_santialize_svg'), 10, 2);
 			add_action("admin_enqueue_scripts", array($this, 'fiad_svg_enqueue_scripts'));
+			add_filter('wp_handle_upload_prefilter', array($this, 'fiad_check_for_svg'));
 			
 			// SVG metadata
 			add_filter('wp_update_attachment_metadata', 'fiad_svg_attachment_metadata', 10, 2);
@@ -100,7 +100,8 @@ class Fiber_Admin_Image{
 	}
 	
 	public function fiad_svg_mime_types($mimes){
-		$mimes['svg'] = 'image/svg+xml';
+		$mimes['svg']  = 'image/svg+xml';
+		$mimes['svgz'] = 'image/svg+xml';
 		
 		return $mimes;
 	}
@@ -112,28 +113,6 @@ class Fiber_Admin_Image{
 		      height: auto !important;
 		    }
 		  </style>';
-	}
-	
-	public function fiad_santialize_svg($upload, $context){
-		
-		$type = $upload['type'];
-		if($type == 'image/svg'){
-			$file_path = $upload['file'];
-			$file_url  = $upload['url'];
-			
-			// Create a new sanitizer instance
-			$sanitizer = new Sanitizer();
-			
-			// Load the dirty svg
-			$dirtySVG = file_get_contents($file_url);
-			
-			// Pass it to the sanitizer and get it back clean
-			$cleanSVG = $sanitizer->sanitize($dirtySVG);
-			
-			file_put_contents($file_path, $cleanSVG);
-		}
-		
-		return $upload;
 	}
 	
 	public function fiad_svg_attachment_metadata($data, $id){
@@ -154,6 +133,32 @@ class Fiber_Admin_Image{
 		}
 		
 		return $data;
+	}
+	
+	public function fiad_check_for_svg($file){
+		if($file['type'] == 'image/svg+xml'){
+			if(!$this->fiad_santialize_svg($file['tmp_name'])){
+				$file['error'] = __("Sorry, this file couldn't be sanitized so for security reasons wasn't uploaded",
+					'safe-svg');
+			}
+		}
+		
+		return $file;
+	}
+	
+	protected function fiad_santialize_svg($file_path){
+		// Create a new sanitizer instance
+		$sanitizer = new Sanitizer();
+		
+		// Load the dirty svg
+		$dirtySVG = file_get_contents($file_path);
+		
+		// Pass it to the sanitizer and get it back clean
+		$cleanSVG = $sanitizer->sanitize($dirtySVG);
+		
+		file_put_contents($file_path, $cleanSVG);
+		
+		return true;
 	}
 }
 
