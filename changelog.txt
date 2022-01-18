@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.5.15 =
+*Release Date - 18 January 2022*
+
+* Fixed: Fix bug can't update favicon when enable SVG image.
+
 = 1.5.14=
 *Release Date - 17 January 2022*
 

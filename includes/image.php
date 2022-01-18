@@ -44,7 +44,9 @@ class Fiber_Admin_Image{
 			add_filter('wp_handle_upload_prefilter', array($this, 'fiad_check_for_svg'));
 			
 			// SVG metadata
-			add_filter('wp_update_attachment_metadata', 'fiad_svg_attachment_metadata', 10, 2);
+			add_filter('wp_get_attachment_metadata', array($this, 'fiad_svg_attachment_metadata'), 10, 2);
+			// Fix the output of images using wp_get_attachment_image
+			add_filter('wp_get_attachment_image_attributes', array($this, 'fiad_svg_image_attributes'), 10, 3);
 		}
 	}
 	
@@ -133,6 +135,60 @@ class Fiber_Admin_Image{
 		}
 		
 		return $data;
+	}
+	
+	public function fiad_svg_image_attributes($attr, $attachment, $size = 'thumbnail'){
+		
+		// If we're not getting a WP_Post object, bail early.
+		// @see https://wordpress.org/support/topic/notice-trying-to-get-property-id/
+		if(!$attachment instanceof WP_Post){
+			return $attr;
+		}
+		
+		$mime = get_post_mime_type($attachment->ID);
+		if('image/svg+xml' === $mime){
+			$default_height = 100;
+			$default_width  = 100;
+			
+			$dimensions = $this->fiad_get_svg_dimensions(get_attached_file($attachment->ID));
+			
+			if($dimensions){
+				$default_height = $dimensions['height'];
+				$default_width  = $dimensions['width'];
+			}
+			
+			$attr['height'] = $default_height;
+			$attr['width']  = $default_width;
+		}
+		
+		return $attr;
+	}
+	
+	protected function fiad_get_svg_dimensions($svg){
+		$svg    = @simplexml_load_file($svg);
+		$width  = 0;
+		$height = 0;
+		if($svg){
+			$attributes = $svg->attributes();
+			if(isset($attributes->width, $attributes->height) && is_numeric($attributes->width) && is_numeric($attributes->height)){
+				$width  = floatval($attributes->width);
+				$height = floatval($attributes->height);
+			}elseif(isset($attributes->viewBox)){
+				$sizes = explode(' ', $attributes->viewBox);
+				if(isset($sizes[2], $sizes[3])){
+					$width  = floatval($sizes[2]);
+					$height = floatval($sizes[3]);
+				}
+			}else{
+				return false;
+			}
+		}
+		
+		return array(
+			'width'       => $width,
+			'height'      => $height,
+			'orientation' => ($width > $height) ? 'landscape' : 'portrait'
+		);
 	}
 	
 	public function fiad_check_for_svg($file){
