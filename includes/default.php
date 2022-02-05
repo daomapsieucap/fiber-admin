@@ -64,6 +64,9 @@ class Fiber_Admin_Default{
 			remove_action('wp_head', 'xforwc__add_meta_information_action', 99); // Product Filter for WooCommerce
 			remove_action('wp_head', array('Redux_Functions_Ex', 'meta_tag')); // WP Mail Logging
 			add_action('wp_head', array($this, 'fiad_remove_meta_generators'), 1); // other plugins
+			
+			// Add favicon to admin bar logo
+			add_action('admin_head', array($this, 'fiad_favicon_admin_logo'));
 		}
 		
 		// disable auto update
@@ -151,6 +154,16 @@ class Fiber_Admin_Default{
 			global $sitepress;
 			remove_action('wp_head', array($sitepress, 'meta_generator_tag'));
 		}
+	}
+	
+	public function fiad_favicon_admin_logo(){
+		echo '<style>
+			   .wp-admin #wpadminbar #wp-admin-bar-site-name>.ab-item:before{
+			  	content:"";
+			  	background:transparent url("'.get_site_icon_url().'") no-repeat center/contain !important;
+			  	width: 20px; height: 20px;
+			   }
+			  </style>';
 	}
 }
 
