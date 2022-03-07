@@ -2,7 +2,7 @@
 Contributors: daomapsieucap
 Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 5.9
+Tested up to: 5.9.1
 Requires PHP: 5.6
 Stable tag: 1.6.0
 License: GPLv2 or later
