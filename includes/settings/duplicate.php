@@ -58,7 +58,7 @@ class Fiber_Admin_Setting_Duplicate{
 		
 		add_settings_field(
 			'post_types', // id
-			'Post Types', // title
+			'Exclude Post Types', // title
 			array($this, 'fiad_duplicate_post_types'), // callback
 			'fiber-admin-duplicate', // page
 			'fiad_duplicate_section' // section
@@ -77,7 +77,8 @@ class Fiber_Admin_Setting_Duplicate{
 		?>
         <fieldset>
             <label for="post_types">
-                <select class="fiber-admin-selection--multiple" id="post_types" name='fiad_duplicate[post_types][]'
+                <select class="fiber-admin-selection--multiple" id="post_types"
+                        name='fiad_duplicate[exclude_post_types][]'
                         multiple>
 					<?php
 					if($post_types){
@@ -85,8 +86,7 @@ class Fiber_Admin_Setting_Duplicate{
 							if($slug == 'attachment'){
 								continue;
 							}
-							$list[$slug] = $post_type->label;
-							$selected    = '';
+							$selected = '';
 							if(in_array($slug, $selected_post_types)){
 								$selected = 'selected';
 							}

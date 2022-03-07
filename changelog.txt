@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.7.0 =
+*Release Date - 07 March 2022*
+
+* Changed: Enable duplicate post as default.
+* Changed: Code improvement.
+
 = 1.6.0 =
 *Release Date - 05 February 2022*
 

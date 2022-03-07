@@ -46,8 +46,8 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 1.6.0 =
-*Release Date - 05 February 2022*
+= 1.7.0 =
+*Release Date - 07 March 2022*
 
-* Changed: WordPress 5.9 compatibility.
-* Added: Use favicon for admin bar logo.
+* Changed: Enable duplicate post as default.
+* Changed: Code improvement.

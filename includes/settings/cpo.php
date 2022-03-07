@@ -161,8 +161,7 @@ class Fiber_Admin_Setting_CPO{
 					if($taxonomies){
 						foreach($taxonomies as $slug => $taxonomy){
 							if(!in_array($slug, $exclude_slugs)){
-								$list[$slug] = $taxonomy->label;
-								$selected    = '';
+								$selected = '';
 								if(in_array($slug, $selected_taxonomies)){
 									$selected = 'selected';
 								}

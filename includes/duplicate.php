@@ -34,17 +34,21 @@ class Fiber_Admin_Duplicate{
 	}
 	
 	public function fiad_duplicate_link($actions, $post){
-		$duplicate_post_types = fiad_get_duplicate_option('post_types');
-		if(!$duplicate_post_types){
-			return $actions;
-		}
+		$duplicate_post_types = fiad_get_duplicate_option('exclude_post_types');
 		
 		if(!current_user_can('edit_posts')){
 			return $actions;
 		}
 		
+		$duplicate_enable = false;
+		if(empty($duplicate_post_types)){
+			$duplicate_enable = true;
+		}elseif(!in_array($post->post_type, $duplicate_post_types)){
+			$duplicate_enable = true;
+		}
+		
 		//check for your post type
-		if(in_array($post->post_type, $duplicate_post_types)){
+		if($duplicate_enable){
 			$url = wp_nonce_url(
 				add_query_arg(
 					array(

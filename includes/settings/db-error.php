@@ -49,15 +49,18 @@ class Fiber_Admin_DB_Error_Settings{
 				?>
 
                 <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
+				
 				<?php
 				if(!fiad_check_db_error_file()){
 					?>
                     <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
 					<?php
 				}else{
+					$txt_preview = __('Preview', 'fiber-admin');
 					?>
-                    <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank">
-						<?php echo __('Preview', 'fiber-admin'); ?>
+                    <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank"
+                       title="<?php echo $txt_preview; ?>">
+						<?php echo $txt_preview; ?>
                     </a>
 					<?php
 				}
