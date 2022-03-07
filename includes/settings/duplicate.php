@@ -70,14 +70,14 @@ class Fiber_Admin_Setting_Duplicate{
 	
 	public function fiad_duplicate_post_types(){
 		$post_types          = get_post_types(array('public' => true), 'objects');
-		$selected_post_types = fiad_get_duplicate_option('post_types');
+		$selected_post_types = fiad_get_duplicate_option('exclude_post_types');
 		if(!$selected_post_types){
 			$selected_post_types = array();
 		}
 		?>
         <fieldset>
             <label for="post_types">
-                <select class="fiber-admin-selection--multiple" id="post_types"
+                <select class="fiber-admin-selection--multiple" id="exclude_post_types"
                         name='fiad_duplicate[exclude_post_types][]'
                         multiple>
 					<?php
