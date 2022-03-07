@@ -40,6 +40,12 @@ class Fiber_Admin_Duplicate{
 			return $actions;
 		}
 		
+		// exclude Woocommerce products
+		if(is_plugin_active('woocommerce/woocommerce.php') && $post->post_type == 'product'){
+			return $actions;
+		}
+		
+		// check duplicate settings
 		$duplicate_enable = false;
 		if(empty($duplicate_post_types)){
 			$duplicate_enable = true;
