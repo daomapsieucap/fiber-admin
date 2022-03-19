@@ -3,7 +3,7 @@
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Another helpful admin with some extra functions for WordPress backend
- * Version:           1.7.0
+ * Version:           2.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Dao
@@ -25,7 +25,7 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-const FIBERADMIN_VERSION  = '1.7.0';
+const FIBERADMIN_VERSION  = '2.0.0';
 const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
@@ -45,8 +45,8 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/settings/white-label.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/cpo.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
-	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/db-error.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
 	
 	//default functions
 	include_once(FIBERADMIN_DIR . 'includes/default.php');

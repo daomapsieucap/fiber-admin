@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 2.0.0 =
+*Release Date - xx March 2022*
+
+* New: Move Fiber Admin setting menu to Settings.
+* New: Upgrade setting UI to tabs.
+
 = 1.7.0 =
 *Release Date - 07 March 2022*
 

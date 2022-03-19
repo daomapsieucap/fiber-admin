@@ -9,37 +9,6 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Miscellaneous{
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_miscellaneous'));
-		add_action('admin_init', array($this, 'fiad_miscellaneous_init'));
-	}
-	
-	public function fiad_miscellaneous(){
-		add_submenu_page(
-			'fiber-admin',
-			'Fiber Admin Miscellaneous',
-			'Miscellaneous',
-			'manage_options',
-			'fiber-admin-miscellaneous',
-			array($this, 'fiad_miscellaneous_page')
-		);
-	}
-	
-	public function fiad_miscellaneous_page(){
-		?>
-        <div class="wrap">
-            <h2>Fiber Admin Miscellaneous</h2>
-			<?php settings_errors(); ?>
-
-            <form class="fiber-admin" method="post" action="options.php">
-				<?php
-				settings_fields('fiad_miscellaneous_group');
-				do_settings_sections('fiber-admin-miscellaneous');
-				
-				submit_button();
-				?>
-            </form>
-        </div>
-		<?php
 	}
 	
 	public function fiad_miscellaneous_init(){
@@ -243,5 +212,3 @@ class Fiber_Admin_Miscellaneous{
 		<?php
 	}
 }
-
-new Fiber_Admin_Miscellaneous();

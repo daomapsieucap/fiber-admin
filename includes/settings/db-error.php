@@ -10,8 +10,6 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_DB_Error_Settings{
 	
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_db_error'));
-		add_action('admin_init', array($this, 'fiad_db_error_page_init'));
 	}
 	
 	public function fiad_db_error(){
@@ -34,7 +32,7 @@ class Fiber_Admin_DB_Error_Settings{
 				if(DISALLOW_FILE_EDIT){
 					add_settings_error(
 						'fiad_db_error_group',
-						'fiad-db-error',
+						'fiber-admin-db-error',
 						__("If you're using some security plugins that disable WordPress file editor for plugins and themes, please disable this option and re-save Fiber Admin DB Error again. You can enable the security option for File Editor again after the Preview button is displayed.", "fiber-admin")
 					);
 				}
@@ -45,7 +43,7 @@ class Fiber_Admin_DB_Error_Settings{
             <form class="fiber-admin" method="post" action="options.php">
 				<?php
 				settings_fields('fiad_db_error_group');
-				do_settings_sections('fiad-db-error');
+				do_settings_sections('fiber-admin-db-error');
 				?>
 
                 <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
@@ -81,14 +79,14 @@ class Fiber_Admin_DB_Error_Settings{
 			'fiad_db_error_section',
 			'<span class="dashicons dashicons-admin-generic"></span> General',
 			array($this, 'fiad_section_info'),
-			'fiad-db-error'
+			'fiber-admin-db-error'
 		);
 		
 		add_settings_field(
 			'db_error_enable', // id
 			'Activate', // title
 			array($this, 'fiad_db_error_enable'), // callback
-			'fiad-db-error', // page
+			'fiber-admin-db-error', // page
 			'fiad_db_error_section' // section
 		);
 		
@@ -96,7 +94,7 @@ class Fiber_Admin_DB_Error_Settings{
 			'db_error_title',
 			'Title',
 			array($this, 'fiad_db_error_title'),
-			'fiad-db-error',
+			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
 		
@@ -104,7 +102,7 @@ class Fiber_Admin_DB_Error_Settings{
 			'db_error_logo',
 			'Logo',
 			array($this, 'fiad_db_error_logo'),
-			'fiad-db-error',
+			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
 		
@@ -112,7 +110,7 @@ class Fiber_Admin_DB_Error_Settings{
 			'db_error_logo_size',
 			'Logo size',
 			array($this, 'fiad_db_error_logo_size'),
-			'fiad-db-error',
+			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
 		
@@ -120,7 +118,7 @@ class Fiber_Admin_DB_Error_Settings{
 			'db_error_bg_color',
 			'Background Color',
 			array($this, 'fiad_db_error_bg'),
-			'fiad-db-error',
+			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
 		
@@ -128,7 +126,7 @@ class Fiber_Admin_DB_Error_Settings{
 			'db_error_message',
 			'Error Message',
 			array($this, 'fiad_db_error_message'),
-			'fiad-db-error',
+			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
 		
@@ -136,7 +134,7 @@ class Fiber_Admin_DB_Error_Settings{
 			'db_error_extra_css',
 			'Extra CSS',
 			array($this, 'fiad_db_error_extra_css'),
-			'fiad-db-error',
+			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
 	}
@@ -239,5 +237,3 @@ class Fiber_Admin_DB_Error_Settings{
 		<?php
 	}
 }
-
-new Fiber_Admin_DB_Error_Settings();

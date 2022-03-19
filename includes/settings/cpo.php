@@ -9,37 +9,6 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Setting_CPO{
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_cpo'));
-		add_action('admin_init', array($this, 'fiad_cpo_init'));
-	}
-	
-	public function fiad_cpo(){
-		add_submenu_page(
-			'fiber-admin',
-			'Fiber Admin Custom Post Order',
-			'Custom Post Order',
-			'manage_options',
-			'fiber-admin-cpo',
-			array($this, 'fiad_cpo_page')
-		);
-	}
-	
-	public function fiad_cpo_page(){
-		?>
-        <div class="wrap">
-            <h2>Fiber Admin Custom Post Order</h2>
-			<?php settings_errors(); ?>
-
-            <form class="fiber-admin" method="post" action="options.php">
-				<?php
-				settings_fields('fiad_cpo_group');
-				do_settings_sections('fiber-admin-cpo');
-				
-				submit_button();
-				?>
-            </form>
-        </div>
-		<?php
 	}
 	
 	public function fiad_cpo_init(){
@@ -105,8 +74,7 @@ class Fiber_Admin_Setting_CPO{
 					<?php
 					if($post_types){
 						foreach($post_types as $slug => $post_type){
-							$list[$slug] = $post_type->label;
-							$selected    = '';
+							$selected = '';
 							if(in_array($slug, $selected_post_types)){
 								$selected = 'selected';
 							}
@@ -194,5 +162,3 @@ class Fiber_Admin_Setting_CPO{
 		<?php
 	}
 }
-
-new Fiber_Admin_Setting_CPO();

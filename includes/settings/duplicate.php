@@ -9,37 +9,6 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Setting_Duplicate{
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_duplicate'));
-		add_action('admin_init', array($this, 'fiad_duplicate_init'));
-	}
-	
-	public function fiad_duplicate(){
-		add_submenu_page(
-			'fiber-admin',
-			'Fiber Admin Duplicate Post',
-			'Duplicate Post',
-			'manage_options',
-			'fiber-admin-duplicate',
-			array($this, 'fiad_duplicate_page')
-		);
-	}
-	
-	public function fiad_duplicate_page(){
-		?>
-        <div class="wrap">
-            <h2>Fiber Admin Duplicate Post</h2>
-			<?php settings_errors(); ?>
-
-            <form class="fiber-admin" method="post" action="options.php">
-				<?php
-				settings_fields('fiad_duplicate_group');
-				do_settings_sections('fiber-admin-duplicate');
-				
-				submit_button();
-				?>
-            </form>
-        </div>
-		<?php
 	}
 	
 	public function fiad_duplicate_init(){
@@ -105,5 +74,3 @@ class Fiber_Admin_Setting_Duplicate{
 		<?php
 	}
 }
-
-new Fiber_Admin_Setting_Duplicate();

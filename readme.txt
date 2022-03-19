@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.9.1
 Requires PHP: 5.6
-Stable tag: 1.7.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,8 +46,8 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 1.7.0 =
-*Release Date - 07 March 2022*
+= 2.0.0 =
+*Release Date - xx March 2022*
 
-* Changed: Enable duplicate post as default.
-* Changed: Code improvement.
+* New: Move Fiber Admin setting menu to Settings.
+* New: Upgrade setting UI to tabs.

@@ -10,64 +10,28 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_White_Label_Settings{
 	
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_white_label'));
-		add_action('admin_init', array($this, 'fiad_page_init'));
+	}
+	
+	public function fiad_enqueue_scripts(){
+		// Upload field
+		wp_enqueue_media();
 		
-		// Register scripts
-		add_action("admin_enqueue_scripts", array($this, 'fiad_enqueue_scripts'));
-	}
-	
-	public function fiad_enqueue_scripts($hook_suffix){
-		if(strpos($hook_suffix, 'fiber-admin') !== false){
-			// Upload field
-			wp_enqueue_media();
-			
-			// Color picker field
-			wp_enqueue_style('wp-color-picker');
-			wp_enqueue_script('wp-color-picker');
-			
-			// Plugin scripts
-			$suffix = '';
-			if(!FIBERADMIN_DEV_MODE){
-				$suffix = '.min';
-			}
-			wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', array('jquery'), FIBERADMIN_VERSION);
+		// Color picker field
+		wp_enqueue_style('wp-color-picker');
+		wp_enqueue_script('wp-color-picker');
+		
+		// Plugin scripts
+		$suffix = '';
+		if(!FIBERADMIN_DEV_MODE){
+			$suffix = '.min';
 		}
-	}
-	
-	public function fiad_white_label(){
-		add_submenu_page(
-			'fiber-admin',
-			'Fiber Admin White Label',
-			'White Label',
-			'manage_options',
-			'fiber-admin',
-			array($this, 'fiad_white_label_page')
-		);
-	}
-	
-	public function fiad_white_label_page(){
-		?>
-        <div class="wrap">
-            <h2>Fiber Admin White Label</h2>
-			<?php settings_errors(); ?>
-
-            <form class="fiber-admin" method="post" action="options.php">
-				<?php
-				settings_fields('fiad_white_label_group');
-				do_settings_sections('fiber-admin');
-				
-				submit_button();
-				?>
-            </form>
-        </div>
-		<?php
+		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', array('jquery'), FIBERADMIN_VERSION);
 	}
 	
 	public function fiad_page_init(){
 		register_setting(
 			'fiad_white_label_group',
-			'fiber_admin',
+			'fiber-admin-white-label',
 			array($this, 'sanitize_text_field')
 		);
 		
@@ -75,14 +39,14 @@ class Fiber_Admin_White_Label_Settings{
 			'fiad_branding_section',
 			'<span class="dashicons dashicons-wordpress"></span> Branding',
 			array($this, 'fiad_section_info'),
-			'fiber-admin'
+			'fiber-admin-white-label'
 		);
 		
 		add_settings_field(
 			'hide_wordpress_branding', // id
 			'Hide WordPress Branding', // title
 			array($this, 'fiad_hide_wordpress_branding'), // callback
-			'fiber-admin', // page
+			'fiber-admin-white-label', // page
 			'fiad_branding_section' // section
 		);
 		
@@ -90,14 +54,14 @@ class Fiber_Admin_White_Label_Settings{
 			'fiad_white_label_section',
 			'<span class="dashicons dashicons-admin-network"></span> Login',
 			array($this, 'fiad_section_info'),
-			'fiber-admin'
+			'fiber-admin-white-label'
 		);
 		
 		add_settings_field(
 			'login_logo',
 			'Logo',
 			array($this, 'fiad_login_logo'),
-			'fiber-admin',
+			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
 		
@@ -105,7 +69,7 @@ class Fiber_Admin_White_Label_Settings{
 			'login_logo_size',
 			'Logo size',
 			array($this, 'fiad_login_logo_size'),
-			'fiber-admin',
+			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
 		
@@ -113,7 +77,7 @@ class Fiber_Admin_White_Label_Settings{
 			'login_bg_color',
 			'Background Color / Image',
 			array($this, 'fiad_login_bg'),
-			'fiber-admin',
+			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
 		
@@ -121,7 +85,7 @@ class Fiber_Admin_White_Label_Settings{
 			'form_color',
 			'Form',
 			array($this, 'fiad_form'),
-			'fiber-admin',
+			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
 		
@@ -129,7 +93,7 @@ class Fiber_Admin_White_Label_Settings{
 			'login_extra_css',
 			'Extra CSS',
 			array($this, 'fiad_login_extra_css'),
-			'fiber-admin',
+			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
 	}
@@ -249,5 +213,3 @@ class Fiber_Admin_White_Label_Settings{
 		<?php
 	}
 }
-
-new Fiber_Admin_White_Label_Settings();
