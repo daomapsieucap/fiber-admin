@@ -8,7 +8,7 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Another admin tool with some extra functions for WordPress backend.
+Bring multiple customizations features to make your own WordPress admin.
 
 **FEATURES**
 
