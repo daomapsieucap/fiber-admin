@@ -90,6 +90,14 @@ class Fiber_Admin_White_Label_Settings{
 		);
 		
 		add_settings_field(
+			'link_color',
+			'Link',
+			array($this, 'fiad_link'),
+			'fiber-admin-white-label',
+			'fiad_white_label_section'
+		);
+		
+		add_settings_field(
 			'login_extra_css',
 			'Extra CSS',
 			array($this, 'fiad_login_extra_css'),
@@ -189,17 +197,23 @@ class Fiber_Admin_White_Label_Settings{
                    type="text"
                    value="<?php echo esc_attr(fiad_get_general_option('form_btn_text_color')); ?>"/>
             <br/>
-            <label class="fiber-admin-input__label"
-                   for="form_link_color"><?php echo __('Link Color', 'fiber-admin'); ?></label>
-            <input id="form_link_color" class="fiber-color-field" name="fiber_admin[form_link_color]" type="text"
-                   value="<?php echo esc_attr(fiad_get_general_option('form_link_color')); ?>"/>
-            <br/>
             <div class="fiber-admin-input__label"><?php echo __('Disable Form Border', 'fiber-admin'); ?></div>
             <label for="form_disable_border" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin[form_disable_border]" id="form_disable_border"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('form_disable_border')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_link(){
+		?>
+        <fieldset class="fiber-admin-input__multiples fiber-color-group">
+            <label class="fiber-admin-input__label"
+                   for="form_link_color"><?php echo __('Privacy Link Color', 'fiber-admin'); ?></label>
+            <input id="form_link_color" class="fiber-color-field" name="fiber_admin[link_color]" type="text"
+                   value="<?php echo esc_attr(fiad_get_general_option('link_color')); ?>"/>
         </fieldset>
 		<?php
 	}

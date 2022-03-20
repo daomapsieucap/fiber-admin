@@ -11,7 +11,7 @@ class Fiber_Admin_Setting{
 	
 	public function __construct(){
 		add_action('admin_menu', array($this, 'fiad_setting'));
-		//add_action('admin_init', array($this, 'fiad_setting_init'));
+		add_action('admin_init', array($this, 'fiad_setting_init'));
 		
 		// register styles
 		add_action("admin_enqueue_scripts", array($this, 'fiad_styles'));
@@ -20,6 +20,19 @@ class Fiber_Admin_Setting{
 	public function fiad_styles($hook_suffix){
 		if(strpos($hook_suffix, 'fiber-admin') !== false){
 			wp_enqueue_style('fiber-admin', FIBERADMIN_ASSETS_URL . 'css/fiber-admin.css', false, FIBERADMIN_VERSION);
+		}
+	}
+	
+	public function fiad_setting_init(){
+		if(isset($_POST['fiber-admin-submit'])){
+			check_admin_referer("fiber-admin");
+			$this->fiad_save_options();
+			$updated_parameters = 'updated=true';
+			if(isset($_GET['tab'])){
+				$updated_parameters = 'updated=true&tab=' . $_GET['tab'];
+			}
+			wp_redirect(admin_url('options-general.php?page=fiber-admin&' . $updated_parameters));
+			exit;
 		}
 	}
 	
@@ -40,6 +53,11 @@ class Fiber_Admin_Setting{
 			return;
 		}
 		
+		$form_action = admin_url("options-general.php?page=fiber-admin");
+		if(isset ($_GET['tab'])){
+			$form_action = admin_url("options-general.php?page=fiber-admin&tab=" . $_GET['tab']);
+		}
+		
 		// nav
 		echo '<nav class="nav-tab-wrapper">';
 		if(isset ($_GET['tab'])){
@@ -51,7 +69,8 @@ class Fiber_Admin_Setting{
 		
 		// content
 		echo '<div class="tab-content">';
-		echo '<form class="fiber-admin" method="post" action="options.php">';
+		echo '<form class="fiber-admin" method="POST" action="' . $form_action . '">';
+		wp_nonce_field("fiber-admin");
 		if(isset ($_GET['tab'])){
 			$this->fiad_setting_tab_content($_GET['tab']);
 		}else{
@@ -87,7 +106,10 @@ class Fiber_Admin_Setting{
 				$duplicate->fiad_duplicate_init();
 				break;
 			case 'db-error':
-				$db_error = new Fiber_Admin_DB_Error_Settings();
+				$white_label = new Fiber_Admin_White_Label_Settings();
+				$db_error    = new Fiber_Admin_DB_Error_Settings();
+				
+				$white_label->fiad_enqueue_scripts();
 				$db_error->fiad_db_error_page_init();
 				break;
 			case 'miscellaneous':
@@ -102,7 +124,66 @@ class Fiber_Admin_Setting{
 		}
 		
 		do_settings_sections('fiber-admin-' . $current);
-		submit_button();
+		
+		if($current == 'db-error'){
+			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
+			if(!fiad_check_db_error_file()){
+				?>
+                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
+				<?php
+			}else{
+				$txt_preview = __('Preview', 'fiber-admin');
+				?>
+                <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank"
+                   title="<?php echo $txt_preview; ?>">
+					<?php echo $txt_preview; ?>
+                </a>
+				<?php
+			}
+		}else{
+			submit_button(null, 'primary', 'fiber-admin-submit');
+		}
+	}
+	
+	public function fiad_save_options(){
+		global $pagenow;
+		if($pagenow == 'options-general.php' && $_GET['page'] == 'fiber-admin'){
+			$tab = 'white-label';
+			if(isset ($_GET['tab'])){
+				$tab = $_GET['tab'];
+			}
+			
+			switch($tab){
+				case 'cpo':
+					$option_key = 'fiad_cpo';
+					break;
+				case 'duplicate':
+					$option_key = 'fiad_duplicate';
+					break;
+				case 'db-error':
+					$option_key = 'fiad_db_error';
+					break;
+				case 'miscellaneous':
+					$option_key = 'fiad_miscellaneous';
+					break;
+				default:
+					$option_key = 'fiber_admin';
+					break;
+			}
+			
+			if(isset($_POST[$option_key])){
+				$options = $new_options = $_POST[$option_key];
+				foreach($options as $key => $value){
+					if($key != 'db_error_message' && !is_array($new_options[$key])){
+						$new_options[$key] = sanitize_text_field($value);
+					}
+				}
+			}else{
+				$new_options = array();
+			}
+			
+			update_option($option_key, $new_options);
+		}
 	}
 }
 

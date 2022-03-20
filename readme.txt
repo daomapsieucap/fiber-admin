@@ -51,3 +51,4 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 * New: Move Fiber Admin setting menu to Settings.
 * New: Upgrade setting UI to tabs.
+* Fixed: Fix wrong escape string in Database Error Message.

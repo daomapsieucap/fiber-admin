@@ -12,62 +12,6 @@ class Fiber_Admin_DB_Error_Settings{
 	public function __construct(){
 	}
 	
-	public function fiad_db_error(){
-		add_submenu_page(
-			'fiber-admin',
-			'Database Error Page',
-			'Database Error Page',
-			'manage_options',
-			'fiber-admin-db-error',
-			array($this, 'fiad_db_error_page')
-		);
-	}
-	
-	public function fiad_db_error_page(){
-		?>
-        <div class="wrap">
-            <h2>Database Error Page</h2>
-			<?php
-			if(defined('DISALLOW_FILE_EDIT')){
-				if(DISALLOW_FILE_EDIT){
-					add_settings_error(
-						'fiad_db_error_group',
-						'fiber-admin-db-error',
-						__("If you're using some security plugins that disable WordPress file editor for plugins and themes, please disable this option and re-save Fiber Admin DB Error again. You can enable the security option for File Editor again after the Preview button is displayed.", "fiber-admin")
-					);
-				}
-			}
-			?>
-			<?php settings_errors(); ?>
-
-            <form class="fiber-admin" method="post" action="options.php">
-				<?php
-				settings_fields('fiad_db_error_group');
-				do_settings_sections('fiber-admin-db-error');
-				?>
-
-                <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
-				
-				<?php
-				if(!fiad_check_db_error_file()){
-					?>
-                    <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
-					<?php
-				}else{
-					$txt_preview = __('Preview', 'fiber-admin');
-					?>
-                    <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank"
-                       title="<?php echo $txt_preview; ?>">
-						<?php echo $txt_preview; ?>
-                    </a>
-					<?php
-				}
-				?>
-            </form>
-        </div>
-		<?php
-	}
-	
 	public function fiad_db_error_page_init(){
 		register_setting(
 			'fiad_db_error_group',
@@ -214,14 +158,16 @@ class Fiber_Admin_DB_Error_Settings{
 		?>
         <fieldset class="fiber-admin-editor">
 			<?php
-			$db_error_message      = fiad_get_db_error_option('db_error_message');
+			$db_error_message      = stripslashes(fiad_get_db_error_option('db_error_message'));
 			$default_error_message = "<h4 style='text-align: center;'>503 Service Temporarily Unavailable</h4><p style='text-align: center;'>We're currently experiencing technical issues connecting to the database. Please check back soon.</p>";
-			$db_error_message      = !empty($db_error_message) ? $db_error_message : $default_error_message;
+			if(empty($db_error_message)){
+				$db_error_message = $default_error_message;
+			}
 			wp_editor($db_error_message, 'db_error_message', array(
 				'default_editor' => 'tinymce',
 				'textarea_name'  => 'fiad_db_error[db_error_message]',
 				'media_buttons'  => false,
-				'textarea_rows'  => 5
+				'textarea_rows'  => 5,
 			));
 			?>
         </fieldset>
