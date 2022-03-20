@@ -47,7 +47,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 == Changelog ==
 
 = 2.0.0 =
-*Release Date - xx March 2022*
+*Release Date - 20 March 2022*
 
 * New: Move Fiber Admin setting menu to Settings.
 * New: Upgrade setting UI to tabs.
