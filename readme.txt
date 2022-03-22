@@ -38,11 +38,11 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Screenshots ==
 
-1. Main setting page with multiple options
-2. Miscellaneous page to control some default features
-3. Simple Custom Post Order setting for drag and drop Post Type / Taxonomy Order
-4. Demo of an admin login page customization
-5. Demo of a customized database error page
+1. White Label WordPress settings.
+2. Enable drag and drop post types / taxonomies order.
+3. Enable duplicate post types with single item or bulk action.
+4. 503 Database Error page settings.
+5. Miscellaneous settings.
 
 == Changelog ==
 
