@@ -1,7 +1,7 @@
 {
   "name": "fiber-admin",
   "version": "1.5.3",
-  "description": "Bring multiple customizations features to make your own WordPress admin",
+  "description": "Bring multiple customization features to make your own WordPress admin",
   "main": "gulpfile.js",
   "author": "Dao",
   "devDependencies": {

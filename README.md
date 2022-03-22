@@ -1,6 +1,6 @@
 # [Fiber Admin](https://wordpress.org/plugins/fiber-admin/)
 
-> Bring multiple customizations features to make your own WordPress admin.
+> Bring multiple customization features to make your own WordPress admin.
 
 <img src="https://ps.w.org/fiber-admin/assets/banner-772x250.jpg" />
 

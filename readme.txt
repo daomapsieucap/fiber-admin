@@ -8,7 +8,7 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Bring multiple customizations features to make your own WordPress admin.
+Bring multiple customization features to make your own WordPress admin.
 
 **FEATURES**
 
@@ -28,7 +28,7 @@ Bring multiple customizations features to make your own WordPress admin.
 
 = Why can't I save the settings for Customized WordPress Database Error page? =
 
-At the first time using this setting, Fiber Admin will ask you to save it to create the `db-error.php` file. When your site has some security plugins like iThemes Security or Wordfence Security..., these plugins will have an option to prevent file editor. All you need is disable this option temporarily and save the Fiber Admin Database Error first, then you can activate the option to disable File Editor in security plugins.
+At the first time using this setting, Fiber Admin will ask you to save it to create the db-error.php file. When your site has some security plugins like iThemes Security or Wordfence Security..., these plugins will have an option to prevent file editor. All you need is disable this option temporarily and save the Fiber Admin Database Error first, then you can activate the option to disable File Editor in security plugins.
 
 == Installation ==
 
