@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.9.1
 Requires PHP: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,8 +21,8 @@ Bring multiple customization features to make your own WordPress admin.
 * Duplicate post types with single item or bulk action.
 * Protect your site image by disable right click / drag image into html page *(only for non-admin users)*.
 * Protect your site content by disable these following keys: Ctrl / Cmd + S, Ctrl / Cmd + A, Ctrl / Cmd + C, Ctrl / Cmd + X, Ctrl / Cmd + Shift + I *(only for non-admin users)*.
-* Disable WordPress comments in backend & WordPress Automatic Updates completely as default.
-* Customize WordPress Database Error page.
+* Disable WordPress comments & WordPress Automatic Updates completely as default.
+* Customize 503 Database Error page.
 
 == Frequently Asked Questions ==
 
@@ -46,9 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.0 =
-*Release Date - 20 March 2022*
+= 2.0.1 =
+*Release Date - 22 March 2022*
 
-* New: Move Fiber Admin setting menu to Settings.
-* New: Upgrade setting UI to tabs.
-* Fixed: Fix wrong escape string in Database Error Message.
+* Changed: Add tab setting title.

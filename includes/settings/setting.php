@@ -61,33 +61,43 @@ class Fiber_Admin_Setting{
 		// nav
 		echo '<nav class="nav-tab-wrapper">';
 		if(isset ($_GET['tab'])){
-			$this->fiad_setting_tabs($_GET['tab']);
+			$this->fiad_setting_tab_navs($_GET['tab']);
 		}else{
-			$this->fiad_setting_tabs();
+			$this->fiad_setting_tab_navs();
 		}
 		echo '</nav>';
 		
 		// content
 		echo '<div class="tab-content">';
+		echo '<div class="wrap">';
 		echo '<form class="fiber-admin" method="POST" action="' . $form_action . '">';
+		
 		wp_nonce_field("fiber-admin");
+		
+		$current_tab = 'white-label';
 		if(isset ($_GET['tab'])){
-			$this->fiad_setting_tab_content($_GET['tab']);
-		}else{
-			$this->fiad_setting_tab_content();
+			$current_tab = $_GET['tab'];
 		}
+		echo '<h1>' . $this->fiad_setting_tabs()[$current_tab] . '</h1>';
+		$this->fiad_setting_tab_content($current_tab);
+		
 		echo '</form>';
+		echo '</div>';
 		echo '</div>';
 	}
 	
-	public function fiad_setting_tabs($current = 'white-label'){
-		$tabs = array(
+	public function fiad_setting_tabs(){
+		return array(
 			'white-label'   => 'White Label',
 			'cpo'           => 'Custom Post Order',
 			'duplicate'     => 'Duplicate Post',
 			'db-error'      => 'Database Error',
 			'miscellaneous' => 'Miscellaneous',
 		);
+	}
+	
+	public function fiad_setting_tab_navs($current = 'white-label'){
+		$tabs = $this->fiad_setting_tabs();
 		foreach($tabs as $tab => $name){
 			$class = ($tab == $current) ? ' nav-tab-active' : '';
 			echo "<a class='nav-tab$class' href='?page=fiber-admin&tab=$tab' title='$name'>$name</a>";
