@@ -3,8 +3,8 @@ Contributors: daomapsieucap
 Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.9.1
-Requires PHP: 7.3
-Stable tag: 2.0.1
+Requires PHP: 7.0
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.1 =
-*Release Date - 22 March 2022*
+= 2.0.2 =
+*Release Date - xx April 2022*
 
-* Changed: Add tab setting title.
+* Changed: Update require PHP version to 7.0.

@@ -3,9 +3,9 @@
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Bring multiple customization features to make your own WordPress admin.
- * Version:           2.0.1
+ * Version:           2.0.2
  * Requires at least: 5.2
- * Requires PHP:      7.3
+ * Requires PHP:      7.0
  * Author:            Dao
  * Author URI:        https://daochau.com/
  * Text Domain:       fiber-admin
@@ -25,7 +25,7 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-const FIBERADMIN_VERSION  = '2.0.1';
+const FIBERADMIN_VERSION  = '2.0.2';
 const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));

@@ -43,7 +43,7 @@ class Fiber_Admin_Setting{
 			'Fiber Admin',
 			'manage_options',
 			'fiber-admin',
-			array($this, 'fiad_setting_html'),
+			array($this, 'fiad_setting_html')
 		);
 	}
 	
