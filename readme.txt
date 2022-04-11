@@ -47,6 +47,6 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 == Changelog ==
 
 = 2.0.2 =
-*Release Date - xx April 2022*
+*Release Date - 11 April 2022*
 
 * Changed: Update require PHP version to 7.0.
