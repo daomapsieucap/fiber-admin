@@ -45,12 +45,13 @@ class Fiber_Admin_Image{
 			
 			// SVG metadata
 			add_filter('wp_get_attachment_metadata', array($this, 'fiad_svg_attachment_metadata'), 10, 2);
+			add_filter('wp_generate_attachment_metadata', array($this, 'fiad_svg_attachment_metadata'), 10, 2);
 			// Fix the output of images using wp_get_attachment_image
 			add_filter('wp_get_attachment_image_attributes', array($this, 'fiad_svg_image_attributes'), 10, 3);
 		}
 	}
 	
-	public function fiad_svg_enqueue_scripts($hook_suffix){
+	public function fiad_svg_enqueue_scripts(){
 		$screen = get_current_screen();
 		if($screen->id == 'upload'){
 			$suffix = !FIBERADMIN_DEV_MODE ? '.min' : '';
@@ -126,18 +127,21 @@ class Fiber_Admin_Image{
 			//If the svg metadata are empty or the width is empty or the height is empty
 			//then get the attributes from xml.
 			if(empty($data) || empty($data['width']) || empty($data['height'])){
-				$xml            = simplexml_load_file(wp_get_attachment_url($id));
-				$attr           = $xml->attributes();
-				$viewbox        = explode(' ', $attr->viewBox);
-				$data['width']  = isset($attr->width) && preg_match('/\d+/', $attr->width, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[2] : null);
-				$data['height'] = isset($attr->height) && preg_match('/\d+/', $attr->height, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[3] : null);
+				$xml     = simplexml_load_file(wp_get_attachment_url($id));
+				$attr    = $xml->attributes();
+				$viewbox = explode(' ', $attr->viewBox);
+				$width   = isset($attr->width) && preg_match('/\d+/', $attr->width, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[2] : null);
+				$height  = isset($attr->height) && preg_match('/\d+/', $attr->height, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[3] : null);
+				
+				$data['width']  = ceil($width);
+				$data['height'] = ceil($height);
 			}
 		}
 		
 		return $data;
 	}
 	
-	public function fiad_svg_image_attributes($attr, $attachment, $size = 'thumbnail'){
+	public function fiad_svg_image_attributes($attr, $attachment, $size){
 		
 		// If we're not getting a WP_Post object, bail early.
 		// @see https://wordpress.org/support/topic/notice-trying-to-get-property-id/
@@ -157,8 +161,8 @@ class Fiber_Admin_Image{
 				$default_width  = $dimensions['width'];
 			}
 			
-			$attr['height'] = $default_height;
-			$attr['width']  = $default_width;
+			$attr['height'] = ceil($default_height);
+			$attr['width']  = ceil($default_width);
 		}
 		
 		return $attr;
@@ -170,7 +174,7 @@ class Fiber_Admin_Image{
 		$height = 0;
 		if($svg){
 			$attributes = $svg->attributes();
-			if(isset($attributes->width, $attributes->height) && is_numeric($attributes->width) && is_numeric($attributes->height)){
+			if(isset($attributes->width, $attributes->height)){
 				$width  = floatval($attributes->width);
 				$height = floatval($attributes->height);
 			}elseif(isset($attributes->viewBox)){
@@ -185,8 +189,8 @@ class Fiber_Admin_Image{
 		}
 		
 		return array(
-			'width'       => $width,
-			'height'      => $height,
+			'width'       => ceil($width),
+			'height'      => ceil($height),
 			'orientation' => ($width > $height) ? 'landscape' : 'portrait'
 		);
 	}

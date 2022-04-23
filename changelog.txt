@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.3 =
+*Release Date - 23 April 2022*
+
+* Fixed: Round up image size for SVG to be valid with W3C rule.
+
 = 2.0.2 =
 *Release Date - 11 April 2022*
 
