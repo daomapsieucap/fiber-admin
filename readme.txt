@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.9.3
 Requires PHP: 7.0
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.3 =
-*Release Date - 23 April 2022*
+= 2.0.4 =
+*Release Date - 26 April 2022*
 
-* Fixed: Round up image size for SVG to be valid with W3C rule.
+* Fixed: Fix bug with Override Default Query for Post Types doesn't work properly.

@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.4 =
+*Release Date - 26 April 2022*
+
+* Fixed: Fix bug with Override Default Query for Post Types doesn't work properly.
+
 = 2.0.3 =
 *Release Date - 23 April 2022*
 

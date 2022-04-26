@@ -104,21 +104,23 @@ class Fiber_Admin_CPO{
 	}
 	
 	public function fiad_cpo_update_order($query){
-		if($query->is_main_query() && is_admin()){
-			// Change post order by default in admin
-			if(function_exists('get_current_screen')){
-				$screen = get_current_screen();
-				if(fiad_is_screen_sortable() && !$screen->taxonomy){
-					$query->set('orderby', 'menu_order');
-					$query->set('order', 'ASC');
+		if($query->is_main_query()){
+			if(is_admin()){
+				// Change post order by default in admin
+				if(function_exists('get_current_screen')){
+					$screen = get_current_screen();
+					if(fiad_is_screen_sortable() && !$screen->taxonomy){
+						$query->set('orderby', 'menu_order');
+						$query->set('order', 'ASC');
+					}
 				}
-			}
-		}
-		
-		if(!is_admin() && fiad_get_cpo_option('override_default_query') && fiad_get_cpo_option('post_types')){
-			if(is_home() || in_array($query->get('post_type'), fiad_get_cpo_option('post_types'))){
-				$query->set('orderby', 'menu_order');
-				$query->set('order', 'ASC');
+			}else{
+				if(fiad_get_cpo_option('override_default_query') && fiad_get_cpo_option('post_types')){
+					if(is_home() || in_array($query->get('post_type'), fiad_get_cpo_option('post_types'))){
+						$query->set('orderby', 'menu_order');
+						$query->set('order', 'ASC');
+					}
+				}
 			}
 		}
 	}
