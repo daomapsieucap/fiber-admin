@@ -4,7 +4,7 @@ if(!defined('ABSPATH')){
 	exit;
 }
 
-if(fiad_get_miscellaneous_option('enable_svg')){
+if(fiad_get_miscellaneous_option('enable_svg') && !is_plugin_active('svg-support/svg-support.php')){
 	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AttributeInterface.php');
 	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/TagInterface.php');
 	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AllowedAttributes.php');

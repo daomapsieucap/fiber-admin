@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.5 =
+*Release Date - 27 April 2022*
+
+* Fixed: Fix conflicts with SVG Support plugin.
+
 = 2.0.4 =
 *Release Date - 26 April 2022*
 
