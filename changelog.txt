@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.6 =
+*Release Date - 13 May 2022*
+
+* Fixed: Fix duplicate width height attribute for SVG images.
+
 = 2.0.5 =
 *Release Date - 27 April 2022*
 
