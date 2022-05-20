@@ -211,8 +211,8 @@ class Fiber_Admin_White_Label_Settings{
 		?>
         <fieldset class="fiber-admin-input__multiples fiber-color-group">
             <label class="fiber-admin-input__label"
-                   for="form_link_color"><?php echo __('Privacy Link Color', 'fiber-admin'); ?></label>
-            <input id="form_link_color" class="fiber-color-field" name="fiber_admin[link_color]" type="text"
+                   for="link_color"><?php echo __('Link Color', 'fiber-admin'); ?></label>
+            <input id="link_color" class="fiber-color-field" name="fiber_admin[link_color]" type="text"
                    value="<?php echo esc_attr(fiad_get_general_option('link_color')); ?>"/>
         </fieldset>
 		<?php

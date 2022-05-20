@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.7 =
+*Release Date - 20 May 2022*
+
+* Fixed: Fix setting white label link color not working.
+
 = 2.0.6 =
 *Release Date - 13 May 2022*
 

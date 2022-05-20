@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 5.9.3
 Requires PHP: 7.0
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.6 =
-*Release Date - 13 May 2022*
+= 2.0.7 =
+*Release Date - 20 May 2022*
 
-* Fixed: Fix duplicate width height attribute for SVG images.
+* Fixed: Fix setting white label link color not working.

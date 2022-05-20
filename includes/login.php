@@ -97,7 +97,7 @@ class Fiber_Admin_Login{
 		}
 		
 		// Link
-		if($form_link_color = fiad_get_general_option('form_link_color')){
+		if($form_link_color = fiad_get_general_option('link_color')){
 			$form_css .= '#login a{ color: ' . $form_link_color . ';}';
 		}
 		
