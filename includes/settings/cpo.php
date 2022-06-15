@@ -62,7 +62,7 @@ class Fiber_Admin_Setting_CPO{
 	}
 	
 	public function fiad_cpo_post_types(){
-		$post_types          = get_post_types(array('public' => true), 'objects');
+		$post_types          = get_post_types(array('show_ui' => true), 'objects');
 		$selected_post_types = fiad_get_cpo_option('post_types');
 		if(!$selected_post_types){
 			$selected_post_types = array();
