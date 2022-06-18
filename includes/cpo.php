@@ -19,6 +19,7 @@ class Fiber_Admin_CPO{
 		add_action("wp_ajax_nopriv_fiad_cpo_tax_update", array($this, 'fiad_cpo_tax_update'));
 		
 		add_action('pre_get_posts', array($this, 'fiad_cpo_update_order'));
+		add_filter('create_term', array($this, 'fiad_cpo_create_term_order'), 10, 3);
 		add_filter('get_terms_orderby', array($this, 'fiad_cpo_update_term_order'), 10, 3);
 		add_filter('get_terms_args', array($this, 'fiad_get_terms_args'), 10, 2);
 	}
@@ -219,6 +220,31 @@ class Fiber_Admin_CPO{
 		}
 		
 		return $args;
+	}
+	
+	public function fiad_cpo_create_term_order($term_id, $tt_id, $taxonomy){
+		global $wpdb;
+		
+		if(in_array($taxonomy, fiad_get_cpo_option('taxonomies'))){
+			$order_start = 0;
+			
+			// Get minimum item
+			$terms_args = array(
+				'taxonomy'   => $taxonomy,
+				'hide_empty' => false,
+				'number'     => 1,
+				'orderby'    => 'term_order',
+				'order'      => 'ASC',
+				'exclude'    => array($term_id)
+			);
+			
+			$terms = get_terms($terms_args);
+			if(!empty($terms) && !is_wp_error($terms)){
+				$order_start = $terms[0]->term_order;
+			}
+			
+			$wpdb->update($wpdb->terms, array('term_order' => $order_start + 1), array('term_id' => $term_id));
+		}
 	}
 }
 
