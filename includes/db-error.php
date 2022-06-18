@@ -93,7 +93,7 @@ class Fiber_Admin_DB_Error{
 			$html .= '<div class="db-error__error-503"><h1>503</h1></div>';
 			
 			$html .= '<div class="db-error__error-message">';
-			$html .= $db_error_message;
+			$html .= stripslashes($db_error_message);
 			$html .= '</div>';
 			
 			$html .= '</div>'; // db-error__content
