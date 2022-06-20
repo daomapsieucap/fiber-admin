@@ -1,7 +1,7 @@
 == Changelog ==
 
-= 2.1.0 =
-*Release Date - xx June 2022*
+= 2.0.9 =
+*Release Date - 20 June 2022*
 
 * Fixed: Missing `stripslashes` when displaying DB Error message.
 * Fixed: Fix issue custom term order not working when creating new item.
