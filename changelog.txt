@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.10 =
+*Release Date - 25 July 2022*
+
+* Fixed: Fix issue showing error in custom taxonomies when option Custom Taxonomy Order is not enabled.
+
 = 2.0.9 =
 *Release Date - 20 June 2022*
 

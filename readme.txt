@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 5.9.3
+Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 2.0.9
+Stable tag: 2.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,8 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.9 =
-*Release Date - 20 June 2022*
+= 2.0.10 =
+*Release Date - 25 July 2022*
 
-* Fixed: Missing `stripslashes` when displaying DB Error message.
-* Fixed: Fix issue custom term order not working when creating new item.
+* Fixed: Fix issue showing error in custom taxonomies when option Custom Taxonomy Order is not enabled.

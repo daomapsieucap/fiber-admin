@@ -223,6 +223,10 @@ class Fiber_Admin_CPO{
 	}
 	
 	public function fiad_cpo_create_term_order($term_id, $tt_id, $taxonomy){
+		if(!fiad_get_cpo_option('taxonomies')){
+			return false;
+		}
+		
 		global $wpdb;
 		
 		if(in_array($taxonomy, fiad_get_cpo_option('taxonomies'))){
@@ -245,6 +249,8 @@ class Fiber_Admin_CPO{
 			
 			$wpdb->update($wpdb->terms, array('term_order' => $order_start + 1), array('term_id' => $term_id));
 		}
+		
+		return false;
 	}
 }
 
