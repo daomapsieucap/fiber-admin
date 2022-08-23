@@ -70,9 +70,8 @@ class Fiber_Admin_Image{
 			$fiber_image_title = ucwords(strtolower($fiber_image_title));
 			
 			$fiber_image_meta = array(
-				'ID'           => $post_id,
-				'post_title'   => $fiber_image_title,
-				'post_excerpt' => $fiber_image_title,
+				'ID'         => $post_id,
+				'post_title' => $fiber_image_title,
 			);
 			
 			update_post_meta($post_id, '_wp_attachment_image_alt', $fiber_image_title);
