@@ -12,6 +12,7 @@ class Fiber_Admin_CPO{
 		add_action('load-edit.php', array($this, 'fiad_cpo_scripts'));
 		add_action('admin_enqueue_scripts', array($this, 'fiad_cpo_scripts'));
 		
+		add_action('wp_insert_post', array($this, 'fiad_cpo_insert'), 10, 3);
 		add_action("wp_ajax_fiad_cpo_update", array($this, 'fiad_cpo_update'));
 		add_action("wp_ajax_nopriv_fiad_cpo_update", array($this, 'fiad_cpo_update'));
 		
@@ -102,6 +103,31 @@ class Fiber_Admin_CPO{
 		}
 		
 		die();
+	}
+	
+	public function fiad_cpo_insert($post_id, $post, $update){
+		if(!$update){
+			global $wpdb;
+			$order_start = 0;
+			
+			$pre_posts_args  = array(
+				'post_type'        => $post->post_type,
+				'posts_per_page'   => 1,
+				'post_status'      => 'publish',
+				'orderby'          => 'menu_order',
+				'order'            => 'DESC',
+				'suppress_filters' => false,
+				'fields'           => 'ids'
+			);
+			$pre_posts_query = new WP_Query($pre_posts_args);
+			if($pre_posts_query->have_posts()){
+				$order_start_id   = $pre_posts_query->posts[0];
+				$order_start_post = get_post($order_start_id);
+				$order_start      = $order_start_post->menu_order;
+			}
+			
+			$wpdb->update($wpdb->posts, array('menu_order' => $order_start + 1), array('ID' => intval($post_id)));
+		}
 	}
 	
 	public function fiad_cpo_update_order($query){
@@ -238,7 +264,7 @@ class Fiber_Admin_CPO{
 				'hide_empty' => false,
 				'number'     => 1,
 				'orderby'    => 'term_order',
-				'order'      => 'ASC',
+				'order'      => 'DESC',
 				'exclude'    => array($term_id)
 			);
 			
