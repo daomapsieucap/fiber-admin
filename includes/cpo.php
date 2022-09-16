@@ -110,23 +110,25 @@ class Fiber_Admin_CPO{
 			global $wpdb;
 			$order_start = 0;
 			
-			$pre_posts_args  = array(
+			$wpdb->update($wpdb->posts, array('menu_order' => $order_start), array('ID' => intval($post_id)));
+			
+			$update_posts_args  = array(
 				'post_type'        => $post->post_type,
-				'posts_per_page'   => 1,
+				'posts_per_page'   => - 1,
 				'post_status'      => 'publish',
 				'orderby'          => 'menu_order',
-				'order'            => 'DESC',
+				'order'            => 'ASC',
+				'post__not_in'     => array($post_id),
 				'suppress_filters' => false,
 				'fields'           => 'ids'
 			);
-			$pre_posts_query = new WP_Query($pre_posts_args);
-			if($pre_posts_query->have_posts()){
-				$order_start_id   = $pre_posts_query->posts[0];
-				$order_start_post = get_post($order_start_id);
-				$order_start      = $order_start_post->menu_order;
+			$update_posts_query = new WP_Query($update_posts_args);
+			if($update_posts_query->have_posts()){
+				foreach($update_posts_query->posts as $index => $id){
+					$wpdb->update($wpdb->posts, array('menu_order' => intval($index + 1)), array('ID' => intval($id)));
+					$order_start ++;
+				}
 			}
-			
-			$wpdb->update($wpdb->posts, array('menu_order' => $order_start + 1), array('ID' => intval($post_id)));
 		}
 	}
 	
