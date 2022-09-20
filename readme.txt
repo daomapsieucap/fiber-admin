@@ -47,6 +47,6 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 == Changelog ==
 
 = 2.0.12 =
-*Release Date - 15 September 2022*
+*Release Date - 20 September 2022*
 
 * Fixed: Fix issue CPO creating new post.
