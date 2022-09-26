@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.13 =
+*Release Date - 26 September 2022*
+
+* Fixed: Check before re-order CPO.
+
 = 2.0.12 =
 *Release Date - 20 September 2022*
 

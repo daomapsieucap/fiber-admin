@@ -106,27 +106,31 @@ class Fiber_Admin_CPO{
 	}
 	
 	public function fiad_cpo_insert($post_id, $post, $update){
-		if(!$update){
-			global $wpdb;
-			$order_start = 0;
-			
-			$wpdb->update($wpdb->posts, array('menu_order' => $order_start), array('ID' => intval($post_id)));
-			
-			$update_posts_args  = array(
-				'post_type'        => $post->post_type,
-				'posts_per_page'   => - 1,
-				'post_status'      => 'publish',
-				'orderby'          => 'menu_order',
-				'order'            => 'ASC',
-				'post__not_in'     => array($post_id),
-				'suppress_filters' => false,
-				'fields'           => 'ids'
-			);
-			$update_posts_query = new WP_Query($update_posts_args);
-			if($update_posts_query->have_posts()){
-				foreach($update_posts_query->posts as $index => $id){
-					$wpdb->update($wpdb->posts, array('menu_order' => intval($index + 1)), array('ID' => intval($id)));
-					$order_start ++;
+		$post_types = fiad_get_cpo_option('post_types');
+		if(!$update && $post_types){
+			$current_post_type = $post->post_type;
+			if(in_array($current_post_type, $post_types)){
+				global $wpdb;
+				$order_start = 0;
+				
+				$wpdb->update($wpdb->posts, array('menu_order' => $order_start), array('ID' => intval($post_id)));
+				
+				$update_posts_args  = array(
+					'post_type'        => $post->post_type,
+					'posts_per_page'   => - 1,
+					'post_status'      => 'publish',
+					'orderby'          => 'menu_order',
+					'order'            => 'ASC',
+					'post__not_in'     => array($post_id),
+					'suppress_filters' => false,
+					'fields'           => 'ids'
+				);
+				$update_posts_query = new WP_Query($update_posts_args);
+				if($update_posts_query->have_posts()){
+					foreach($update_posts_query->posts as $index => $id){
+						$wpdb->update($wpdb->posts, array('menu_order' => intval($index + 1)), array('ID' => intval($id)));
+						$order_start ++;
+					}
 				}
 			}
 		}
