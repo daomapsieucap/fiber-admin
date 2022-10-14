@@ -171,7 +171,7 @@ class Fiber_Admin_CPO{
 		$term_ids = $taxonomy_order['tag'];
 		$taxonomy = $_POST['taxonomy'];
 		
-		if($term_ids){
+		if($term_ids && in_array($taxonomy, fiad_get_cpo_option('taxonomies'))){
 			$order_start = 0;
 			
 			// Get minimum item
