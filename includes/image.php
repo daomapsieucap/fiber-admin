@@ -4,7 +4,9 @@ if(!defined('ABSPATH')){
 	exit;
 }
 
-if(fiad_get_miscellaneous_option('enable_svg') && !is_plugin_active('svg-support/svg-support.php')){
+if(fiad_get_miscellaneous_option('enable_svg')
+   && !is_plugin_active('svg-support/svg-support.php')
+   && !interface_exists('enshrined\svgSanitize\data\AttributeInterface', false)){
 	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AttributeInterface.php');
 	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/TagInterface.php');
 	require_once(FIBERADMIN_DIR . 'lib/svg-sanitizer/data/AllowedAttributes.php');
