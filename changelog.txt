@@ -3,7 +3,8 @@
 = 2.0.14 =
 *Release Date - xx October 2022*
 
-* Fixed: Fix error when other plugins include SVG library
+* Fixed: Fix error when other plugins include SVG library.
+* Fixed: Prevent to change the passed orderby in admin.
 
 = 2.0.13 =
 *Release Date - 26 September 2022*

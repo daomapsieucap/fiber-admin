@@ -138,7 +138,7 @@ class Fiber_Admin_CPO{
 	
 	public function fiad_cpo_update_order($query){
 		if($query->is_main_query()){
-			if(is_admin()){
+			if(is_admin() && !isset($_GET['orderby'])){
 				// Change post order by default in admin
 				if(function_exists('get_current_screen')){
 					$screen = get_current_screen();
@@ -213,7 +213,7 @@ class Fiber_Admin_CPO{
 	public function fiad_cpo_update_term_order($orderby, $query_vars, $taxonomies){
 		if(is_admin()){
 			// Change taxonomy order by default in admin
-			if(function_exists('get_current_screen')){
+			if(function_exists('get_current_screen') && !isset($_GET['orderby'])){
 				$screen = get_current_screen();
 				if(fiad_is_screen_sortable() && $screen->taxonomy){
 					return 't.term_order';
