@@ -126,7 +126,7 @@ class Fiber_Admin_Image{
 			//If the svg metadata are empty or the width is empty or the height is empty
 			//then get the attributes from xml.
 			if(empty($data) || empty($data['width']) || empty($data['height'])){
-				$xml     = simplexml_load_file(wp_get_attachment_url($id));
+				$xml     = simplexml_load_file(get_attached_file($id));
 				$attr    = $xml->attributes();
 				$viewbox = explode(' ', $attr->viewBox);
 				$width   = isset($attr->width) && preg_match('/\d+/', $attr->width, $value) ? (int) $value[0] : (count($viewbox) == 4 ? (int) $viewbox[2] : null);

@@ -5,6 +5,7 @@
 
 * Fixed: Fix error when other plugins include SVG library.
 * Fixed: Prevent to change the passed orderby in admin.
+* Fixed: Fix wrong param in `simplexml_load_file` function.
 
 = 2.0.13 =
 *Release Date - 26 September 2022*
