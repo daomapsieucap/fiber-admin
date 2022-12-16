@@ -1,7 +1,7 @@
 == Changelog ==
 
 = 2.0.14 =
-*Release Date - xx October 2022*
+*Release Date - 16 December 2022*
 
 * Fixed: Fix error when other plugins include SVG library.
 * Fixed: Prevent to change the passed orderby in admin.

@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 2.0.13
+Stable tag: 2.0.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,9 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.13 =
-*Release Date - 26 September 2022*
+= 2.0.14 =
+*Release Date - 16 December 2022*
 
-* Fixed: Check before re-order CPO.
+* Fixed: Fix error when other plugins include SVG library.
+* Fixed: Prevent to change the passed orderby in admin.
+* Fixed: Fix wrong param in `simplexml_load_file` function.
