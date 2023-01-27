@@ -46,14 +46,28 @@ class Fiber_Admin_Content{
 	}
 	
 	public function fiad_auto_convert_email_address($content){
-		// Skip if the content has mailto link or input type email
-		if(strpos($content, 'mailto') !== false || strpos($content, 'type="email"') !== false){
+		$enable_auto_convert = true;
+		
+		// Skip if the content has mailto link
+		if(strpos($content, 'mailto') !== false){
+			return $content;
+		}
+		
+		// Skip if the content has email in HTML attribute
+		$att_email_regex = '/<\w+.*?\K[\w-]+=["\']*\s*(?:\w+\s*)*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\s*(?:[\'"]?(?:\w+\s*)*[\'"]?)?["\']*(?=.*?>)/mi';
+		preg_match($att_email_regex, $content, $email_matches);
+		if($email_matches){
+			$enable_auto_convert = false;
+		}
+		
+		// Skip replace email address
+		if(!$enable_auto_convert){
 			return $content;
 		}
 		
 		// Detect and create email link
 		$search  = array('/([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/');
-		$replace = array('<a href="mailto:$1">$1</a>');
+		$replace = array('<a href="mailto:$1" title="$1">$1</a>');
 		
 		return preg_replace($search, $replace, $content);
 	}

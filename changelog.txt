@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 2.0.15 =
+
+* Fixed: Skip auto replace email address if the content has email in HTML attribute.
+
 = 2.0.14 =
 *Release Date - 16 December 2022*
 
