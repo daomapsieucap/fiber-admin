@@ -50,6 +50,14 @@ class Fiber_Admin_White_Label_Settings{
 			'fiad_branding_section' // section
 		);
 		
+		add_settings_field(
+			'enable_admin_toolbar', // id
+			'Enable Admin Toolbar', // title
+			array($this, 'fiad_enable_admin_toolbar'), // callback
+			'fiber-admin-white-label', // page
+			'fiad_branding_section' // section
+		);
+		
 		add_settings_section(
 			'fiad_white_label_section',
 			'<span class="dashicons dashicons-admin-network"></span> Login',
@@ -115,6 +123,18 @@ class Fiber_Admin_White_Label_Settings{
             <label for="hide_wordpress_branding" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin[hide_wordpress_branding]" id="hide_wordpress_branding"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('hide_wordpress_branding')), 'yes'); ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_enable_admin_toolbar(){
+		?>
+        <fieldset>
+            <label for="enable_admin_toolbar" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiber_admin[enable_admin_toolbar]" id="enable_admin_toolbar"
+                       value="yes" <?php checked(esc_attr(fiad_get_general_option('enable_admin_toolbar')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

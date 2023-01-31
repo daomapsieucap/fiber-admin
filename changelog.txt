@@ -1,8 +1,10 @@
 == Changelog ==
 
 = 2.0.15 =
+*Release Date - 31 January 2023*
 
 * Fixed: Skip auto replace email address if the content has email in HTML attribute.
+* Added: Add option to toggle admin toolbar.
 
 = 2.0.14 =
 *Release Date - 16 December 2022*

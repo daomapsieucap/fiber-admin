@@ -9,7 +9,7 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Default{
 	public function __construct(){
-		//default value
+		//white label
 		if(fiad_get_general_option('hide_wordpress_branding')){
 			// Replace "WordPress" in the page titles.
 			add_filter('admin_title', array($this, 'fiad_title'), 10, 2);
@@ -36,8 +36,13 @@ class Fiber_Admin_Default{
 			// Remove Back to blog
 			add_action('login_enqueue_scripts', array($this, 'fiad_remove_backtoblog'));
 			
-			// Hide Admin Bar Frontend for all users
-			add_filter('show_admin_bar', '__return_false');
+			// Hide / Show Admin Bar Frontend for all users
+			if(fiad_get_general_option('enable_admin_toolbar')){
+				add_filter('show_admin_bar', '__return_true');
+			}else{
+				add_filter('show_admin_bar', '__return_false');
+				add_action('wp_print_styles', array($this, 'fiad_deregister_styles'), 100);
+			}
 			
 			// Remove WordPress admin bar logo
 			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
@@ -160,10 +165,14 @@ class Fiber_Admin_Default{
 		echo '<style>
 			   .wp-admin #wpadminbar #wp-admin-bar-site-name>.ab-item:before{
 			  	content:"";
-			  	background:transparent url("'.get_site_icon_url().'") no-repeat center/contain !important;
+			  	background:transparent url("' . get_site_icon_url() . '") no-repeat center/contain !important;
 			  	width: 20px; height: 20px;
 			   }
 			  </style>';
+	}
+	
+	public function fiad_deregister_styles(){
+		wp_deregister_style('dashicons');
 	}
 }
 
