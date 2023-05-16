@@ -12,40 +12,38 @@ class Fiber_Admin_Default{
 		//white label
 		if(fiad_get_general_option('hide_wordpress_branding')){
 			// Replace "WordPress" in the page titles.
-			add_filter('admin_title', array($this, 'fiad_title'), 10, 2);
+			add_filter('admin_title', [$this, 'fiad_title'], 10, 2);
 			
 			// Remove "WordPress" in login title
-			add_filter('login_title', array($this, 'fiad_admin_title'));
+			add_filter('login_title', [$this, 'fiad_admin_title']);
 			
 			// Admin footer modification
-			add_filter('admin_footer_text', array($this, 'fiad_update_admin_footer'));
+			add_filter('admin_footer_text', [$this, 'fiad_update_admin_footer']);
 			
 			// Update dashboard title
-			add_action('admin_head', array($this, 'fiad_update_dashboard_name'));
+			add_action('admin_head', [$this, 'fiad_update_dashboard_name']);
 			
 			// Remove unused dashboard widgets
-			add_action('admin_init', array($this, 'fiad_remove_dashboard_widgets'));
+			add_action('admin_init', [$this, 'fiad_remove_dashboard_widgets']);
 			
 			// Update logo link and title
-			add_filter('login_headerurl', array($this, 'fiad_login_logo_url'));
-			add_filter('login_headertext', array($this, 'fiad_login_logo_title'));
+			add_filter('login_headerurl', [$this, 'fiad_login_logo_url']);
+			add_filter('login_headertext', [$this, 'fiad_login_logo_title']);
 			
 			// Remove Lost your password link
-			add_filter('gettext', array($this, 'fiad_remove_lostpassword'));
+			add_filter('gettext', [$this, 'fiad_remove_lostpassword']);
 			
 			// Remove Back to blog
-			add_action('login_enqueue_scripts', array($this, 'fiad_remove_backtoblog'));
+			add_action('login_enqueue_scripts', [$this, 'fiad_remove_backtoblog']);
 			
 			// Hide / Show Admin Bar Frontend for all users
-			if(fiad_get_general_option('enable_admin_toolbar')){
-				add_filter('show_admin_bar', '__return_true');
-			}else{
+			if(!fiad_get_general_option('enable_admin_toolbar')){
 				add_filter('show_admin_bar', '__return_false');
-				add_action('wp_print_styles', array($this, 'fiad_deregister_styles'), 100);
+				add_action('wp_print_styles', [$this, 'fiad_deregister_styles'], 100);
 			}
 			
 			// Remove WordPress admin bar logo
-			add_action('wp_before_admin_bar_render', array($this, 'fiad_remove_admin_bar_logo'), 0);
+			add_action('wp_before_admin_bar_render', [$this, 'fiad_remove_admin_bar_logo'], 0);
 			
 			// Remove Welcome Dashboard Widget
 			remove_action('welcome_panel', 'wp_welcome_panel');
@@ -67,11 +65,11 @@ class Fiber_Admin_Default{
 			remove_filter('get_the_generator_xhtml', 'wc_generator_tag'); // Woocommerce
 			add_filter('revslider_meta_generator', '__return_empty_string'); // Revolution Slider
 			remove_action('wp_head', 'xforwc__add_meta_information_action', 99); // Product Filter for WooCommerce
-			remove_action('wp_head', array('Redux_Functions_Ex', 'meta_tag')); // WP Mail Logging
-			add_action('wp_head', array($this, 'fiad_remove_meta_generators'), 1); // other plugins
+			remove_action('wp_head', ['Redux_Functions_Ex', 'meta_tag']); // WP Mail Logging
+			add_action('wp_head', [$this, 'fiad_remove_meta_generators'], 1); // other plugins
 			
 			// Add favicon to admin bar logo
-			add_action('admin_head', array($this, 'fiad_favicon_admin_logo'));
+			add_action('admin_head', [$this, 'fiad_favicon_admin_logo']);
 		}
 		
 		// disable auto update
@@ -95,7 +93,7 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiad_admin_title($login_title){
-		return str_replace(array(' &lsaquo;', ' &#8212; WordPress'), array(' &lsaquo;', ''), $login_title);
+		return str_replace([' &lsaquo;', ' &#8212; WordPress'], [' &lsaquo;', ''], $login_title);
 	}
 	
 	public function fiad_update_admin_footer(){
@@ -151,13 +149,13 @@ class Fiber_Admin_Default{
 	public function fiad_remove_meta_generators(){
 		// WPBakery Page Builder
 		if(class_exists('Vc_Manager')){
-			remove_action('wp_head', array(visual_composer(), 'addMetaData'));
+			remove_action('wp_head', [visual_composer(), 'addMetaData']);
 		}
 		
 		// WPML
 		if(function_exists('icl_object_id')){
 			global $sitepress;
-			remove_action('wp_head', array($sitepress, 'meta_generator_tag'));
+			remove_action('wp_head', [$sitepress, 'meta_generator_tag']);
 		}
 	}
 	

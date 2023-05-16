@@ -97,3 +97,15 @@ if(!function_exists('fiad_check_db_error_file')){
 		return (file_exists(WP_CONTENT_DIR . '/db-error.php'));
 	}
 }
+
+if(!function_exists('fiad_array_key_exists')){
+	function fiad_array_key_exists($key, $array, $default = ''){
+		if($array && is_array($array)){
+			if(array_key_exists($key, $array)){
+				return $array[$key] ? : $default;
+			}
+		}
+		
+		return $default;
+	}
+}

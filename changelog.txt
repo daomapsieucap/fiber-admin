@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.16 =
+*Release Date - 16 May 2023*
+
+* Fixed: Use admin bar default when the option enable admin toolbar is disabled.
+
 = 2.0.15 =
 *Release Date - 31 January 2023*
 

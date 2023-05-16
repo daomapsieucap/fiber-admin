@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 2.0.15
+Stable tag: 2.0.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,8 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 2.0.15 =
-*Release Date - 31 January 2023*
+= 2.0.16 =
+*Release Date - 16 May 2023*
 
-* Fixed: Skip auto replace email address if the content has email in HTML attribute.
-* Added: Add option to toggle admin toolbar.
+* Fixed: Use admin bar default when the option enable admin toolbar is disabled.
