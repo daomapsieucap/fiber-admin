@@ -6,13 +6,13 @@ if(!defined('ABSPATH')){
 }
 
 /**
- * Default functions
+ * Cleanup file name
  */
 class Fiber_Admin_Filename{
 	public function __construct(){
 		// Cleanup file name
 		if(fiad_get_miscellaneous_option('auto_convert_file_name')){
-			add_filter('sanitize_file_name', [$this, 'fiad_auto_convert_file_name'], 10, 2);
+			add_filter('sanitize_file_name', [$this, 'fiad_cleanup_file_name'], 10, 2);
 		}
 	}
 	
@@ -28,27 +28,29 @@ class Fiber_Admin_Filename{
 		return $sanitized_filename;
 	}
 	
-	// Auto Convert File Name
-	public function fiad_auto_convert_file_name($filename, $filename_raw){
+	// Cleanup file name
+	public function fiad_cleanup_file_name($filename, $filename_raw){
 		//handle urlencode case
-		// Before: Really%20Ugly%20Filename--That-Is_Too Common…..png
+		// Before: ReAlly%20Ugly%20Filename--That-Is_Too Common…..png
 		// Default of Wordpress: ReAlly20Ugly20Filename-_-That_-_Is_Too-Common….pdf (still remains the '20')
 		// After ReAllyUglyFilename-_-That_-_Is_Too-Common….pdf (still remain some special char but get rid of the '20')
-		$sanitized_filename = $filename;
+		$path_info          = pathinfo($filename);
+		$file_extension     = fiad_array_key_exists('extension', $path_info);
+		$sanitized_filename = basename($filename, "." . $file_extension);
 		$url_decode_raw     = urldecode($filename_raw);
 		$sanitized_filename = str_split($sanitized_filename);
 		if($url_decode_raw != $filename_raw){
-			$count = 0;
+			$white_space_occur = 0;
 			foreach(str_split($url_decode_raw) as $index => $char){
 				if($char === ' '){
-					if($count == 0){
+					if($white_space_occur == 0){
 						$sanitized_filename[$index - 1] = '';
 						$sanitized_filename[$index]     = '-';
 					}else{
 						$sanitized_filename[$index]     = '';
 						$sanitized_filename[$index + 1] = '-';
 					}
-					$count ++;
+					$white_space_occur ++;
 				}
 			}
 		}
@@ -57,16 +59,8 @@ class Fiber_Admin_Filename{
 		//special char case
 		$sanitized_filename = $this->fiad_handle_special_char($sanitized_filename);
 		
-		//handle dot in file name case (not the extension)
-		for($i = strlen($sanitized_filename) - 1;$i >= 0;$i --){
-			if($sanitized_filename[$i] == '-'){
-				$sanitized_filename[$i] = '.';
-				break;
-			}
-		}
-		
 		//lower case the filename
-		return strtolower($sanitized_filename);
+		return strtolower($sanitized_filename) . "." . $file_extension;
 	}
 }
 
