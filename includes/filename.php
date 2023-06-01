@@ -25,6 +25,7 @@ class Fiber_Admin_Filename{
 		$sanitized_filename = preg_replace('/\.+/', '.', $sanitized_filename); // Replace a row of . with only 1 .
 		$sanitized_filename = preg_replace('/-+/', '-', $sanitized_filename); // Replace a row of - with only 1 -
 		$sanitized_filename = str_replace('-.', '.', $sanitized_filename); // Remove last - if at the end
+		$sanitized_filename = trim($sanitized_filename, '-');
 		
 		$fiber_filename = strtolower($sanitized_filename); // Lowercase
 		
