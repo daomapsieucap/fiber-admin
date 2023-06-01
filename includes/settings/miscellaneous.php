@@ -131,7 +131,7 @@ class Fiber_Admin_Miscellaneous{
 		?>
         <fieldset>
             <label for="auto_convert_file_name" class="fiber-admin-toggle">
-                <input checked="checked" type="checkbox" name="fiad_miscellaneous[auto_convert_file_name]" id="auto_convert_file_name"
+                <input type="checkbox" name="fiad_miscellaneous[auto_convert_file_name]" id="auto_convert_file_name"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('auto_convert_file_name')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
