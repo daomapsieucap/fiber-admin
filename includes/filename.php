@@ -11,7 +11,49 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Filename{
 	public function __construct(){
 		// Cleanup file name
+		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
 		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_file_name'], 10, 2);
+	}
+	
+	/*
+	 * Return fiad special chars
+	 */
+	public function fiad_special_chars(){
+		return [
+			'?',
+			'.',
+			'[',
+			']',
+			'/',
+			'\\',
+			'=',
+			'<',
+			'>',
+			':',
+			';',
+			',',
+			"'",
+			'"',
+			'&',
+			'$',
+			'#',
+			'*',
+			'(',
+			')',
+			'|',
+			'~',
+			'`',
+			'!',
+			'{',
+			'}',
+			'+',
+			'’',
+			'«',
+			'»',
+			'”',
+			'“',
+			chr(0),
+		];
 	}
 	
 	public function fiad_handle_special_chars($sanitized_filename){
@@ -29,31 +71,6 @@ class Fiber_Admin_Filename{
 		$path_info          = pathinfo($filename);
 		$file_extension     = fiad_array_key_exists('extension', $path_info);
 		$sanitized_filename = basename($filename, "." . $file_extension);
-		
-		//handle urlencode case
-		
-		// Before: ReAlly%20Ugly%20Filename--That-Is_Too Common…..png
-		// Default Sanitize of WordPress: ReAlly20Ugly20Filename-_-That_-_Is_Too-Common….pdf (still remains the '20')
-		// URL Decode: ReAlly Ugly Filename-_-That_-_Is_Too-Common….pdf
-		// After ReAllyUglyFilename-_-That_-_Is_Too-Common….pdf (still remain some special char but get rid of the '20')
-		$url_decode_raw     = urldecode($filename_raw);
-		$sanitized_filename = str_split($sanitized_filename);
-		if($url_decode_raw != $filename_raw){
-			$space_occur = 0;
-			foreach(str_split($url_decode_raw) as $index => $char){
-				if($char === ' '){
-					if($space_occur == 0){
-						$sanitized_filename[$index - 1] = '';
-						$sanitized_filename[$index]     = '-';
-					}else{
-						$sanitized_filename[$index]     = '';
-						$sanitized_filename[$index + 1] = '-';
-					}
-					$space_occur ++;
-				}
-			}
-		}
-		$sanitized_filename = implode('', $sanitized_filename);
 		
 		//special char case
 		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
