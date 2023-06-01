@@ -16,7 +16,7 @@ class Fiber_Admin_Filename{
 		}
 	}
 	
-	public function fiad_handle_special_char($sanitized_filename){
+	public function fiad_handle_special_chars($sanitized_filename){
 		$sanitized_filename = preg_replace('/[^A-Za-z0-9- ]/', '-', $sanitized_filename); // Remove special char not specified default by WordPress
 		$sanitized_filename = str_replace('_', '-', $sanitized_filename); // Replace _ with -
 		$sanitized_filename = preg_replace('/\.{2,}/', '-', $sanitized_filename); // Replace a row of . with only 1 .
@@ -40,24 +40,24 @@ class Fiber_Admin_Filename{
 		$url_decode_raw     = urldecode($filename_raw);
 		$sanitized_filename = str_split($sanitized_filename);
 		if($url_decode_raw != $filename_raw){
-			$white_space_occur = 0;
+			$space_occur = 0;
 			foreach(str_split($url_decode_raw) as $index => $char){
 				if($char === ' '){
-					if($white_space_occur == 0){
+					if($space_occur == 0){
 						$sanitized_filename[$index - 1] = '';
 						$sanitized_filename[$index]     = '-';
 					}else{
 						$sanitized_filename[$index]     = '';
 						$sanitized_filename[$index + 1] = '-';
 					}
-					$white_space_occur ++;
+					$space_occur ++;
 				}
 			}
 		}
 		$sanitized_filename = implode('', $sanitized_filename);
 		
 		//special char case
-		$sanitized_filename = $this->fiad_handle_special_char($sanitized_filename);
+		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
 		
 		//lower case the filename
 		return strtolower($sanitized_filename) . "." . $file_extension;
