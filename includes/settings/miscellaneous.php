@@ -33,14 +33,6 @@ class Fiber_Admin_Miscellaneous{
 			'fiad_miscellaneous_section' // section
 		);
 		
-		add_settings_field(
-			'auto_convert_file_name', // id
-			'Auto Convert File Name', // title
-			[$this, 'fiad_auto_convert_file_name'], // callback
-			'fiber-admin-miscellaneous', // page
-			'fiad_miscellaneous_section' // section
-		);
-		
 		add_settings_section(
 			'fiad_image_section',
 			'<span class="dashicons dashicons-format-image"></span> Image',
@@ -121,18 +113,6 @@ class Fiber_Admin_Miscellaneous{
             <label for="enable_auto_update" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiad_miscellaneous[enable_auto_update]" id="enable_auto_update"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_auto_update')), 'yes'); ?> />
-                <span class="slider round"></span>
-            </label>
-        </fieldset>
-		<?php
-	}
-	
-	public function fiad_auto_convert_file_name(){
-		?>
-        <fieldset>
-            <label for="auto_convert_file_name" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_miscellaneous[auto_convert_file_name]" id="auto_convert_file_name"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('auto_convert_file_name')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
