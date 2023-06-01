@@ -36,7 +36,7 @@ class Fiber_Admin_Filename{
 	}
 	
 	// Cleanup file name
-	public function fiad_cleanup_file_name($filename, $filename_raw){
+	public function fiad_cleanup_file_name($filename){
 		//variable
 		$path_info          = pathinfo($filename);
 		$file_extension     = fiad_array_key_exists('extension', $path_info);
