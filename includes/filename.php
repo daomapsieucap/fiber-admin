@@ -21,11 +21,10 @@ class Fiber_Admin_Filename{
 		$sanitized_filename = str_replace('_', '-', $sanitized_filename); // Replace _ with -
 		$sanitized_filename = preg_replace('/\.{2,}/', '-', $sanitized_filename); // Replace a row of . with only 1 .
 		$sanitized_filename = preg_replace('/-{2,}/', '-', $sanitized_filename); // Replace a row of - with only 1 -
-		$sanitized_filename = str_replace('-.', '.', $sanitized_filename); // Remove - before extension
 		$sanitized_filename = trim($sanitized_filename, '-'); // Remove - at the start
-		$sanitized_filename = rtrim($sanitized_filename, '-'); // Remove - at the end
+		// Remove - at the end
 		
-		return $sanitized_filename;
+		return rtrim($sanitized_filename, '-');
 	}
 	
 	// Cleanup file name
