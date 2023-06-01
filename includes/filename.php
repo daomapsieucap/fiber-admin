@@ -18,7 +18,6 @@ class Fiber_Admin_Filename{
 	
 	public function fiad_handle_special_chars($sanitized_filename){
 		$sanitized_filename = preg_replace('/[^A-Za-z0-9- ]/', '-', $sanitized_filename); // Remove special char not specified default by WordPress
-		$sanitized_filename = preg_replace('/\.{2,}/', '-', $sanitized_filename); // Replace a row of . with only 1 .
 		$sanitized_filename = preg_replace('/-{2,}/', '-', $sanitized_filename); // Replace a row of - with only 1 -
 		$sanitized_filename = trim($sanitized_filename, '-'); // Remove - at the start
 		// Remove - at the end
