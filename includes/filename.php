@@ -18,42 +18,12 @@ class Fiber_Admin_Filename{
 	/*
 	 * Return fiad special chars
 	 */
-	public function fiad_special_chars(){
-		return [
-			'?',
-			'.',
-			'[',
-			']',
-			'/',
-			'\\',
-			'=',
-			'<',
-			'>',
-			':',
-			';',
-			',',
-			"'",
-			'"',
-			'&',
-			'$',
-			'#',
-			'*',
-			'(',
-			')',
-			'|',
-			'~',
-			'`',
-			'!',
-			'{',
-			'}',
-			'+',
-			'’',
-			'«',
-			'»',
-			'”',
-			'“',
-			chr(0),
-		];
+	public function fiad_special_chars($special_chars){
+		if (($key = array_search('%', $special_chars)) !== false) {
+			unset($special_chars[$key]);
+		}
+		
+		return $special_chars;
 	}
 	
 	public function fiad_handle_special_chars($sanitized_filename){
