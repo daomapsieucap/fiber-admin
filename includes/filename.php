@@ -18,6 +18,7 @@ class Fiber_Admin_Filename{
 	
 	// Auto Convert File Name
 	public function fiad_auto_convert_file_name($filename, $filename_raw){
+		//handle urlencode case
 		$sanitized_filename = $filename;
 		$url_decode_raw     = urldecode($filename_raw);
 		$sanitized_filename = str_split($sanitized_filename);
@@ -38,14 +39,24 @@ class Fiber_Admin_Filename{
 		}
 		$sanitized_filename = implode('',$sanitized_filename);
 		
-		$sanitized_filename = preg_replace('/[^A-Za-z0-9-\. ]/', '-', $sanitized_filename); // Remove special char not specified default by WordPress
+		//special char case
+		$sanitized_filename = preg_replace('/[^A-Za-z0-9- ]/', '-', $sanitized_filename); // Remove special char not specified default by WordPress
 		$sanitized_filename = str_replace('_', '-', $sanitized_filename); // Replace _ with -
-		$sanitized_filename = preg_replace('/\.+/', '-', $sanitized_filename); // Replace a row of . with only 1 .
-		$sanitized_filename = preg_replace('/-+/', '-', $sanitized_filename); // Replace a row of - with only 1 -
+		$sanitized_filename = preg_replace('/\.{2,}/', '-', $sanitized_filename); // Replace a row of . with only 1 .
+		$sanitized_filename = preg_replace('/-{2,}/', '-', $sanitized_filename); // Replace a row of - with only 1 -
 		$sanitized_filename = str_replace('-.', '.', $sanitized_filename); // Remove - before extension
 		$sanitized_filename = trim($sanitized_filename, '-'); // Remove - at the start
 		$sanitized_filename = rtrim($sanitized_filename, '-'); // Remove - at the end
 		
+		//handle dot in file name case (not the extension)
+		for($i = strlen($sanitized_filename) - 1; $i>=0; $i--){
+			if ($sanitized_filename[$i] == '-'){
+				$sanitized_filename[$i] = '.';
+				break;
+			}
+		}
+		
+		//lower case the filename
 		return strtolower($sanitized_filename);
 	}
 }
