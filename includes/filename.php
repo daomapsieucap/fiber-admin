@@ -25,13 +25,17 @@ class Fiber_Admin_Filename{
 	
 	// Cleanup file name
 	public function fiad_cleanup_file_name($filename, $filename_raw){
-		//handle urlencode case
-		// Before: ReAlly%20Ugly%20Filename--That-Is_Too Common…..png
-		// Default of Wordpress: ReAlly20Ugly20Filename-_-That_-_Is_Too-Common….pdf (still remains the '20')
-		// After ReAllyUglyFilename-_-That_-_Is_Too-Common….pdf (still remain some special char but get rid of the '20')
+		//variable
 		$path_info          = pathinfo($filename);
 		$file_extension     = fiad_array_key_exists('extension', $path_info);
 		$sanitized_filename = basename($filename, "." . $file_extension);
+		
+		//handle urlencode case
+		
+		// Before: ReAlly%20Ugly%20Filename--That-Is_Too Common…..png
+		// Default Sanitize of WordPress: ReAlly20Ugly20Filename-_-That_-_Is_Too-Common….pdf (still remains the '20')
+		// URL Decode: ReAlly Ugly Filename-_-That_-_Is_Too-Common….pdf
+		// After ReAllyUglyFilename-_-That_-_Is_Too-Common….pdf (still remain some special char but get rid of the '20')
 		$url_decode_raw     = urldecode($filename_raw);
 		$sanitized_filename = str_split($sanitized_filename);
 		if($url_decode_raw != $filename_raw){
