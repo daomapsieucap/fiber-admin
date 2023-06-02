@@ -10,11 +10,11 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Setting{
 	
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_setting'));
-		add_action('admin_init', array($this, 'fiad_setting_init'));
+		add_action('admin_menu', [$this, 'fiad_setting']);
+		add_action('admin_init', [$this, 'fiad_setting_init']);
 		
 		// register styles
-		add_action("admin_enqueue_scripts", array($this, 'fiad_styles'));
+		add_action("admin_enqueue_scripts", [$this, 'fiad_styles']);
 	}
 	
 	public function fiad_styles($hook_suffix){
@@ -43,7 +43,7 @@ class Fiber_Admin_Setting{
 			'Fiber Admin',
 			'manage_options',
 			'fiber-admin',
-			array($this, 'fiad_setting_html')
+			[$this, 'fiad_setting_html']
 		);
 	}
 	
@@ -87,13 +87,15 @@ class Fiber_Admin_Setting{
 	}
 	
 	public function fiad_setting_tabs(){
-		return array(
-			'white-label'   => 'White Label',
-			'cpo'           => 'Custom Post Order',
-			'duplicate'     => 'Duplicate Post',
-			'db-error'      => 'Database Error',
-			'miscellaneous' => 'Miscellaneous',
-		);
+		return [
+			'white-label'      => 'White Label',
+			'cpo'              => 'Custom Post Order',
+			'duplicate'        => 'Duplicate Post',
+			'db-error'         => 'Database Error',
+			'miscellaneous'    => 'Miscellaneous',
+			'coming-soon'      => 'Coming soon',
+			'maintenance-mode' => 'Maintenance mode',
+		];
 	}
 	
 	public function fiad_setting_tab_navs($current = 'white-label'){
@@ -125,6 +127,14 @@ class Fiber_Admin_Setting{
 			case 'miscellaneous':
 				$miscellaneous = new Fiber_Admin_Miscellaneous();
 				$miscellaneous->fiad_miscellaneous_init();
+				break;
+			case 'coming-soon':
+				$miscellaneous = new Fiber_Admin_Coming_Soon();
+				$miscellaneous->fiad_coming_soon_init();
+				break;
+			case 'maintenance-mode':
+				$miscellaneous = new Fiber_Admin_Maintenance_Mode();
+				$miscellaneous->fiad_maintenance_mode_init();
 				break;
 			default:
 				$white_label = new Fiber_Admin_White_Label_Settings();
@@ -189,7 +199,7 @@ class Fiber_Admin_Setting{
 					}
 				}
 			}else{
-				$new_options = array();
+				$new_options = [];
 			}
 			
 			update_option($option_key, $new_options);

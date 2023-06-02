@@ -52,6 +52,8 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/db-error.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/coming-soon.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/maintenance-mode.php');
 	
 	//default functions
 	include_once(FIBERADMIN_DIR . 'includes/default.php');
@@ -63,6 +65,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/cpo.php');
 	include_once(FIBERADMIN_DIR . 'includes/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/db-error.php');
+	include_once(FIBERADMIN_DIR . 'includes/filename.php');
 }
 
 /**
