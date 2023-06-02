@@ -47,6 +47,7 @@ class Fiber_Admin_Filename{
 		
 		$sanitized_filename = strtolower($sanitized_filename);
 		
+		//Handle urlencoded chars
 		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
 		$urlencoded_chars = $matches[0];
 		foreach($urlencoded_chars as $index => $char){
@@ -55,7 +56,8 @@ class Fiber_Admin_Filename{
 		foreach($urlencoded_chars as $index => $char){
 			$sanitized_filename = str_replace($char, "", $sanitized_filename);
 		}
-
+		
+		//run sanitize again
 		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
 		
 		
