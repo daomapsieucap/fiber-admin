@@ -19,7 +19,7 @@ class Fiber_Admin_Filename{
 	 * Return fiad special chars
 	 */
 	public function fiad_special_chars($special_chars){
-		if (($key = array_search('%', $special_chars)) !== false) {
+		if(($key = array_search('%', $special_chars)) !== false){
 			unset($special_chars[$key]);
 		}
 		
@@ -36,7 +36,7 @@ class Fiber_Admin_Filename{
 	}
 	
 	// Cleanup file name
-	public function fiad_cleanup_file_name($filename){
+	public function fiad_cleanup_file_name($filename, $filename_raw){
 		//variable
 		$path_info          = pathinfo($filename);
 		$file_extension     = fiad_array_key_exists('extension', $path_info);
@@ -45,8 +45,24 @@ class Fiber_Admin_Filename{
 		//special char case
 		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
 		
+		$sanitized_filename = strtolower($sanitized_filename);
+		
+		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
+		$urlencoded_chars = $matches[0];
+		foreach($urlencoded_chars as $index => $char){
+			$urlencoded_chars[$index] = strtolower(trim($char, '%'));
+		}
+		foreach($urlencoded_chars as $index => $char){
+			$sanitized_filename = str_replace($char, "", $sanitized_filename);
+		}
+
+		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
+		
+		
+		$sanitized_filename .= "." . $file_extension;
+		
 		//lower case the filename
-		return strtolower($sanitized_filename) . "." . $file_extension;
+		return $sanitized_filename;
 	}
 }
 
