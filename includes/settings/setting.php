@@ -186,6 +186,12 @@ class Fiber_Admin_Setting{
 				case 'miscellaneous':
 					$option_key = 'fiad_miscellaneous';
 					break;
+				case 'coming-soon':
+					$option_key = 'fiad_coming_soon';
+					break;
+				case 'maintenance-mode':
+					$option_key = 'fiad_maintenance_mode';
+					break;
 				default:
 					$option_key = 'fiber_admin';
 					break;
