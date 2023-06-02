@@ -24,8 +24,28 @@ class Fiber_Admin_Maintenance_Mode{
 			[$this, 'fiad_section_info'],
 			'fiber-admin-maintenance-mode'
 		);
+		
+		add_settings_field(
+			'put_to_maintenance', // id
+			'Put To Maintenance', // title
+			[$this, 'fiad_put_to_maintenance'], // callback
+			'fiber-admin-maintenance-mode', // page
+			'fiad_maintenance_mode_section' // section
+		);
 	}
 	
 	public function fiad_section_info(){
+	}
+	
+	public function fiad_put_to_maintenance(){
+		?>
+		<fieldset>
+			<label for="put_to_maintenance" class="fiber-admin-toggle">
+				<input type="checkbox" name="fiad_maintenance_mode[put_to_maintenance]" id="put_to_maintenance"
+				       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('put_to_maintenance')), 'yes'); ?> />
+				<span class="slider round"></span>
+			</label>
+		</fieldset>
+		<?php
 	}
 }
