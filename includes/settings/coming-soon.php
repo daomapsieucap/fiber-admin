@@ -17,6 +17,13 @@ class Fiber_Admin_Coming_Soon{
 			'fiad_coming_soon',
 			array($this, 'sanitize_text_field')
 		);
+		
+		add_settings_section(
+			'fiad_coming_soon_section',
+			'<span class="dashicons dashicons-admin-generic"></span> General',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-coming-soon'
+		);
 	}
 	
 	public function fiad_section_info(){
