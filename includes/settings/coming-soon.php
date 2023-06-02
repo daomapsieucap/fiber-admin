@@ -7,7 +7,7 @@ if(!defined('ABSPATH')){
 /**
  * Custom Post Order
  */
-class Fiber_Admin_Setting_Coming_Soon{
+class Fiber_Admin_Coming_Soon{
 	public function __construct(){
 	}
 	

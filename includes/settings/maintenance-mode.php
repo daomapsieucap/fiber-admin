@@ -7,11 +7,11 @@ if(!defined('ABSPATH')){
 /**
  * Maintenance Mode
  */
-class Fiber_Admin_Setting_Maintenance_Mode{
+class Fiber_Admin_Maintenance_Mode{
 	public function __construct(){
 	}
 	
-	public function fiad_maintenance_init(){
+	public function fiad_maintenance_mode_init(){
 		register_setting(
 			'fiad_maintenance_mode_group',
 			'fiad_maintenance_mode',
