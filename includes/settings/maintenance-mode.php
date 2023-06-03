@@ -15,7 +15,7 @@ class Fiber_Admin_Maintenance_Mode{
 		register_setting(
 			'fiad_maintenance_mode_group',
 			'fiad_maintenance_mode',
-			array($this, 'sanitize_text_field')
+			[$this, 'sanitize_text_field']
 		);
 		
 		add_settings_section(
@@ -39,13 +39,13 @@ class Fiber_Admin_Maintenance_Mode{
 	
 	public function fiad_put_to_maintenance(){
 		?>
-		<fieldset>
-			<label for="put_to_maintenance" class="fiber-admin-toggle">
-				<input type="checkbox" name="fiad_maintenance_mode[put_to_maintenance]" id="put_to_maintenance"
-				       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('put_to_maintenance')), 'yes'); ?> />
-				<span class="slider round"></span>
-			</label>
-		</fieldset>
+        <fieldset>
+            <label for="put_to_maintenance" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_maintenance_mode[put_to_maintenance]" id="put_to_maintenance"
+                       value="yes" <?php checked(esc_attr(fiad_get_maintenance_mode_option('put_to_maintenance')), 'yes'); ?> />
+                <span class="slider round"></span>
+            </label>
+        </fieldset>
 		<?php
 	}
 }
