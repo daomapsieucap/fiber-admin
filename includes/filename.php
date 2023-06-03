@@ -57,11 +57,7 @@ class Fiber_Admin_Filename{
 		//special chars case
 		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
 		
-		
-		$sanitized_filename .= "." . $file_extension;
-		
-		//lower case the filename
-		return $sanitized_filename;
+		return $sanitized_filename . "." . $file_extension;
 	}
 }
 
