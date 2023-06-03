@@ -27,12 +27,12 @@ class Fiber_Admin_Filename{
 	}
 	
 	public function fiad_handle_special_chars($sanitized_filename){
-		$sanitized_filename = preg_replace('/[^A-Za-z0-9- ]/', '-', $sanitized_filename); // Remove special char not specified default by WordPress
-		$sanitized_filename = preg_replace('/-{2,}/', '-', $sanitized_filename); // Replace a row of - with only 1 -
-		$sanitized_filename = trim($sanitized_filename, '-'); // Remove - at the start
+		//Replace all special chars and row of '-' with one '-' only
+		$patterns = ['/[^A-Za-z0-9- ]/', '/-{2,}/'];
+		$sanitized_filename = preg_replace($patterns, '-', $sanitized_filename);
 		
-		// Remove - at the end
-		return rtrim($sanitized_filename, '-');
+		// Remove - from the beginning and the end
+		return trim($sanitized_filename, '-');
 	}
 	
 	// Cleanup file name
