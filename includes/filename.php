@@ -42,22 +42,19 @@ class Fiber_Admin_Filename{
 		$file_extension     = fiad_array_key_exists('extension', $path_info);
 		$sanitized_filename = basename($filename, "." . $file_extension);
 		
-		//special char case
-		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
-		
 		$sanitized_filename = strtolower($sanitized_filename);
 		
-		//Handle urlencoded chars
+		//handle urlencoded chars
 		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
 		$urlencoded_chars = $matches[0];
-		foreach($urlencoded_chars as $index => $char){
-			$urlencoded_chars[$index] = strtolower(trim($char, '%'));
-		}
-		foreach($urlencoded_chars as $index => $char){
-			$sanitized_filename = str_replace($char, "", $sanitized_filename);
+		if($urlencoded_chars){
+			foreach($urlencoded_chars as $index => $char){
+				$urlencoded_chars[$index] = strtolower(trim($char, '%'));
+			}
+			$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
 		}
 		
-		//run sanitize again
+		//special chars case
 		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
 		
 		
