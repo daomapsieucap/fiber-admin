@@ -7,7 +7,7 @@ if(!defined('ABSPATH')){
 /**
  * Maintenance Mode
  */
-class Fiber_Admin_Maintenance_Mode{
+class Fiber_Admin_Maintenance_Mode_Settings{
 	public function __construct(){
 	}
 	
@@ -26,9 +26,9 @@ class Fiber_Admin_Maintenance_Mode{
 		);
 		
 		add_settings_field(
-			'put_to_maintenance', // id
-			'Put To Maintenance', // title
-			[$this, 'fiad_put_to_maintenance'], // callback
+			'enable_maintenance_mode', // id
+			'Enable Maintenance Mode', // title
+			[$this, 'fiad_enable_maintenance_mode'], // callback
 			'fiber-admin-maintenance-mode', // page
 			'fiad_maintenance_mode_section' // section
 		);
@@ -37,12 +37,12 @@ class Fiber_Admin_Maintenance_Mode{
 	public function fiad_section_info(){
 	}
 	
-	public function fiad_put_to_maintenance(){
+	public function fiad_enable_maintenance_mode(){
 		?>
         <fieldset>
-            <label for="put_to_maintenance" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_maintenance_mode[put_to_maintenance]" id="put_to_maintenance"
-                       value="yes" <?php checked(esc_attr(fiad_get_maintenance_mode_option('put_to_maintenance')), 'yes'); ?> />
+            <label for="enable_maintenance_mode" class="fiber-admin-toggle">
+                <input type="checkbox" name="fiad_maintenance_mode[enable_maintenance_mode]" id="enable_maintenance_mode"
+                       value="yes" <?php checked(esc_attr(fiad_get_maintenance_mode_option('enable_maintenance_mode')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

@@ -133,7 +133,7 @@ class Fiber_Admin_Setting{
 				$miscellaneous->fiad_coming_soon_init();
 				break;
 			case 'maintenance-mode':
-				$miscellaneous = new Fiber_Admin_Maintenance_Mode();
+				$miscellaneous = new Fiber_Admin_Maintenance_Mode_Settings();
 				$miscellaneous->fiad_maintenance_mode_init();
 				break;
 			default:
