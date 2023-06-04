@@ -32,6 +32,21 @@ class Fiber_Admin_Maintenance_Mode_Settings{
 			'fiber-admin-maintenance-mode', // page
 			'fiad_maintenance_mode_section' // section
 		);
+		
+		add_settings_section(
+			'fiad_maintenance_content_section',
+			'<span class="dashicons dashicons-editor-table"></span> Content',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-maintenance-mode'
+		);
+		
+		add_settings_field(
+			'maintenance_mode_page', // id
+			'Maintenance Mode Page', // title
+			[$this, 'fiad_maintenance_mode_page'], // callback
+			'fiber-admin-maintenance-mode', // page
+			'fiad_maintenance_content_section' // section
+		);
 	}
 	
 	public function fiad_section_info(){
@@ -41,10 +56,39 @@ class Fiber_Admin_Maintenance_Mode_Settings{
 		?>
         <fieldset>
             <label for="enable_maintenance_mode" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_maintenance_mode[enable_maintenance_mode]" id="enable_maintenance_mode"
+                <input type="checkbox" name="fiad_maintenance_mode[enable_maintenance_mode]"
+                       id="enable_maintenance_mode"
                        value="yes" <?php checked(esc_attr(fiad_get_maintenance_mode_option('enable_maintenance_mode')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_maintenance_mode_page(){
+		$args       = [
+			'post_type'        => 'page',
+			'suppress_filters' => true,
+		];
+		$page_query = new WP_Query($args);
+		?>
+        <fieldset>
+            <label for="maintenance_mode_page">
+                <select class="fiber-admin-selection--multiple" name="fiad_maintenance_mode[maintenance_mode_page][]"
+                        id="maintenance_mode_page" multiple>
+					<?php
+					while($page_query->have_posts()){
+						$page_query->the_post();
+						?>
+                        <option value="<?= get_the_ID(); ?>"><?= get_the_title(); ?></option>
+						<?php
+					}
+					?>
+                </select>
+            </label>
+            <p class="description">
+                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
+            </p>
         </fieldset>
 		<?php
 	}
