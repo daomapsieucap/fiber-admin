@@ -8,7 +8,7 @@ if(!defined('ABSPATH')){
 /**
  * Cleanup file name
  */
-class Fiber_Admin_Filename{
+class Fiber_Admin_Attachment{
 	public function __construct(){
 		// Cleanup file name
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
@@ -66,4 +66,4 @@ class Fiber_Admin_Filename{
 	}
 }
 
-new Fiber_Admin_Filename();
+new Fiber_Admin_Attachment();
