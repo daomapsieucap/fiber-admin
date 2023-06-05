@@ -98,6 +98,12 @@ if(!function_exists('fiad_check_db_error_file')){
 	}
 }
 
+if(!function_exists('fiad_get_maintenance_mode_option')){
+	function fiad_get_maintenance_mode_option($key){
+		return fiad_get_option($key, get_option('fiad_maintenance_mode'));
+	}
+}
+
 if(!function_exists('fiad_array_key_exists')){
 	function fiad_array_key_exists($key, $array, $default = ''){
 		if($array && is_array($array)){
@@ -107,5 +113,36 @@ if(!function_exists('fiad_array_key_exists')){
 		}
 		
 		return $default;
+	}
+}
+
+if(!function_exists('fiad_get_readable_filename')){
+	function fiad_get_readable_filename($post_id){
+		$file          = get_attached_file($post_id);
+		$file_pathinfo = pathinfo($file);
+		$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
+		
+		//check if the file name contain index at the end
+		$pattern = '/-\d+$/';
+		if(preg_match($pattern, $file_name)){
+			$file_name = preg_replace($pattern, '', $file_name);
+		}
+		
+		$file_name = str_replace('-', ' ', $file_name);
+		
+		return ucwords($file_name);
+	}
+}
+
+if(!function_exists('fiad_update_post_meta')){
+	function fiad_update_post_meta($post_id, $post_title, $extra_args = []){
+		$fiber_meta = [
+			'ID'         => $post_id,
+			'post_title' => $post_title,
+		];
+		if($extra_args){
+			$fiber_meta = array_merge($fiber_meta, $extra_args);
+		};
+		wp_update_post($fiber_meta);
 	}
 }
