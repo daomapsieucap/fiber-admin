@@ -8,7 +8,7 @@ if(!defined('ABSPATH')){
 /**
  * Cleanup file name
  */
-class Fiber_Admin_Attachment{
+class Fiber_Admin_Filename{
 	public function __construct(){
 		// Cleanup file name
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
@@ -62,8 +62,35 @@ class Fiber_Admin_Attachment{
 	}
 	
 	public function fiad_change_title($post_id){
-		fiad_update_post_meta($post_id, fiad_get_readable_filename($post_id));
+		$this->fiad_update_post_meta($post_id, $this->fiad_get_readable_filename($post_id));
+	}
+	
+	public function fiad_get_readable_filename($post_id){
+		$file          = get_attached_file($post_id);
+		$file_pathinfo = pathinfo($file);
+		$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
+		
+		//check if the file name contain index at the end
+		$pattern = '/-\d+$/';
+		if(preg_match($pattern, $file_name)){
+			$file_name = preg_replace($pattern, '', $file_name);
+		}
+		
+		$file_name = str_replace('-', ' ', $file_name);
+		
+		return ucwords($file_name);
+	}
+	
+	public function fiad_update_post_meta($post_id, $post_title, $extra_args = []){
+		$fiber_meta = [
+			'ID'         => $post_id,
+			'post_title' => $post_title,
+		];
+		if($extra_args){
+			$fiber_meta = array_merge($fiber_meta, $extra_args);
+		};
+		wp_update_post($fiber_meta);
 	}
 }
 
-new Fiber_Admin_Attachment();
+new Fiber_Admin_Filename();
