@@ -27,11 +27,6 @@ use enshrined\svgSanitize\Sanitizer;
  */
 class Fiber_Admin_Image{
 	public function __construct(){
-		// Set image meta on upload
-//		if(fiad_get_miscellaneous_option('auto_img_meta')){
-//			add_action('add_attachment', [$this, 'fiad_set_image_meta_on_image_upload']);
-//		}
-		
 		// Disable right click and drag on image v1.2.0
 		if(!fiad_get_miscellaneous_option('disable_image_protection') && !fiad_is_admin_user_role()){
 			add_action('wp_footer', [$this, 'fiad_image_protection_scripts']);
@@ -63,15 +58,6 @@ class Fiber_Admin_Image{
 			);
 		}
 	}
-	
-//	public function fiad_set_image_meta_on_image_upload($post_id){
-//		if(wp_attachment_is_image($post_id)){
-//			$fiber_image_title = fiad_get_readable_filename($post_id);
-//
-//			update_post_meta($post_id, '_wp_attachment_image_alt', $fiber_image_title);
-//			fiad_update_post_meta($post_id, $fiber_image_title);
-//		}
-//	}
 	
 	public function fiad_image_protection_scripts(){
 		echo "
