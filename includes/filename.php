@@ -13,6 +13,7 @@ class Fiber_Admin_Filename{
 		// Cleanup file name
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
 		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_file_name'], 10, 2);
+		add_filter('add_attachment', [$this, 'fiad_change_title']);
 	}
 	
 	/*
@@ -28,7 +29,7 @@ class Fiber_Admin_Filename{
 	
 	public function fiad_handle_special_chars($sanitized_filename){
 		//Replace all special chars and row of '-' with one '-' only
-		$patterns = ['/[^A-Za-z0-9- ]/', '/-{2,}/'];
+		$patterns           = ['/[^A-Za-z0-9- ]/', '/-{2,}/'];
 		$sanitized_filename = preg_replace($patterns, '-', $sanitized_filename);
 		
 		// Remove - from the beginning and the end
@@ -48,9 +49,9 @@ class Fiber_Admin_Filename{
 		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
 		$urlencoded_chars = $matches[0];
 		if($urlencoded_chars){
-			foreach($urlencoded_chars as $index => $char){
-				$urlencoded_chars[$index] = strtolower(trim($char, '%'));
-			}
+			$urlencoded_chars = array_map(function($char){
+				return strtolower(trim($char, '%'));
+			},$urlencoded_chars);
 			$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
 		}
 		
@@ -58,6 +59,10 @@ class Fiber_Admin_Filename{
 		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
 		
 		return $sanitized_filename . "." . $file_extension;
+	}
+	
+	public function fiad_change_title($post_id){
+		fiad_update_post_meta($post_id, fiad_get_readable_filename($post_id));
 	}
 }
 
