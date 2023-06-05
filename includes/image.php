@@ -65,27 +65,29 @@ class Fiber_Admin_Image{
 	}
 	
 	public function fiad_set_image_meta_on_image_upload($post_id){
-		$file          = get_attached_file($post_id);
-		$file_pathinfo = pathinfo($file);
-		$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
-		
-		//check if the file name contain index at the end
-		$pattern = '/-\d+$/';
-		if(preg_match($pattern, $file_name)){
-			$file_name = preg_replace($pattern, '', $file_name);
+		if(wp_attachment_is_image($post_id)){
+			$file          = get_attached_file($post_id);
+			$file_pathinfo = pathinfo($file);
+			$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
+			
+			//check if the file name contain index at the end
+			$pattern = '/-\d+$/';
+			if(preg_match($pattern, $file_name)){
+				$file_name = preg_replace($pattern, '', $file_name);
+			}
+			
+			$file_name = str_replace('-', ' ', $file_name);
+			
+			$fiber_image_title = ucwords($file_name);
+			
+			$fiber_image_meta = [
+				'ID'         => $post_id,
+				'post_title' => $fiber_image_title,
+			];
+			
+			update_post_meta($post_id, '_wp_attachment_image_alt', $fiber_image_title);
+			wp_update_post($fiber_image_meta);
 		}
-		
-		$file_name = str_replace('-', ' ', $file_name);
-		
-		$fiber_image_title = ucwords($file_name);
-		
-		$fiber_image_meta = [
-			'ID'         => $post_id,
-			'post_title' => $fiber_image_title,
-		];
-		
-		update_post_meta($post_id, '_wp_attachment_image_alt', $fiber_image_title);
-		wp_update_post($fiber_image_meta);
 	}
 	
 	public function fiad_image_protection_scripts(){
