@@ -15,20 +15,20 @@ class Fiber_Admin_Miscellaneous{
 		register_setting(
 			'fiad_miscellaneous_group',
 			'fiad_miscellaneous',
-			array($this, 'sanitize_text_field')
+			[$this, 'sanitize_text_field']
 		);
 		
 		add_settings_section(
 			'fiad_miscellaneous_section',
 			'<span class="dashicons dashicons-admin-generic"></span> General',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-miscellaneous'
 		);
 		
 		add_settings_field(
 			'enable_auto_update', // id
 			'Enable auto update', // title
-			array($this, 'fiad_enable_auto_update'), // callback
+			[$this, 'fiad_enable_auto_update'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_miscellaneous_section' // section
 		);
@@ -36,14 +36,14 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_section(
 			'fiad_image_section',
 			'<span class="dashicons dashicons-format-image"></span> Image',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-miscellaneous'
 		);
 		
 		add_settings_field(
 			'auto_img_meta', // id
 			'Auto Set Image Meta', // title
-			array($this, 'fiad_auto_image_meta'), // callback
+			[$this, 'fiad_auto_image_meta'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_image_section' // section
 		);
@@ -51,7 +51,7 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_field(
 			'disable_image_protection', // id
 			'Disable Image Protection ', // title
-			array($this, 'fiad_disable_image_protection'), // callback
+			[$this, 'fiad_disable_image_protection'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_image_section' // section
 		);
@@ -59,14 +59,14 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_section(
 			'fiad_content_section',
 			'<span class="dashicons dashicons-editor-table"></span> Content',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-miscellaneous'
 		);
 		
 		add_settings_field(
 			'revision_number', // id
 			'Limit number of revisions', // title
-			array($this, 'fiad_revision_number'), // callback
+			[$this, 'fiad_revision_number'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
@@ -74,7 +74,7 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_field(
 			'disable_email_converter', // id
 			'Disable Convert Email Text to Link', // title
-			array($this, 'fiad_disable_email_converter'), // callback
+			[$this, 'fiad_disable_email_converter'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
@@ -82,7 +82,7 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_field(
 			'enable_svg', // id
 			'Enable SVG', // title
-			array($this, 'fiad_enable_svg'), // callback
+			[$this, 'fiad_enable_svg'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
@@ -90,7 +90,7 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_field(
 			'disable_content_protection', // id
 			'Disable Content Protection', // title
-			array($this, 'fiad_disable_content_protection'), // callback
+			[$this, 'fiad_disable_content_protection'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
@@ -98,7 +98,7 @@ class Fiber_Admin_Miscellaneous{
 		add_settings_field(
 			'enable_comments', // id
 			'Enable Comments', // title
-			array($this, 'fiad_enable_comments'), // callback
+			[$this, 'fiad_enable_comments'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
