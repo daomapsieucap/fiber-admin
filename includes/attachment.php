@@ -13,9 +13,7 @@ class Fiber_Admin_Filename{
 		// Cleanup attachment name
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
 		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_attachment_name'], 10, 2);
-		if (fiad_get_miscellaneous_option('auto_attachment_meta')){
-			add_filter('add_attachment', [$this, 'fiad_change_metadata']);
-		}
+		add_filter('add_attachment', [$this, 'fiad_change_metadata']);
 	}
 	
 	/*
@@ -67,7 +65,7 @@ class Fiber_Admin_Filename{
 		$readable_name = $this->fiad_get_readable_attachmentname($post_id);
 		$this->fiad_update_post_meta($post_id, $readable_name);
 		
-		if (wp_attachment_is_image($post_id)){
+		if(wp_attachment_is_image($post_id)){
 			update_post_meta($post_id, '_wp_attachment_image_alt', $readable_name);
 		}
 	}

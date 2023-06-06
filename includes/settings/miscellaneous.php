@@ -94,21 +94,6 @@ class Fiber_Admin_Miscellaneous{
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
-		
-		add_settings_section(
-			'fiad_attachment_section',
-			'<span class="dashicons dashicons-format-image"></span> Attachment',
-			[$this, 'fiad_section_info'],
-			'fiber-admin-miscellaneous'
-		);
-		
-		add_settings_field(
-			'auto_attachment_meta', // id
-			'Auto Add Attachment Meta Data', // title
-			[$this, 'fiad_auto_attachment_meta'], // callback
-			'fiber-admin-miscellaneous', // page
-			'fiad_attachment_section' // section
-		);
 	}
 	
 	public function fiad_section_info(){
@@ -201,19 +186,6 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[enable_comments]"
                        id="enable_comments"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_comments')), 'yes'); ?> />
-                <span class="slider round"></span>
-            </label>
-        </fieldset>
-		<?php
-	}
-	
-	public function fiad_auto_attachment_meta(){
-		?>
-        <fieldset>
-            <label for="auto_attachment_meta" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_miscellaneous[auto_attachment_meta]"
-                       id="auto_attachment_meta"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('auto_attachment_meta')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
