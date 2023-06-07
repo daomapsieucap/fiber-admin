@@ -14,6 +14,8 @@ class Fiber_Admin_Maintenance_Mode{
 		if(fiad_get_maintenance_mode_option('enable_maintenance_mode')){
 			add_action('template_redirect', [$this, 'fiad_enable_maintenance_mode']);
 			add_filter('template_include', [$this, 'fiad_maintenance_content']);
+			add_action('wp_head', [$this, 'fiad_maintenance_extra_css']);
+			add_action('wp_footer', [$this, 'fiad_maintenance_extra_js']);
 		}
 	}
 	
@@ -31,12 +33,13 @@ class Fiber_Admin_Maintenance_Mode{
 	
 	//No Header & Footer Page
 	public function fiad_maintenance_content($template){
-		$this->fiad_create_template_if_not_exists();
-		$new_template = dirname(__FILE__) . '/templates/maintenance.php';
-		if($new_template){
-			return $new_template;
+		if (!current_user_can('edit_themes') || !is_user_logged_in()){
+			$this->fiad_create_template_if_not_exists();
+			$new_template = dirname(__FILE__) . '/templates/maintenance.php';
+			if($new_template){
+				return $new_template;
+			}
 		}
-		
 		return $template;
 	}
 	
@@ -47,6 +50,20 @@ class Fiber_Admin_Maintenance_Mode{
 			fopen($templates_file_path, 'w');
 			$html .= "<div class='fiad-maintenance-content'>" . get_the_content() . "</div>";
 			file_put_contents($templates_file_path, $html);
+		}
+	}
+	
+	public function fiad_maintenance_extra_css(){
+		$extra_css = fiad_get_maintenance_mode_option('maintenance_mode_extra_css');
+		if($extra_css){
+			echo "<style>$extra_css</style>";
+		}
+	}
+	
+	public function fiad_maintenance_extra_js(){
+		$extra_js = fiad_get_maintenance_mode_option('maintenance_mode_extra_js');
+		if($extra_js){
+			echo "<script>$extra_js</script>";
 		}
 	}
 }
