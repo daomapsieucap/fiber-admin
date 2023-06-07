@@ -49,6 +49,18 @@ class Fiber_Admin_Maintenance_Mode{
 		$html                = '';
 		if(!file_exists($templates_file_path)){
 			fopen($templates_file_path, 'w');
+			
+			$php = '<?php';
+			$php .= PHP_EOL;
+			$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\');';
+			$php .= PHP_EOL;
+			$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
+			$php .= PHP_EOL;
+			$php .= 'header(\'Retry-After: 3600\');';
+			$php .= PHP_EOL;
+			$php .= '?>';
+			
+			$html = $php;
 			$html .= '<!doctype html>';
 			$html .= '<html <?php language_attributes(); ?>>';
 			$html .= '<head>';
