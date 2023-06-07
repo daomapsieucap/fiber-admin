@@ -80,10 +80,6 @@ class Fiber_Admin_Maintenance_Mode{
 			echo "<script>$extra_js</script>";
 		}
 	}
-	
-	public function fiad_set_header(){
-	
-	}
 }
 
 new Fiber_Admin_Maintenance_Mode();
