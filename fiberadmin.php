@@ -65,7 +65,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/cpo.php');
 	include_once(FIBERADMIN_DIR . 'includes/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/db-error.php');
-	include_once(FIBERADMIN_DIR . 'includes/filename.php');
+	include_once(FIBERADMIN_DIR . 'includes/attachment.php');
 }
 
 /**
