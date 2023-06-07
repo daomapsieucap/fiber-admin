@@ -45,7 +45,6 @@ class Fiber_Admin_Maintenance_Mode{
 		$html                = '';
 		if(!file_exists($templates_file_path)){
 			fopen($templates_file_path, 'w');
-			$html .= "<?php" .  "/* Template Name: Maintenance */" . "?>";
 			$html .= "<div class='fiad-maintenance-content'>" . get_the_content() . "</div>";
 			file_put_contents($templates_file_path, $html);
 		}
