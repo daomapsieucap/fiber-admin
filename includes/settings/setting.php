@@ -93,8 +93,7 @@ class Fiber_Admin_Setting{
 			'duplicate'        => 'Duplicate Post',
 			'db-error'         => 'Database Error',
 			'miscellaneous'    => 'Miscellaneous',
-			'coming-soon'      => 'Coming soon',
-			'maintenance-mode' => 'Maintenance mode',
+			'csm-mode' => 'Coming Soon & Maintenance Mode',
 		];
 	}
 	
@@ -128,13 +127,9 @@ class Fiber_Admin_Setting{
 				$miscellaneous = new Fiber_Admin_Miscellaneous();
 				$miscellaneous->fiad_miscellaneous_init();
 				break;
-			case 'coming-soon':
-				$maintenance = new Fiber_Admin_Coming_Soon_Mode_Settings();
-				$maintenance->fiad_coming_soon_init();
-				break;
-			case 'maintenance-mode':
-				$coming_soon = new Fiber_Admin_Maintenance_Mode_Settings();
-				$coming_soon->fiad_maintenance_mode_init();
+			case 'csm-mode':
+				$csm_mode = new Fiber_Admin_CSM_Mode_Settings();
+				$csm_mode->fiad_csm_mode_init();
 				break;
 			default:
 				$white_label = new Fiber_Admin_White_Label_Settings();
@@ -186,11 +181,8 @@ class Fiber_Admin_Setting{
 				case 'miscellaneous':
 					$option_key = 'fiad_miscellaneous';
 					break;
-				case 'coming-soon':
-					$option_key = 'fiad_coming_soon';
-					break;
-				case 'maintenance-mode':
-					$option_key = 'fiad_maintenance_mode';
+				case 'csm-mode':
+					$option_key = 'fiad_csm_mode';
 					break;
 				default:
 					$option_key = 'fiber_admin';
