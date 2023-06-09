@@ -12,6 +12,7 @@ class Fiber_Admin_Maintenance_Mode{
 	public function __construct(){
 		// Enable Maintenance Mode
 		if(fiad_get_maintenance_mode_option('enable_maintenance_mode')){
+			update_option('enable_coming_soon', '');
 			add_action('template_redirect', [$this, 'fiad_enable_maintenance_mode']);
 			add_filter('template_include', [$this, 'fiad_maintenance_content']);
 			add_action('wp_head', [$this, 'fiad_maintenance_extra_css']);
