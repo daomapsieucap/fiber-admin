@@ -71,7 +71,7 @@ class Fiber_Admin_Maintenance_Mode{
 		$html .= '</head>';
 		$html .= '<body>';
 		$html .= '<div class="fiad-maintenance-content">';
-		$html .= '<?= get_the_content(); ?>';
+		$html .= '<?= ev_vc_content(); ?>';
 		$html .= '</div>';
 		$html .= '<?php wp_footer(); ?>';
 		$html .= '</body>';
