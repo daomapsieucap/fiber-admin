@@ -129,12 +129,12 @@ class Fiber_Admin_Setting{
 				$miscellaneous->fiad_miscellaneous_init();
 				break;
 			case 'coming-soon':
-				$miscellaneous = new Fiber_Admin_Coming_Soon();
-				$miscellaneous->fiad_coming_soon_init();
+				$maintenance = new Fiber_Admin_Coming_Soon_Mode_Settings();
+				$maintenance->fiad_coming_soon_init();
 				break;
 			case 'maintenance-mode':
-				$miscellaneous = new Fiber_Admin_Maintenance_Mode_Settings();
-				$miscellaneous->fiad_maintenance_mode_init();
+				$coming_soon = new Fiber_Admin_Maintenance_Mode_Settings();
+				$coming_soon->fiad_maintenance_mode_init();
 				break;
 			default:
 				$white_label = new Fiber_Admin_White_Label_Settings();
