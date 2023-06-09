@@ -45,38 +45,46 @@ class Fiber_Admin_Maintenance_Mode{
 	}
 	
 	public function fiad_create_template_if_not_exists(){
-		$templates_file_path = dirname(__FILE__) . '/templates/maintenance.php';
+		$templates_file_dir  = dirname(__FILE__) . '/templates/';
+		$file_name           = 'maintenance.php';
+		$templates_file_path = $templates_file_dir . $file_name;
 		$html                = '';
-		fopen($templates_file_path, 'w');
 		
-		$title = get_bloginfo('name');
-		
-		$php = '<?php';
-		$php .= PHP_EOL;
-		$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\', true, 503 );';
-		$php .= PHP_EOL;
-		$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
-		$php .= PHP_EOL;
-		$php .= 'header(\'Retry-After: 3600\');';
-		$php .= PHP_EOL;
-		$php .= '?>';
-		
-		$html .= $php;
-		$html .= '<!DOCTYPE HTML>';
-		$html .= '<html ' . get_language_attributes() . '>';
-		$html .= '<head>';
-		$html .= '<title>' . $title . '</title>';
-		$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
-		$html .= '<?php wp_head(); ?>';
-		$html .= '</head>';
-		$html .= '<body>';
-		$html .= '<div class="fiad-maintenance-content">';
-		$html .= '<?= ev_vc_content(); ?>';
-		$html .= '</div>';
-		$html .= '<?php wp_footer(); ?>';
-		$html .= '</body>';
-		$html .= '</html>';
-		file_put_contents($templates_file_path, $html);
+		if(!file_exists($templates_file_path)){
+			if(!file_exists($templates_file_dir)){
+				mkdir($templates_file_dir);
+			}
+			fopen($templates_file_path, 'w');
+			
+			$title = get_bloginfo('name');
+			
+			$php = '<?php';
+			$php .= PHP_EOL;
+			$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\', true, 503 );';
+			$php .= PHP_EOL;
+			$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
+			$php .= PHP_EOL;
+			$php .= 'header(\'Retry-After: 3600\');';
+			$php .= PHP_EOL;
+			$php .= '?>';
+			
+			$html .= $php;
+			$html .= '<!DOCTYPE HTML>';
+			$html .= '<html ' . get_language_attributes() . '>';
+			$html .= '<head>';
+			$html .= '<title>' . $title . '</title>';
+			$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
+			$html .= '<?php wp_head(); ?>';
+			$html .= '</head>';
+			$html .= '<body>';
+			$html .= '<div class="fiad-maintenance-content">';
+			$html .= '<?= ev_vc_content(); ?>';
+			$html .= '</div>';
+			$html .= '<?php wp_footer(); ?>';
+			$html .= '</body>';
+			$html .= '</html>';
+			file_put_contents($templates_file_path, $html);
+		}
 	}
 	
 	public function fiad_maintenance_extra_css(){

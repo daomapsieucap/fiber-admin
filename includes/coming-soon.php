@@ -21,10 +21,9 @@ class Fiber_Admin_Coming_Soon{
 	
 	public function fiad_enable_coming_soon(){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			if(is_front_page()){
-				$selected_post_types = fiad_get_coming_soon_option('coming_soon_page');
-				$coming_soon_page_id = (int) $selected_post_types[0];
-				
+			$selected_post_types = fiad_get_coming_soon_option('coming_soon_page');
+			$coming_soon_page_id = (int) $selected_post_types[0];
+			if(!is_page($coming_soon_page_id)){
 				wp_redirect(get_permalink($coming_soon_page_id));
 				exit();
 			}
@@ -45,16 +44,24 @@ class Fiber_Admin_Coming_Soon{
 	}
 	
 	public function fiad_create_template_if_not_exists(){
-		$templates_file_path = dirname(__FILE__) . '/templates/coming-soon.php';
+		$templates_file_dir  = dirname(__FILE__) . '/templates/';
+		$file_name           = 'coming-soon.php';
+		$templates_file_path = $templates_file_dir . $file_name;
 		$html                = '';
+		
 		if(!file_exists($templates_file_path)){
+			if(!file_exists($templates_file_dir)){
+				mkdir($templates_file_dir);
+			}
 			fopen($templates_file_path, 'w');
 			
+			$title = get_bloginfo('name');
+			
 			$html .= '<!DOCTYPE HTML>';
-			$html .= '<html <?php language_attributes(); ?>>';
+			$html .= '<html ' . get_language_attributes() . '>';
 			$html .= '<head>';
-			$html .= '<meta charset="<?php bloginfo( "charset" ); ?>" />';
-			$html .= '<meta name="viewport" content="width=device-width, initial-scale=1" />';
+			$html .= '<title>' . $title . '</title>';
+			$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
 			$html .= '<?php wp_head(); ?>';
 			$html .= '</head>';
 			$html .= '<body>';
