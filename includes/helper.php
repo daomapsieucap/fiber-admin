@@ -98,6 +98,12 @@ if(!function_exists('fiad_check_db_error_file')){
 	}
 }
 
+if(!function_exists('fiad_get_maintenance_mode_option')){
+	function fiad_get_maintenance_mode_option($key){
+		return fiad_get_option($key, get_option('fiad_maintenance_mode'));
+	}
+}
+
 if(!function_exists('fiad_array_key_exists')){
 	function fiad_array_key_exists($key, $array, $default = ''){
 		if($array && is_array($array)){
