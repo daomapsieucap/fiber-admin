@@ -40,7 +40,7 @@ class Fiber_Admin_CSM_Mode{
 	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
 			$this->fiad_create_template_if_not_exists();
-			$new_template = dirname(__FILE__) . '/templates/' . $this->mode . '.php';
+			$new_template = WP_CONTENT_DIR . '/templates/' . $this->mode . '.php';
 			if($new_template){
 				return $new_template;
 			}
@@ -50,7 +50,7 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_create_template_if_not_exists(){
-		$templates_file_dir  = dirname(__FILE__) . '/templates/';
+		$templates_file_dir  = WP_CONTENT_DIR . '/templates/';
 		$file_name           = $this->mode . '.php';
 		$templates_file_path = $templates_file_dir . $file_name;
 		$html                = '';
