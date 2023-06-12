@@ -41,14 +41,6 @@ class Fiber_Admin_Miscellaneous{
 		);
 		
 		add_settings_field(
-			'auto_img_meta', // id
-			'Auto Set Image Meta', // title
-			[$this, 'fiad_auto_image_meta'], // callback
-			'fiber-admin-miscellaneous', // page
-			'fiad_image_section' // section
-		);
-		
-		add_settings_field(
 			'disable_image_protection', // id
 			'Disable Image Protection ', // title
 			[$this, 'fiad_disable_image_protection'], // callback
@@ -113,18 +105,6 @@ class Fiber_Admin_Miscellaneous{
             <label for="enable_auto_update" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiad_miscellaneous[enable_auto_update]" id="enable_auto_update"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_auto_update')), 'yes'); ?> />
-                <span class="slider round"></span>
-            </label>
-        </fieldset>
-		<?php
-	}
-	
-	public function fiad_auto_image_meta(){
-		?>
-        <fieldset>
-            <label for="auto_img_meta" class="fiber-admin-toggle">
-                <input type="checkbox" name="fiad_miscellaneous[auto_img_meta]" id="auto_img_meta"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('auto_img_meta')), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>

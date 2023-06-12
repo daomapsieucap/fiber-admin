@@ -6,18 +6,18 @@ if(!defined('ABSPATH')){
 }
 
 /**
- * Cleanup file name
+ * Cleanup attachment name
  */
 class Fiber_Admin_Attachment{
 	public function __construct(){
-		// Cleanup file name
+		// Cleanup attachment name
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
-		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_file_name'], 10, 2);
-		add_filter('add_attachment', [$this, 'fiad_change_title']);
+		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_attachment_name'], 10, 2);
+		add_filter('add_attachment', [$this, 'fiad_change_metadata']);
 	}
 	
 	/*
-	 * Return fiad special chars
+	 * Return custom special chars array
 	 */
 	public function fiad_special_chars($special_chars){
 		if(($key = array_search('%', $special_chars)) !== false){
@@ -36,8 +36,8 @@ class Fiber_Admin_Attachment{
 		return trim($sanitized_filename, '-');
 	}
 	
-	// Cleanup file name
-	public function fiad_cleanup_file_name($filename, $filename_raw){
+	// Cleanup attachment name
+	public function fiad_cleanup_attachment_name($filename, $filename_raw){
 		//variable
 		$path_info          = pathinfo($filename);
 		$file_extension     = fiad_array_key_exists('extension', $path_info);
@@ -49,9 +49,9 @@ class Fiber_Admin_Attachment{
 		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
 		$urlencoded_chars = $matches[0];
 		if($urlencoded_chars){
-			$urlencoded_chars = array_map(function($char){
+			$urlencoded_chars   = array_map(function($char){
 				return strtolower(trim($char, '%'));
-			},$urlencoded_chars);
+			}, $urlencoded_chars);
 			$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
 		}
 		
@@ -61,8 +61,40 @@ class Fiber_Admin_Attachment{
 		return $sanitized_filename . "." . $file_extension;
 	}
 	
-	public function fiad_change_title($post_id){
-		fiad_update_post_meta($post_id, fiad_get_readable_filename($post_id));
+	public function fiad_change_metadata($post_id){
+		$readable_name = $this->fiad_get_readable_attachmentname($post_id);
+		$this->fiad_update_post_meta($post_id, $readable_name);
+		
+		if(wp_attachment_is_image($post_id)){
+			update_post_meta($post_id, '_wp_attachment_image_alt', $readable_name);
+		}
+	}
+	
+	public function fiad_get_readable_attachmentname($post_id){
+		$file          = get_attached_file($post_id);
+		$file_pathinfo = pathinfo($file);
+		$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
+		
+		//check if the file name contain index at the end
+		$pattern = '/-\d+$/';
+		if(preg_match($pattern, $file_name)){
+			$file_name = preg_replace($pattern, '', $file_name);
+		}
+		
+		$file_name = str_replace('-', ' ', $file_name);
+		
+		return ucwords($file_name);
+	}
+	
+	public function fiad_update_post_meta($post_id, $post_title, $extra_args = []){
+		$fiber_meta = [
+			'ID'         => $post_id,
+			'post_title' => $post_title,
+		];
+		if($extra_args){
+			$fiber_meta = array_merge($fiber_meta, $extra_args);
+		};
+		wp_update_post($fiber_meta);
 	}
 }
 

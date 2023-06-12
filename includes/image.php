@@ -27,27 +27,22 @@ use enshrined\svgSanitize\Sanitizer;
  */
 class Fiber_Admin_Image{
 	public function __construct(){
-		// Set image meta on upload
-		if(fiad_get_miscellaneous_option('auto_img_meta')){
-			add_action('add_attachment', array($this, 'fiad_set_image_meta_on_image_upload'));
-		}
-		
 		// Disable right click and drag on image v1.2.0
 		if(!fiad_get_miscellaneous_option('disable_image_protection') && !fiad_is_admin_user_role()){
-			add_action('wp_footer', array($this, 'fiad_image_protection_scripts'));
+			add_action('wp_footer', [$this, 'fiad_image_protection_scripts']);
 		}
 		
 		// Enable SVG
 		if(fiad_get_miscellaneous_option('enable_svg')){
-			add_filter('upload_mimes', array($this, 'fiad_svg_mime_types'));
-			add_action('admin_head', array($this, 'fiad_fix_svg_display'));
+			add_filter('upload_mimes', [$this, 'fiad_svg_mime_types']);
+			add_action('admin_head', [$this, 'fiad_fix_svg_display']);
 			
-			add_action("admin_enqueue_scripts", array($this, 'fiad_svg_enqueue_scripts'));
-			add_filter('wp_handle_upload_prefilter', array($this, 'fiad_check_for_svg'));
+			add_action("admin_enqueue_scripts", [$this, 'fiad_svg_enqueue_scripts']);
+			add_filter('wp_handle_upload_prefilter', [$this, 'fiad_check_for_svg']);
 			
 			// SVG metadata
-			add_filter('wp_get_attachment_metadata', array($this, 'fiad_svg_attachment_metadata'), 10, 2);
-			add_filter('wp_generate_attachment_metadata', array($this, 'fiad_svg_attachment_metadata'), 10, 2);
+			add_filter('wp_get_attachment_metadata', [$this, 'fiad_svg_attachment_metadata'], 10, 2);
+			add_filter('wp_generate_attachment_metadata', [$this, 'fiad_svg_attachment_metadata'], 10, 2);
 		}
 	}
 	
@@ -55,29 +50,12 @@ class Fiber_Admin_Image{
 		$screen = get_current_screen();
 		if($screen->id == 'upload'){
 			$suffix = !FIBERADMIN_DEV_MODE ? '.min' : '';
-			wp_enqueue_script('fiber-admin-svg', FIBERADMIN_ASSETS_URL . 'js/fiber-svg' . $suffix . '.js', array('jquery'), FIBERADMIN_VERSION);
+			wp_enqueue_script('fiber-admin-svg', FIBERADMIN_ASSETS_URL . 'js/fiber-svg' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
 			wp_localize_script('fiber-admin-svg', 'script_vars',
-				array(
-					'ajaxurl' => admin_url('admin-ajax.php')
-				)
+				[
+					'ajaxurl' => admin_url('admin-ajax.php'),
+				]
 			);
-		}
-	}
-	
-	public function fiad_set_image_meta_on_image_upload($post_id){
-		if(wp_attachment_is_image($post_id)){
-			$fiber_image_title = get_post($post_id)->post_title;
-			
-			$fiber_image_title = preg_replace('%\s*[-_\s]+\s*%', ' ', $fiber_image_title);
-			$fiber_image_title = ucwords(strtolower($fiber_image_title));
-			
-			$fiber_image_meta = array(
-				'ID'         => $post_id,
-				'post_title' => $fiber_image_title,
-			);
-			
-			update_post_meta($post_id, '_wp_attachment_image_alt', $fiber_image_title);
-			wp_update_post($fiber_image_meta);
 		}
 	}
 	
@@ -160,11 +138,11 @@ class Fiber_Admin_Image{
 			}
 		}
 		
-		return array(
+		return [
 			'width'       => ceil($width),
 			'height'      => ceil($height),
-			'orientation' => ($width > $height) ? 'landscape' : 'portrait'
-		);
+			'orientation' => ($width > $height) ? 'landscape' : 'portrait',
+		];
 	}
 	
 	public function fiad_check_for_svg($file){
