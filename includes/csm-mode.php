@@ -1,28 +1,33 @@
 <?php
-
 // Exit if accessed directly
 if(!defined('ABSPATH')){
 	exit;
 }
 
 /**
- * Enable Maintenance Mode
+ * Enable Coming Soon/Maintenance Mode
  */
-class Fiber_Admin_Maintenance_Mode{
+class Fiber_Admin_CSM_Mode{
+	private $mode = '';
+	
 	public function __construct(){
-		// Enable Maintenance Mode
-		if(fiad_get_maintenance_mode_option('enable_maintenance_mode')){
-			update_option('enable_coming_soon', '');
-			add_action('template_redirect', [$this, 'fiad_enable_maintenance_mode']);
-			add_filter('template_include', [$this, 'fiad_maintenance_content']);
-			add_action('wp_head', [$this, 'fiad_maintenance_extra_css']);
-			add_action('wp_footer', [$this, 'fiad_maintenance_extra_js']);
+		// Enable Coming Soon/Maintenance Mode
+		if(fiad_get_csm_mode_option('enable_maintenance_mode') || fiad_get_csm_mode_option('enable_coming_soon_mode')){
+			if(fiad_get_csm_mode_option('enable_maintenance_mode')){
+				$this->mode = 'maintenance';
+			}elseif(fiad_get_csm_mode_option('enable_coming_soon_mode')){
+				$this->mode = 'coming-soon';
+			}
+			add_action('template_redirect', [$this, 'fiad_enable_csm_mode']);
+			add_filter('template_include', [$this, 'fiad_csm_content']);
+			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
+			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
 		}
 	}
 	
-	public function fiad_enable_maintenance_mode(){
+	public function fiad_enable_csm_mode(){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			$selected_post_types = fiad_get_maintenance_mode_option('maintenance_mode_page');
+			$selected_post_types = fiad_get_csm_mode_option('csm_mode_page');
 			$maintenance_page_id = (int) $selected_post_types[0];
 			if(!is_page($maintenance_page_id)){
 				wp_redirect(get_permalink($maintenance_page_id));
@@ -32,10 +37,10 @@ class Fiber_Admin_Maintenance_Mode{
 	}
 	
 	//No Header & Footer Page
-	public function fiad_maintenance_content($template){
+	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
 			$this->fiad_create_template_if_not_exists();
-			$new_template = dirname(__FILE__) . '/templates/maintenance.php';
+			$new_template = dirname(__FILE__) . '/templates/' . $this->mode . '.php';
 			if($new_template){
 				return $new_template;
 			}
@@ -46,7 +51,7 @@ class Fiber_Admin_Maintenance_Mode{
 	
 	public function fiad_create_template_if_not_exists(){
 		$templates_file_dir  = dirname(__FILE__) . '/templates/';
-		$file_name           = 'maintenance.php';
+		$file_name           = $this->mode . '.php';
 		$templates_file_path = $templates_file_dir . $file_name;
 		$html                = '';
 		
@@ -77,7 +82,7 @@ class Fiber_Admin_Maintenance_Mode{
 			$html .= '<?php wp_head(); ?>';
 			$html .= '</head>';
 			$html .= '<body>';
-			$html .= '<div class="fiad-maintenance-content">';
+			$html .= '<div class="fiad-' . $this->mode . '-content">';
 			$html .= '<?= ev_vc_content(); ?>';
 			$html .= '</div>';
 			$html .= '<?php wp_footer(); ?>';
@@ -87,19 +92,19 @@ class Fiber_Admin_Maintenance_Mode{
 		}
 	}
 	
-	public function fiad_maintenance_extra_css(){
-		$extra_css = fiad_get_maintenance_mode_option('maintenance_mode_extra_css');
+	public function fiad_csm_extra_css(){
+		$extra_css = fiad_get_csm_mode_option('csm_mode_extra_css');
 		if($extra_css){
 			echo "<style>$extra_css</style>";
 		}
 	}
 	
-	public function fiad_maintenance_extra_js(){
-		$extra_js = fiad_get_maintenance_mode_option('maintenance_mode_extra_js');
+	public function fiad_csm_extra_js(){
+		$extra_js = fiad_get_csm_mode_option('csm_mode_extra_js');
 		if($extra_js){
 			echo "<script>$extra_js</script>";
 		}
 	}
 }
 
-new Fiber_Admin_Maintenance_Mode();
+new Fiber_Admin_CSM_Mode();
