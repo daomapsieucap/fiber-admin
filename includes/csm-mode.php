@@ -19,6 +19,7 @@ class Fiber_Admin_CSM_Mode{
 				$this->mode = 'coming-soon';
 			}
 			add_action('template_redirect', [$this, 'fiad_enable_csm_mode']);
+			$this->fiad_create_template_if_not_exists();
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
@@ -28,9 +29,9 @@ class Fiber_Admin_CSM_Mode{
 	public function fiad_enable_csm_mode(){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
 			$selected_post_types = fiad_get_csm_mode_option('csm_mode_page');
-			$maintenance_page_id = (int) $selected_post_types[0];
-			if(!is_page($maintenance_page_id)){
-				wp_redirect(get_permalink($maintenance_page_id));
+			$csm_page_id         = (int) $selected_post_types[0];
+			if(!is_page($csm_page_id)){
+				wp_redirect(get_permalink($csm_page_id));
 				exit();
 			}
 		}
@@ -39,7 +40,6 @@ class Fiber_Admin_CSM_Mode{
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			$this->fiad_create_template_if_not_exists();
 			$new_template = WP_CONTENT_DIR . '/templates/' . $this->mode . '.php';
 			if($new_template){
 				return $new_template;
@@ -53,43 +53,48 @@ class Fiber_Admin_CSM_Mode{
 		$templates_file_dir  = WP_CONTENT_DIR . '/templates/';
 		$file_name           = $this->mode . '.php';
 		$templates_file_path = $templates_file_dir . $file_name;
+		$selected_post_types = fiad_get_csm_mode_option('csm_mode_page');
+		$csm_page_id         = (int) $selected_post_types[0];
 		$html                = '';
 		
-		if(!file_exists($templates_file_path)){
-			if(!file_exists($templates_file_dir)){
-				mkdir($templates_file_dir);
-			}
-			fopen($templates_file_path, 'w');
-			
-			$title = get_bloginfo('name');
-			
-			$php = '<?php';
-			$php .= PHP_EOL;
-			$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\', true, 503 );';
-			$php .= PHP_EOL;
-			$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
-			$php .= PHP_EOL;
-			$php .= 'header(\'Retry-After: 3600\');';
-			$php .= PHP_EOL;
-			$php .= '?>';
-			
-			$html .= $php;
-			$html .= '<!DOCTYPE HTML>';
-			$html .= '<html ' . get_language_attributes() . '>';
-			$html .= '<head>';
-			$html .= '<title>' . $title . '</title>';
-			$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
-			$html .= '<?php wp_head(); ?>';
-			$html .= '</head>';
-			$html .= '<body>';
-			$html .= '<div class="fiad-' . $this->mode . '-content">';
-			$html .= '<?= ev_vc_content(); ?>';
-			$html .= '</div>';
-			$html .= '<?php wp_footer(); ?>';
-			$html .= '</body>';
-			$html .= '</html>';
-			file_put_contents($templates_file_path, $html);
+		if(!file_exists($templates_file_dir)){
+			mkdir($templates_file_dir);
 		}
+		fopen($templates_file_path, 'w');
+		
+		$title = get_bloginfo('name');
+		global $post;
+		$post = get_post($csm_page_id);
+		setup_postdata($post);
+		
+		$content = preg_replace('#\[[^\]]+\]#', '',$post->post_content);
+		
+		$php = '<?php';
+		$php .= PHP_EOL;
+		$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\', true, 503 );';
+		$php .= PHP_EOL;
+		$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
+		$php .= PHP_EOL;
+		$php .= 'header(\'Retry-After: 3600\');';
+		$php .= PHP_EOL;
+		$php .= '?>';
+		
+		$html .= $php;
+		$html .= '<!DOCTYPE HTML>';
+		$html .= '<html ' . get_language_attributes() . '>';
+		$html .= '<head>';
+		$html .= '<title>' . $title . '</title>';
+		$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
+		$html .= '</head>';
+		$html .= '<body>';
+		$html .= '<div class="fiad-' . $this->mode . '-content">';
+		$html .= ev_vc_content($content);
+		$html .= '</div>';
+		$html .= '</body>';
+		$html .= '</html>';
+		file_put_contents($templates_file_path, $html);
+		
+		wp_reset_postdata();
 	}
 	
 	public function fiad_csm_extra_css(){

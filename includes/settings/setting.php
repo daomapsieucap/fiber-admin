@@ -88,12 +88,12 @@ class Fiber_Admin_Setting{
 	
 	public function fiad_setting_tabs(){
 		return [
-			'white-label'      => 'White Label',
-			'cpo'              => 'Custom Post Order',
-			'duplicate'        => 'Duplicate Post',
-			'db-error'         => 'Database Error',
-			'miscellaneous'    => 'Miscellaneous',
-			'csm-mode' => 'Coming Soon & Maintenance Mode',
+			'white-label'   => 'White Label',
+			'cpo'           => 'Custom Post Order',
+			'duplicate'     => 'Duplicate Post',
+			'db-error'      => 'Database Error',
+			'miscellaneous' => 'Miscellaneous',
+			'csm-mode'      => 'Coming Soon & Maintenance Mode',
 		];
 	}
 	
@@ -140,16 +140,41 @@ class Fiber_Admin_Setting{
 		
 		do_settings_sections('fiber-admin-' . $current);
 		
-		if($current == 'db-error'){
-			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
-			if(!fiad_check_db_error_file()){
+		$this->fiad_preview_mode($current);
+	}
+	
+	public function fiad_preview_mode($current){
+		$can_preview    = false;
+		$enable_message = '';
+		$file           = '';
+		switch($current){
+			case 'db-error':
+				$can_preview    = fiad_check_db_error_file();
+				$enable_message = '"Activate"';
+				$file           = 'db-error.php';
+				break;
+			case 'csm-mode':
+                $enable = (fiad_get_csm_mode_option('enable_maintenance_mode') || fiad_get_csm_mode_option('enable_coming_soon_mode'));
+                $file_exists =  (fiad_check_coming_soon_file() || fiad_check_maintenance_mode_file());
+				$can_preview    = $file_exists && $enable;
+				$enable_message = '"Maintenance Mode" or "Coming Soon"';
+				if(fiad_check_maintenance_mode_file() && fiad_get_csm_mode_option('enable_maintenance_mode')){
+					$file = 'templates/maintenance.php';
+				}elseif(fiad_check_coming_soon_file() && fiad_get_csm_mode_option('enable_coming_soon_mode')){
+					$file = 'templates/coming-soon.php';
+				}
+				break;
+		}
+		if($current == 'db-error' || $current == 'csm-mode'){
+			echo '<input type="submit" name="fiber-admign-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
+			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
+                <p class="description"><?php echo __('Preview is not available. Please enable ' . $enable_message . ' option and save the settings first!', 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');
 				?>
-                <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank"
+                <a class="button" href="<?php echo content_url($file); ?>" target="_blank"
                    title="<?php echo $txt_preview; ?>">
 					<?php echo $txt_preview; ?>
                 </a>

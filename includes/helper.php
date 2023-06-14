@@ -103,6 +103,18 @@ if(!function_exists('fiad_get_csm_mode_option')){
 		return fiad_get_option($key, get_option('fiad_csm_mode'));
 	}
 }
+if(!function_exists('fiad_check_maintenance_mode_file')){
+	function fiad_check_maintenance_mode_file(){
+		return (file_exists(WP_CONTENT_DIR . '/templates/coming-soon.php'));
+	}
+}
+
+if(!function_exists('fiad_check_coming_soon_file')){
+	function fiad_check_coming_soon_file(){
+		return (file_exists(WP_CONTENT_DIR . '/templates/coming-soon.php'));
+	}
+}
+
 
 if(!function_exists('fiad_array_key_exists')){
 	function fiad_array_key_exists($key, $array, $default = ''){
