@@ -12,14 +12,11 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function __construct(){
 		// Enable Coming Soon/Maintenance Mode
-		if(fiad_get_csm_mode_option('enable_maintenance_mode') || fiad_get_csm_mode_option('enable_coming_soon_mode')){
-			if(fiad_get_csm_mode_option('enable_maintenance_mode')){
-				$this->mode = 'maintenance';
-			}elseif(fiad_get_csm_mode_option('enable_coming_soon_mode')){
-				$this->mode = 'coming-soon';
-			}
+		add_action('template_redirect', [$this, 'fiad_preview_csm_page']);
+		$this->mode = fiad_get_csm_mode_option('mode');
+		$this->fiad_create_template_if_not_exists();
+		if(fiad_get_csm_mode_option('enable')){
 			add_action('template_redirect', [$this, 'fiad_enable_csm_mode']);
-			$this->fiad_create_template_if_not_exists();
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
@@ -28,11 +25,20 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_enable_csm_mode(){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			$selected_post_types = fiad_get_csm_mode_option('csm_mode_page');
-			$csm_page_id         = (int) $selected_post_types[0];
-			if(!is_page($csm_page_id)){
-				wp_redirect(get_permalink($csm_page_id));
-				exit();
+			if(fiad_get_csm_mode_option('enable')){
+				$title = $this->mode == 'maintenance' ? 'Maintenance' : 'Coming Soon';
+				if(!($page_id = post_exists($title))){
+					$page_id = wp_insert_post([
+						'post_title'  => $title,
+						'post_name'   => $this->mode,
+						'post_status' => 'publish',
+						'post_type'   => 'page',
+					]);
+				}
+				if(!is_page($page_id)){
+					wp_redirect(get_permalink($page_id));
+					exit();
+				}
 			}
 		}
 	}
@@ -40,7 +46,7 @@ class Fiber_Admin_CSM_Mode{
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			$new_template = WP_CONTENT_DIR . '/templates/' . $this->mode . '.php';
+			$new_template = dirname(__FILE__) . '/templates/' . $this->mode . '.php';
 			if($new_template){
 				return $new_template;
 			}
@@ -49,12 +55,28 @@ class Fiber_Admin_CSM_Mode{
 		return $template;
 	}
 	
+	public function fiad_preview_csm_page(){
+		global $wp;
+		$request      = $wp->request;
+		$this->mode   = $request;
+		$preview_mode = ev_array_key_exists('preview', $_GET);
+		if($preview_mode){
+			add_filter('template_include', function($template){
+				$new_template = dirname(__FILE__) . '/templates/' . $this->mode . '.php';
+				if($new_template){
+					return $new_template;
+				}
+				
+				return $template;
+			});
+		}
+	}
+	
 	public function fiad_create_template_if_not_exists(){
-		$templates_file_dir  = WP_CONTENT_DIR . '/templates/';
+		$templates_file_dir  = dirname(__FILE__) . '/templates/';
 		$file_name           = $this->mode . '.php';
 		$templates_file_path = $templates_file_dir . $file_name;
-		$selected_post_types = fiad_get_csm_mode_option('csm_mode_page');
-		$csm_page_id         = (int) $selected_post_types[0];
+		$selected_page       = fiad_get_csm_mode_option('page');
 		$html                = '';
 		
 		if(!file_exists($templates_file_dir)){
@@ -64,10 +86,9 @@ class Fiber_Admin_CSM_Mode{
 		
 		$title = get_bloginfo('name');
 		global $post;
-		$post = get_post($csm_page_id);
+		$post = get_post($selected_page);
 		setup_postdata($post);
-		
-		$content = preg_replace('#\[[^\]]+\]#', '',$post->post_content);
+		$content = preg_replace('#\[[^\]]+\]#', '', $post->post_content);
 		
 		$php = '<?php';
 		$php .= PHP_EOL;
@@ -85,11 +106,13 @@ class Fiber_Admin_CSM_Mode{
 		$html .= '<head>';
 		$html .= '<title>' . $title . '</title>';
 		$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
+		$html .= '<?php wp_head(); ?>';
 		$html .= '</head>';
 		$html .= '<body>';
 		$html .= '<div class="fiad-' . $this->mode . '-content">';
 		$html .= ev_vc_content($content);
 		$html .= '</div>';
+		$html .= '<?php wp_footer(); ?>';
 		$html .= '</body>';
 		$html .= '</html>';
 		file_put_contents($templates_file_path, $html);
@@ -98,14 +121,14 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_extra_css(){
-		$extra_css = fiad_get_csm_mode_option('csm_mode_extra_css');
+		$extra_css = fiad_get_csm_mode_option('extra_css');
 		if($extra_css){
 			echo "<style>$extra_css</style>";
 		}
 	}
 	
 	public function fiad_csm_extra_js(){
-		$extra_js = fiad_get_csm_mode_option('csm_mode_extra_js');
+		$extra_js = fiad_get_csm_mode_option('extra_js');
 		if($extra_js){
 			echo "<script>$extra_js</script>";
 		}
