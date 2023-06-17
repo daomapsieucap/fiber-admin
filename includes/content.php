@@ -18,8 +18,15 @@ class Fiber_Admin_Content{
 		}
 		
 		// Content protection
-		if(!fiad_get_miscellaneous_option('disable_content_protection') && !fiad_is_admin_user_role()){
-			add_action('wp_footer', array($this, 'fiad_content_protection_scripts'));
+		if(!fiad_is_admin_user_role()){
+			//Disable prevent copy content
+			if (!fiad_get_miscellaneous_option('disable_content_protection')){
+				add_action('wp_footer', array($this, 'fiad_content_protection_scripts'));
+			}
+			// Disable right click and drag on image
+			if (!fiad_get_miscellaneous_option('disable_image_protection')){
+				add_action('wp_footer', array($this, 'fiad_image_protection_scripts'));
+			}
 		}
 		
 		// Revisions
@@ -66,7 +73,7 @@ class Fiber_Admin_Content{
 		}
 		
 		// Detect and create email link
-		$search  = array('/([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/');
+		$search  = array('/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,})/');
 		$replace = array('<a href="mailto:$1" title="$1">$1</a>');
 		
 		return preg_replace($search, $replace, $content);
@@ -84,6 +91,26 @@ class Fiber_Admin_Content{
 			    }, false);
 			</script>
 			';
+	}
+	
+	public function fiad_image_protection_scripts(){
+		echo "
+			<script type='text/javascript'>
+				setTimeout(function(){
+			        const currentURL = window.location.hostname,
+			            images = document.getElementsByTagName('img');
+			
+			        let imageURL = '';
+			        for(let i = 0; i < images.length; i++){
+			            imageURL = images[i].src;
+			            if(imageURL.includes(currentURL)){
+			                images[i].addEventListener('contextmenu', event => event.preventDefault());
+			                images[i].setAttribute('draggable', false);
+			            }
+			        }
+			    }, 1000);
+			</script>
+			";
 	}
 	
 	public function fiad_limit_wp_revisions($num, $post): int{
