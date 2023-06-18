@@ -12,9 +12,9 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function __construct(){
 		// Enable Coming Soon/Maintenance Mode
-		add_action('template_redirect', [$this, 'fiad_preview_csm_page']);
 		$this->mode = fiad_get_csm_mode_option('mode');
 		$this->fiad_create_template_if_not_exists();
+		add_action('template_redirect', [$this, 'fiad_preview_csm_page']);
 		if(fiad_get_csm_mode_option('enable')){
 			add_action('template_redirect', [$this, 'fiad_enable_csm_mode']);
 			add_filter('template_include', [$this, 'fiad_csm_content']);
@@ -26,7 +26,7 @@ class Fiber_Admin_CSM_Mode{
 	public function fiad_enable_csm_mode(){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
 			if(fiad_get_csm_mode_option('enable')){
-				$title = $this->mode == 'maintenance' ? 'Maintenance' : 'Coming Soon';
+				$title = $this->mode === 'maintenance' ? 'Maintenance' : 'Coming Soon';
 				if(!($page_id = post_exists($title))){
 					$page_id = wp_insert_post([
 						'post_title'  => $title,
@@ -56,9 +56,6 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_preview_csm_page(){
-		global $wp;
-		$request      = $wp->request;
-		$this->mode   = $request;
 		$preview_mode = ev_array_key_exists('preview', $_GET);
 		if($preview_mode){
 			add_filter('template_include', function($template){
