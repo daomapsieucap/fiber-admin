@@ -1,5 +1,4 @@
 <?php
-
 // Exit if accessed directly
 if(!defined('ABSPATH')){
 	exit;
@@ -10,15 +9,16 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_Attachment{
 	public function __construct(){
-		// Cleanup attachment name
+		//Return `%` in special chars array
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
+		
+		 // Format filename
 		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_attachment_name'], 10, 2);
+		
+		// Generate attachment title from filename
 		add_filter('add_attachment', [$this, 'fiad_change_metadata']);
 	}
 	
-	/*
-	 * Return custom special chars array
-	 */
 	public function fiad_special_chars($special_chars){
 		if(($key = array_search('%', $special_chars)) !== false){
 			unset($special_chars[$key]);
@@ -36,7 +36,6 @@ class Fiber_Admin_Attachment{
 		return trim($sanitized_filename, '-');
 	}
 	
-	// Cleanup attachment name
 	public function fiad_cleanup_attachment_name($filename, $filename_raw){
 		//variable
 		$path_info          = pathinfo($filename);
