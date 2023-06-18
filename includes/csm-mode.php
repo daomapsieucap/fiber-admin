@@ -66,17 +66,19 @@ class Fiber_Admin_CSM_Mode{
 		setup_postdata($post);
 		$content = preg_replace('#\[[^\]]+\]#', '', $post->post_content);
 		
-		$php = '<?php';
-		$php .= PHP_EOL;
-		$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\', true, 503 );';
-		$php .= PHP_EOL;
-		$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
-		$php .= PHP_EOL;
-		$php .= 'header(\'Retry-After: 3600\');';
-		$php .= PHP_EOL;
-		$php .= '?>';
-		
-		$html .= $php;
+		if($this->mode == 'maintenance'){
+			$php = '<?php';
+			$php .= PHP_EOL;
+			$php .= 'header(\'HTTP/1.1 503 Service Temporarily Unavailable\', true, 503 );';
+			$php .= PHP_EOL;
+			$php .= 'header(\'Status: 503 Service Temporarily Unavailable\');';
+			$php .= PHP_EOL;
+			$php .= 'header(\'Retry-After: 3600\');';
+			$php .= PHP_EOL;
+			$php .= '?>';
+			
+			$html .= $php;
+		}
 		$html .= '<!DOCTYPE HTML>';
 		$html .= '<html ' . get_language_attributes() . '>';
 		$html .= '<head>';
