@@ -57,7 +57,7 @@ class Fiber_Admin_CSM_Mode_Settings{
 		);
 		
 		add_settings_field(
-			'extra_css', // id
+			'csm_extra_css', // id
 			'Extra CSS', // title
 			[$this, 'fiad_csm_mode_extra_css'], // callback
 			'fiber-admin-csm-mode', // page
@@ -65,7 +65,7 @@ class Fiber_Admin_CSM_Mode_Settings{
 		);
 		
 		add_settings_field(
-			'extra_js', // id
+			'csm_extra_js', // id
 			'Extra JS', // title
 			[$this, 'fiad_csm_mode_extra_js'], // callback
 			'fiber-admin-csm-mode', // page
@@ -129,19 +129,53 @@ class Fiber_Admin_CSM_Mode_Settings{
 	}
 	
 	public function fiad_csm_mode_extra_css(){
+		// Enqueue code editor and settings for manipulating HTML.
+		$settings = wp_enqueue_code_editor(['type' => 'text/css']);
+		
+		// Return if the editor was not enqueued.
+		if(false === $settings){
+			return;
+		}
+		
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "csm-extra-css", %s ); } );',
+				wp_json_encode($settings)
+			)
+		);
+  
 		?>
         <fieldset>
             <textarea
-                    name="fiad_csm_mode[extra_css]"><?php echo esc_html(fiad_get_csm_mode_option('extra_css')); ?></textarea>
+                    id="csm-extra-css"
+                    name="fiad_csm_mode[csm_extra_css]"><?php echo esc_html(fiad_get_csm_mode_option('csm_extra_css')); ?></textarea>
         </fieldset>
 		<?php
 	}
 	
 	public function fiad_csm_mode_extra_js(){
+		// Enqueue code editor and settings for manipulating HTML.
+		$settings = wp_enqueue_code_editor(['type' => 'javascript']);
+		
+		// Return if the editor was not enqueued.
+		if(false === $settings){
+			return;
+		}
+		
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "csm-extra-js", %s ); } );',
+				wp_json_encode($settings)
+			)
+		);
+		
 		?>
         <fieldset>
-            <textarea
-                    name="fiad_csm_mode[extra_js]"><?php echo fiad_get_csm_mode_option('extra_js'); ?></textarea>
+                    <textarea
+                            id="csm-extra-js"
+                            name="fiad_csm_mode[csm_extra_js]"><?php echo fiad_get_csm_mode_option('csm_extra_js'); ?></textarea>
         </fieldset>
 		<?php
 	}

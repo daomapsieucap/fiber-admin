@@ -239,9 +239,26 @@ class Fiber_Admin_White_Label_Settings{
 	}
 	
 	public function fiad_login_extra_css(){
+		// Enqueue code editor and settings for manipulating HTML.
+		$settings = wp_enqueue_code_editor(['type' => 'text/css']);
+		
+		// Return if the editor was not enqueued.
+		if(false === $settings){
+			return;
+		}
+		
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "login-extra-css", %s ); } );',
+				wp_json_encode($settings)
+			)
+		);
 		?>
+        
         <fieldset>
             <textarea
+                    id="login-extra-css"
                     name="fiber_admin[login_extra_css]"><?php echo esc_html(fiad_get_general_option('login_extra_css')); ?></textarea>
         </fieldset>
 		<?php

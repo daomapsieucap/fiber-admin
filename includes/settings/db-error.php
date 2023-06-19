@@ -175,9 +175,25 @@ class Fiber_Admin_DB_Error_Settings{
 	}
 	
 	public function fiad_db_error_extra_css(){
+		// Enqueue code editor and settings for manipulating HTML.
+		$settings = wp_enqueue_code_editor(['type' => 'text/css']);
+		
+		// Return if the editor was not enqueued.
+		if(false === $settings){
+			return;
+		}
+		
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "db-error-extra-css", %s ); } );',
+				wp_json_encode($settings)
+			)
+		);
 		?>
         <fieldset>
             <textarea
+                    id="db-error-extra-css"
                     name="fiad_db_error[db_error_extra_css]"><?php echo esc_html(fiad_get_db_error_option('db_error_extra_css')); ?></textarea>
         </fieldset>
 		<?php
