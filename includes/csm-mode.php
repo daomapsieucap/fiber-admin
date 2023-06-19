@@ -25,7 +25,7 @@ class Fiber_Admin_CSM_Mode{
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			$new_template = dirname(__FILE__) . '/templates/' . $this->mode . '.php';
+			$new_template = FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
 			if($new_template){
 				return $new_template;
 			}
@@ -38,7 +38,7 @@ class Fiber_Admin_CSM_Mode{
 		$preview_mode = ev_array_key_exists('preview', $_GET);
 		if($preview_mode){
 			add_filter('template_include', function($template){
-				$new_template = dirname(__FILE__) . '/templates/' . $this->mode . '.php';
+				$new_template = FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
 				if($new_template){
 					return $new_template;
 				}
@@ -49,14 +49,13 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_create_template_if_not_exists(){
-		$templates_file_dir  = dirname(__FILE__) . '/templates/';
 		$file_name           = $this->mode . '.php';
-		$templates_file_path = $templates_file_dir . $file_name;
+		$templates_file_path = FIBERADMIN_TEMPLATES_URL . $file_name;
 		$selected_page       = fiad_get_csm_mode_option('page');
 		$html                = '';
 		
-		if(!file_exists($templates_file_dir)){
-			mkdir($templates_file_dir);
+		if(!file_exists(FIBERADMIN_TEMPLATES_URL)){
+			mkdir(FIBERADMIN_TEMPLATES_URL);
 		}
 		fopen($templates_file_path, 'w');
 		
@@ -99,14 +98,14 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_extra_css(){
-		$extra_css = fiad_get_csm_mode_option('extra_css');
+		$extra_css = fiad_get_csm_mode_option('csm_extra_css');
 		if($extra_css){
 			echo "<style>$extra_css</style>";
 		}
 	}
 	
 	public function fiad_csm_extra_js(){
-		$extra_js = fiad_get_csm_mode_option('extra_js');
+		$extra_js = fiad_get_csm_mode_option('csm_extra_js');
 		if($extra_js){
 			echo "<script>$extra_js</script>";
 		}
