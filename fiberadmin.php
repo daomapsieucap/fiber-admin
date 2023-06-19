@@ -46,14 +46,13 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/helper.php');
 	
 	// options pages
+	include_once(FIBERADMIN_DIR . 'includes/settings/setting.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/white-label.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/cpo.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/db-error.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/csm-mode.php');
-	include_once(FIBERADMIN_DIR . 'includes/settings/setting.php');
-	
 	
 	//default functions
 	include_once(FIBERADMIN_DIR . 'includes/default.php');
