@@ -89,6 +89,12 @@ class Fiber_Admin_Content{
 			            }
 			        }
 			    }, false);
+                
+                ["cut", "copy"].forEach(even => {
+				    document.querySelector("body").addEventListener(even, e => {
+				        e.preventDefault();
+				    });
+				});
 			</script>
 			';
 	}
