@@ -77,7 +77,10 @@ class Fiber_Admin_Miscellaneous{
 			'Disable Content Protection', // title
 			[$this, 'fiad_disable_content_protection'], // callback
 			'fiber-admin-miscellaneous', // page
-			'fiad_content_section' // section
+			'fiad_content_section', // section
+			[
+				'class' => 'related-disable-protection hidden',
+			]
 		);
 		
 		add_settings_field(
@@ -85,7 +88,10 @@ class Fiber_Admin_Miscellaneous{
 			'Disable Image Protection ', // title
 			[$this, 'fiad_disable_image_protection'], // callback
 			'fiber-admin-miscellaneous', // page
-			'fiad_content_section' // section
+			'fiad_content_section', // section
+			[
+				'class' => 'related-disable-protection hidden',
+			]
 		);
 		
 		add_settings_field(
@@ -168,12 +174,13 @@ class Fiber_Admin_Miscellaneous{
 	}
 	
 	public function fiad_disable_image_protection(){
+		$checked = !fiad_get_miscellaneous_option('disable_protection') ? : fiad_get_miscellaneous_option('disable_image_protection');
 		?>
         <fieldset>
             <label for="disable_image_protection" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiad_miscellaneous[disable_image_protection]"
                        id="disable_image_protection"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_image_protection')), 'yes'); ?> />
+                       value="yes" <?php checked(esc_attr($checked), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
@@ -181,12 +188,13 @@ class Fiber_Admin_Miscellaneous{
 	}
 	
 	public function fiad_disable_content_protection(){
+		$checked = !fiad_get_miscellaneous_option('disable_protection') ? : fiad_get_miscellaneous_option('disable_content_protection');
 		?>
         <fieldset>
             <label for="disable_content_protection" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiad_miscellaneous[disable_content_protection]"
                        id="disable_content_protection"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_content_protection')), 'yes'); ?> />
+                       value="yes" <?php checked(esc_attr($checked), 'yes'); ?> />
                 <span class="slider round"></span>
             </label>
         </fieldset>
