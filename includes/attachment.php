@@ -5,14 +5,14 @@ if(!defined('ABSPATH')){
 }
 
 /**
- * Cleanup attachment name
+ * Handle attachment
  */
 class Fiber_Admin_Attachment{
 	public function __construct(){
-		//Return `%` in special chars array
+		//Return character `%` in special chars array
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
 		
-		 // Format filename
+		// Format filename
 		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_attachment_name'], 10, 2);
 		
 		// Generate attachment title from filename
@@ -28,11 +28,11 @@ class Fiber_Admin_Attachment{
 	}
 	
 	public function fiad_handle_special_chars($sanitized_filename){
-		//Replace all special chars and row of '-' with one '-' only
+		//Replace all special chars and row of `-` with one `-` only
 		$patterns           = ['/[^A-Za-z0-9- ]/', '/-{2,}/'];
 		$sanitized_filename = preg_replace($patterns, '-', $sanitized_filename);
 		
-		// Remove - from the beginning and the end
+		// Remove character `-` from the beginning and the end
 		return trim($sanitized_filename, '-');
 	}
 	
@@ -74,12 +74,13 @@ class Fiber_Admin_Attachment{
 		$file_pathinfo = pathinfo($file);
 		$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
 		
-		//check if the file name contain index at the end
+		// check if the file name contain index at the end
 		$pattern = '/-\d+$/';
 		if(preg_match($pattern, $file_name)){
 			$file_name = preg_replace($pattern, '', $file_name);
 		}
 		
+		// remove separator character `-` in file name
 		$file_name = str_replace('-', ' ', $file_name);
 		
 		return ucwords($file_name);
@@ -93,6 +94,7 @@ class Fiber_Admin_Attachment{
 		if($extra_args){
 			$fiber_meta = array_merge($fiber_meta, $extra_args);
 		};
+		
 		wp_update_post($fiber_meta);
 	}
 }
