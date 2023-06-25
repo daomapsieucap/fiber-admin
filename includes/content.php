@@ -15,9 +15,6 @@ class Fiber_Admin_Content{
 		// Convert email text to link
 		if(!fiad_get_miscellaneous_option('disable_email_converter')){
 			add_filter('the_content', [$this, 'fiad_auto_convert_email_address']);
-			
-			// Divi theme
-			add_filter('et_builder_render_layout', [$this, 'fiad_auto_convert_email_address']);
 		}
 		
 		// Content protection
@@ -40,10 +37,7 @@ class Fiber_Admin_Content{
 		}
 		
 		// Revisions
-		$revision_number = fiad_get_miscellaneous_option('revision_number');
-		if(empty($revision_number)){
-			$revision_number = 5;
-		}
+		$revision_number = fiad_get_miscellaneous_option('revision_number') ? : 5;
 		$revision_number = intval($revision_number);
 		if($revision_number > 0){
 			add_filter('wp_revisions_to_keep', [$this, 'fiad_limit_wp_revisions'], 10, 2);
@@ -65,10 +59,8 @@ class Fiber_Admin_Content{
 	public function fiad_content_scripts(){
 		if(is_admin()){
 			// scripts
-			$suffix = '';
-			if(!FIBERADMIN_DEV_MODE){
-				$suffix = '.min';
-			}
+			$suffix = !FIBERADMIN_DEV_MODE ? '.min' : '';
+			
 			wp_enqueue_script('fiber-admin-content', FIBERADMIN_ASSETS_URL . 'js/fiber-content' . $suffix . '.js', false, FIBERADMIN_VERSION, true);
 			
 		}
@@ -102,7 +94,8 @@ class Fiber_Admin_Content{
 	}
 	
 	public function fiad_content_protection_scripts(){
-		echo '
+		if(FIBERADMIN_DEV_MODE){
+			echo '
 			<script type="text/javascript">
 				const disable_keys = ["s","a","c","x","C","J","U","I"];
 				document.addEventListener("keydown", function(e){
@@ -118,10 +111,14 @@ class Fiber_Admin_Content{
 				});
 			</script>
 			';
+		}else{
+			echo '<script type="text/javascript">const disable_keys=["s","a","c","x","C","J","U","I"];document.addEventListener("keydown",function(e){((navigator.platform.match("Mac")?e.metaKey:e.ctrlKey)&&disable_keys.includes(e.key)||"F12"===e.key)&&e.preventDefault()},!1),["cut","copy"].forEach(e=>{document.querySelector("body").addEventListener(e,e=>{e.preventDefault()})});</script>';
+		}
 	}
 	
 	public function fiad_image_protection_scripts(){
-		echo "
+		if(FIBERADMIN_DEV_MODE){
+			echo "
 			<script type='text/javascript'>
 				setTimeout(function(){
 			        const currentURL = window.location.hostname,
@@ -138,13 +135,13 @@ class Fiber_Admin_Content{
 			    }, 1000);
 			</script>
 			";
+		}else{
+			echo '<script type="text/javascript">setTimeout(function(){let e=window.location.hostname,t=document.getElementsByTagName("img"),n="";for(let a=0;a<t.length;a++)(n=t[a].src).includes(e)&&(t[a].addEventListener("contextmenu",e=>e.preventDefault()),t[a].setAttribute("draggable",!1))},1e3);</script>';
+		}
 	}
 	
 	public function fiad_limit_wp_revisions($num, $post): int{
-		$revision_number = fiad_get_miscellaneous_option('revision_number');
-		if(empty($revision_number)){
-			$revision_number = 5;
-		}
+		$revision_number = fiad_get_miscellaneous_option('revision_number') ? : 5;
 		
 		return intval($revision_number);
 	}
