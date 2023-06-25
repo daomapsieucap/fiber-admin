@@ -57,13 +57,10 @@ class Fiber_Admin_Content{
 	}
 	
 	public function fiad_content_scripts(){
-		if(is_admin()){
-			// scripts
-			$suffix = !FIBERADMIN_DEV_MODE ? '.min' : '';
-			
-			wp_enqueue_script('fiber-admin-content', FIBERADMIN_ASSETS_URL . 'js/fiber-content' . $suffix . '.js', false, FIBERADMIN_VERSION, true);
-			
-		}
+		// scripts
+		$suffix = !FIBERADMIN_DEV_MODE ? '.min' : '';
+		
+		wp_enqueue_script('fiber-admin-content', FIBERADMIN_ASSETS_URL . 'js/fiber-content' . $suffix . '.js', false, FIBERADMIN_VERSION, true);
 	}
 	
 	public function fiad_auto_convert_email_address($content){
