@@ -1,13 +1,14 @@
-jQuery(document).ready(function(n){
-    if(n("#disable_protection").is(':checked')){
-        n(".related-disable-protection").removeClass('hidden');
+jQuery(document).ready(function($){
+    let $disable_protection = $("#disable_protection");
+    if($disable_protection.is(':checked')){
+        $(".related-disable-protection").removeClass('hidden');
     }
 
-    n("#disable_protection").on("change", function(){
-        if(n(this).is(':checked')){
-            n(".related-disable-protection").removeClass('hidden');
+    $disable_protection.on("change", function(){
+        if($(this).is(':checked')){
+            $(".related-disable-protection").removeClass('hidden');
         }else{
-            n(".related-disable-protection").addClass('hidden');
+            $(".related-disable-protection").addClass('hidden');
         }
     });
 });
