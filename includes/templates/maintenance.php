@@ -19,7 +19,7 @@ header('Retry-After: 3600');
 		$post = get_post($content_page_id);
 		?>
         <h1 class="fiad-maintenance-title"><?= $post->post_title; ?></h1>
-        <p><?= ev_vc_content($post->post_content); ?></p>
+	    <?= ev_vc_content($post->post_content); ?>
     </div>
 </div><?php wp_footer(); ?></body>
 </html>
