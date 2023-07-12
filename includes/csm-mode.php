@@ -9,7 +9,6 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_CSM_Mode{
 	private $mode = '';
-	private $page_id = '';
 	
 	public function __construct(){
 		// Enable Coming Soon/Maintenance Mode
