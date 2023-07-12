@@ -144,20 +144,16 @@ class Fiber_Admin_Setting{
 	}
 	
 	public function fiad_preview_mode($current){
-		$can_preview    = false;
-		$enable_message = '';
-		$url           = '';
+		$can_preview = false;
+		$url         = '';
 		switch($current){
 			case 'db-error':
-				$can_preview    = fiad_check_db_error_file();
-				$enable_message = '"Activate"';
-				$url           = content_url('db-error.php');
+				$can_preview = fiad_check_db_error_file();
+				$url         = content_url('db-error.php');
 				break;
 			case 'csm-mode':
-                $file_exists =  (fiad_check_coming_soon_file() || fiad_check_maintenance_mode_file());
-				$can_preview    = $file_exists;
-				$enable_message = '"Maintenance Mode" or "Coming Soon"';
-				if(fiad_check_maintenance_mode_file() || fiad_check_coming_soon_file()){
+				$can_preview = fiad_check_csm_mode_file(fiad_get_csm_mode_option('mode'));
+				if(fiad_check_csm_mode_file(fiad_get_csm_mode_option('mode'))){
 					$url = get_site_url() . '/' . fiad_get_csm_mode_option('mode') . '?preview=true';
 				}
 				break;
@@ -166,7 +162,7 @@ class Fiber_Admin_Setting{
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
 			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. Please enable ' . $enable_message . ' option and save the settings first!', 'fiber-admin'); ?></p>
+                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');
@@ -211,10 +207,18 @@ class Fiber_Admin_Setting{
 					break;
 			}
 			
+			$ignore_key = [
+				'db_error_message',
+				'csm_extra_css',
+				'csm_extra_js',
+				'db_error_extra_css',
+				'login_extra_css',
+			];
+			
 			if(isset($_POST[$option_key])){
 				$options = $new_options = $_POST[$option_key];
 				foreach($options as $key => $value){
-					if($key != 'db_error_message' && !is_array($new_options[$key])){
+					if(!in_array($key, $ignore_key) && !is_array($new_options[$key])){
 						$new_options[$key] = sanitize_text_field($value);
 					}
 				}

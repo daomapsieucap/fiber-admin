@@ -12,13 +12,13 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function __construct(){
 		// Enable Coming Soon/Maintenance Mode
+		$this->mode = fiad_get_csm_mode_option('mode');
 		if(fiad_get_csm_mode_option('enable')){
-			$this->mode = fiad_get_csm_mode_option('mode');
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
-			add_filter('template_include', [$this, 'fiad_preview_csm_page']);
 		}
+		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
 	}
 	
 	//No Header & Footer Page

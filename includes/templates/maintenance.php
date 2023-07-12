@@ -12,9 +12,7 @@ header('Retry-After: 3600');
     <div class="ev-content-wrapper wpb_content_element wpb_text_column">
 		<?php
 		$content_page_id = '';
-		if(fiad_get_csm_mode_option('enable')){
-			$content_page_id = fiad_get_csm_mode_option('page');
-		}
+		$content_page_id = fiad_get_csm_mode_option('page');
 		
 		$post = get_post($content_page_id);
 		?>

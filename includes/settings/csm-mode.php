@@ -27,7 +27,7 @@ class Fiber_Admin_CSM_Mode_Settings{
 		
 		add_settings_field(
 			'enable', // id
-			'Enable', // title
+			'Activate', // title
 			[$this, 'fiad_enable_csm_mode'], // callback
 			'fiber-admin-csm-mode', // page
 			'fiad_csm_general_section' // section
@@ -144,7 +144,7 @@ class Fiber_Admin_CSM_Mode_Settings{
 				wp_json_encode($settings)
 			)
 		);
-  
+		
 		?>
         <fieldset>
             <textarea
@@ -173,9 +173,9 @@ class Fiber_Admin_CSM_Mode_Settings{
 		
 		?>
         <fieldset>
-                    <textarea
-                            id="csm-extra-js"
-                            name="fiad_csm_mode[csm_extra_js]"><?php echo fiad_get_csm_mode_option('csm_extra_js'); ?></textarea>
+            <textarea
+                    id="csm-extra-js"
+                    name="fiad_csm_mode[csm_extra_js]"><?php echo fiad_get_csm_mode_option('csm_extra_js'); ?></textarea>
         </fieldset>
 		<?php
 	}
