@@ -19,33 +19,27 @@ class Fiber_Admin_CSM_Mode{
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
+			add_filter('template_include', [$this, 'fiad_preview_csm_page']);
 		}
 	}
 	
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			$new_template = FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
-			if($new_template){
-				return $new_template;
-			}
+			return FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
 		}
 		
 		return $template;
 	}
 	
-	public function fiad_preview_csm_page(){
-		$preview_mode = ev_array_key_exists('preview', $_GET);
+	public function fiad_preview_csm_page($template){
+		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
+		$preview_mode = sanitize_title(ev_array_key_exists('preview', $_GET));
 		if($preview_mode){
-			add_filter('template_include', function($template){
-				$new_template = FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
-				if($new_template){
-					return $new_template;
-				}
-				
-				return $template;
-			});
+			return FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
 		}
+		
+		return $template;
 	}
 	
 	public function fiad_create_template_if_not_exists(){
