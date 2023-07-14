@@ -8,8 +8,6 @@ if(!defined('ABSPATH')){
  * Enable Coming Soon/Maintenance Mode
  */
 class Fiber_Admin_CSM_Mode{
-	private $mode = '';
-	
 	public function __construct(){
 		// Enable Coming Soon/Maintenance Mode
 		$this->mode = fiad_get_csm_mode_option('mode');
@@ -24,7 +22,7 @@ class Fiber_Admin_CSM_Mode{
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!current_user_can('edit_themes') || !is_user_logged_in()){
-			return FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
+			return FIBERADMIN_TEMPLATES_URL;
 		}
 		
 		return $template;
@@ -34,7 +32,7 @@ class Fiber_Admin_CSM_Mode{
 		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
 		$preview_mode = sanitize_title(ev_array_key_exists('preview', $_GET));
 		if($preview_mode){
-			return FIBERADMIN_TEMPLATES_URL . $this->mode . '.php';
+			return FIBERADMIN_TEMPLATES_URL;
 		}
 		
 		return $template;

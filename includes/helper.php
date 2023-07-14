@@ -104,8 +104,8 @@ if(!function_exists('fiad_get_csm_mode_option')){
 	}
 }
 if(!function_exists('fiad_check_csm_mode_file')){
-	function fiad_check_csm_mode_file($mode){
-		return (file_exists(FIBERADMIN_TEMPLATES_URL . $mode . '.php'));
+	function fiad_check_csm_mode_file(){
+		return file_exists(FIBERADMIN_TEMPLATES_URL);
 	}
 }
 
