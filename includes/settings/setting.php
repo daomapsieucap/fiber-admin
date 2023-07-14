@@ -92,8 +92,8 @@ class Fiber_Admin_Setting{
 			'cpo'           => 'Custom Post Order',
 			'duplicate'     => 'Duplicate Post',
 			'db-error'      => 'Database Error',
-			'miscellaneous' => 'Miscellaneous',
 			'csm-mode'      => 'Coming Soon & Maintenance Mode',
+			'miscellaneous' => 'Miscellaneous',
 		];
 	}
 	
