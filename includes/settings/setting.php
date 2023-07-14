@@ -153,7 +153,7 @@ class Fiber_Admin_Setting{
 				break;
 			case 'csm-mode':
 				$can_preview = fiad_check_csm_mode_file(fiad_get_csm_mode_option('mode'));
-				if(fiad_check_csm_mode_file(fiad_get_csm_mode_option('mode'))){
+				if(fiad_check_csm_mode_file()){
 					$url = get_site_url() . '/' . fiad_get_csm_mode_option('mode') . '?preview=true';
 				}
 				break;
