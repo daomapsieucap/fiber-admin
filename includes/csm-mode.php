@@ -29,7 +29,7 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_preview_csm_page($template){
 		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
-		$preview_mode = sanitize_title(ev_array_key_exists('preview', $_GET));
+		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		if($preview_mode && fiad_is_admin_user_role()){
 			return FIBERADMIN_TEMPLATES_URL;
 		}
