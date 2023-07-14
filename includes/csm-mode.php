@@ -21,7 +21,7 @@ class Fiber_Admin_CSM_Mode{
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!fiad_is_admin_user_role()){
-			return FIBERADMIN_TEMPLATES_URL;
+			return FIBERADMIN_CSM_URL;
 		}
 		
 		return $template;
@@ -31,7 +31,7 @@ class Fiber_Admin_CSM_Mode{
 		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
 		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		if($preview_mode && fiad_is_admin_user_role()){
-			return FIBERADMIN_TEMPLATES_URL;
+			return FIBERADMIN_CSM_URL;
 		}
 		
 		return $template;
