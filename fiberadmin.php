@@ -34,8 +34,8 @@ define("FIBERADMIN_VERSION", $plugin_data['Version']);
 const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
-define("FIBERADMIN_TEMPLATES_URL", plugin_dir_path(__FILE__) . 'includes/templates/csm-mode.php');
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
+define("FIBERADMIN_CSM_URL", FIBERADMIN_DIR . 'includes/templates/csm-mode.php');
 
 /**
  * Init Functions
