@@ -16,6 +16,7 @@ class Fiber_Admin_CSM_Mode{
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
 		}
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
+		$this->fiad_create_default_csm_page();
 	}
 	
 	//No Header & Footer Page
@@ -48,6 +49,20 @@ class Fiber_Admin_CSM_Mode{
 		$extra_js = fiad_get_csm_mode_option('csm_extra_js');
 		if($extra_js){
 			echo "<script>$extra_js</script>";
+		}
+	}
+	
+	public function fiad_create_default_csm_page(){
+		$pages = ["Coming Soon", "Maintenance"];
+		foreach($pages as $page){
+			if(!post_exists($page)){
+				$post_args = [
+					'post_type'   => 'page',
+					'post_title'  => $page,
+					'post_status' => 'publish',
+				];
+				wp_insert_post($post_args);
+			}
 		}
 	}
 }

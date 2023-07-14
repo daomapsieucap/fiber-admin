@@ -123,6 +123,9 @@ class Fiber_Admin_CSM_Mode_Settings{
 					}
 					?>
                 </select>
+                <p class="description">
+                    If page's content is empty, default content will be display
+                </p>
             </label>
         </fieldset>
 		<?php
