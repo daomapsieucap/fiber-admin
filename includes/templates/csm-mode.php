@@ -3,7 +3,7 @@ $mode           = fiad_get_csm_mode_option('mode');
 $is_maintenance = $mode == 'maintenance';
 $title          = $is_maintenance ? "Maintenance" : "Coming Soon";
 if($is_maintenance){
-	header('HTTP/1.1 503 Service Temporarily Unavailable', true, 503);
+	header('HTTP/3 503 Service Temporarily Unavailable', true, 503);
 	header('Status: 503 Service Temporarily Unavailable');
 }
 ?>
