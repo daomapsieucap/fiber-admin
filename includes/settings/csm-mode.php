@@ -36,7 +36,7 @@ class Fiber_Admin_CSM_Mode_Settings{
 		add_settings_field(
 			'mode', // id
 			'Mode', // title
-			[$this, 'fiad_mode_selector'], // callback
+			[$this, 'fiad_csm_mode_selector'], // callback
 			'fiber-admin-csm-mode', // page
 			'fiad_csm_general_section' // section
 		);
@@ -89,16 +89,16 @@ class Fiber_Admin_CSM_Mode_Settings{
 		<?php
 	}
 	
-	public function fiad_mode_selector(){
+	public function fiad_csm_mode_selector(){
 		$selected_mode = fiad_get_csm_mode_option('mode');
 		?>
         <fieldset>
             <label for="mode">
                 <select class="fiber-admin-selection--multiple" name="fiad_csm_mode[mode]"
                         id="mode">
-                    <option value="maintenance" <?= $selected_mode == 'maintenance' ? 'selected' : ''; ?>>Maintenance
-                    </option>
                     <option value="coming-soon" <?= $selected_mode == 'coming-soon' ? 'selected' : ''; ?>>Coming Soon
+                    </option>
+                    <option value="maintenance" <?= $selected_mode == 'maintenance' ? 'selected' : ''; ?>>Maintenance
                     </option>
                 </select>
             </label>
