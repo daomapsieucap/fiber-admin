@@ -15,37 +15,16 @@ if($is_maintenance){
 <html <?php language_attributes(); ?>>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset=<?php bloginfo('charset'); ?>/>
-	<?= get_field("script_head", "option"); ?>
+	<?php do_action('fiad_script_head'); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title; ?></title>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<?= get_field("script_body", "option"); ?>
+<?php do_action('fiad_script_body'); ?>
 <div class="site-content">
     <div class="container">
-		<?php
-		if(!$content){
-			?>
-            <article>
-                <h1><?= $is_maintenance ? "We&rsquo;ll be back soon!" : "Coming Soon"; ?></h1>
-                <div>
-                    <p>
-						<?=
-						$is_maintenance ? 'Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. If you
-                            need to you can always contact us, otherwise we&rsquo;ll be back online
-                            shortly!' : 'Our website is currently undergoing scheduled maintenance. We Should be back shortly. Thank you for your patience.';
-						?>
-                    </p>
-                    <a href="mailto:#"
-                       title="<?= $title; ?>"><?= $is_maintenance ? '&mdash; The Team' : 'Notify Us'; ?></a>
-                </div>
-            </article>
-			<?php
-		}else{
-			echo apply_filters('the_content', $content);
-		}
-		?>
+		<?= apply_filters('the_content', $content); ?>
     </div>
 </div>
 </body>

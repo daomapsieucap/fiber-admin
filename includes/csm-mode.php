@@ -8,12 +8,21 @@ if(!defined('ABSPATH')){
  * Enable Coming Soon/Maintenance Mode
  */
 class Fiber_Admin_CSM_Mode{
+	private $default_pages = [];
+	private $page_id = '';
+	private $page = null;
+	
 	public function __construct(){
 		// Enable Coming Soon/Maintenance Mode
+		$this->page_id = fiad_get_csm_mode_option('page');
+		$this->page    = get_post($this->page_id);
 		if(fiad_get_csm_mode_option('enable')){
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
+			add_filter('wpseo_opengraph_desc', [$this, 'fiad_change_meta_desc']);
+			add_filter('wpseo_opengraph_title', [$this, 'fiad_change_meta_title']);
+			add_filter('wpseo_metadesc', [$this, 'fiad_change_meta_desc']);
 		}
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
 		$this->fiad_create_default_csm_page();
@@ -52,14 +61,29 @@ class Fiber_Admin_CSM_Mode{
 		}
 	}
 	
+	public function fiad_change_meta_desc($description){
+		return wp_strip_all_tags($this->page->post_content);
+	}
+	
+	public function fiad_change_meta_title($title){
+		return wp_strip_all_tags($this->page->post_title);
+	}
+	
 	public function fiad_create_default_csm_page(){
-		$pages = ["Coming Soon", "Maintenance"];
+		$pages          = ["Coming Soon", "Maintenance"];
+		$is_maintenance = fiad_get_csm_mode_option('mode') == 'maintenance';
+		$page_heading   = $is_maintenance ? "We&rsquo;ll be back soon!" : "Coming Soon";
+		$page_content   = $is_maintenance ? "Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment" : "Our website is currently undergoing scheduled maintenance. We Should be back shortly. Thank you for your patience.";
+		
+		$html = '<h1>' . $page_heading . '</h1>';
+		$html .= '<p>' . $page_content . '</p>';
 		foreach($pages as $page){
 			if(!post_exists($page)){
 				$post_args = [
-					'post_type'   => 'page',
-					'post_title'  => $page,
-					'post_status' => 'publish',
+					'post_type'    => 'page',
+					'post_title'   => $page,
+					'post_content' => $html,
+					'post_status'  => 'publish',
 				];
 				wp_insert_post($post_args);
 			}
