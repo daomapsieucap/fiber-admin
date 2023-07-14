@@ -14,6 +14,7 @@ class Fiber_Admin_CSM_Mode{
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
 			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
+			add_action('wp_enqueue_scripts', [$this, 'fiad_csm_dequeue_all'], 15);
 		}
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
 	}
@@ -35,6 +36,22 @@ class Fiber_Admin_CSM_Mode{
 		}
 		
 		return $template;
+	}
+	
+	public function fiad_csm_dequeue_all(){
+		global $wp_scripts, $wp_styles;
+		
+		foreach($wp_scripts->queue as $handle){
+			if(strpos($handle, 'bcnb') !== false || strpos($handle, 'ev') !== false){
+				wp_dequeue_script($handle);
+			}
+		}
+		
+		foreach($wp_styles->queue as $handle){
+			if(strpos($handle, 'bcnb') !== false || strpos($handle, 'ev') !== false){
+				wp_dequeue_style($handle);
+			}
+		}
 	}
 	
 	public function fiad_csm_extra_css(){
