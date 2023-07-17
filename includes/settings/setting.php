@@ -146,17 +146,14 @@ class Fiber_Admin_Setting{
 	public function fiad_preview_mode($current){
 		$can_preview = false;
 		$url         = '';
-		switch($current){
-			case 'db-error':
-				$can_preview = fiad_check_db_error_file();
-				$url         = content_url('db-error.php');
-				break;
-			case 'csm-mode':
-				$can_preview = fiad_check_csm_mode_file();
-				if(fiad_check_csm_mode_file()){
-					$url = get_site_url() . '/' . fiad_get_csm_mode_option('mode') . '?preview=true';
-				}
-				break;
+		if($current == 'db-error'){
+			$can_preview = fiad_check_db_error_file();
+			$url         = content_url('db-error.php');
+		}else{
+			$can_preview = fiad_check_csm_mode_file();
+			if(fiad_check_csm_mode_file()){
+				$url = get_site_url() . '/' . fiad_get_csm_mode_option('mode') . '?preview=true';
+			}
 		}
 		if($current == 'db-error' || $current == 'csm-mode'){
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
@@ -225,11 +222,11 @@ class Fiber_Admin_Setting{
 			}else{
 				$new_options = [];
 			}
-            
-            //prevent reset 'added' option of csm mode
+			
+			//prevent reset 'added' option of csm mode
 			if($option_key == 'fiad_csm_mode'){
 				$new_options['page_added'] = fiad_get_csm_mode_option('page_added');
-				$new_options['css_added'] = fiad_get_csm_mode_option('css_added');
+				$new_options['css_added']  = fiad_get_csm_mode_option('css_added');
 			}
 			
 			update_option($option_key, $new_options);
