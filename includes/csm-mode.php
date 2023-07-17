@@ -8,8 +8,6 @@ if(!defined('ABSPATH')){
  * Enable Coming Soon/Maintenance Mode
  */
 class Fiber_Admin_CSM_Mode{
-	private $default_pages = [];
-	
 	public function __construct(){
 		// Only apply when enable
 		if(fiad_get_csm_mode_option('enable')){
@@ -66,14 +64,14 @@ class Fiber_Admin_CSM_Mode{
 	public function fiad_add_default_css(){
 		$extra_css       = fiad_get_csm_mode_option('csm_extra_css');
 		$csm_mode_option = get_option('fiad_csm_mode');
-		$css_added       = fiad_get_csm_mode_option('css_added');
+		$css_added       = fiad_get_csm_mode_option('added_css');
 		if(!$extra_css && !$css_added){
 			$default_extra_css = "body { text-align: center; padding: 150px; }\n";
 			$default_extra_css .= "h1 { font-size: 50px; }\n";
 			$default_extra_css .= "body { font: 20px Helvetica, sans-serif; color: #333; }\n";
 			
 			$csm_mode_option['csm_extra_css'] = $default_extra_css;
-			$csm_mode_option['css_added']     = true;
+			$csm_mode_option['added_css']     = true;
 			update_option('fiad_csm_mode', $csm_mode_option);
 		}
 	}
@@ -97,7 +95,7 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_create_default_csm_page(){
-		$pages_added     = fiad_get_csm_mode_option('page_added');
+		$pages_added     = fiad_get_csm_mode_option('added_pages');
 		$csm_mode_option = get_option('fiad_csm_mode');
 		$page_titles     = [
 			'coming-soon' => 'Coming Soon',
@@ -112,21 +110,17 @@ class Fiber_Admin_CSM_Mode{
 					'post_content' => file_get_contents($page_content),
 					'post_status'  => 'publish',
 				];
-				$page_id               = wp_insert_post($post_args);
-				$this->default_pages[] = $page_id;
+				wp_insert_post($post_args);
 			}
-			$csm_mode_option['page_added'] = true;
+			$csm_mode_option['added_pages'] = true;
 			update_option('fiad_csm_mode', $csm_mode_option);
 		}
 	}
 	
 	public function fiad_reset_option(){
-		$csm_mode_option['page_added']    = false;
-		$csm_mode_option['css_added']     = false;
+		$csm_mode_option['added_pages']    = false;
+		$csm_mode_option['added_css']     = false;
 		$csm_mode_option['csm_extra_css'] = '';
-		foreach($this->default_pages as $page_id){
-			wp_delete_post($page_id, true);
-		}
 		update_option('fiad_csm_mode', $csm_mode_option);
 	}
 }
