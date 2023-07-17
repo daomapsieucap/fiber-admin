@@ -9,15 +9,17 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_CSM_Mode{
 	public function __construct(){
-		// Enable Coming Soon/Maintenance Mode
+		// Only apply when enable
 		if(fiad_get_csm_mode_option('enable')){
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 		}
+		
+		// Apply for both enable and preview mode
+		$this->fiad_create_default_csm_page();
+		$this->fiad_add_default_css();
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
-		$this->fiad_create_default_csm_page();
-		$this->fiad_add_default_css();
 	}
 	
 	//No Header & Footer Page
@@ -54,15 +56,15 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_add_default_css(){
-		$extra_css                    = fiad_get_csm_mode_option('csm_extra_css');
-		$csm_mode_option              = get_option('fiad_csm_mode');
-		$css_added                    = fiad_get_csm_mode_option('css_added');
+		$extra_css       = fiad_get_csm_mode_option('csm_extra_css');
+		$csm_mode_option = get_option('fiad_csm_mode');
+		$css_added       = fiad_get_csm_mode_option('css_added');
 		if(!$extra_css && !$css_added){
 			$default_extra_css = "body { text-align: center; padding: 150px; }\n";
 			$default_extra_css .= "h1 { font-size: 50px; }\n";
 			$default_extra_css .= "body { font: 20px Helvetica, sans-serif; color: #333; }\n";
 			$default_extra_css .= "article { display: block; text-align: left; width: 650px; margin: 0 auto; }\n";
-
+			
 			$csm_mode_option['csm_extra_css'] = $default_extra_css;
 			$csm_mode_option['css_added']     = true;
 			update_option('fiad_csm_mode', $csm_mode_option);
