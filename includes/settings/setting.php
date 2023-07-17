@@ -152,7 +152,7 @@ class Fiber_Admin_Setting{
 				$url         = content_url('db-error.php');
 				break;
 			case 'csm-mode':
-				$can_preview = fiad_check_csm_mode_file(fiad_get_csm_mode_option('mode'));
+				$can_preview = fiad_check_csm_mode_file();
 				if(fiad_check_csm_mode_file()){
 					$url = get_site_url() . '/' . fiad_get_csm_mode_option('mode') . '?preview=true';
 				}
@@ -224,6 +224,11 @@ class Fiber_Admin_Setting{
 				}
 			}else{
 				$new_options = [];
+			}
+            
+            //prevent reset 'page_added' option of csm mode
+			if($option_key == 'fiad_csm_mode'){
+				$new_options['page_added'] = fiad_get_csm_mode_option('page_added');
 			}
 			
 			update_option($option_key, $new_options);

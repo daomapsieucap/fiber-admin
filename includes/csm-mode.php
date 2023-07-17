@@ -53,24 +53,25 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_create_default_csm_page(){
-		$pages = ["Coming Soon", "Maintenance"];
-		foreach($pages as $page){
-			if(!post_exists($page)){
-				$is_maintenance = $page == 'Maintenance';
-				$page_heading   = $is_maintenance ? "We'll be back soon!" : "Coming Soon";
-				$page_content   = $is_maintenance ? "Sorry for the inconvenience but we're performing some maintenance at the moment" : "Our website is currently undergoing scheduled maintenance. We Should be back shortly. Thank you for your patience.";
-				
-				$html = '<h1>' . $page_heading . '</h1>';
-				$html .= '<p>' . $page_content . '</p>';
-				
-				$post_args = [
+		$pages_added                   = fiad_get_csm_mode_option('page_added');
+		$csm_mode_option               = get_option('fiad_csm_mode');
+		$page_titles                   = [
+			'coming-soon' => 'Coming Soon',
+			'maintenance' => 'Maintenance',
+		];
+		if(!$pages_added){
+			foreach($page_titles as $mode => $title){
+				$page_content = FIBERADMIN_DIR . 'includes/generate-pages/csm-mode/' . $mode . '.txt';
+				$post_args    = [
 					'post_type'    => 'page',
-					'post_title'   => $page,
-					'post_content' => $html,
+					'post_title'   => $title,
+					'post_content' => file_get_contents($page_content),
 					'post_status'  => 'publish',
 				];
 				wp_insert_post($post_args);
 			}
+			$csm_mode_option['page_added'] = true;
+			update_option('fiad_csm_mode', $csm_mode_option);
 		}
 	}
 }
