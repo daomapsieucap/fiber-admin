@@ -8,15 +8,22 @@ if(!defined('ABSPATH')){
  * Enable Coming Soon/Maintenance Mode
  */
 class Fiber_Admin_CSM_Mode{
+	private $default_pages = [];
+	
 	public function __construct(){
 		// Only apply when enable
 		if(fiad_get_csm_mode_option('enable')){
 			add_filter('template_include', [$this, 'fiad_csm_content']);
 		}
-		
 		// Apply for both enable and preview mode
-		$this->fiad_create_default_csm_page();
-		$this->fiad_add_default_css();
+		
+		// after activate plugin, create pages and add default css
+		add_action('admin_init', [$this, 'fiad_create_default_csm_page']);
+		add_action('admin_init', [$this, 'fiad_add_default_css']);
+		register_activation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_create_default_csm_page']);
+		register_activation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_add_default_css']);
+		register_deactivation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_reset_option']);
+		
 		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], 20);
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
@@ -90,26 +97,37 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_create_default_csm_page(){
-		$pages_added                   = fiad_get_csm_mode_option('page_added');
-		$csm_mode_option               = get_option('fiad_csm_mode');
-		$page_titles                   = [
+		$pages_added     = fiad_get_csm_mode_option('page_added');
+		$csm_mode_option = get_option('fiad_csm_mode');
+		$page_titles     = [
 			'coming-soon' => 'Coming Soon',
 			'maintenance' => 'Maintenance',
 		];
 		if(!$pages_added){
 			foreach($page_titles as $mode => $title){
-				$page_content = FIBERADMIN_ASSETS_DIR . 'generate-pages/csm-mode/' . $mode . '.txt';
-				$post_args    = [
+				$page_content          = FIBERADMIN_ASSETS_DIR . 'generate-pages/csm-mode/' . $mode . '.txt';
+				$post_args             = [
 					'post_type'    => 'page',
 					'post_title'   => $title,
 					'post_content' => file_get_contents($page_content),
 					'post_status'  => 'publish',
 				];
-				wp_insert_post($post_args);
+				$page_id               = wp_insert_post($post_args);
+				$this->default_pages[] = $page_id;
 			}
 			$csm_mode_option['page_added'] = true;
 			update_option('fiad_csm_mode', $csm_mode_option);
 		}
+	}
+	
+	public function fiad_reset_option(){
+		$csm_mode_option['page_added']    = false;
+		$csm_mode_option['css_added']     = false;
+		$csm_mode_option['csm_extra_css'] = '';
+		foreach($this->default_pages as $page_id){
+			wp_delete_post($page_id, true);
+		}
+		update_option('fiad_csm_mode', $csm_mode_option);
 	}
 }
 
