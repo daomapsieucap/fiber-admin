@@ -37,27 +37,30 @@ class Fiber_Admin_Attachment{
 	}
 	
 	public function fiad_cleanup_attachment_name($filename, $filename_raw){
-		//variable
-		$path_info          = pathinfo($filename);
-		$file_extension     = fiad_array_key_exists('extension', $path_info);
-		$sanitized_filename = basename($filename, "." . $file_extension);
+		$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+		$exclude_exts   = ['css', 'js']; // only apply for media attachment, not for code
 		
-		$sanitized_filename = strtolower($sanitized_filename);
-		
-		//handle urlencoded chars
-		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
-		$urlencoded_chars = $matches[0];
-		if($urlencoded_chars){
-			$urlencoded_chars   = array_map(function($char){
-				return strtolower(trim($char, '%'));
-			}, $urlencoded_chars);
-			$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
+		if($file_extension && !in_array($file_extension, $exclude_exts)){
+			$sanitized_filename = basename($filename, "." . $file_extension);
+			$sanitized_filename = strtolower($sanitized_filename);
+			
+			//handle urlencoded chars
+			preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
+			$urlencoded_chars = fiad_array_key_exists(0, $matches);
+			if($urlencoded_chars){
+				$urlencoded_chars   = array_map(function($char){
+					return strtolower(trim($char, '%'));
+				}, $urlencoded_chars);
+				$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
+			}
+			
+			//special chars case
+			$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
+			
+			return $sanitized_filename . "." . $file_extension;
 		}
 		
-		//special chars case
-		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
-		
-		return $sanitized_filename . "." . $file_extension;
+		return $filename;
 	}
 	
 	public function fiad_change_metadata($post_id){
