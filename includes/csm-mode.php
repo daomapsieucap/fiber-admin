@@ -23,7 +23,7 @@ class Fiber_Admin_CSM_Mode{
 	//No Header & Footer Page
 	public function fiad_csm_content($template){
 		if(!fiad_is_admin_user_role()){
-			return FIBERADMIN_CSM_URL;
+			return FIBERADMIN_CSM_PATH;
 		}
 		
 		return $template;
@@ -33,7 +33,7 @@ class Fiber_Admin_CSM_Mode{
 		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
 		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		if($preview_mode && fiad_is_admin_user_role()){
-			return FIBERADMIN_CSM_URL;
+			return FIBERADMIN_CSM_PATH;
 		}
 		
 		return $template;
@@ -78,7 +78,7 @@ class Fiber_Admin_CSM_Mode{
 		];
 		if(!$pages_added){
 			foreach($page_titles as $mode => $title){
-				$page_content = FIBERADMIN_DIR . 'includes/generate-pages/csm-mode/' . $mode . '.txt';
+				$page_content = FIBERADMIN_ASSETS_DIR . 'generate-pages/csm-mode/' . $mode . '.txt';
 				$post_args    = [
 					'post_type'    => 'page',
 					'post_title'   => $title,
