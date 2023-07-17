@@ -3,9 +3,12 @@ $mode            = fiad_get_csm_mode_option('mode');
 $is_maintenance  = $mode == 'maintenance';
 $content_page_id = fiad_get_csm_mode_option('page');
 
-$post    = get_post($content_page_id);
-$content = $post->post_content;
-$title   = $post->post_title;
+global $post;
+$post = get_post($content_page_id);
+setup_postdata($post);
+
+$content = get_the_content();
+$title   = preg_replace('/[^a-zA-Z]/', ' ', mb_convert_case($mode, MB_CASE_TITLE));
 if($is_maintenance){
 	header('HTTP/3 503 Service Temporarily Unavailable', true, 503);
 	header('Status: 503 Service Temporarily Unavailable');
@@ -18,6 +21,7 @@ if($is_maintenance){
 	<?php do_action('fiad_script_head'); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title; ?></title>
+	<?= apply_filters('fiad_csm_extra_css', ''); ?>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -27,5 +31,7 @@ if($is_maintenance){
 		<?= apply_filters('the_content', $content); ?>
     </div>
 </div>
+<?php wp_reset_postdata(); ?>
+<?= apply_filters('fiad_csm_extra_js', ''); ?>
 </body>
 </html>

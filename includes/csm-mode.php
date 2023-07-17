@@ -12,9 +12,9 @@ class Fiber_Admin_CSM_Mode{
 		// Enable Coming Soon/Maintenance Mode
 		if(fiad_get_csm_mode_option('enable')){
 			add_filter('template_include', [$this, 'fiad_csm_content']);
-			add_action('wp_head', [$this, 'fiad_csm_extra_css']);
-			add_action('wp_footer', [$this, 'fiad_csm_extra_js']);
 		}
+		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
+		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
 		$this->fiad_create_default_csm_page();
 	}
@@ -41,21 +41,21 @@ class Fiber_Admin_CSM_Mode{
 	public function fiad_csm_extra_css(){
 		$extra_css = fiad_get_csm_mode_option('csm_extra_css');
 		if($extra_css){
-			echo "<style>$extra_css</style>";
+			return "<style>$extra_css</style>";
 		}
 	}
 	
 	public function fiad_csm_extra_js(){
 		$extra_js = fiad_get_csm_mode_option('csm_extra_js');
 		if($extra_js){
-			echo "<script>$extra_js</script>";
+			return "<script>$extra_js</script>";
 		}
 	}
 	
 	public function fiad_create_default_csm_page(){
-		$pages_added                   = fiad_get_csm_mode_option('page_added');
-		$csm_mode_option               = get_option('fiad_csm_mode');
-		$page_titles                   = [
+		$pages_added     = fiad_get_csm_mode_option('page_added');
+		$csm_mode_option = get_option('fiad_csm_mode');
+		$page_titles     = [
 			'coming-soon' => 'Coming Soon',
 			'maintenance' => 'Maintenance',
 		];

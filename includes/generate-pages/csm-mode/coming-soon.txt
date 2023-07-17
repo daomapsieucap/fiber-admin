@@ -1,3 +1,5 @@
-<h1><b>Comming Soon</b></h1>
-<p>Our website is currently undergoing scheduled maintenance.
-We Should be back shortly. Thank you for your patience.</p>
+<article>
+    <h1><b>Comming Soon</b></h1>
+    <p>Our website is currently undergoing scheduled maintenance.
+    We Should be back shortly. Thank you for your patience.</p>
+</article>
