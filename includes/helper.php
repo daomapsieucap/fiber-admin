@@ -121,3 +121,23 @@ if(!function_exists('fiad_array_key_exists')){
 		return $default;
 	}
 }
+
+if(!function_exists('fiad_code_editor')){
+	function fiad_code_editor($type, $id){
+		// Enqueue code editor and settings for manipulating HTML.
+		$settings = wp_enqueue_code_editor(['type' => $type]);
+		
+		// Return if the editor was not enqueued.
+		if(false === $settings){
+			return;
+		}
+		
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "' . $id . '", %s ); } );',
+				wp_json_encode($settings)
+			)
+		);
+	}
+}
