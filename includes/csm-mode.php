@@ -16,10 +16,6 @@ class Fiber_Admin_CSM_Mode{
 			$this->fiad_add_default_css();
 		}
 		// Apply for both enable and preview mode
-		
-		// after deactivation, reset flag to be able to add data again
-		register_deactivation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_reset_option']);
-		
 		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], 20);
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
@@ -98,11 +94,11 @@ class Fiber_Admin_CSM_Mode{
 		];
 		if(!$pages_added){
 			foreach($page_titles as $mode => $title){
-				$page_content = FIBERADMIN_ASSETS_DIR . 'generate-pages/csm-mode/' . $mode . '.txt';
-				$post_args    = [
+				$content_url = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/' . $mode . '.txt';
+				$post_args   = [
 					'post_type'    => 'page',
 					'post_title'   => $title,
-					'post_content' => file_get_contents($page_content),
+					'post_content' => fiad_file_get_content($content_url),
 					'post_status'  => 'publish',
 				];
 				wp_insert_post($post_args);
@@ -110,12 +106,6 @@ class Fiber_Admin_CSM_Mode{
 			$csm_mode_option['added_pages'] = true;
 			update_option('fiad_csm_mode', $csm_mode_option);
 		}
-	}
-	
-	public function fiad_reset_option(){
-		$csm_mode_option['added_pages'] = false;
-		$csm_mode_option['added_css']   = false;
-		update_option('fiad_csm_mode', $csm_mode_option);
 	}
 }
 

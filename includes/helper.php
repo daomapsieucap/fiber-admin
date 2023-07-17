@@ -154,3 +154,12 @@ if(!function_exists('fiad_code_editor')){
 		);
 	}
 }
+
+if(!function_exists('fiad_file_get_content')){
+	function fiad_file_get_content($file_url){
+		$curl_session = curl_init($file_url);
+		curl_setopt($curl_session, CURLOPT_RETURNTRANSFER, true);
+		
+		return curl_exec($curl_session);
+	}
+}
