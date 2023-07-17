@@ -132,52 +132,24 @@ class Fiber_Admin_CSM_Mode_Settings{
 	}
 	
 	public function fiad_csm_mode_extra_css(){
-		// Enqueue code editor and settings for manipulating HTML.
-		$settings = wp_enqueue_code_editor(['type' => 'text/css']);
-		
-		// Return if the editor was not enqueued.
-		if(false === $settings){
-			return;
-		}
-		
-		wp_add_inline_script(
-			'code-editor',
-			sprintf(
-				'jQuery( function() { wp.codeEditor.initialize( "csm-extra-css", %s ); } );',
-				wp_json_encode($settings)
-			)
-		);
-		
+		$id = "csm-extra-css";
+		fiad_code_editor('text/css', $id);
 		?>
         <fieldset>
             <textarea
-                    id="csm-extra-css"
+                    id=<?= $id; ?>
                     name="fiad_csm_mode[csm_extra_css]"><?php echo esc_html(fiad_get_csm_mode_option('csm_extra_css')); ?></textarea>
         </fieldset>
 		<?php
 	}
 	
 	public function fiad_csm_mode_extra_js(){
-		// Enqueue code editor and settings for manipulating HTML.
-		$settings = wp_enqueue_code_editor(['type' => 'javascript']);
-		
-		// Return if the editor was not enqueued.
-		if(false === $settings){
-			return;
-		}
-		
-		wp_add_inline_script(
-			'code-editor',
-			sprintf(
-				'jQuery( function() { wp.codeEditor.initialize( "csm-extra-js", %s ); } );',
-				wp_json_encode($settings)
-			)
-		);
-		
+		$id = "csm-extra-js";
+		fiad_code_editor('javascript', $id);
 		?>
         <fieldset>
             <textarea
-                    id="csm-extra-js"
+                    id=<?= $id; ?>
                     name="fiad_csm_mode[csm_extra_js]"><?php echo fiad_get_csm_mode_option('csm_extra_js'); ?></textarea>
         </fieldset>
 		<?php
