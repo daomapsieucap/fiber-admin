@@ -17,7 +17,7 @@ class Fiber_Admin_CSM_Mode{
 		// Apply for both enable and preview mode
 		$this->fiad_create_default_csm_page();
 		$this->fiad_add_default_css();
-		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], 15);
+		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], 20);
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
