@@ -21,7 +21,7 @@ if($is_maintenance){
 	<?php do_action('fiad_script_head'); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title; ?></title>
-	<?= apply_filters('fiad_csm_extra_css', ''); ?>
+	<?= apply_filters('fiad_csm_extra_css', '', $mode); ?>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -32,6 +32,6 @@ if($is_maintenance){
     </div>
 </div>
 <?php wp_reset_postdata(); ?>
-<?= apply_filters('fiad_csm_extra_js', ''); ?>
+<?= wp_unslash(apply_filters('fiad_csm_extra_js', '', $mode)); ?>
 </body>
 </html>
