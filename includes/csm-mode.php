@@ -18,8 +18,6 @@ class Fiber_Admin_CSM_Mode{
 		// after activate plugin, create pages and add default css
 		add_action('admin_init', [$this, 'fiad_create_default_csm_page']);
 		add_action('admin_init', [$this, 'fiad_add_default_css']);
-		register_activation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_create_default_csm_page']);
-		register_activation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_add_default_css']);
 		register_deactivation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_reset_option']);
 		
 		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], 20);
