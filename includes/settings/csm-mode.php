@@ -96,9 +96,10 @@ class Fiber_Admin_CSM_Mode_Settings{
             <label for="mode">
                 <select class="fiber-admin-selection--multiple" name="fiad_csm_mode[mode]"
                         id="mode">
-                    <option value="coming-soon" <?= $selected_mode == 'coming-soon' ? 'selected' : ''; ?>>Coming Soon
+                    <option value="maintenance" <?= $selected_mode == 'maintenance' || !$selected_mode ? 'selected' : ''; ?>>
+                        Maintenance
                     </option>
-                    <option value="maintenance" <?= $selected_mode == 'maintenance' ? 'selected' : ''; ?>>Maintenance
+                    <option value="coming-soon" <?= $selected_mode == 'coming-soon' ? 'selected' : ''; ?>>Coming Soon
                     </option>
                 </select>
             </label>
@@ -115,8 +116,8 @@ class Fiber_Admin_CSM_Mode_Settings{
                 <select class="fiber-admin-selection--multiple" name="fiad_csm_mode[page]"
                         id="csm_mode_page">
 					<?php
-					foreach($pages as $page){
-						$selected = $selected_page == $page->ID ? 'selected' : '';
+					foreach($pages as $index => $page){
+						$selected = $selected_page == $page->ID || $index == 0 ? 'selected' : '';
 						?>
                         <option value="<?= $page->ID; ?>" <?= $selected; ?>><?= $page->post_title; ?></option>
 						<?php

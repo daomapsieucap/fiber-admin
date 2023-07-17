@@ -12,12 +12,12 @@ class Fiber_Admin_CSM_Mode{
 		// Only apply when enable
 		if(fiad_get_csm_mode_option('enable')){
 			add_filter('template_include', [$this, 'fiad_csm_content']);
+			$this->fiad_create_default_csm_page();
+			$this->fiad_add_default_css();
 		}
 		// Apply for both enable and preview mode
 		
-		// after activate plugin, create pages and add default css
-		add_action('admin_init', [$this, 'fiad_create_default_csm_page']);
-		add_action('admin_init', [$this, 'fiad_add_default_css']);
+		// after deactivation, reset flag to be able to add data again
 		register_deactivation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_reset_option']);
 		
 		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], 20);
@@ -113,9 +113,8 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_reset_option(){
-		$csm_mode_option['added_pages']   = false;
-		$csm_mode_option['added_css']     = false;
-		$csm_mode_option['csm_extra_css'] = '';
+		$csm_mode_option['added_pages'] = false;
+		$csm_mode_option['added_css']   = false;
 		update_option('fiad_csm_mode', $csm_mode_option);
 	}
 }

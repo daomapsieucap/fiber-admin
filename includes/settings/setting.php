@@ -145,21 +145,25 @@ class Fiber_Admin_Setting{
 	
 	public function fiad_preview_mode($current){
 		$can_preview = false;
+		$csm_message = '';
 		$url         = '';
 		if($current == 'db-error'){
 			$can_preview = fiad_check_db_error_file();
 			$url         = content_url('db-error.php');
 		}else{
-			$can_preview = fiad_check_csm_mode_file();
+			$mode         = fiad_get_csm_mode_option('mode') ? : 'maintenance';
+			$pages_exists = get_page_by_path($mode, 'OBJECT');
+			$can_preview  = fiad_check_csm_mode_file() && $pages_exists;
 			if(fiad_check_csm_mode_file()){
-				$url = get_site_url() . '/' . fiad_get_csm_mode_option('mode') . '?preview=true';
+				$url = get_site_url() . '/' . $mode . '?preview=true';
 			}
+			$csm_message = __('You can deactivate later', 'fiber-admin');
 		}
 		if($current == 'db-error' || $current == 'csm-mode'){
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
 			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
+                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!' . $csm_message, 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');
