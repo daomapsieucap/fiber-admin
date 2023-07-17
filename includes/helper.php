@@ -105,7 +105,7 @@ if(!function_exists('fiad_get_csm_mode_option')){
 }
 if(!function_exists('fiad_check_csm_mode_file')){
 	function fiad_check_csm_mode_file(){
-		return file_exists(FIBERADMIN_CSM_URL);
+		return file_exists(FIBERADMIN_CSM_PATH);
 	}
 }
 
@@ -119,6 +119,19 @@ if(!function_exists('fiad_array_key_exists')){
 		}
 		
 		return $default;
+	}
+}
+
+if(!function_exists('fiad_dequeue_assets')){
+	function fiad_dequeue_assets(){
+		global $wp_scripts, $wp_styles;
+		foreach($wp_scripts->queue as $handle){
+			wp_dequeue_script($handle);
+		}
+		
+		foreach($wp_styles->queue as $handle){
+			wp_dequeue_style($handle);
+		}
 	}
 }
 
