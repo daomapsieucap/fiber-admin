@@ -88,6 +88,8 @@ class Fiber_Admin_CSM_Mode{
 		if(!fiad_is_admin_user_role() && $csm_enable){
 			return fiad_dequeue_assets($src);
 		}
+		
+		return $src;
 	}
 	
 	public function fiad_create_default_csm_page(){
