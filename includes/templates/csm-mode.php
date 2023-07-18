@@ -8,7 +8,7 @@ $post = get_post($content_page_id);
 setup_postdata($post);
 
 $content = get_the_content();
-$title   = preg_replace('/[^a-zA-Z]/', ' ', mb_convert_case($mode, MB_CASE_TITLE));
+$title   = get_the_title();
 if($is_maintenance){
 	header('HTTP/3 503 Service Temporarily Unavailable', true, 503);
 	header('Status: 503 Service Temporarily Unavailable');
