@@ -32,6 +32,6 @@ if($is_maintenance){
     </div>
 </div>
 <?php wp_reset_postdata(); ?>
-<?= wp_unslash(apply_filters('fiad_csm_extra_js', '', $mode)); ?>
+<?= apply_filters('fiad_csm_extra_js', '', $mode); ?>
 </body>
 </html>
