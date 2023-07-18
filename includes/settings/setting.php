@@ -223,6 +223,8 @@ class Fiber_Admin_Setting{
 				foreach($options as $key => $value){
 					if(!in_array($key, $ignore_key) && !is_array($new_options[$key])){
 						$new_options[$key] = sanitize_text_field($value);
+					}elseif(in_array($key, $ignore_key)){
+						$new_options[$key] = wp_unslash($value);
 					}
 				}
 			}else{
