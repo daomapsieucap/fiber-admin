@@ -16,7 +16,8 @@ class Fiber_Admin_CSM_Mode{
 			$this->fiad_add_default_css();
 		}
 		// Apply for both enable and preview mode
-		add_action('wp_enqueue_scripts', [$this, 'fiad_dequeue_all_for_csm'], PHP_INT_MAX);
+		add_action('script_loader_src', [$this, 'fiad_dequeue_all_for_csm'], PHP_INT_MAX);
+		add_action('style_loader_src', [$this, 'fiad_dequeue_all_for_csm'], PHP_INT_MAX);
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_preview_csm_page']);
@@ -74,18 +75,18 @@ class Fiber_Admin_CSM_Mode{
 		}
 	}
 	
-	public function fiad_dequeue_all_for_csm(){
+	public function fiad_dequeue_all_for_csm($src){
 		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		$csm_enable   = fiad_get_csm_mode_option('enable');
 		
 		// always dequeue if it is preview mode;
 		if($preview_mode){
-			fiad_dequeue_assets();
+			return fiad_dequeue_assets($src);
 		}
 		
 		// dequeue when activate
 		if(!fiad_is_admin_user_role() && $csm_enable){
-			fiad_dequeue_assets();
+			return fiad_dequeue_assets($src);
 		}
 	}
 	

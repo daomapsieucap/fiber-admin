@@ -123,15 +123,12 @@ if(!function_exists('fiad_array_key_exists')){
 }
 
 if(!function_exists('fiad_dequeue_assets')){
-	function fiad_dequeue_assets(){
-		global $wp_scripts, $wp_styles;
-		foreach($wp_scripts->queue as $handle){
-			wp_dequeue_script($handle);
+	function fiad_dequeue_assets($src){
+		if(!fiad_is_admin_user_role() && strpos($src, 'jquery') === false){
+			return "";
 		}
-		
-		foreach($wp_styles->queue as $handle){
-			wp_dequeue_style($handle);
-		}
+
+		return $src;
 	}
 }
 
