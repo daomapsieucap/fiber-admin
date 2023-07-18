@@ -124,7 +124,7 @@ if(!function_exists('fiad_array_key_exists')){
 
 if(!function_exists('fiad_dequeue_assets')){
 	function fiad_dequeue_assets($src){
-		if(!fiad_is_admin_user_role() && strpos($src, 'jquery') === false){
+		if(strpos($src, 'jquery') === false){
 			return "";
 		}
 
