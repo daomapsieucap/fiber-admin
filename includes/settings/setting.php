@@ -163,7 +163,7 @@ class Fiber_Admin_Setting{
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
 			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!' . $csm_message, 'fiber-admin'); ?></p>
+                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first! ' . $csm_message, 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');
@@ -229,8 +229,8 @@ class Fiber_Admin_Setting{
 			
 			//prevent reset 'added' option of csm mode
 			if($option_key == 'fiad_csm_mode'){
-				$new_options['page_added'] = fiad_get_csm_mode_option('page_added');
-				$new_options['css_added']  = fiad_get_csm_mode_option('css_added');
+				$new_options['added_pages'] = fiad_get_csm_mode_option('added_pages');
+				$new_options['added_css']   = fiad_get_csm_mode_option('added_css');
 			}
 			
 			update_option($option_key, $new_options);
