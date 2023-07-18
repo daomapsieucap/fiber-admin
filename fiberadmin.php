@@ -131,3 +131,25 @@ function fiad_settings_page($links){
 	
 	return $links;
 }
+
+add_action('admin_head', 'fiad_admin_additional_css');
+function fiad_admin_additional_css(){
+	$page_csm_ids = fiad_get_page_template_ids('CSM', true, true);
+	if($page_csm_ids){
+		$extra_styles = '<style>';
+		foreach($page_csm_ids as $index => $id){
+			$extra_styles .= $index > 0 ? ',' : '';
+			$extra_styles .= '#the-list #post-' . $id . ' .column-title .row-title:before';
+		}
+		$extra_styles .= '
+					{content: "CSM";
+				    background-color: #333;
+				    color: #FFF;
+				    display: inline-block;
+				    padding: 0 5px;
+				    margin-right: 10px;}';
+		$extra_styles .= '</style>';
+		
+		echo $extra_styles;
+	}
+}
