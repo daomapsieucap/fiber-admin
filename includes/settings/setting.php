@@ -144,18 +144,14 @@ class Fiber_Admin_Setting{
 	}
 	
 	public function fiad_preview_mode($current){
-		$can_preview = false;
-		$message     = __('Please enable "Activate" option and save the settings first!', 'fiber-admin');
-		$url         = '';
+		$message = __('Please enable "Activate" option and save the settings first!', 'fiber-admin');
+		$url     = '';
 		if($current == 'db-error'){
 			$can_preview = fiad_check_db_error_file();
 			$url         = content_url('db-error.php');
 		}else{
-			$mode        = fiad_get_csm_mode_option('mode') ? : 'maintenance';
-			$page_id     = fiad_get_csm_mode_option('page');
-			$page        = get_post($page_id);
-			$page_exists = $page->page_template == $mode . '.php';
-			$can_preview = fiad_check_csm_mode_file() && $page_exists;
+			$mode        = fiad_get_csm_mode_option('mode');
+			$can_preview = (bool) fiad_get_csm_mode_option('page');
 			if(fiad_check_csm_mode_file()){
 				$url = get_site_url() . '/' . $mode . '?preview=true';
 			}
