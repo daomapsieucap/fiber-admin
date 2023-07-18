@@ -229,8 +229,8 @@ class Fiber_Admin_Setting{
 			
 			//prevent reset 'added' option of csm mode
 			if($option_key == 'fiad_csm_mode'){
-				$new_options['added_pages'] = fiad_get_csm_mode_option('added_pages');
-				$new_options['added_css']   = fiad_get_csm_mode_option('added_css');
+				$new_options['default_pages'] = fiad_get_csm_mode_option('default_pages');
+				$new_options['default_css']   = fiad_get_csm_mode_option('default_css');
 			}
 			
 			update_option($option_key, $new_options);
