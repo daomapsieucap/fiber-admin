@@ -145,7 +145,6 @@ class Fiber_Admin_Setting{
 	
 	public function fiad_preview_mode($current){
 		$message = __('Please enable "Activate" option and save the settings first!', 'fiber-admin');
-		$url     = '';
 		if($current == 'db-error'){
 			$can_preview = fiad_check_db_error_file();
 			$url         = content_url('db-error.php');
