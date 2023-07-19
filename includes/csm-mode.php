@@ -28,7 +28,7 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_page_templates($templates){
-		$templates['csm.php'] = "CSM";
+		$templates['csm.php'] = "Coming Soon/Maintenance";
 		
 		return $templates;
 	}
