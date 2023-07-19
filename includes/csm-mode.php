@@ -88,12 +88,9 @@ class Fiber_Admin_CSM_Mode{
 		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		$csm_enable   = fiad_get_csm_mode_option('enable');
 		
-		if($preview_mode){
-			fiad_dequeue_assets();
-		}
-		
-		// dequeue when activate
-		if(!fiad_is_admin_user_role() && $csm_enable){
+		if($preview_mode //dequeue when preview mode
+		   || !fiad_is_admin_user_role() && $csm_enable // dequeue when activate
+		){
 			fiad_dequeue_assets();
 		}
 	}
