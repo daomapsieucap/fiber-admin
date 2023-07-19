@@ -117,12 +117,22 @@ if(!function_exists('fiad_array_key_exists')){
 }
 
 if(!function_exists('fiad_dequeue_assets')){
-	function fiad_dequeue_assets($src){
-		if(strpos($src, 'jquery') === false){
-			return "";
+	function fiad_dequeue_assets(){
+		global $wp_scripts, $wp_styles;
+		
+		foreach($wp_scripts->registered as $registered){
+			if(strpos($registered->src, 'jquery.min.js') === false){
+				wp_deregister_script($registered->handle);
+			}else{
+				wp_enqueue_script($registered->handle);
+			}
 		}
 		
-		return $src;
+		foreach($wp_styles->registered as $registered){
+			wp_deregister_style($registered->handle);
+		}
+		
+		wp_deregister_style('bcnb-social-media');
 	}
 }
 
