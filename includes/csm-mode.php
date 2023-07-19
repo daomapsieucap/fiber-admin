@@ -78,7 +78,7 @@ class Fiber_Admin_CSM_Mode{
 			$default_extra_css .= "body { font: 20px Helvetica, sans-serif; color: #333; }\n";
 			
 			$csm_mode_option['csm_extra_css'] = $default_extra_css;
-			$csm_mode_option['default_css']     = true;
+			$csm_mode_option['default_css']   = true;
 			update_option('fiad_csm_mode', $csm_mode_option);
 		}
 	}
@@ -87,14 +87,16 @@ class Fiber_Admin_CSM_Mode{
 		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		$csm_enable   = fiad_get_csm_mode_option('enable');
 		
-		// always dequeue if it is preview mode;
-		if($preview_mode){
-			return fiad_dequeue_assets($src);
-		}
-		
-		// dequeue when activate
-		if(!fiad_is_admin_user_role() && $csm_enable){
-			return fiad_dequeue_assets($src);
+		if(!is_login()){
+			// always dequeue if it is preview mode;
+			if($preview_mode){
+				return fiad_dequeue_assets($src);
+			}
+			
+			// dequeue when activate
+			if(!fiad_is_admin_user_role() && $csm_enable){
+				return fiad_dequeue_assets($src);
+			}
 		}
 		
 		return $src;
