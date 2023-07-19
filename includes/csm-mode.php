@@ -117,7 +117,7 @@ class Fiber_Admin_CSM_Mode{
 					'post_title'    => $title,
 					'post_content'  => fiad_file_get_content($content_url),
 					'post_status'   => 'publish',
-					'page_template' => $mode . '.php',
+					'page_template' => 'csm.php',
 				];
 				wp_insert_post($post_args);
 			}
