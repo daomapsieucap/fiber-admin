@@ -153,7 +153,7 @@ class Fiber_Admin_Setting{
 			$mode        = fiad_get_csm_mode_option('mode');
 			$can_preview = (bool) fiad_get_csm_mode_option('page');
 			$url         = get_site_url() . '/' . $mode . '?preview=true';
-			$message     = __('Please "Save Changes" the first time', 'fiber-admin');
+			$message     = __('Please "Save Changes" for the first time', 'fiber-admin');
 		}
 		if($current == 'db-error' || $current == 'csm-mode'){
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
