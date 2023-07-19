@@ -188,3 +188,9 @@ if(!function_exists('fiad_get_page_template_ids')){
 		return $return_array ? [] : null;
 	}
 }
+
+if(!function_exists('fiad_is_preview')){
+	function fiad_is_preview(){
+		return sanitize_title(fiad_array_key_exists('preview', $_GET));
+	}
+}

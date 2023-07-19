@@ -35,8 +35,11 @@ const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
-const FIBERADMIN_ASSETS_DIR = FIBERADMIN_DIR . 'assets/';
-const FIBERADMIN_CSM_PATH   = FIBERADMIN_DIR . 'includes/templates/csm-mode.php';
+
+// Coming Soon / Maintenance
+const FIBERADMIN_ASSETS_DIR   = FIBERADMIN_DIR . 'assets/';
+const FIBERADMIN_CSM_PATH     = FIBERADMIN_DIR . 'includes/templates/csm-mode.php';
+const FIBERADMIN_CSM_TEMPLATE = 'csm.php';
 
 /**
  * Init Functions

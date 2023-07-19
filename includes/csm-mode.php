@@ -28,7 +28,7 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_page_templates($templates){
-		$templates['csm.php'] = "Coming Soon/Maintenance";
+		$templates[FIBERADMIN_CSM_TEMPLATE] = "Coming Soon/Maintenance";
 		
 		return $templates;
 	}
@@ -44,8 +44,7 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_preview_csm_page($template){
 		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
-		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
-		if($preview_mode && fiad_is_admin_user_role()){
+		if(fiad_is_preview() && fiad_is_admin_user_role()){
 			return FIBERADMIN_CSM_PATH;
 		}
 		
@@ -85,10 +84,9 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_dequeue_all_for_csm(){
-		$preview_mode = sanitize_title(fiad_array_key_exists('preview', $_GET));
 		$csm_enable   = fiad_get_csm_mode_option('enable');
 		
-		if($preview_mode //dequeue when preview mode
+		if(fiad_is_preview() //dequeue when preview mode
 		   || !fiad_is_admin_user_role() && $csm_enable // dequeue when activate
 		){
 			fiad_dequeue_assets();
@@ -109,7 +107,7 @@ class Fiber_Admin_CSM_Mode{
 					'post_title'    => $title,
 					'post_content'  => fiad_file_get_content($content_url),
 					'post_status'   => 'publish',
-					'page_template' => 'csm.php',
+					'page_template' => FIBERADMIN_CSM_TEMPLATE,
 				];
 				wp_insert_post($post_args);
 			}
