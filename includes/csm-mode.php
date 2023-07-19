@@ -14,9 +14,12 @@ class Fiber_Admin_CSM_Mode{
 		// Only apply when enable
 		if(fiad_get_csm_mode_option('enable')){
 			add_filter('template_include', [$this, 'fiad_csm_content']);
-			$this->fiad_create_default_csm_page();
-			$this->fiad_add_default_css();
 		}
+		
+		// create page when saving option the first time
+		add_filter('pre_update_option_fiad_csm_mode', [$this, 'fiad_create_default_csm_page']);
+		add_filter('pre_update_option_fiad_csm_mode', [$this, 'fiad_add_default_css']);
+		
 		// Apply for both enable and preview mode
 		add_action('script_loader_src', [$this, 'fiad_dequeue_all_for_csm'], PHP_INT_MAX);
 		add_action('style_loader_src', [$this, 'fiad_dequeue_all_for_csm'], PHP_INT_MAX);
@@ -68,19 +71,18 @@ class Fiber_Admin_CSM_Mode{
 		return '';
 	}
 	
-	public function fiad_add_default_css(){
+	public function fiad_add_default_css($value){
+		$mode            = fiad_get_csm_mode_option('mode');
 		$extra_css       = fiad_get_csm_mode_option('csm_extra_css');
-		$csm_mode_option = get_option('fiad_csm_mode');
-		$css_added       = fiad_get_csm_mode_option('default_css');
-		if(!$extra_css && !$css_added){
+		if(!$extra_css && !$mode){
 			$default_extra_css = "body { text-align: center; padding: 150px; }\n";
 			$default_extra_css .= "h1 { font-size: 50px; }\n";
 			$default_extra_css .= "body { font: 20px Helvetica, sans-serif; color: #333; }\n";
 			
-			$csm_mode_option['csm_extra_css'] = $default_extra_css;
-			$csm_mode_option['default_css']   = true;
-			update_option('fiad_csm_mode', $csm_mode_option);
+			$value['csm_extra_css'] = $default_extra_css;
 		}
+		
+		return $value;
 	}
 	
 	public function fiad_dequeue_all_for_csm($src){
@@ -102,14 +104,13 @@ class Fiber_Admin_CSM_Mode{
 		return $src;
 	}
 	
-	public function fiad_create_default_csm_page(){
-		$pages_added     = fiad_get_csm_mode_option('default_pages');
-		$csm_mode_option = get_option('fiad_csm_mode');
-		$page_titles     = [
+	public function fiad_create_default_csm_page($value){
+		$csm_mode    = fiad_get_csm_mode_option('mode');
+		$page_titles = [
 			'coming-soon' => 'Coming Soon',
 			'maintenance' => 'Maintenance',
 		];
-		if(!$pages_added){
+		if(!$csm_mode){
 			foreach($page_titles as $mode => $title){
 				$content_url = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/' . $mode . '.txt';
 				$post_args   = [
@@ -121,9 +122,9 @@ class Fiber_Admin_CSM_Mode{
 				];
 				wp_insert_post($post_args);
 			}
-			$csm_mode_option['default_pages'] = true;
-			update_option('fiad_csm_mode', $csm_mode_option);
 		}
+		
+		return $value;
 	}
 }
 
