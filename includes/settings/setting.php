@@ -216,18 +216,10 @@ class Fiber_Admin_Setting{
 				foreach($options as $key => $value){
 					if(!in_array($key, $ignore_key) && !is_array($new_options[$key])){
 						$new_options[$key] = sanitize_text_field($value);
-					}elseif(in_array($key, $ignore_key)){
-						$new_options[$key] = wp_unslash($value);
 					}
 				}
 			}else{
 				$new_options = [];
-			}
-			
-			//prevent reset 'added' option of csm mode
-			if($option_key == 'fiad_csm_mode'){
-				$new_options['default_pages'] = fiad_get_csm_mode_option('default_pages');
-				$new_options['default_css']   = fiad_get_csm_mode_option('default_css');
 			}
 			
 			update_option($option_key, $new_options);

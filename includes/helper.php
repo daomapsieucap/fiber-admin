@@ -194,3 +194,11 @@ if(!function_exists('fiad_is_preview')){
 		return sanitize_title(fiad_array_key_exists('preview', $_GET));
 	}
 }
+
+if(!function_exists('fiad_is_csm_template')){
+	function fiad_is_csm_template(){
+		global $post;
+		
+		return $post->page_template == FIBERADMIN_CSM_TEMPLATE;
+	}
+}
