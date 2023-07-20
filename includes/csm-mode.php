@@ -155,6 +155,8 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_csm_metabox_html($post){
 		$csm_content = get_post_meta($post->ID, 'fiad_csm_content', true);
+		$csm_logo = fiad_array_key_exists('logo', $csm_content);
+		$csm_background = fiad_array_key_exists('background', $csm_content);
 		?>
         <fieldset class="fiber-admin-metabox fiad_csm_editor">
             <h2>Content</h2>
@@ -170,26 +172,26 @@ class Fiber_Admin_CSM_Mode{
         <fieldset class="fiber-admin-metabox fiad_csm_logo">
             <h2>Logo</h2>
             <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($csm_content['logo']); ?>"
+                <img src="<?php echo esc_url($csm_logo); ?>"
                      alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
             </div>
             <label>
                 <input class="regular-text" type="text" name="fiad_csm_content[logo]"
                        placeholder="<?php echo __('Input / Choose your Logo image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($csm_content['logo']); ?>"/>
+                       value="<?php echo esc_url($csm_logo); ?>"/>
             </label>
             <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
         </fieldset>
         <fieldset class="fiber-admin-metabox fiad_csm_background_image">
             <h2>Background</h2>
             <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($csm_content['background']); ?>"
+                <img src="<?php echo esc_url($csm_background); ?>"
                      alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
             </div>
             <label>
                 <input class="regular-text" type="text" name="fiad_csm_content[background]"
                        placeholder="<?php echo __('Input / Choose your Background image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($csm_content['background']); ?>"/>
+                       value="<?php echo esc_url($csm_background); ?>"/>
             </label>
             <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
         </fieldset>
