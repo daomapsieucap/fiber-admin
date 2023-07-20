@@ -209,7 +209,7 @@ class Fiber_Admin_CSM_Mode{
 			if(!FIBERADMIN_DEV_MODE){
 				$suffix = '.min';
 			}
-			wp_enqueue_script('fiad-csm-assets', FIBERADMIN_ASSETS_URL . 'js/fiber-csm' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
+			wp_enqueue_script('fiad-csm-assets', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
 			wp_enqueue_style('fiad-csm-css', FIBERADMIN_ASSETS_URL . 'css/fiber-csm.css', false, FIBERADMIN_VERSION);
 		}
 	}
