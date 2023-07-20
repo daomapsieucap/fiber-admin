@@ -12,7 +12,7 @@ class Fiber_Admin_CSM_Mode{
 		add_filter('theme_page_templates', [$this, 'fiad_csm_page_templates']);
 		// Only apply when enable
 		if(fiad_get_csm_mode_option('enable')){
-			add_filter('template_include', [$this, 'fiad_csm_content']);
+			add_filter('template_include', [$this, 'fiad_csm_load_template']);
 		}
 		
 		// create page when saving option the first time
@@ -40,7 +40,7 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	//No Header & Footer Page
-	public function fiad_csm_content($template){
+	public function fiad_csm_load_template($template){
 		if(!fiad_is_admin_user_role()){
 			return FIBERADMIN_CSM_PATH;
 		}
@@ -58,7 +58,7 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_extra_css(){
-		$extra_css = fiad_get_csm_mode_option('csm_extra_css');
+		$extra_css = wp_unslash(fiad_get_csm_mode_option('csm_extra_css'));
 		if($extra_css){
 			return "<style>$extra_css</style>";
 		}
@@ -169,12 +169,18 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_csm_content_html($post){
 		$csm_content = get_post_meta($post->ID, 'fiad_csm_content', true);
-		wp_editor($csm_content, 'db_error_message', [
-			'default_editor' => 'tinymce',
-			'textarea_name'  => 'fiad_db_error[db_error_message]',
-			'media_buttons'  => false,
-			'textarea_rows'  => 5,
-		]);
+		?>
+        <fieldset class="fiber-admin-editor">
+			<?php
+			wp_editor($csm_content, 'fiad_csm_content-editor', [ // don't set id same with meta box id => conflict css
+				'default_editor' => 'tinymce',
+				'textarea_name'  => 'fiad_csm_content',
+				'media_buttons'  => false,
+				'textarea_rows'  => 20,
+			]);
+			?>
+        </fieldset>
+		<?php
 	}
 	
 	public function fiad_csm_logo_html($post){
@@ -196,7 +202,6 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_csm_background_image_html($post){
 		$value = get_post_meta($post->ID, 'fiad_csm_background_image', true);
-        var_dump($value);
 		?>
         <fieldset class="fiad_csm_background_image">
             <div class="fiber-admin-preview thickbox">

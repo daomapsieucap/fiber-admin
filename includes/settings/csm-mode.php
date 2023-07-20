@@ -136,7 +136,7 @@ class Fiber_Admin_CSM_Mode_Settings{
         <fieldset>
             <textarea
                     id=<?= $id; ?>
-                    name="fiad_csm_mode[csm_extra_css]"><?php echo esc_html(fiad_get_csm_mode_option('csm_extra_css')); ?></textarea>
+                    name="fiad_csm_mode[csm_extra_css]"><?php echo wp_unslash(fiad_get_csm_mode_option('csm_extra_css')); ?></textarea>
         </fieldset>
 		<?php
 	}
