@@ -1,0 +1,33 @@
+.fiber-admin-metabox {
+    padding: 0.5rem 0;
+}
+
+.fiber-admin-metabox:not(:first-child) {
+    border-top: 1px solid #3a3a3a;
+}
+
+.fiber-admin-metabox:not(:first-child) h2{
+    padding:0 !important;
+}
+
+.fiber-admin-metabox + .fiber-admin-metabox {
+    margin-top: 0.5rem;
+}
+
+.fiber-admin-metabox h2 {
+    padding-left:0 !important;
+    font-weight:600 !important;
+}
+
+.fiber-admin-preview {
+    margin-bottom: 0.5rem;
+}
+
+.fiad_csm_logo img {
+    width: 30%;
+    aspect-ratio:1/1;
+}
+
+.fiad_csm_background_image img{
+    width: 50%;
+}
