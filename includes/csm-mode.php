@@ -15,9 +15,8 @@ class Fiber_Admin_CSM_Mode{
 			add_filter('template_include', [$this, 'fiad_csm_load_template']);
 		}
 		
-		// create page when saving option the first time
+		// create page & add default css when saving option the first time
 		add_filter('pre_update_option_fiad_csm_mode', [$this, 'fiad_create_default_csm_page']);
-		add_filter('pre_update_option_fiad_csm_mode', [$this, 'fiad_csm_add_default']);
 		
 		// Apply for both enable and preview mode
 		add_action('wp_enqueue_scripts', [$this, 'fiad_csm_dequeue_all_assets'], PHP_INT_MAX);
@@ -82,16 +81,6 @@ class Fiber_Admin_CSM_Mode{
 		}
 	}
 	
-	public function fiad_csm_add_default($value){
-		$mode = fiad_get_csm_mode_option('mode');
-		if(!$mode){
-			$default_css_path       = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/default-css.txt';
-			$value['csm_extra_css'] = fiad_file_get_content($default_css_path);
-		}
-		
-		return $value;
-	}
-	
 	public function fiad_csm_dequeue_all_assets(){
 		$csm_enable = fiad_get_csm_mode_option('enable');
 		
@@ -128,6 +117,9 @@ class Fiber_Admin_CSM_Mode{
 					'fiad_csm_content',
 					$csm_default_content
 				);
+				
+				$default_css_path       = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/default-css.txt';
+				$value['csm_extra_css'] = fiad_file_get_content($default_css_path);
 			}
 		}
 		
