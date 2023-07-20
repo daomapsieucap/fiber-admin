@@ -123,9 +123,7 @@ if(!function_exists('fiad_dequeue_assets')){
 		foreach($wp_scripts->registered as $registered){
 			$handle = $registered->handle;
 			if($handle != 'jquery-core'){
-				wp_deregister_script($handle);
-			}else{
-				wp_enqueue_script($handle);
+				wp_deregister_script($registered->handle);
 			}
 		}
 		
