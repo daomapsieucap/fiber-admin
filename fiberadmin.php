@@ -31,14 +31,14 @@ if(!function_exists('get_plugin_data')){
 $plugin_data = get_plugin_data(__FILE__);
 
 define("FIBERADMIN_VERSION", $plugin_data['Version']);
-const FIBERADMIN_DEV_MODE = false;
+const FIBERADMIN_DEV_MODE = true;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 
 // Coming Soon / Maintenance
 const FIBERADMIN_ASSETS_DIR   = FIBERADMIN_DIR . 'assets/';
-const FIBERADMIN_CSM_PATH     = FIBERADMIN_DIR . 'includes/templates/csm-mode.php';
+const FIBERADMIN_CSM_PATH     = FIBERADMIN_DIR . 'templates/csm-mode.php';
 const FIBERADMIN_CSM_TEMPLATE = 'csm.php';
 
 /**
@@ -146,8 +146,8 @@ function fiad_admin_additional_css(){
 		}
 		$extra_styles .= '
 					{content: "CSM";
-				    background-color: #333;
-				    color: #FFF;
+				    background-color: #f3efe3;
+				    color: #333;
 				    display: inline-block;
 				    padding: 0 5px;
 				    margin-right: 10px;}';
