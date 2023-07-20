@@ -103,18 +103,23 @@ class Fiber_Admin_CSM_Mode{
 		];
 		if(!$csm_mode){
 			foreach($page_titles as $mode => $title){
-				$content_url = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/' . $mode . '.txt';
-				$post_args   = [
+				$content_url         = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/' . $mode . '.txt';
+				$post_args           = [
 					'post_type'     => 'page',
 					'post_title'    => $title,
 					'post_status'   => 'publish',
 					'page_template' => FIBERADMIN_CSM_TEMPLATE,
 				];
-				$post_id     = wp_insert_post($post_args);
+				$post_id             = wp_insert_post($post_args);
+				$csm_default_content = [
+					'content'    => fiad_file_get_content($content_url),
+					'background' => "https://colorlib.com/etc/cs/images/countdown-3-1600x900.jpg",
+					'logo'       => get_site_icon_url(),
+				];
 				update_post_meta(
 					$post_id,
 					'fiad_csm_content',
-					fiad_file_get_content($content_url)
+					$csm_default_content
 				);
 			}
 		}
