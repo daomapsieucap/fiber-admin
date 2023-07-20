@@ -27,7 +27,7 @@ class Fiber_Admin_CSM_Mode{
 		
 		// customize edit page
 		add_filter('vc_is_valid_post_type_be', [$this, 'fiad_disable_vc_editor'], 10, 2);
-		add_action('add_meta_boxes', [$this, 'fiad_add_featured_box'], 1);
+		add_action('add_meta_boxes', [$this, 'fiad_add_featured_box'], PHP_INT_MAX);
 		add_action('save_post', [$this, 'fiad_save_postdata']);
 		add_action('admin_enqueue_scripts', [$this, 'fiad_enqueue_customize_assets']);
 		add_filter('wpseo_metabox_prio', 'low');
@@ -146,24 +146,6 @@ class Fiber_Admin_CSM_Mode{
 				'normal',
 				'high'
 			);
-			
-			add_meta_box(
-				'fiad_csm_logo',
-				'Coming Soon / Maintenance Logo',
-				[$this, 'fiad_csm_logo_html'],
-				'page',
-				'normal',
-				'high'
-			);
-			
-			add_meta_box(
-				'fiad_csm_background_image',
-				'Coming Soon / Maintenance Background Image',
-				[$this, 'fiad_csm_background_image_html'],
-				'page',
-				'normal',
-				'high'
-			);
 		}
 	}
 	
@@ -172,45 +154,37 @@ class Fiber_Admin_CSM_Mode{
 		?>
         <fieldset class="fiber-admin-editor">
 			<?php
-			wp_editor($csm_content, 'fiad_csm_content-editor', [ // don't set id same with meta box id => conflict css
+			wp_editor($csm_content['content'], 'fiad_csm_content-editor', [ // don't set id same with meta box id => conflict css
 				'default_editor' => 'tinymce',
-				'textarea_name'  => 'fiad_csm_content',
+				'textarea_name'  => 'fiad_csm_content[content]',
 				'media_buttons'  => false,
 				'textarea_rows'  => 20,
 			]);
 			?>
         </fieldset>
-		<?php
-	}
-	
-	public function fiad_csm_logo_html($post){
-		$value = get_post_meta($post->ID, 'fiad_csm_logo', true);
-		?>
         <fieldset class="fiad_csm_logo">
             <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($value); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                <img src="<?php echo esc_url($csm_content['logo']); ?>"
+                     alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
             </div>
             <label>
-                <input class="regular-text" type="text" name="fiad_csm_logo"
+                Logo
+                <input class="regular-text" type="text" name="fiad_csm_content[logo]"
                        placeholder="<?php echo __('Input / Choose your Logo image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($value); ?>"/>
+                       value="<?php echo esc_url($csm_content['logo']); ?>"/>
             </label>
             <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
         </fieldset>
-		<?php
-	}
-	
-	public function fiad_csm_background_image_html($post){
-		$value = get_post_meta($post->ID, 'fiad_csm_background_image', true);
-		?>
         <fieldset class="fiad_csm_background_image">
             <div class="fiber-admin-preview thickbox">
-                <img src="<?php echo esc_url($value); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                <img src="<?php echo esc_url($csm_content['background']); ?>"
+                     alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
             </div>
             <label>
-                <input class="regular-text" type="text" name="fiad_csm_background_image"
+                Background
+                <input class="regular-text" type="text" name="fiad_csm_content[background]"
                        placeholder="<?php echo __('Input / Choose your Background image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($value); ?>"/>
+                       value="<?php echo esc_url($csm_content['background']); ?>"/>
             </label>
             <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
         </fieldset>
@@ -219,23 +193,7 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_save_postdata($post_id){
 		if(fiad_is_csm_template()){
-			update_post_meta(
-				$post_id,
-				'fiad_csm_content',
-				$_POST['fiad_csm_content']
-			);
-			
-			update_post_meta(
-				$post_id,
-				'fiad_csm_logo',
-				$_POST['fiad_csm_logo']
-			);
-			
-			update_post_meta(
-				$post_id,
-				'fiad_csm_background_image',
-				$_POST['fiad_csm_background_image']
-			);
+			update_post_meta($post_id, 'fiad_csm_content', fiad_array_key_exists('fiad_csm_content', $_POST));
 		}
 	}
 	
