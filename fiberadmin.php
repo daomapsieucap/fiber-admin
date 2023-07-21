@@ -38,7 +38,6 @@ define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 
 // Coming Soon / Maintenance
 const FIBERADMIN_ASSETS_DIR   = FIBERADMIN_DIR . 'assets/';
-const FIBERADMIN_IMAGES_DIR   = FIBERADMIN_ASSETS_DIR . 'images/';
 const FIBERADMIN_CSM_PATH     = FIBERADMIN_DIR . 'templates/csm-mode.php';
 const FIBERADMIN_CSM_TEMPLATE = 'csm.php';
 

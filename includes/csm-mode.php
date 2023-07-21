@@ -108,7 +108,7 @@ class Fiber_Admin_CSM_Mode{
 				$post_id             = wp_insert_post($post_args);
 				$csm_default_content = [
 					'content'    => fiad_file_get_content($content_url),
-					'background' => FIBERADMIN_IMAGES_DIR . 'countdown-3-1600x900.jpg',
+					'background' => FIBERADMIN_ASSETS_URL . 'images/countdown-3-1600x900.jpg',
 					'logo'       => get_site_icon_url(),
 				];
 				update_post_meta(
