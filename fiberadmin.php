@@ -156,3 +156,16 @@ function fiad_admin_additional_css(){
 		echo $extra_styles;
 	}
 }
+
+/**
+ * Enqueue admin script
+ */
+
+add_action('admin_enqueue_scripts', 'fiad_enqueue_admin_script');
+function fiad_enqueue_admin_script(){
+	$suffix = '';
+	if(!FIBERADMIN_DEV_MODE){
+		$suffix = '.min';
+	}
+	wp_register_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
+}

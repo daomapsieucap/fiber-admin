@@ -24,7 +24,6 @@ class Fiber_Admin_CSM_Mode{
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_csm_page_preview']);
-		add_filter('show_admin_bar', [$this, 'fiad_csm_hide_admin_bar']);
 		
 		// customize edit page
 		add_filter('vc_is_valid_post_type_be', [$this, 'fiad_csm_disable_editor'], 10, 2);
@@ -49,22 +48,12 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_page_preview($template){
-		show_admin_bar(false);
 		if(fiad_is_preview() && fiad_is_admin_user_role()){
 			return FIBERADMIN_CSM_PATH;
 		}
 		
 		return $template;
 	}
-	
-	public function fiad_csm_hide_admin_bar(){
-		if(fiad_is_preview()){
-			return false;
-		}
-		
-		return true;
-	}
-	
 	
 	public function fiad_csm_extra_css(){
 		$extra_css = wp_unslash(fiad_get_csm_mode_option('csm_extra_css'));
@@ -86,7 +75,7 @@ class Fiber_Admin_CSM_Mode{
 	
 	public function fiad_csm_enqueue_jquery(){
 		$extra_js = wp_unslash(fiad_get_csm_mode_option('csm_extra_js'));
-		if(strpos($extra_js, 'jQuery(document).ready') !== false){
+		if(strpos($extra_js, 'jQuery(') !== false){
 			wp_enqueue_script('jquery-core');
 		}
 	}
@@ -223,11 +212,7 @@ class Fiber_Admin_CSM_Mode{
 	public function fiad_csm_enqueue_customize_assets(){
 		if(fiad_is_csm_template()){
 			wp_enqueue_media();
-			$suffix = '';
-			if(!FIBERADMIN_DEV_MODE){
-				$suffix = '.min';
-			}
-			wp_enqueue_script('fiad-csm-assets', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
+			wp_enqueue_script('fiber-admin');
 			wp_enqueue_style('fiad-csm-css', FIBERADMIN_ASSETS_URL . 'css/fiber-csm.css', false, FIBERADMIN_VERSION);
 		}
 	}

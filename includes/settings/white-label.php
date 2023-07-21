@@ -21,11 +21,7 @@ class Fiber_Admin_White_Label_Settings{
 		wp_enqueue_script('wp-color-picker');
 		
 		// Plugin scripts
-		$suffix = '';
-		if(!FIBERADMIN_DEV_MODE){
-			$suffix = '.min';
-		}
-		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
+		wp_enqueue_script('fiber-admin');
 	}
 	
 	public function fiad_page_init(){
@@ -242,6 +238,7 @@ class Fiber_Admin_White_Label_Settings{
 		$id = "login-extra-css";
 		fiad_code_editor('text/css', $id);
 		?>
+
         <fieldset>
             <textarea
                     id=<?= $id; ?>
