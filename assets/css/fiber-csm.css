@@ -6,7 +6,7 @@
     border-top:1px solid #3a3a3a;
 }
 
-.fiber-admin-metabox:not(:first-child) h2 {
+.fiber-admin-metabox:first-child h2 {
     padding:0 !important;
 }
 
