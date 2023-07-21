@@ -20,13 +20,14 @@ class Fiber_Admin_CSM_Mode{
 		
 		// Apply for both enable and preview mode
 		add_action('wp_enqueue_scripts', [$this, 'fiad_csm_dequeue_all_assets'], PHP_INT_MAX);
-		add_action('wp_enqueue_scripts', [$this, 'fiad_csm_enqueue_jquery'], PHP_INT_MAX);
+		add_action('wp_enqueue_scripts', [$this, 'fiad_csm_enqueue_jquery']);
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_csm_page_preview']);
+		add_filter('show_admin_bar', [$this, 'fiad_csm_hide_admin_bar']);
 		
 		// customize edit page
-		add_filter('vc_is_valid_post_type_be', [$this, 'fiad_csm_disable_vc_editor'], 10, 2);
+		add_filter('vc_is_valid_post_type_be', [$this, 'fiad_csm_disable_editor'], 10, 2);
 		add_action('add_meta_boxes', [$this, 'fiad_csm_add_metabox'], PHP_INT_MAX);
 		add_action('save_post', [$this, 'fiad_csm_save_postdata']);
 		add_action('admin_enqueue_scripts', [$this, 'fiad_csm_enqueue_customize_assets']);
@@ -48,13 +49,22 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_page_preview($template){
-		//Sanitizes a string into a slug, which can be used in URLs or HTML attributes.
+		show_admin_bar(false);
 		if(fiad_is_preview() && fiad_is_admin_user_role()){
 			return FIBERADMIN_CSM_PATH;
 		}
 		
 		return $template;
 	}
+	
+	public function fiad_csm_hide_admin_bar(){
+		if(fiad_is_preview()){
+			return false;
+		}
+		
+		return true;
+	}
+	
 	
 	public function fiad_csm_extra_css(){
 		$extra_css = wp_unslash(fiad_get_csm_mode_option('csm_extra_css'));
@@ -109,7 +119,7 @@ class Fiber_Admin_CSM_Mode{
 				$post_id             = wp_insert_post($post_args);
 				$csm_default_content = [
 					'content'    => fiad_file_get_content($content_url),
-					'background' => "https://colorlib.com/etc/cs/images/countdown-3-1600x900.jpg",
+					'background' => "https://phong.eeveesandbox.com/wp-content/uploads/2023/07/countdown-3-1600x900-1.jpg",
 					'logo'       => get_site_icon_url(),
 				];
 				update_post_meta(
@@ -130,11 +140,11 @@ class Fiber_Admin_CSM_Mode{
 	 * Disable Editor
 	 */
 	
-	public function fiad_csm_disable_vc_editor($enabled){
+	public function fiad_csm_disable_editor($enabled){
 		if(fiad_is_csm_template()){
-			remove_post_type_support('page', 'editor');
+			remove_post_type_support('page', 'editor'); //disable default editor
 			
-			return false;
+			return false; //disable vc editor
 		}
 		
 		return $enabled;
@@ -154,10 +164,42 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_csm_metabox_html($post){
-		$csm_content = get_post_meta($post->ID, 'fiad_csm_content', true);
-		$csm_logo = fiad_array_key_exists('logo', $csm_content);
+		$csm_content    = get_post_meta($post->ID, 'fiad_csm_content', true);
+		$csm_logo       = fiad_array_key_exists('logo', $csm_content);
 		$csm_background = fiad_array_key_exists('background', $csm_content);
 		?>
+        <div class="fiber-csm-image">
+            <fieldset class="fiber-admin-metabox fiad_csm_logo">
+                <h2>Logo</h2>
+                <div class="fiber-admin-preview">
+                    <img src="<?php echo esc_url($csm_logo); ?>"
+                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                </div>
+                <div class="fiber-admin-metabox--upload">
+                    <label>
+                        <input class="regular-text" type="text" name="fiad_csm_content[logo]"
+                               placeholder="<?php echo __('Input / Choose your Logo image', 'fiber-admin'); ?>"
+                               value="<?php echo esc_url($csm_logo); ?>"/>
+                    </label>
+                    <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
+                </div>
+            </fieldset>
+            <fieldset class="fiber-admin-metabox fiad_csm_background_image">
+                <h2>Background</h2>
+                <div class="fiber-admin-preview">
+                    <img src="<?php echo esc_url($csm_background); ?>"
+                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                </div>
+                <div class="fiber-admin-metabox--upload">
+                    <label>
+                        <input class="regular-text" type="text" name="fiad_csm_content[background]"
+                               placeholder="<?php echo __('Input / Choose your Background image', 'fiber-admin'); ?>"
+                               value="<?php echo esc_url($csm_background); ?>"/>
+                    </label>
+                    <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
+                </div>
+            </fieldset>
+        </div>
         <fieldset class="fiber-admin-metabox fiad_csm_editor">
             <h2>Content</h2>
 			<?php
@@ -168,32 +210,6 @@ class Fiber_Admin_CSM_Mode{
 				'textarea_rows'  => 10,
 			]);
 			?>
-        </fieldset>
-        <fieldset class="fiber-admin-metabox fiad_csm_logo">
-            <h2>Logo</h2>
-            <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($csm_logo); ?>"
-                     alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-            </div>
-            <label>
-                <input class="regular-text" type="text" name="fiad_csm_content[logo]"
-                       placeholder="<?php echo __('Input / Choose your Logo image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($csm_logo); ?>"/>
-            </label>
-            <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
-        </fieldset>
-        <fieldset class="fiber-admin-metabox fiad_csm_background_image">
-            <h2>Background</h2>
-            <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($csm_background); ?>"
-                     alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-            </div>
-            <label>
-                <input class="regular-text" type="text" name="fiad_csm_content[background]"
-                       placeholder="<?php echo __('Input / Choose your Background image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($csm_background); ?>"/>
-            </label>
-            <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
         </fieldset>
 		<?php
 	}
