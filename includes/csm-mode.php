@@ -24,6 +24,7 @@ class Fiber_Admin_CSM_Mode{
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
 		add_filter('template_include', [$this, 'fiad_csm_page_preview']);
+		add_filter('show_admin_bar', [$this, 'fiad_csm_hide_admin_bar']); //todo: find way to enqueue admin-bar back
 		
 		// customize edit page
 		add_filter('vc_is_valid_post_type_be', [$this, 'fiad_csm_disable_editor'], 10, 2);
@@ -89,6 +90,15 @@ class Fiber_Admin_CSM_Mode{
 			fiad_dequeue_assets();
 		}
 	}
+	
+    //todo: show admin bar
+    /*
+     * This is a temporary solution since enqueue admin-bar assets not working
+     */
+	public function fiad_csm_hide_admin_bar(){
+		return !fiad_is_preview();
+	}
+	
 	
 	public function fiad_create_default_csm_page($value){
 		$csm_mode    = fiad_get_csm_mode_option('mode');

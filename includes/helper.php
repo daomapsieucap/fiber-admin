@@ -120,15 +120,19 @@ if(!function_exists('fiad_dequeue_assets')){
 	function fiad_dequeue_assets(){
 		global $wp_scripts, $wp_styles;
 		
+		$exclude_assets = ['jquery-core', 'admin-bar'];
 		foreach($wp_scripts->registered as $registered){
 			$handle = $registered->handle;
-			if($handle != 'jquery-core'){
-				wp_deregister_script($registered->handle);
+			if(!in_array($handle, $exclude_assets)){
+				wp_deregister_script($handle);
 			}
 		}
 		
 		foreach($wp_styles->registered as $registered){
-			wp_deregister_style($registered->handle);
+			$handle = $registered->handle;
+			if(!in_array($handle, $exclude_assets)){
+				wp_deregister_style($handle);
+			}
 		}
 	}
 }
