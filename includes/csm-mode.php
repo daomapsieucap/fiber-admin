@@ -91,12 +91,12 @@ class Fiber_Admin_CSM_Mode{
 		}
 	}
 	
-    //todo: show admin bar
-    /*
-     * This is a temporary solution since enqueue admin-bar assets not working
-     */
+	//todo: show admin bar
+	/*
+	 * This is a temporary solution since enqueue admin-bar assets not working
+	 */
 	public function fiad_csm_hide_admin_bar(){
-		return !fiad_is_preview();
+		return !fiad_is_preview() && fiad_is_admin_user_role();
 	}
 	
 	
