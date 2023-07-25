@@ -7,12 +7,13 @@ global $post;
 $post = get_post($content_page_id);
 setup_postdata($post);
 
-$title    = get_the_title();
-$id       = get_the_ID();
-$content  = get_post_meta($id, 'fiad_csm_content', true);
-$bg_url   = get_post_meta($id, 'fiad_csm_background_image', true);
-$logo_url = get_post_meta($id, 'fiad_csm_logo', true);
-$content  = wpautop($content); // keep content stay exactly the same with editor
+$title       = get_the_title();
+$id          = get_the_ID();
+$csm_content = get_post_meta($id, 'fiad_csm_content', true);
+$content     = fiad_array_key_exists('content', $csm_content);
+$content     = wpautop($content); // keep content stay exactly the same with editor
+$bg_url      = fiad_array_key_exists('background', $csm_content);
+$logo_url    = fiad_array_key_exists('logo', $csm_content);
 if($is_maintenance){
 	header('HTTP/3 503 Service Temporarily Unavailable', true, 503);
 	header('Status: 503 Service Temporarily Unavailable');
