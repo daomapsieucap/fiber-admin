@@ -199,8 +199,20 @@ if(!function_exists('fiad_is_preview')){
 
 if(!function_exists('fiad_is_csm_template')){
 	function fiad_is_csm_template(){
-		global $post;
+		$template = '';
 		
-		return $post->page_template == FIBERADMIN_CSM_TEMPLATE;
+		global $post;
+		if(is_a($post, 'WP_Post')){
+			$template = $post->page_template;
+		}else{
+			$post_id = intval(fiad_array_key_exists('post', $_GET));
+			if($post_id){
+				$post = get_post($post_id);
+				
+				$template = $post->page_template;
+			}
+		}
+		
+		return $template == FIBERADMIN_CSM_TEMPLATE;
 	}
 }

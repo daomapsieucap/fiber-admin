@@ -9,11 +9,8 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_CSM_Mode{
 	public function __construct(){
+		// page template without header footer
 		add_filter('theme_page_templates', [$this, 'fiad_csm_page_templates']);
-		// Only apply when enable
-		if(fiad_get_csm_mode_option('enable')){
-			add_filter('template_include', [$this, 'fiad_csm_load_template']);
-		}
 		
 		// create page & add default css when saving option the first time
 		add_filter('pre_update_option_fiad_csm_mode', [$this, 'fiad_create_default_csm_page']);
@@ -23,32 +20,31 @@ class Fiber_Admin_CSM_Mode{
 		add_action('wp_enqueue_scripts', [$this, 'fiad_csm_enqueue_jquery']);
 		add_filter('fiad_csm_extra_css', [$this, 'fiad_csm_extra_css']);
 		add_filter('fiad_csm_extra_js', [$this, 'fiad_csm_extra_js']);
-		add_filter('template_include', [$this, 'fiad_csm_page_preview']);
-		add_filter('show_admin_bar', [$this, 'fiad_csm_hide_admin_bar']); //todo: find way to enqueue admin-bar back
+		add_filter('template_include', [$this, 'fiad_csm_load_template']);
+		//add_filter('show_admin_bar', [$this, 'fiad_csm_hide_admin_bar']); //todo: find way to enqueue admin-bar back
 		
 		// customize edit page
-		add_filter('vc_is_valid_post_type_be', [$this, 'fiad_csm_disable_editor'], 10, 2);
+		add_action('init', [$this, 'fiad_csm_disable_editor'], PHP_INT_MAX);
 		add_action('add_meta_boxes', [$this, 'fiad_csm_add_metabox'], PHP_INT_MAX);
 		add_action('save_post', [$this, 'fiad_csm_save_postdata']);
 		add_action('admin_enqueue_scripts', [$this, 'fiad_csm_enqueue_customize_assets']);
 	}
 	
 	public function fiad_csm_page_templates($templates){
-		$templates[FIBERADMIN_CSM_TEMPLATE] = "Coming Soon/Maintenance";
+		$templates[FIBERADMIN_CSM_TEMPLATE] = "Coming Soon / Maintenance";
 		
 		return $templates;
 	}
 	
-	//No Header & Footer Page
 	public function fiad_csm_load_template($template){
-		if(!fiad_is_admin_user_role()){
-			return FIBERADMIN_CSM_PATH;
+		// for FE
+		if(fiad_get_csm_mode_option('enable')){
+			if(!fiad_is_admin_user_role()){
+				return FIBERADMIN_CSM_PATH;
+			}
 		}
 		
-		return $template;
-	}
-	
-	public function fiad_csm_page_preview($template){
+		// for preview mode
 		if(fiad_is_preview() && fiad_is_admin_user_role()){
 			return FIBERADMIN_CSM_PATH;
 		}
@@ -99,7 +95,6 @@ class Fiber_Admin_CSM_Mode{
 		return !fiad_is_preview() && fiad_is_admin_user_role();
 	}
 	
-	
 	public function fiad_create_default_csm_page($value){
 		$csm_mode    = fiad_get_csm_mode_option('mode');
 		$page_titles = [
@@ -127,7 +122,7 @@ class Fiber_Admin_CSM_Mode{
 					$csm_default_content
 				);
 				
-				$default_css_path       = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/default-css.txt';
+				$default_css_path       = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/default.css';
 				$value['csm_extra_css'] = fiad_file_get_content($default_css_path);
 			}
 		}
@@ -139,14 +134,10 @@ class Fiber_Admin_CSM_Mode{
 	 * Disable Editor
 	 */
 	
-	public function fiad_csm_disable_editor($enabled){
+	public function fiad_csm_disable_editor(){
 		if(fiad_is_csm_template()){
-			remove_post_type_support('page', 'editor'); //disable default editor
-			
-			return false; //disable vc editor
+			remove_post_type_support('page', 'editor');
 		}
-		
-		return $enabled;
 	}
 	
 	public function fiad_csm_add_metabox(){
@@ -167,49 +158,56 @@ class Fiber_Admin_CSM_Mode{
 		$csm_logo       = fiad_array_key_exists('logo', $csm_content);
 		$csm_background = fiad_array_key_exists('background', $csm_content);
 		?>
-        <div class="fiber-csm-image">
-            <fieldset class="fiber-admin-metabox fiad_csm_logo">
-                <h2>Logo</h2>
-                <div class="fiber-admin-preview">
-                    <img src="<?php echo esc_url($csm_logo); ?>"
-                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-                </div>
-                <div class="fiber-admin-metabox--upload">
-                    <label>
-                        <input class="regular-text" type="text" name="fiad_csm_content[logo]"
-                               placeholder="<?php echo __('Input / Choose your Logo image', 'fiber-admin'); ?>"
-                               value="<?php echo esc_url($csm_logo); ?>"/>
-                    </label>
-                    <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
-                </div>
-            </fieldset>
-            <fieldset class="fiber-admin-metabox fiad_csm_background_image">
-                <h2>Background</h2>
-                <div class="fiber-admin-preview">
-                    <img src="<?php echo esc_url($csm_background); ?>"
-                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-                </div>
-                <div class="fiber-admin-metabox--upload">
-                    <label>
-                        <input class="regular-text" type="text" name="fiad_csm_content[background]"
-                               placeholder="<?php echo __('Input / Choose your Background image', 'fiber-admin'); ?>"
-                               value="<?php echo esc_url($csm_background); ?>"/>
-                    </label>
-                    <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
-                </div>
-            </fieldset>
-        </div>
-        <fieldset class="fiber-admin-metabox fiad_csm_editor">
-            <h2>Content</h2>
-			<?php
-			wp_editor($csm_content['content'], 'fiad_csm_content-editor', [ // don't set id same with meta box id => conflict css
-				'default_editor' => 'tinymce',
-				'textarea_name'  => 'fiad_csm_content[content]',
-				'media_buttons'  => false,
-				'textarea_rows'  => 10,
-			]);
-			?>
-        </fieldset>
+        <table class="form-table">
+            <tbody>
+            <tr>
+                <td>
+                    <h4>Logo</h4>
+                    <div class="fiber-admin-preview">
+                        <img src="<?php echo esc_url($csm_logo); ?>"
+                             alt="<?php echo esc_attr(get_bloginfo('name')); ?>"
+                             width="<?php echo get_option('thumbnail_size_w'); ?>"/>
+                    </div>
+                    <div class="fiber-admin-metabox--upload">
+                        <label>
+                            <input class="regular-text" type="text" name="fiad_csm_content[logo]"
+                                   placeholder="<?php echo __('Input / Choose your Logo image', 'fiber-admin'); ?>"
+                                   value="<?php echo esc_url($csm_logo); ?>"/>
+                        </label>
+                        <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
+                    </div>
+                </td>
+                <td>
+                    <h4>Background image</h4>
+                    <div class="fiber-admin-preview">
+                        <img src="<?php echo esc_url($csm_background); ?>"
+                             alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                    </div>
+                    <div class="fiber-admin-metabox--upload">
+                        <label>
+                            <input class="regular-text" type="text" name="fiad_csm_content[background]"
+                                   placeholder="<?php echo __('Input / Choose your Background image', 'fiber-admin'); ?>"
+                                   value="<?php echo esc_url($csm_background); ?>"/>
+                        </label>
+                        <button class="button fiber-admin-upload"><?php echo __('Select Image', 'fiber-admin'); ?></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="fiad_csm_editor" colspan="2">
+                    <h4>Content</h4>
+					<?php
+					wp_editor($csm_content['content'], 'fiad_csm_content-editor', [ // don't set id same with meta box id => conflict css
+						'default_editor' => 'tinymce',
+						'textarea_name'  => 'fiad_csm_content[content]',
+						'media_buttons'  => false,
+						'textarea_rows'  => 10,
+					]);
+					?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 		<?php
 	}
 	
