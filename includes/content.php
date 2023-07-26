@@ -45,19 +45,21 @@ class Fiber_Admin_Content{
 			return $content;
 		}
 		
-		$clean_content   = do_shortcode($content);// get content without shortcode
+		$clean_content = do_shortcode($content);// get content without shortcode
 		$content_pattern = "/<.+?>([^<>].*?[^<>])<\/.+?>/";
 		
-		return preg_replace_callback($content_pattern, function($matches){
-			$email_pattern = "/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,})/";
-			$replace       = '<a href="mailto:$1" title="$1">$1</a>';
-//			matches[0]: return the whole content with html tags
-//			matches[1]: return the content between tags
-			$email_content = $matches[1];
-			$new_content   = preg_replace($email_pattern, $replace, $email_content);
-			
-			return str_replace($matches[1], $new_content, $matches[0]);
-		}, $clean_content);
+		return preg_replace_callback($content_pattern, [$this, 'fiad_replace_email_with_link'], $clean_content);
+	}
+	
+	public function fiad_replace_email_with_link($matches){
+		$email_pattern = "/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,})/";
+		$replace       = '<a href="mailto:$1" title="$1">$1</a>';
+		// matches[0]: return the whole content with html tags
+		// matches[1]: return the content between tags
+		$email_content = $matches[1];
+		$new_content   = preg_replace($email_pattern, $replace, $email_content);
+		
+		return str_replace($matches[1], $new_content, $matches[0]);
 	}
 	
 	public function fiad_content_protection_scripts(){
