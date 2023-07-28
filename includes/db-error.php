@@ -9,9 +9,9 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_DB_Error{
 	public function __construct(){
-		add_action('admin_init', array($this, 'fiad_db_error_file'));
-		register_activation_hook(FIBERADMIN_FILENAME, array($this, 'fiad_db_error_file'));
-		register_deactivation_hook(FIBERADMIN_FILENAME, array($this, 'fiad_remove_db_error_file'));
+		add_action('admin_init', [$this, 'fiad_db_error_file']);
+		register_activation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_db_error_file']);
+		register_deactivation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_remove_db_error_file']);
 	}
 	
 	public function fiad_db_error_file(){
@@ -22,7 +22,7 @@ class Fiber_Admin_DB_Error{
 			// add rules to .htaccess file in wp-content if it exists
 			$content_htaccess = WP_CONTENT_DIR . '/.htaccess';
 			if(file_exists($content_htaccess)){
-				$lines   = array();
+				$lines   = [];
 				$lines[] = '<Files db-error.php>';
 				$lines[] = '    Allow From All';
 				$lines[] = '    Satisfy any';
@@ -75,7 +75,7 @@ class Fiber_Admin_DB_Error{
 			            .db-error__inner h2 {font-size:26px}
 			        }
 					</style>";
-			$html .= '<link rel="icon" type="image/png" href="' . get_site_icon_url() . '"/>';
+			$html .= '<link rel="icon" type="image/png" href="' . fiad_get_file_upload_path(get_site_icon_url()) . '"/>';
 			$html .= '</head>';
 			$html .= '<body class="db-error">';
 			
@@ -84,7 +84,7 @@ class Fiber_Admin_DB_Error{
 			
 			if($logo){
 				$html .= '<div class="db-error__logo">';
-				$html .= '<img src="' . $logo . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
+				$html .= '<img src="' . fiad_get_file_upload_path($logo) . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
 				$html .= '</div>';
 			}
 			
