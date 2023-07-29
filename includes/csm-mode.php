@@ -103,7 +103,7 @@ class Fiber_Admin_CSM_Mode{
 		];
 		if(!$csm_mode){
 			foreach($page_titles as $mode => $title){
-				$content_url         = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/' . $mode . '.txt';
+				$content_url         = FIBERADMIN_ASSETS_URL . 'csm/' . $mode . '.html';
 				$post_args           = [
 					'post_type'     => 'page',
 					'post_title'    => $title,
@@ -113,7 +113,7 @@ class Fiber_Admin_CSM_Mode{
 				$post_id             = wp_insert_post($post_args);
 				$csm_default_content = [
 					'content'    => fiad_file_get_content($content_url),
-					'background' => FIBERADMIN_ASSETS_URL . 'images/countdown-3-1600x900.jpg',
+					'background' => FIBERADMIN_ASSETS_URL . 'images/csm-background.jpg',
 					'logo'       => get_site_icon_url(),
 				];
 				update_post_meta(
@@ -122,7 +122,7 @@ class Fiber_Admin_CSM_Mode{
 					$csm_default_content
 				);
 				
-				$default_css_path       = FIBERADMIN_ASSETS_URL . 'generate-pages/csm-mode/default.css';
+				$default_css_path       = FIBERADMIN_ASSETS_URL . 'csm/default.css';
 				$value['csm_extra_css'] = fiad_file_get_content($default_css_path);
 			}
 		}
@@ -181,7 +181,8 @@ class Fiber_Admin_CSM_Mode{
                     <h4>Background image</h4>
                     <div class="fiber-admin-preview">
                         <img src="<?php echo esc_url($csm_background); ?>"
-                             alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                             alt="<?php echo esc_attr(get_bloginfo('name')); ?>"
+                             width="<?php echo get_option('thumbnail_size_w'); ?>"/>
                     </div>
                     <div class="fiber-admin-metabox--upload">
                         <label>
