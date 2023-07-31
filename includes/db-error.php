@@ -39,6 +39,9 @@ class Fiber_Admin_DB_Error{
 			$logo_height      = fiad_get_db_error_option('db_error_logo_height');
 			$bg_color         = fiad_get_db_error_option('db_error_bg');
 			$style            = $bg_color ? 'body {background-color: ' . $bg_color . '}' : '';
+			$server           = $_SERVER;
+			$http             = fiad_array_key_exists('HTTPS', $server) ? "https://" : "http://";
+			$http_host        = $http . fiad_array_key_exists('HTTP_HOST', $server);
 			
 			$php = '<?php';
 			$php .= PHP_EOL;
@@ -48,9 +51,7 @@ class Fiber_Admin_DB_Error{
 			$php .= PHP_EOL;
 			$php .= 'header(\'Retry-After: 3600\');';
 			$php .= PHP_EOL;
-			$php .= '$http = $_SERVER[\'HTTPS\'] ? "https://" : "http://";';
-			$php .= PHP_EOL;
-			$php .= '$absolute_url = $http . $_SERVER[\'HTTP_HOST\'] . explode($_SERVER[\'DOCUMENT_ROOT\'], __DIR__)[1];';
+			$php .= '$absolute_url = "' . $http_host . '" . explode($_SERVER[\'DOCUMENT_ROOT\'], __DIR__)[1];';
 			$php .= PHP_EOL;
 			$php .= '?>';
 			
