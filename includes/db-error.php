@@ -48,6 +48,10 @@ class Fiber_Admin_DB_Error{
 			$php .= PHP_EOL;
 			$php .= 'header(\'Retry-After: 3600\');';
 			$php .= PHP_EOL;
+			$php .= '$http = $_SERVER[\'HTTPS\'] ? "https://" : "http://";';
+			$php .= PHP_EOL;
+			$php .= '$absolute_url = $http . $_SERVER[\'HTTP_HOST\'] . explode($_SERVER[\'DOCUMENT_ROOT\'], __DIR__)[1];';
+			$php .= PHP_EOL;
 			$php .= '?>';
 			
 			$html = $php;
@@ -75,7 +79,7 @@ class Fiber_Admin_DB_Error{
 			            .db-error__inner h2 {font-size:26px}
 			        }
 					</style>";
-			$html .= '<link rel="icon" type="image/png" href="' . fiad_get_file_upload_path(get_site_icon_url()) . '"/>';
+			$html .= '<link rel="icon" type="image/png" href="<?= $absolute_url; ?>' . fiad_get_file_upload_path(get_site_icon_url()) . '"/>';
 			$html .= '</head>';
 			$html .= '<body class="db-error">';
 			
@@ -84,7 +88,7 @@ class Fiber_Admin_DB_Error{
 			
 			if($logo){
 				$html .= '<div class="db-error__logo">';
-				$html .= '<img src="' . fiad_get_file_upload_path($logo) . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
+				$html .= '<img src="<?= $absolute_url; ?>' . fiad_get_file_upload_path($logo) . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
 				$html .= '</div>';
 			}
 			
