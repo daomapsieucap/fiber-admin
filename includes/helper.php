@@ -118,6 +118,6 @@ if(!function_exists('fiad_array_key_exists')){
 
 if(!function_exists('fiad_get_file_upload_path')){
 	function fiad_get_file_upload_path($url){
-		return '.' . explode('wp-content', $url)[1];
+		return '../wp-content' . explode('wp-content', $url)[1];
 	}
 }
