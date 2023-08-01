@@ -1,11 +1,14 @@
+/* Import Font */
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 /* Reset CSS */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 * {box-sizing:border-box; margin:0; padding:0; border:0; outline:none;}
 html, body {min-height:100vh;}
 body {font-family:"Roboto", sans-serif; line-height:1.5;}
 
 /* editor */
 h1 {font-size:56px; line-height:1; margin-bottom:25px;}
+p {margin-bottom:10px;}
 
 .container {
     max-width:100%; min-height:100vh; overflow:hidden;
