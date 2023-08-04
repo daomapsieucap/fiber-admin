@@ -40,15 +40,10 @@ class Fiber_Admin_Content{
 	}
 	
 	public function fiad_auto_convert_email_address($content){
-		// Skip if the content has mailto link
-		if(strpos($content, 'mailto') !== false){
-			return $content;
-		}
+		$content         = do_shortcode($content);// get content without shortcode
+		$content_pattern = "/>([^<]*)</";
 		
-		$clean_content = do_shortcode($content);// get content without shortcode
-		$content_pattern = "/<.+?>([^<>].*?[^<>])<\/.+?>/";
-		
-		return preg_replace_callback($content_pattern, [$this, 'fiad_replace_email_with_link'], $clean_content);
+		return preg_replace_callback($content_pattern, [$this, 'fiad_replace_email_with_link'], $content);
 	}
 	
 	public function fiad_replace_email_with_link($matches){
