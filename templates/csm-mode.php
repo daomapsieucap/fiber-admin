@@ -36,21 +36,21 @@ if($is_maintenance){
 		<?php
 		if($bg_url){
 			?>
-            <div class="site-content-image">
+            <div class="site-content__bg-image">
                 <img src="<?= $bg_url; ?>" alt="Background image">
             </div>
 			<?php
 		}
 		if($logo_url){
 			?>
-            <div class="site-content-logo">
+            <div class="site-content__logo">
                 <img src="<?= $logo_url; ?>" alt="Logo">
             </div>
 			<?php
 		}
 		if($content){
 			?>
-            <div class="site-content-content">
+            <div class="site-content__content">
 				<?= $content; ?>
             </div>
 			<?php

@@ -15,39 +15,22 @@ p {margin-bottom:10px;}
     position:relative; padding:100px clamp(20px, calc((100vw - 17px - 1280px) / 2), 100vw) 180px;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
 }
-.site-content-image {position:absolute; inset:0;}
-.site-content-image:before {
+.site-content__bg-image {position:absolute; inset:0;}
+.site-content__bg-image:before {
     content:""; position:absolute; inset:0;
     background:rgba(0, 0, 0, 0.4); z-index:1; pointer-events:none;
 }
-.site-content-image img {width:100%; height:100%; object-fit:cover; object-position:center;}
+.site-content__bg-image img {width:100%; height:100%; object-fit:cover; object-position:center;}
 
-.site-content-logo {position:relative; z-index:3; height:60px; margin:0 auto 20px;}
-.site-content-logo img {width:auto; height:100%; object-fit:contain; }
+.site-content__logo {position:relative; z-index:3; height:60px; margin:0 auto 20px;}
+.site-content__logo img {width:auto; height:100%; object-fit:contain; }
 
-.site-content-content {
+.site-content__content {
     position:relative; z-index:3;
     text-align:center; width:100%; color:#fff;
 }
-.site-content-content a {
+.site-content__content a {
     color:#ffe082; text-decoration:none;
     position:relative; padding-bottom:3px;
 }
-.site-content-content a:hover, .site-content-content a:focus {color:#fff;}
-
-
-/* Social media */
-.social-buttons {position:absolute; bottom:20px; left:50%; transform:translateX(-50%); z-index:3;}
-.social-buttons ul {display:flex; margin:0; list-style:none; gap:5px 30px;}
-.social-buttons ul > li {padding:0;}
-.social-buttons ul > li > a {
-    text-decoration:none; color:#fff;
-    position:relative; padding-bottom:3px; transition:all .3s ease;
-}
-.social-buttons ul > li > a:before, .site-content-content a:before {
-    content:""; display:block;
-    width:0; height:1px; background:#fff;
-    position:absolute; right:0; bottom:0; transition:all .3s ease;
-}
-.social-buttons ul > li > a:hover:before, .site-content-content a:hover:before,
-.social-buttons ul > li > a:focus:before, .site-content-content a:focus:before {width:100%; right:auto; left:0;}
+.site-content__content a:hover, .site-content__content a:focus {color:#fff;}
