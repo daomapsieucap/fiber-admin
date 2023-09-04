@@ -48,7 +48,7 @@ const FIBERADMIN_CSM_TEMPLATE = 'csm.php';
 add_action('init', 'fiad_init');
 function fiad_init(){
 	// helper functions
-	include_once(FIBERADMIN_DIR . 'includes/helper.php');
+	include_once(FIBERADMIN_DIR . 'includes/helpers.php');
 	
 	// options pages
 	include_once(FIBERADMIN_DIR . 'includes/settings/setting.php');
