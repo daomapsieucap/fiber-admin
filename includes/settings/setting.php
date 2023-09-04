@@ -10,11 +10,11 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Setting{
 	
 	public function __construct(){
-		add_action('admin_menu', array($this, 'fiad_setting'));
-		add_action('admin_init', array($this, 'fiad_setting_init'));
+		add_action('admin_menu', [$this, 'fiad_setting']);
+		add_action('admin_init', [$this, 'fiad_setting_init']);
 		
 		// register styles
-		add_action("admin_enqueue_scripts", array($this, 'fiad_styles'));
+		add_action("admin_enqueue_scripts", [$this, 'fiad_styles']);
 	}
 	
 	public function fiad_styles($hook_suffix){
@@ -43,7 +43,7 @@ class Fiber_Admin_Setting{
 			'Fiber Admin',
 			'manage_options',
 			'fiber-admin',
-			array($this, 'fiad_setting_html')
+			[$this, 'fiad_setting_html']
 		);
 	}
 	
@@ -87,13 +87,14 @@ class Fiber_Admin_Setting{
 	}
 	
 	public function fiad_setting_tabs(){
-		return array(
+		return [
 			'white-label'   => 'White Label',
 			'cpo'           => 'Custom Post Order',
 			'duplicate'     => 'Duplicate Post',
 			'db-error'      => 'Database Error',
+			'csm-mode'      => 'Coming Soon & Maintenance Mode',
 			'miscellaneous' => 'Miscellaneous',
-		);
+		];
 	}
 	
 	public function fiad_setting_tab_navs($current = 'white-label'){
@@ -126,6 +127,10 @@ class Fiber_Admin_Setting{
 				$miscellaneous = new Fiber_Admin_Miscellaneous();
 				$miscellaneous->fiad_miscellaneous_init();
 				break;
+			case 'csm-mode':
+				$csm_mode = new Fiber_Admin_CSM_Mode_Settings();
+				$csm_mode->fiad_csm_mode_init();
+				break;
 			default:
 				$white_label = new Fiber_Admin_White_Label_Settings();
 				$white_label->fiad_enqueue_scripts();
@@ -135,16 +140,30 @@ class Fiber_Admin_Setting{
 		
 		do_settings_sections('fiber-admin-' . $current);
 		
+		$this->fiad_preview_mode($current);
+	}
+	
+	public function fiad_preview_mode($current){
+		$message = __('Please enable "Activate" option and save the settings first!', 'fiber-admin');
 		if($current == 'db-error'){
+			$can_preview = fiad_check_db_error_file();
+			$url         = content_url('db-error.php');
+		}else{
+			$mode        = fiad_get_csm_mode_option('mode');
+			$can_preview = (bool) fiad_get_csm_mode_option('page');
+			$url         = get_site_url() . '/' . $mode . '?preview=true';
+			$message     = __('Please "Save Changes" for the first time', 'fiber-admin');
+		}
+		if($current == 'db-error' || $current == 'csm-mode'){
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
-			if(!fiad_check_db_error_file()){
+			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. Please enable "Activate" option and save the settings first!', 'fiber-admin'); ?></p>
+                <p class="description"><?php echo __('Preview is not available. ' . $message, 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');
 				?>
-                <a class="button" href="<?php echo content_url('db-error.php'); ?>" target="_blank"
+                <a class="button" href="<?php echo $url; ?>" target="_blank"
                    title="<?php echo $txt_preview; ?>">
 					<?php echo $txt_preview; ?>
                 </a>
@@ -176,20 +195,31 @@ class Fiber_Admin_Setting{
 				case 'miscellaneous':
 					$option_key = 'fiad_miscellaneous';
 					break;
+				case 'csm-mode':
+					$option_key = 'fiad_csm_mode';
+					break;
 				default:
 					$option_key = 'fiber_admin';
 					break;
 			}
 			
+			$ignore_key = [
+				'db_error_message',
+				'csm_extra_css',
+				'csm_extra_js',
+				'db_error_extra_css',
+				'login_extra_css',
+			];
+			
 			if(isset($_POST[$option_key])){
 				$options = $new_options = $_POST[$option_key];
 				foreach($options as $key => $value){
-					if($key != 'db_error_message' && !is_array($new_options[$key])){
+					if(!in_array($key, $ignore_key) && !is_array($new_options[$key])){
 						$new_options[$key] = sanitize_text_field($value);
 					}
 				}
 			}else{
-				$new_options = array();
+				$new_options = [];
 			}
 			
 			update_option($option_key, $new_options);

@@ -21,31 +21,27 @@ class Fiber_Admin_White_Label_Settings{
 		wp_enqueue_script('wp-color-picker');
 		
 		// Plugin scripts
-		$suffix = '';
-		if(!FIBERADMIN_DEV_MODE){
-			$suffix = '.min';
-		}
-		wp_enqueue_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', array('jquery'), FIBERADMIN_VERSION);
+		wp_enqueue_script('fiber-admin');
 	}
 	
 	public function fiad_page_init(){
 		register_setting(
 			'fiad_white_label_group',
 			'fiber-admin-white-label',
-			array($this, 'sanitize_text_field')
+			[$this, 'sanitize_text_field']
 		);
 		
 		add_settings_section(
 			'fiad_branding_section',
 			'<span class="dashicons dashicons-wordpress"></span> Branding',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-white-label'
 		);
 		
 		add_settings_field(
 			'hide_wordpress_branding', // id
 			'Hide WordPress Branding', // title
-			array($this, 'fiad_hide_wordpress_branding'), // callback
+			[$this, 'fiad_hide_wordpress_branding'], // callback
 			'fiber-admin-white-label', // page
 			'fiad_branding_section' // section
 		);
@@ -53,7 +49,7 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_field(
 			'enable_admin_toolbar', // id
 			'Enable Admin Toolbar', // title
-			array($this, 'fiad_enable_admin_toolbar'), // callback
+			[$this, 'fiad_enable_admin_toolbar'], // callback
 			'fiber-admin-white-label', // page
 			'fiad_branding_section' // section
 		);
@@ -61,14 +57,14 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_section(
 			'fiad_white_label_section',
 			'<span class="dashicons dashicons-admin-network"></span> Login',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-white-label'
 		);
 		
 		add_settings_field(
 			'login_logo',
 			'Logo',
-			array($this, 'fiad_login_logo'),
+			[$this, 'fiad_login_logo'],
 			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
@@ -76,7 +72,7 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_field(
 			'login_logo_size',
 			'Logo size',
-			array($this, 'fiad_login_logo_size'),
+			[$this, 'fiad_login_logo_size'],
 			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
@@ -84,7 +80,7 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_field(
 			'login_bg_color',
 			'Background Color / Image',
-			array($this, 'fiad_login_bg'),
+			[$this, 'fiad_login_bg'],
 			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
@@ -92,7 +88,7 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_field(
 			'form_color',
 			'Form',
-			array($this, 'fiad_form'),
+			[$this, 'fiad_form'],
 			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
@@ -100,7 +96,7 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_field(
 			'link_color',
 			'Link',
-			array($this, 'fiad_link'),
+			[$this, 'fiad_link'],
 			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
@@ -108,7 +104,7 @@ class Fiber_Admin_White_Label_Settings{
 		add_settings_field(
 			'login_extra_css',
 			'Extra CSS',
-			array($this, 'fiad_login_extra_css'),
+			[$this, 'fiad_login_extra_css'],
 			'fiber-admin-white-label',
 			'fiad_white_label_section'
 		);
@@ -239,9 +235,13 @@ class Fiber_Admin_White_Label_Settings{
 	}
 	
 	public function fiad_login_extra_css(){
+		$id = "login-extra-css";
+		fiad_code_editor('text/css', $id);
 		?>
+
         <fieldset>
             <textarea
+                    id=<?= $id; ?>
                     name="fiber_admin[login_extra_css]"><?php echo esc_html(fiad_get_general_option('login_extra_css')); ?></textarea>
         </fieldset>
 		<?php

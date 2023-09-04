@@ -16,20 +16,20 @@ class Fiber_Admin_DB_Error_Settings{
 		register_setting(
 			'fiad_db_error_group',
 			'fiad_db_error',
-			array($this, 'sanitize_text_field')
+			[$this, 'sanitize_text_field']
 		);
 		
 		add_settings_section(
 			'fiad_db_error_section',
 			'<span class="dashicons dashicons-admin-generic"></span> General',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-db-error'
 		);
 		
 		add_settings_field(
 			'db_error_enable', // id
 			'Activate', // title
-			array($this, 'fiad_db_error_enable'), // callback
+			[$this, 'fiad_db_error_enable'], // callback
 			'fiber-admin-db-error', // page
 			'fiad_db_error_section' // section
 		);
@@ -37,7 +37,7 @@ class Fiber_Admin_DB_Error_Settings{
 		add_settings_field(
 			'db_error_title',
 			'Title',
-			array($this, 'fiad_db_error_title'),
+			[$this, 'fiad_db_error_title'],
 			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
@@ -45,7 +45,7 @@ class Fiber_Admin_DB_Error_Settings{
 		add_settings_field(
 			'db_error_logo',
 			'Logo',
-			array($this, 'fiad_db_error_logo'),
+			[$this, 'fiad_db_error_logo'],
 			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
@@ -53,7 +53,7 @@ class Fiber_Admin_DB_Error_Settings{
 		add_settings_field(
 			'db_error_logo_size',
 			'Logo size',
-			array($this, 'fiad_db_error_logo_size'),
+			[$this, 'fiad_db_error_logo_size'],
 			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
@@ -61,7 +61,7 @@ class Fiber_Admin_DB_Error_Settings{
 		add_settings_field(
 			'db_error_bg_color',
 			'Background Color',
-			array($this, 'fiad_db_error_bg'),
+			[$this, 'fiad_db_error_bg'],
 			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
@@ -69,7 +69,7 @@ class Fiber_Admin_DB_Error_Settings{
 		add_settings_field(
 			'db_error_message',
 			'Error Message',
-			array($this, 'fiad_db_error_message'),
+			[$this, 'fiad_db_error_message'],
 			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
@@ -77,7 +77,7 @@ class Fiber_Admin_DB_Error_Settings{
 		add_settings_field(
 			'db_error_extra_css',
 			'Extra CSS',
-			array($this, 'fiad_db_error_extra_css'),
+			[$this, 'fiad_db_error_extra_css'],
 			'fiber-admin-db-error',
 			'fiad_db_error_section'
 		);
@@ -163,21 +163,24 @@ class Fiber_Admin_DB_Error_Settings{
 			if(empty($db_error_message)){
 				$db_error_message = $default_error_message;
 			}
-			wp_editor($db_error_message, 'db_error_message', array(
+			wp_editor($db_error_message, 'db_error_message', [
 				'default_editor' => 'tinymce',
 				'textarea_name'  => 'fiad_db_error[db_error_message]',
 				'media_buttons'  => false,
 				'textarea_rows'  => 5,
-			));
+			]);
 			?>
         </fieldset>
 		<?php
 	}
 	
 	public function fiad_db_error_extra_css(){
+		$id = "db-error-extra-css";
+		fiad_code_editor('text/css', $id);
 		?>
         <fieldset>
             <textarea
+                    id=<?= $id; ?>
                     name="fiad_db_error[db_error_extra_css]"><?php echo esc_html(fiad_get_db_error_option('db_error_extra_css')); ?></textarea>
         </fieldset>
 		<?php

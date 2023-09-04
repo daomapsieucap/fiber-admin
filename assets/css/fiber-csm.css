@@ -1,0 +1,49 @@
+.fiber-admin-metabox {
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    padding:1rem 1rem;
+}
+
+.fiber-admin-metabox .fiber-admin-preview {
+    flex:1;
+}
+
+.fiber-admin-metabox h2 {
+    padding-left:0 !important;
+    font-weight:600 !important;
+}
+
+.fiber-admin-preview {
+    margin-bottom:0.5rem;
+}
+
+
+.fiber-admin-preview img {
+    width:100%;
+}
+
+.fiad_csm_logo img {
+    max-width:256px;
+    aspect-ratio:1/1;
+}
+
+.fiad_csm_background_image img {
+    max-width:512px;
+}
+
+.fiber-csm-image {
+    display:flex;
+    border-bottom:1px solid #ccc;
+}
+
+.fiber-csm-image > .fiber-admin-metabox + .fiber-admin-metabox {
+    padding-left:1rem;
+    border-left:1px solid #eeeeee;
+}
+
+#fiad_csm_content .inside {
+    margin-top:0;
+    padding:0;
+}
+

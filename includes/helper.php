@@ -98,9 +98,9 @@ if(!function_exists('fiad_check_db_error_file')){
 	}
 }
 
-if(!function_exists('fiad_get_maintenance_mode_option')){
-	function fiad_get_maintenance_mode_option($key){
-		return fiad_get_option($key, get_option('fiad_maintenance_mode'));
+if(!function_exists('fiad_get_csm_mode_option')){
+	function fiad_get_csm_mode_option($key){
+		return fiad_get_option($key, get_option('fiad_csm_mode'));
 	}
 }
 
@@ -116,6 +116,107 @@ if(!function_exists('fiad_array_key_exists')){
 	}
 }
 
+if(!function_exists('fiad_dequeue_assets')){
+	function fiad_dequeue_assets(){
+		global $wp_scripts, $wp_styles;
+		
+		$exclude_assets = ['jquery-core', 'admin-bar'];
+		foreach($wp_scripts->registered as $registered){
+			$handle = $registered->handle;
+			if(!in_array($handle, $exclude_assets)){
+				wp_deregister_script($handle);
+			}
+		}
+		
+		foreach($wp_styles->registered as $registered){
+			$handle = $registered->handle;
+			if(!in_array($handle, $exclude_assets)){
+				wp_deregister_style($handle);
+			}
+		}
+	}
+}
+
+if(!function_exists('fiad_code_editor')){
+	function fiad_code_editor($type, $id){
+		// Enqueue code editor and settings for manipulating HTML.
+		$settings = wp_enqueue_code_editor(['type' => $type]);
+		
+		// Return if the editor was not enqueued.
+		if(false === $settings){
+			return;
+		}
+		
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "' . $id . '", %s ); } );',
+				wp_json_encode($settings)
+			)
+		);
+	}
+}
+
+if(!function_exists('fiad_file_get_content')){
+	function fiad_file_get_content($file_url){
+		$curl_session = curl_init($file_url);
+		curl_setopt($curl_session, CURLOPT_RETURNTRANSFER, true);
+		
+		return curl_exec($curl_session);
+	}
+}
+
+if(!function_exists('fiad_get_page_template_ids')){
+	function fiad_get_page_template_ids($template_name, $return_array = false, $suppress_filters = false){
+		if($template_name){
+			$args           = [
+				'post_type'        => PAGE_TYPE,
+				'posts_per_page'   => - 1,
+				'meta_key'         => '_wp_page_template',
+				'meta_value'       => $template_name . '.php',
+				'fields'           => 'ids',
+				'suppress_filters' => $suppress_filters,
+			];
+			$template_query = new WP_Query($args);
+			wp_reset_postdata();
+			
+			if($template_query->have_posts()){
+				$pages = $template_query->posts;
+				
+				return $return_array ? $pages : $pages[0];
+			}
+		}
+		
+		return $return_array ? [] : null;
+	}
+}
+
+if(!function_exists('fiad_is_preview')){
+	function fiad_is_preview(){
+		return sanitize_title(fiad_array_key_exists('preview', $_GET));
+	}
+}
+
+if(!function_exists('fiad_is_csm_template')){
+	function fiad_is_csm_template(){
+		$template = '';
+		
+		global $post;
+		if(is_a($post, 'WP_Post')){
+			$template = $post->page_template;
+		}else{
+			$post_id = intval(fiad_array_key_exists('post', $_GET));
+			if($post_id){
+				$post = get_post($post_id);
+				
+				$template = $post->page_template;
+			}
+		}
+		
+		return $template == FIBERADMIN_CSM_TEMPLATE;
+  }
+}
+  
 if(!function_exists('fiad_get_file_upload_path')){
 	function fiad_get_file_upload_path($url){
 		return explode('wp-content', $url)[1];

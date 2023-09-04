@@ -31,10 +31,15 @@ if(!function_exists('get_plugin_data')){
 $plugin_data = get_plugin_data(__FILE__);
 
 define("FIBERADMIN_VERSION", $plugin_data['Version']);
-const FIBERADMIN_DEV_MODE = false;
+const FIBERADMIN_DEV_MODE = true;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
+
+// Coming Soon / Maintenance
+const FIBERADMIN_ASSETS_DIR   = FIBERADMIN_DIR . 'assets/';
+const FIBERADMIN_CSM_PATH     = FIBERADMIN_DIR . 'templates/csm-mode.php';
+const FIBERADMIN_CSM_TEMPLATE = 'csm.php';
 
 /**
  * Init Functions
@@ -52,6 +57,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/db-error.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
+	include_once(FIBERADMIN_DIR . 'includes/settings/csm-mode.php');
 	
 	//default functions
 	include_once(FIBERADMIN_DIR . 'includes/default.php');
@@ -64,6 +70,7 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/db-error.php');
 	include_once(FIBERADMIN_DIR . 'includes/attachment.php');
+	include_once(FIBERADMIN_DIR . 'includes/csm-mode.php');
 }
 
 /**
@@ -126,4 +133,39 @@ function fiad_settings_page($links){
 	$links[]       = $settings_link;
 	
 	return $links;
+}
+
+add_action('admin_head', 'fiad_admin_additional_css');
+function fiad_admin_additional_css(){
+	$page_csm_ids = fiad_get_page_template_ids("csm", true, true);
+	if($page_csm_ids){
+		$extra_styles = '<style>';
+		foreach($page_csm_ids as $index => $id){
+			$extra_styles .= $index > 0 ? ',' : '';
+			$extra_styles .= '#the-list #post-' . $id . ' .column-title .row-title:before';
+		}
+		$extra_styles .= '
+					{content: "CSM";
+				    background-color: #f3efe3;
+				    color: #333;
+				    display: inline-block;
+				    padding: 0 5px;
+				    margin-right: 10px;}';
+		$extra_styles .= '</style>';
+		
+		echo $extra_styles;
+	}
+}
+
+/**
+ * Enqueue admin script
+ */
+
+add_action('admin_enqueue_scripts', 'fiad_enqueue_admin_script');
+function fiad_enqueue_admin_script(){
+	$suffix = '';
+	if(!FIBERADMIN_DEV_MODE){
+		$suffix = '.min';
+	}
+	wp_register_script('fiber-admin', FIBERADMIN_ASSETS_URL . 'js/fiber-admin' . $suffix . '.js', ['jquery'], FIBERADMIN_VERSION);
 }
