@@ -74,7 +74,7 @@ if(!function_exists('fiad_get_duplicate_option')){
 	}
 }
 
-if(!function_exists('fiad_admin_user_role')){
+if(!function_exists('fiad_is_admin_user_role')){
 	function fiad_is_admin_user_role(){
 		if(is_user_logged_in()){
 			if(current_user_can('edit_posts')){
@@ -214,5 +214,11 @@ if(!function_exists('fiad_is_csm_template')){
 		}
 		
 		return $template == FIBERADMIN_CSM_TEMPLATE;
+  }
+}
+  
+if(!function_exists('fiad_get_file_upload_path')){
+	function fiad_get_file_upload_path($url){
+		return explode('wp-content', $url)[1];
 	}
 }

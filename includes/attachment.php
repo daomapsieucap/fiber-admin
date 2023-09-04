@@ -1,24 +1,24 @@
 <?php
-
 // Exit if accessed directly
 if(!defined('ABSPATH')){
 	exit;
 }
 
 /**
- * Cleanup attachment name
+ * Handle attachment
  */
 class Fiber_Admin_Attachment{
 	public function __construct(){
-		// Cleanup attachment name
+		//Return character `%` in special chars array
 		add_filter('sanitize_file_name_chars', [$this, 'fiad_special_chars']);
+		
+		// Format filename
 		add_filter('sanitize_file_name', [$this, 'fiad_cleanup_attachment_name'], 10, 2);
+		
+		// Generate attachment title from filename
 		add_filter('add_attachment', [$this, 'fiad_change_metadata']);
 	}
 	
-	/*
-	 * Return custom special chars array
-	 */
 	public function fiad_special_chars($special_chars){
 		if(($key = array_search('%', $special_chars)) !== false){
 			unset($special_chars[$key]);
@@ -28,37 +28,39 @@ class Fiber_Admin_Attachment{
 	}
 	
 	public function fiad_handle_special_chars($sanitized_filename){
-		//Replace all special chars and row of '-' with one '-' only
+		//Replace all special chars and row of `-` with one `-` only
 		$patterns           = ['/[^A-Za-z0-9- ]/', '/-{2,}/'];
 		$sanitized_filename = preg_replace($patterns, '-', $sanitized_filename);
 		
-		// Remove - from the beginning and the end
+		// Remove character `-` from the beginning and the end
 		return trim($sanitized_filename, '-');
 	}
 	
-	// Cleanup attachment name
 	public function fiad_cleanup_attachment_name($filename, $filename_raw){
-		//variable
-		$path_info          = pathinfo($filename);
-		$file_extension     = fiad_array_key_exists('extension', $path_info);
-		$sanitized_filename = basename($filename, "." . $file_extension);
+		$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+		$exclude_exts   = ['css', 'js']; // only apply for media attachment, not for code
 		
-		$sanitized_filename = strtolower($sanitized_filename);
-		
-		//handle urlencoded chars
-		preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
-		$urlencoded_chars = $matches[0];
-		if($urlencoded_chars){
-			$urlencoded_chars   = array_map(function($char){
-				return strtolower(trim($char, '%'));
-			}, $urlencoded_chars);
-			$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
+		if($file_extension && !in_array($file_extension, $exclude_exts)){
+			$sanitized_filename = basename($filename, "." . $file_extension);
+			$sanitized_filename = strtolower($sanitized_filename);
+			
+			//handle urlencoded chars
+			preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
+			$urlencoded_chars = fiad_array_key_exists(0, $matches);
+			if($urlencoded_chars){
+				$urlencoded_chars   = array_map(function($char){
+					return strtolower(trim($char, '%'));
+				}, $urlencoded_chars);
+				$sanitized_filename = str_replace($urlencoded_chars, "", $sanitized_filename);
+			}
+			
+			//special chars case
+			$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
+			
+			return $sanitized_filename . "." . $file_extension;
 		}
 		
-		//special chars case
-		$sanitized_filename = $this->fiad_handle_special_chars($sanitized_filename);
-		
-		return $sanitized_filename . "." . $file_extension;
+		return $filename;
 	}
 	
 	public function fiad_change_metadata($post_id){
@@ -75,12 +77,13 @@ class Fiber_Admin_Attachment{
 		$file_pathinfo = pathinfo($file);
 		$file_name     = fiad_array_key_exists('filename', $file_pathinfo);
 		
-		//check if the file name contain index at the end
+		// check if the file name contain index at the end
 		$pattern = '/-\d+$/';
 		if(preg_match($pattern, $file_name)){
 			$file_name = preg_replace($pattern, '', $file_name);
 		}
 		
+		// remove separator character `-` in file name
 		$file_name = str_replace('-', ' ', $file_name);
 		
 		return ucwords($file_name);
@@ -94,6 +97,7 @@ class Fiber_Admin_Attachment{
 		if($extra_args){
 			$fiber_meta = array_merge($fiber_meta, $extra_args);
 		};
+		
 		wp_update_post($fiber_meta);
 	}
 }

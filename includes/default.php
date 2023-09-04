@@ -40,6 +40,8 @@ class Fiber_Admin_Default{
 			if(!fiad_get_general_option('enable_admin_toolbar')){
 				add_filter('show_admin_bar', '__return_false');
 				add_action('wp_print_styles', [$this, 'fiad_deregister_styles'], 100);
+			}elseif(!fiad_is_admin_user_role()){
+				add_action('wp_print_styles', [$this, 'fiad_deregister_styles'], 100);
 			}
 			
 			// Remove WordPress admin bar logo
