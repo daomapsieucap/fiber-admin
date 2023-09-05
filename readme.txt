@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.2.2
 Requires PHP: 7.0
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,10 +46,9 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.0.0 =
-*Release Date - 28 June 2023*
+= 3.1.0 =
+*Release Date - 05 September 2023*
 
-* Fixed: Fix wrong email regex pattern.
-* Added: Improve content protection scripts.
-* Added: Sanitizing filename to a server-friendly version.
-* Added: Improve feature auto set attachment title with sanitized filename.
+* New feature: Coming Soon & Maintenance Mode.
+* Changed: Improve email regex pattern.
+* Fixed: Apply new code for database error to prevent the wrong URLs exist.
