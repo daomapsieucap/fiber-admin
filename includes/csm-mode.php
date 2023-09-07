@@ -87,11 +87,11 @@ class Fiber_Admin_CSM_Mode{
 	}
 	
 	public function fiad_create_default_csm_page($value){
-		$page_titles = [
-			'coming-soon' => 'Coming Soon',
-			'maintenance' => 'Maintenance',
-		];
 		if(!fiad_get_csm_pages()){
+			$page_titles = [
+				'coming-soon' => 'Coming Soon',
+				'maintenance' => 'Maintenance',
+			];
 			foreach($page_titles as $mode => $title){
 				$content_url         = FIBERADMIN_ASSETS_URL . 'csm/' . $mode . '.html';
 				$post_args           = [

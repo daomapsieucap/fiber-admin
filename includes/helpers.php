@@ -227,6 +227,7 @@ if(!function_exists('fiad_get_csm_pages')){
 	function fiad_get_csm_pages(){
 		$args           = [
 			'post_type'        => 'page',
+			'post_status'      => 'publish',
 			'posts_per_page'   => - 1,
 			'meta_key'         => '_wp_page_template',
 			'meta_value'       => FIBERADMIN_CSM_TEMPLATE,
