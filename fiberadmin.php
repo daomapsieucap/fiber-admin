@@ -31,7 +31,7 @@ if(!function_exists('get_plugin_data')){
 $plugin_data = get_plugin_data(__FILE__);
 
 define("FIBERADMIN_VERSION", $plugin_data['Version']);
-const FIBERADMIN_DEV_MODE = true;
+const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
