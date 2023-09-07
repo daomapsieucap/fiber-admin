@@ -166,31 +166,6 @@ if(!function_exists('fiad_file_get_content')){
 	}
 }
 
-if(!function_exists('fiad_get_page_template_ids')){
-	function fiad_get_page_template_ids($template_name, $return_array = false, $suppress_filters = false){
-		if($template_name){
-			$args           = [
-				'post_type'        => PAGE_TYPE,
-				'posts_per_page'   => - 1,
-				'meta_key'         => '_wp_page_template',
-				'meta_value'       => $template_name . '.php',
-				'fields'           => 'ids',
-				'suppress_filters' => $suppress_filters,
-			];
-			$template_query = new WP_Query($args);
-			wp_reset_postdata();
-			
-			if($template_query->have_posts()){
-				$pages = $template_query->posts;
-				
-				return $return_array ? $pages : $pages[0];
-			}
-		}
-		
-		return $return_array ? [] : null;
-	}
-}
-
 if(!function_exists('fiad_is_preview')){
 	function fiad_is_preview(){
 		return sanitize_title(fiad_array_key_exists('preview', $_GET));
