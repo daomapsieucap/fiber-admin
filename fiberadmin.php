@@ -137,7 +137,7 @@ function fiad_settings_page($links){
 
 add_action('admin_head', 'fiad_admin_additional_css');
 function fiad_admin_additional_css(){
-	$page_csm_ids = fiad_get_page_template_ids("csm", true, true);
+	$page_csm_ids = fiad_get_csm_pages();
 	if($page_csm_ids){
 		$extra_styles = '<style>';
 		foreach($page_csm_ids as $index => $id){
