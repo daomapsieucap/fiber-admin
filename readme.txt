@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.3.1
 Requires PHP: 7.0
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,8 +46,9 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.1.1 =
-*Release Date - 05 September 2023*
+= 3.1.2 =
+*Release Date - 11 September 2023*
 
-* Fixed: Disable dev mode.
-* Changed: Update WordPress tested version.
+* Fixed: Fix wrong CSM mode make draft preview blank page.
+* Fixed: Fix CSM meta boxes didn't work.
+* Fixed: Remove unused constant `PAGE_TYPE`.
