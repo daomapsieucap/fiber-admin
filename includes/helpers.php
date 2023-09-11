@@ -168,7 +168,9 @@ if(!function_exists('fiad_file_get_content')){
 
 if(!function_exists('fiad_is_preview')){
 	function fiad_is_preview(){
-		return sanitize_title(fiad_array_key_exists('preview', $_GET));
+		$id = intval(fiad_array_key_exists('id', $_GET));
+		
+		return in_array($id, fiad_get_csm_pages()) && is_preview();
 	}
 }
 
