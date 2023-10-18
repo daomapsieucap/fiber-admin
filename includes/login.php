@@ -10,7 +10,7 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Login{
 	public function __construct(){
 		// Login Interface
-		add_action('login_enqueue_scripts', array($this, 'fiad_login_css'));
+		add_action('login_enqueue_scripts', [$this, 'fiad_login_css']);
 	}
 	
 	public function fiad_login_css(){
@@ -60,7 +60,7 @@ class Fiber_Admin_Login{
 		$background_image = fiad_get_general_option('login_bg_img');
 		if($background_image && !$bg_css){
 			$bg_css = 'body.login{';
-			$bg_css .= 'background:url("' . $background_image . '") center / cover no-repeat !important;';
+			$bg_css .= 'background:url(' . $background_image . ') center / cover no-repeat !important;';
 			$bg_css .= '}';
 		}
 		
