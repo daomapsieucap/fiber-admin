@@ -10,32 +10,30 @@ if(!defined('ABSPATH')){
 class Fiber_Admin_Duplicate{
 	public function __construct(){
 		// for non-hierarchy post types
-		add_filter('post_row_actions', array($this, 'fiad_duplicate_link'), 10, 2);
+		add_filter('post_row_actions', [$this, 'fiad_duplicate_link'], 10, 2);
 		// for hierarchy post types
-		add_filter('page_row_actions', array($this, 'fiad_duplicate_link'), 10, 2);
+		add_filter('page_row_actions', [$this, 'fiad_duplicate_link'], 10, 2);
 		
 		// duplicate
-		add_action('admin_action_fiad_duplicate_post_as_draft', array($this, 'fiad_duplicate_post_as_draft'));
+		add_action('admin_action_fiad_duplicate_post_as_draft', [$this, 'fiad_duplicate_post_as_draft']);
 		
 		// bulk actions
 		$duplicate_post_types = fiad_get_duplicate_option('post_types');
 		if($duplicate_post_types){
 			foreach($duplicate_post_types as $post_type){
-				add_filter('bulk_actions-edit-' . $post_type, array($this, 'fiad_bulk_duplicate'));
-				add_filter('handle_bulk_actions-edit-' . $post_type, array(
+				add_filter('bulk_actions-edit-' . $post_type, [$this, 'fiad_bulk_duplicate']);
+				add_filter('handle_bulk_actions-edit-' . $post_type, [
 					$this,
-					'fiad_bulk_duplicate_handler'
-				), 10, 3);
+					'fiad_bulk_duplicate_handler',
+				], 10, 3);
 			}
 		}
 		
 		// admin notices
-		add_action('admin_notices', array($this, 'fiad_duplicate_admin_notice'));
+		add_action('admin_notices', [$this, 'fiad_duplicate_admin_notice']);
 	}
 	
 	public function fiad_duplicate_link($actions, $post){
-		$duplicate_post_types = fiad_get_duplicate_option('exclude_post_types');
-		
 		if(!current_user_can('edit_posts')){
 			return $actions;
 		}
@@ -46,7 +44,8 @@ class Fiber_Admin_Duplicate{
 		}
 		
 		// check duplicate settings
-		$duplicate_enable = false;
+		$duplicate_post_types = fiad_get_duplicate_option('exclude_post_types');
+		$duplicate_enable     = false;
 		if(empty($duplicate_post_types)){
 			$duplicate_enable = true;
 		}elseif(!in_array($post->post_type, $duplicate_post_types)){
@@ -57,10 +56,10 @@ class Fiber_Admin_Duplicate{
 		if($duplicate_enable){
 			$url = wp_nonce_url(
 				add_query_arg(
-					array(
+					[
 						'action' => 'fiad_duplicate_post_as_draft',
 						'post'   => $post->ID,
-					),
+					],
 					'admin.php'
 				),
 				basename(__FILE__),
@@ -84,7 +83,7 @@ class Fiber_Admin_Duplicate{
 		// if post data exists
 		if($post){
 			// insert new post
-			$args        = array(
+			$args        = [
 				'comment_status' => $post->comment_status,
 				'ping_status'    => $post->ping_status,
 				'post_author'    => $new_post_author,
@@ -96,15 +95,15 @@ class Fiber_Admin_Duplicate{
 				'post_status'    => 'draft',
 				'post_title'     => $post->post_title,
 				'post_type'      => $post->post_type,
-				'to_ping'        => $post->to_ping
-			);
+				'to_ping'        => $post->to_ping,
+			];
 			$new_post_id = wp_insert_post($args);
 			
 			// copy taxonomies
 			$taxonomies = get_object_taxonomies(get_post_type($post));
 			if($taxonomies){
 				foreach($taxonomies as $taxonomy){
-					$post_terms = wp_get_object_terms($post_id, $taxonomy, array('fields' => 'slugs'));
+					$post_terms = wp_get_object_terms($post_id, $taxonomy, ['fields' => 'slugs']);
 					wp_set_object_terms($new_post_id, $post_terms, $taxonomy);
 				}
 			}
@@ -112,15 +111,13 @@ class Fiber_Admin_Duplicate{
 			// duplicate all post meta
 			$post_meta = get_post_meta($post_id);
 			if($post_meta){
-				
 				foreach($post_meta as $meta_key => $meta_values){
-					
 					if('_wp_old_slug' == $meta_key){ // exclude special meta key
 						continue;
 					}
 					
 					foreach($meta_values as $meta_value){
-						add_post_meta($new_post_id, $meta_key, $meta_value);
+						add_post_meta($new_post_id, $meta_key, maybe_unserialize($meta_value));
 					}
 				}
 			}
@@ -152,10 +149,10 @@ class Fiber_Admin_Duplicate{
 			// finish
 			wp_safe_redirect(
 				add_query_arg(
-					array(
+					[
 						'post_type' => ('post' !== get_post_type($post) ? get_post_type($post) : false),
-						'saved'     => 'fiad_post_duplication_created'
-					),
+						'saved'     => 'fiad_post_duplication_created',
+					],
 					admin_url('edit.php')
 				)
 			);
@@ -175,7 +172,7 @@ class Fiber_Admin_Duplicate{
 	public function fiad_bulk_duplicate_handler($redirect, $doaction, $object_ids){
 		
 		// let's remove query args first
-		$redirect = remove_query_arg(array('fiad_duplicate'), $redirect);
+		$redirect = remove_query_arg(['fiad_duplicate'], $redirect);
 		
 		// bulk duplicate
 		if($doaction == 'fiad_duplicate'){
