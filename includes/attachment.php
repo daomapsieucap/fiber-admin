@@ -37,12 +37,15 @@ class Fiber_Admin_Attachment{
 	}
 	
 	public function fiad_cleanup_attachment_name($filename, $filename_raw){
-		$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
-		$exclude_exts   = ['css', 'js']; // only apply for media attachment, not for code
-		
-		if($file_extension && !in_array($file_extension, $exclude_exts)){
-			$sanitized_filename = basename($filename, "." . $file_extension);
-			$sanitized_filename = strtolower($sanitized_filename);
+		$file_extension       = pathinfo($filename, PATHINFO_EXTENSION);
+		$supported_exts       = [];
+		$ext_types            = wp_get_ext_types();
+		$supported_file_types = ['image', 'audio', 'video', 'document', 'spreadsheet'];
+		foreach($supported_file_types as $type){
+			$supported_exts = array_merge($supported_exts, $ext_types[$type]);
+		}
+		if($file_extension && in_array($file_extension, $supported_exts)){
+			$sanitized_filename = strtolower(basename($filename, "." . $file_extension));
 			
 			//handle urlencoded chars
 			preg_match_all('/%[0-9A-Fa-f]{2}/', $filename_raw, $matches);
