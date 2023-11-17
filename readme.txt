@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 6.3.1
-Requires PHP: 7.0
-Stable tag: 3.1.2
+Tested up to: 6.4.1
+Requires PHP: 7.4
+Stable tag: 3.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,9 +46,9 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.1.2 =
-*Release Date - 11 September 2023*
+= 3.1.3 =
+*Release Date - 17 November 2023*
 
-* Fixed: Fix wrong CSM mode make draft preview blank page.
-* Fixed: Fix CSM meta boxes didn't work.
-* Fixed: Remove unused constant `PAGE_TYPE`.
+* Fixed: Fix background image option is not working in While Label.
+* Fixed: Fix bug duplicate array type in meta fields.
+* Fixed: Fix bug prevent sanitize filename for unexpected file types.
