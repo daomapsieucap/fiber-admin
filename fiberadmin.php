@@ -57,7 +57,6 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/settings/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/db-error.php');
 	include_once(FIBERADMIN_DIR . 'includes/settings/miscellaneous.php');
-	include_once(FIBERADMIN_DIR . 'includes/settings/csm-mode.php');
 	
 	//default functions
 	include_once(FIBERADMIN_DIR . 'includes/default.php');
@@ -70,7 +69,6 @@ function fiad_init(){
 	include_once(FIBERADMIN_DIR . 'includes/duplicate.php');
 	include_once(FIBERADMIN_DIR . 'includes/db-error.php');
 	include_once(FIBERADMIN_DIR . 'includes/attachment.php');
-	include_once(FIBERADMIN_DIR . 'includes/csm-mode.php');
 }
 
 /**
@@ -133,28 +131,6 @@ function fiad_settings_page($links){
 	$links[]       = $settings_link;
 	
 	return $links;
-}
-
-add_action('admin_head', 'fiad_admin_additional_css');
-function fiad_admin_additional_css(){
-	$page_csm_ids = fiad_get_csm_pages();
-	if($page_csm_ids){
-		$extra_styles = '<style>';
-		foreach($page_csm_ids as $index => $id){
-			$extra_styles .= $index > 0 ? ',' : '';
-			$extra_styles .= '#the-list #post-' . $id . ' .column-title .row-title:before';
-		}
-		$extra_styles .= '
-					{content: "CSM";
-				    background-color: #f3efe3;
-				    color: #333;
-				    display: inline-block;
-				    padding: 0 5px;
-				    margin-right: 10px;}';
-		$extra_styles .= '</style>';
-		
-		echo $extra_styles;
-	}
 }
 
 /**
