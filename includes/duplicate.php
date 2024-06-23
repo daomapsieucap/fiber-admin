@@ -112,7 +112,7 @@ class Fiber_Admin_Duplicate{
 			$post_meta = get_post_meta($post_id);
 			if($post_meta){
 				foreach($post_meta as $meta_key => $meta_values){
-					if('_wp_old_slug' == $meta_key){ // exclude special meta key
+					if('_wp_old_slug' == $meta_key || '_crosspost_to_data' == $meta_key || strpos($meta_key, '_crosspost_to_') !== false){ // exclude special meta keys
 						continue;
 					}
 					
