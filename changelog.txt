@@ -3,6 +3,7 @@
 = 3.2.0 =
 *Release Date - 23 June 2024*
 
+* Fixed: Fix wrong HTML tag when mailto link exists.
 * Removed: Remove Coming soon / Maintenance mode.
 
 = 3.1.3 =
