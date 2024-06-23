@@ -126,10 +126,6 @@ class Fiber_Admin_Setting{
 				$miscellaneous = new Fiber_Admin_Miscellaneous();
 				$miscellaneous->fiad_miscellaneous_init();
 				break;
-			case 'csm-mode':
-				$csm_mode = new Fiber_Admin_CSM_Mode_Settings();
-				$csm_mode->fiad_csm_mode_init();
-				break;
 			default:
 				$white_label = new Fiber_Admin_White_Label_Settings();
 				$white_label->fiad_enqueue_scripts();
