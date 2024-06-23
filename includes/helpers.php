@@ -159,11 +159,3 @@ if(!function_exists('fiad_file_get_content')){
 		return curl_exec($curl_session);
 	}
 }
-
-if(!function_exists('fiad_is_preview')){
-	function fiad_is_preview(){
-		$id = intval(fiad_array_key_exists('id', $_GET));
-		
-		return in_array($id, fiad_get_csm_pages()) && is_preview();
-	}
-}
