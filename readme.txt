@@ -49,4 +49,6 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 = 3.2.0 =
 *Release Date - 23 June 2024*
 
+* Fixed: Fix wrong HTML tag when mailto link exists.
+* Fixed: Exclude Simple Multisite Crossposting meta keys when duplicating posts.
 * Removed: Remove Coming soon / Maintenance mode.

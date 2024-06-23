@@ -4,6 +4,7 @@
 *Release Date - 23 June 2024*
 
 * Fixed: Fix wrong HTML tag when mailto link exists.
+* Fixed: Exclude Simple Multisite Crossposting meta keys when duplicating posts.
 * Removed: Remove Coming soon / Maintenance mode.
 
 = 3.1.3 =
