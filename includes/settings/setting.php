@@ -126,10 +126,6 @@ class Fiber_Admin_Setting{
 				$miscellaneous = new Fiber_Admin_Miscellaneous();
 				$miscellaneous->fiad_miscellaneous_init();
 				break;
-			case 'csm-mode':
-				$csm_mode = new Fiber_Admin_CSM_Mode_Settings();
-				$csm_mode->fiad_csm_mode_init();
-				break;
 			default:
 				$white_label = new Fiber_Admin_White_Label_Settings();
 				$white_label->fiad_enqueue_scripts();
@@ -143,17 +139,13 @@ class Fiber_Admin_Setting{
 	}
 	
 	public function fiad_preview_mode($current){
-		$message = __('Please enable "Activate" option and save the settings first!', 'fiber-admin');
+		$message     = __('Please enable "Activate" option and save the settings first!', 'fiber-admin');
+		$can_preview = false;
 		if($current == 'db-error'){
 			$can_preview = fiad_check_db_error_file();
 			$url         = content_url('db-error.php');
-		}else{
-			$mode        = fiad_get_csm_mode_option('mode');
-			$can_preview = (bool) fiad_get_csm_mode_option('page');
-			$url         = get_site_url() . '/' . $mode . '?preview=true';
-			$message     = __('Please "Save Changes" for the first time', 'fiber-admin');
 		}
-		if($current == 'db-error' || $current == 'csm-mode'){
+		if($current == 'db-error'){
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
 			if(!$can_preview){
 				?>
@@ -194,9 +186,6 @@ class Fiber_Admin_Setting{
 				case 'miscellaneous':
 					$option_key = 'fiad_miscellaneous';
 					break;
-				case 'csm-mode':
-					$option_key = 'fiad_csm_mode';
-					break;
 				default:
 					$option_key = 'fiber_admin';
 					break;
@@ -204,8 +193,6 @@ class Fiber_Admin_Setting{
 			
 			$ignore_key = [
 				'db_error_message',
-				'csm_extra_css',
-				'csm_extra_js',
 				'db_error_extra_css',
 				'login_extra_css',
 			];

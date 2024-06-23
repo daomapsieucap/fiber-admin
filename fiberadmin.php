@@ -3,7 +3,7 @@
  * Plugin Name:       Fiber Admin
  * Plugin URI:        https://wordpress.org/plugins/fiber-admin/
  * Description:       💈 Bring multiple customization features to make your own WordPress admin.
- * Version:           3.1.3
+ * Version:           3.2.0
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Dao
@@ -35,11 +35,7 @@ const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
-
-// Coming Soon / Maintenance
-const FIBERADMIN_ASSETS_DIR   = FIBERADMIN_DIR . 'assets/';
-const FIBERADMIN_CSM_PATH     = FIBERADMIN_DIR . 'templates/csm-mode.php';
-const FIBERADMIN_CSM_TEMPLATE = 'csm.php';
+const FIBERADMIN_ASSETS_DIR = FIBERADMIN_DIR . 'assets/';
 
 /**
  * Init Functions

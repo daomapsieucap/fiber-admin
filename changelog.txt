@@ -1,7 +1,7 @@
 == Changelog ==
 
-= 3.1.4 =
-*Release Date - xx January 2024*
+= 3.2.0 =
+*Release Date - 23 June 2024*
 
 * Fixed: Fix wrong HTML tag when mailto link exists.
 * Removed: Remove Coming soon / Maintenance mode.
