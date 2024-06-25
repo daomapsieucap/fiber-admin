@@ -1,6 +1,6 @@
 === Fiber Admin ===
 Contributors: daomapsieucap
-Tags: white label, admin tool, duplicate post, content protection
+Tags: white label, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.5.4
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Bring multiple customization features to make your own WordPress admin.
 
-**FEATURES**
+== Description ==
 
 * Use your Site Settings to white label WordPress automatically.
 * Customize admin login page by multiple options.
@@ -23,6 +23,8 @@ Bring multiple customization features to make your own WordPress admin.
 * Protect your site content by disable these following keys: Ctrl / Cmd + S, Ctrl / Cmd + A, Ctrl / Cmd + C, Ctrl / Cmd + X, Ctrl / Cmd + Shift + I *(only for non-admin users)*.
 * Disable WordPress comments & WordPress Automatic Updates completely as default.
 * Customize 503 Database Error page.
+
+[Fork the plugin on GitHub.](https://github.com/daomapsieucap/fiber-admin)
 
 == Frequently Asked Questions ==
 
