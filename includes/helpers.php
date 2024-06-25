@@ -159,3 +159,9 @@ if(!function_exists('fiad_file_get_content')){
 		return curl_exec($curl_session);
 	}
 }
+
+if(!function_exists('fiad_get_file_upload_path')){
+	function fiad_get_file_upload_path($url){
+		return explode('wp-content', $url)[1];
+	}
+}

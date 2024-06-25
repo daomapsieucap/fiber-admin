@@ -4,7 +4,7 @@ Tags: white label, admin tool, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.5.4
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,9 +46,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.0 =
-*Release Date - 23 June 2024*
+= 3.2.1 =
+*Release Date - 25 June 2024*
 
-* Fixed: Fix wrong HTML tag when mailto link exists.
-* Fixed: Exclude Simple Multisite Crossposting meta keys when duplicating posts.
-* Removed: Remove Coming soon / Maintenance mode.
+* Fixed: Fix missing helper function fiad_get_file_upload_path.

@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 3.2.1 =
+*Release Date - 25 June 2024*
+
+* Fixed: Fix missing helper function fiad_get_file_upload_path.
+
 = 3.2.0 =
 *Release Date - 23 June 2024*
 
