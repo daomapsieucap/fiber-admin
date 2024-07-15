@@ -1,5 +1,4 @@
 <?php
-
 namespace enshrined\svgSanitize\data;
 
 /**
@@ -7,13 +6,14 @@ namespace enshrined\svgSanitize\data;
  *
  * @package enshrined\svgSanitize\tags
  */
-interface TagInterface{
-	
-	/**
-	 * Returns an array of tags
-	 *
-	 * @return array
-	 */
-	public static function getTags();
-	
+interface TagInterface
+{
+
+    /**
+     * Returns an array of tags
+     *
+     * @return array
+     */
+    public static function getTags();
+
 }
