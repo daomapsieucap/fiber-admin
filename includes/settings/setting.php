@@ -53,15 +53,17 @@ class Fiber_Admin_Setting{
 			return;
 		}
 		
-		$form_action = admin_url("options-general.php?page=fiber-admin");
-		if(isset ($_GET['tab'])){
-			$form_action = admin_url("options-general.php?page=fiber-admin&tab=" . $_GET['tab']);
-		}
+		$current_tab = esc_attr(fiad_array_key_exists('tab', $_GET));
+		$form_action = $current_tab ? admin_url("options-general.php?page=fiber-admin&tab=" . $current_tab) : admin_url("options-general.php?page=fiber-admin");
+		
+		echo '<div class="wrap">';
+		
+		echo '<h1>Fiber Admin</h1>';
 		
 		// nav
 		echo '<nav class="nav-tab-wrapper">';
-		if(isset ($_GET['tab'])){
-			$this->fiad_setting_tab_navs($_GET['tab']);
+		if($current_tab){
+			$this->fiad_setting_tab_navs($current_tab);
 		}else{
 			$this->fiad_setting_tab_navs();
 		}
@@ -69,21 +71,17 @@ class Fiber_Admin_Setting{
 		
 		// content
 		echo '<div class="tab-content">';
-		echo '<div class="wrap">';
 		echo '<form class="fiber-admin" method="POST" action="' . $form_action . '">';
 		
 		wp_nonce_field("fiber-admin");
 		
-		$current_tab = 'white-label';
-		if(isset ($_GET['tab'])){
-			$current_tab = $_GET['tab'];
-		}
-		echo '<h1>' . $this->fiad_setting_tabs()[$current_tab] . '</h1>';
+		$current_tab = $current_tab ? : 'white-label';
 		$this->fiad_setting_tab_content($current_tab);
 		
 		echo '</form>';
 		echo '</div>';
-		echo '</div>';
+		
+		echo '</div>'; // wrap
 	}
 	
 	public function fiad_setting_tabs(){
