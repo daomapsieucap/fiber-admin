@@ -27,10 +27,8 @@ class Fiber_Admin_Setting{
 		if(isset($_POST['fiber-admin-submit'])){
 			check_admin_referer("fiber-admin");
 			$this->fiad_save_options();
-			$updated_parameters = 'updated=true';
-			if(isset($_GET['tab'])){
-				$updated_parameters = 'updated=true&tab=' . $_GET['tab'];
-			}
+			$current_tab        = esc_attr(fiad_array_key_exists('tab', $_GET));
+			$updated_parameters = $current_tab ? 'updated=true&tab=' . $current_tab : 'updated=true';
 			wp_redirect(admin_url('options-general.php?page=fiber-admin&' . $updated_parameters));
 			exit;
 		}
