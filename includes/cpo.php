@@ -9,20 +9,20 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_CPO{
 	public function __construct(){
-		add_action('load-edit.php', array($this, 'fiad_cpo_scripts'));
-		add_action('admin_enqueue_scripts', array($this, 'fiad_cpo_scripts'));
+		add_action('load-edit.php', [$this, 'fiad_cpo_scripts']);
+		add_action('admin_enqueue_scripts', [$this, 'fiad_cpo_scripts']);
 		
-		add_action('wp_insert_post', array($this, 'fiad_cpo_insert'), 10, 3);
-		add_action("wp_ajax_fiad_cpo_update", array($this, 'fiad_cpo_update'));
-		add_action("wp_ajax_nopriv_fiad_cpo_update", array($this, 'fiad_cpo_update'));
+		add_action('wp_insert_post', [$this, 'fiad_cpo_insert'], 10, 3);
+		add_action("wp_ajax_fiad_cpo_update", [$this, 'fiad_cpo_update']);
+		add_action("wp_ajax_nopriv_fiad_cpo_update", [$this, 'fiad_cpo_update']);
 		
-		add_action("wp_ajax_fiad_cpo_tax_update", array($this, 'fiad_cpo_tax_update'));
-		add_action("wp_ajax_nopriv_fiad_cpo_tax_update", array($this, 'fiad_cpo_tax_update'));
+		add_action("wp_ajax_fiad_cpo_tax_update", [$this, 'fiad_cpo_tax_update']);
+		add_action("wp_ajax_nopriv_fiad_cpo_tax_update", [$this, 'fiad_cpo_tax_update']);
 		
-		add_action('pre_get_posts', array($this, 'fiad_cpo_update_order'));
-		add_filter('create_term', array($this, 'fiad_cpo_create_term_order'), 10, 3);
-		add_filter('get_terms_orderby', array($this, 'fiad_cpo_update_term_order'), 10, 3);
-		add_filter('get_terms_args', array($this, 'fiad_get_terms_args'), 10, 2);
+		add_action('pre_get_posts', [$this, 'fiad_cpo_update_order']);
+		add_filter('create_term', [$this, 'fiad_cpo_create_term_order'], 10, 3);
+		add_filter('get_terms_orderby', [$this, 'fiad_cpo_update_term_order'], 10, 3);
+		add_filter('get_terms_args', [$this, 'fiad_get_terms_args'], 10, 2);
 	}
 	
 	public function fiad_cpo_scripts(){
@@ -35,11 +35,11 @@ class Fiber_Admin_CPO{
 			if(!FIBERADMIN_DEV_MODE){
 				$suffix = '.min';
 			}
-			wp_enqueue_script('fiber-admin-cpo', FIBERADMIN_ASSETS_URL . 'js/fiber-cpo' . $suffix . '.js', array('jquery-ui-sortable'), FIBERADMIN_VERSION, true);
+			wp_enqueue_script('fiber-admin-cpo', FIBERADMIN_ASSETS_URL . 'js/fiber-cpo' . $suffix . '.js', ['jquery-ui-sortable'], FIBERADMIN_VERSION, true);
 			wp_localize_script(
 				'fiber-admin-cpo',
 				'fiad_cpo',
-				array('ajax_url' => admin_url('admin-ajax.php'))
+				['ajax_url' => admin_url('admin-ajax.php')]
 			);
 		}
 	}
@@ -65,7 +65,7 @@ class Fiber_Admin_CPO{
 			$order_start = 0;
 			
 			// Get minimum post order
-			$pre_posts_args  = array(
+			$pre_posts_args  = [
 				'post_type'        => $post_type,
 				'posts_per_page'   => 1,
 				'post_status'      => $post_status,
@@ -73,8 +73,8 @@ class Fiber_Admin_CPO{
 				'order'            => 'ASC',
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
-				'fields'           => 'ids'
-			);
+				'fields'           => 'ids',
+			];
 			$pre_posts_query = new WP_Query($pre_posts_args);
 			if($pre_posts_query->have_posts()){
 				$order_start_id   = $pre_posts_query->posts[0];
@@ -83,7 +83,7 @@ class Fiber_Admin_CPO{
 			}
 			
 			// Update post order
-			$update_posts_args  = array(
+			$update_posts_args  = [
 				'post_type'        => $post_type,
 				'posts_per_page'   => - 1,
 				'post_status'      => $post_status,
@@ -91,12 +91,12 @@ class Fiber_Admin_CPO{
 				'order'            => 'ASC',
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
-				'fields'           => 'ids'
-			);
+				'fields'           => 'ids',
+			];
 			$update_posts_query = new WP_Query($update_posts_args);
 			if($update_posts_query->have_posts()){
 				foreach($update_posts_query->posts as $id){
-					$wpdb->update($wpdb->posts, array('menu_order' => $order_start), array('ID' => intval($id)));
+					$wpdb->update($wpdb->posts, ['menu_order' => $order_start], ['ID' => intval($id)]);
 					$order_start ++;
 				}
 			}
@@ -113,22 +113,22 @@ class Fiber_Admin_CPO{
 				global $wpdb;
 				$order_start = 0;
 				
-				$wpdb->update($wpdb->posts, array('menu_order' => $order_start), array('ID' => intval($post_id)));
+				$wpdb->update($wpdb->posts, ['menu_order' => $order_start], ['ID' => intval($post_id)]);
 				
-				$update_posts_args  = array(
+				$update_posts_args  = [
 					'post_type'        => $post->post_type,
 					'posts_per_page'   => - 1,
 					'post_status'      => 'publish',
 					'orderby'          => 'menu_order',
 					'order'            => 'ASC',
-					'post__not_in'     => array($post_id),
+					'post__not_in'     => [$post_id],
 					'suppress_filters' => false,
-					'fields'           => 'ids'
-				);
+					'fields'           => 'ids',
+				];
 				$update_posts_query = new WP_Query($update_posts_args);
 				if($update_posts_query->have_posts()){
 					foreach($update_posts_query->posts as $index => $id){
-						$wpdb->update($wpdb->posts, array('menu_order' => intval($index + 1)), array('ID' => intval($id)));
+						$wpdb->update($wpdb->posts, ['menu_order' => intval($index + 1)], ['ID' => intval($id)]);
 						$order_start ++;
 					}
 				}
@@ -175,14 +175,14 @@ class Fiber_Admin_CPO{
 			$order_start = 0;
 			
 			// Get minimum item
-			$pre_terms_args = array(
+			$pre_terms_args = [
 				'taxonomy'   => $taxonomy,
 				'hide_empty' => false,
 				'number'     => 1,
 				'orderby'    => 'term_order',
 				'order'      => 'ASC',
-				'include'    => $term_ids
-			);
+				'include'    => $term_ids,
+			];
 			
 			$pre_terms = get_terms($pre_terms_args);
 			if(!empty($pre_terms) && !is_wp_error($pre_terms)){
@@ -190,18 +190,18 @@ class Fiber_Admin_CPO{
 			}
 			
 			// Update term order
-			$update_term_args = array(
+			$update_term_args = [
 				'taxonomy'   => $taxonomy,
 				'hide_empty' => false,
 				'orderby'    => 'include',
 				'order'      => 'ASC',
 				'include'    => $term_ids,
-				'fields'     => 'ids'
-			);
+				'fields'     => 'ids',
+			];
 			$update_terms     = get_terms($update_term_args);
 			if(!empty($update_terms) && !is_wp_error($update_terms)){
 				foreach($update_terms as $term_id){
-					$wpdb->update($wpdb->terms, array('term_order' => $order_start), array('term_id' => $term_id));
+					$wpdb->update($wpdb->terms, ['term_order' => $order_start], ['term_id' => $term_id]);
 					$order_start ++;
 				}
 			}
@@ -265,21 +265,21 @@ class Fiber_Admin_CPO{
 			$order_start = 0;
 			
 			// Get minimum item
-			$terms_args = array(
+			$terms_args = [
 				'taxonomy'   => $taxonomy,
 				'hide_empty' => false,
 				'number'     => 1,
 				'orderby'    => 'term_order',
 				'order'      => 'DESC',
-				'exclude'    => array($term_id)
-			);
+				'exclude'    => [$term_id],
+			];
 			
 			$terms = get_terms($terms_args);
 			if(!empty($terms) && !is_wp_error($terms)){
 				$order_start = $terms[0]->term_order;
 			}
 			
-			$wpdb->update($wpdb->terms, array('term_order' => $order_start + 1), array('term_id' => $term_id));
+			$wpdb->update($wpdb->terms, ['term_order' => $order_start + 1], ['term_id' => $term_id]);
 		}
 		
 		return false;

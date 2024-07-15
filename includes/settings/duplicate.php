@@ -15,20 +15,20 @@ class Fiber_Admin_Setting_Duplicate{
 		register_setting(
 			'fiad_duplicate_group',
 			'fiad_duplicate',
-			array($this, 'sanitize_text_field')
+			[$this, 'sanitize_text_field']
 		);
 		
 		add_settings_section(
 			'fiad_duplicate_section',
 			'<span class="dashicons dashicons-list-view"></span> Setting',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-duplicate'
 		);
 		
 		add_settings_field(
 			'post_types', // id
 			'Exclude Post Types', // title
-			array($this, 'fiad_duplicate_post_types'), // callback
+			[$this, 'fiad_duplicate_post_types'], // callback
 			'fiber-admin-duplicate', // page
 			'fiad_duplicate_section' // section
 		);
@@ -38,10 +38,10 @@ class Fiber_Admin_Setting_Duplicate{
 	}
 	
 	public function fiad_duplicate_post_types(){
-		$post_types          = get_post_types(array('public' => true), 'objects');
+		$post_types          = get_post_types(['public' => true], 'objects');
 		$selected_post_types = fiad_get_duplicate_option('exclude_post_types');
 		if(!$selected_post_types){
-			$selected_post_types = array();
+			$selected_post_types = [];
 		}
 		?>
         <fieldset>

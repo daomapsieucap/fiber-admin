@@ -15,20 +15,20 @@ class Fiber_Admin_Setting_CPO{
 		register_setting(
 			'fiad_cpo_group',
 			'fiad_cpo',
-			array($this, 'sanitize_text_field')
+			[$this, 'sanitize_text_field']
 		);
 		
 		add_settings_section(
 			'fiad_cpo_section',
 			'<span class="dashicons dashicons-list-view"></span> Setting',
-			array($this, 'fiad_section_info'),
+			[$this, 'fiad_section_info'],
 			'fiber-admin-cpo'
 		);
 		
 		add_settings_field(
 			'post_types', // id
 			'Post Types', // title
-			array($this, 'fiad_cpo_post_types'), // callback
+			[$this, 'fiad_cpo_post_types'], // callback
 			'fiber-admin-cpo', // page
 			'fiad_cpo_section' // section
 		);
@@ -36,7 +36,7 @@ class Fiber_Admin_Setting_CPO{
 		add_settings_field(
 			'override_default_query', // id
 			'Override Default Query', // title
-			array($this, 'fiad_cpo_override_query'), // callback
+			[$this, 'fiad_cpo_override_query'], // callback
 			'fiber-admin-cpo', // page
 			'fiad_cpo_section' // section
 		);
@@ -44,7 +44,7 @@ class Fiber_Admin_Setting_CPO{
 		add_settings_field(
 			'taxonomies', // id
 			'Taxonomies', // title
-			array($this, 'fiad_cpo_taxonomies'), // callback
+			[$this, 'fiad_cpo_taxonomies'], // callback
 			'fiber-admin-cpo', // page
 			'fiad_cpo_section' // section
 		);
@@ -52,7 +52,7 @@ class Fiber_Admin_Setting_CPO{
 		add_settings_field(
 			'override_default_tax_query', // id
 			'Override Default Taxonomy Query', // title
-			array($this, 'fiad_cpo_override_tax_query'), // callback
+			[$this, 'fiad_cpo_override_tax_query'], // callback
 			'fiber-admin-cpo', // page
 			'fiad_cpo_section' // section
 		);
@@ -62,10 +62,10 @@ class Fiber_Admin_Setting_CPO{
 	}
 	
 	public function fiad_cpo_post_types(){
-		$post_types          = get_post_types(array('show_ui' => true), 'objects');
+		$post_types          = get_post_types(['show_ui' => true], 'objects');
 		$selected_post_types = fiad_get_cpo_option('post_types');
 		if(!$selected_post_types){
-			$selected_post_types = array();
+			$selected_post_types = [];
 		}
 		?>
         <fieldset>
@@ -107,20 +107,20 @@ class Fiber_Admin_Setting_CPO{
 	}
 	
 	public function fiad_cpo_taxonomies(){
-		$taxonomies          = get_taxonomies(array(), 'objects');
+		$taxonomies          = get_taxonomies([], 'objects');
 		$selected_taxonomies = fiad_get_cpo_option('taxonomies');
 		if(!$selected_taxonomies){
-			$selected_taxonomies = array();
+			$selected_taxonomies = [];
 		}
-		$exclude_slugs = array(
+		$exclude_slugs = [
 			'nav_menu',
 			'link_category',
 			'post_format',
 			'wp_theme',
 			'product_type',
 			'product_visibility',
-			'product_shipping_class'
-		);
+			'product_shipping_class',
+		];
 		?>
         <fieldset>
             <label for="taxonomies">
