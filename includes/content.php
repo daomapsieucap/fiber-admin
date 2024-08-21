@@ -40,10 +40,20 @@ class Fiber_Admin_Content{
 	}
 	
 	public function fiad_auto_convert_email_address($content){
-		$content         = do_shortcode($content);// get content without shortcode
+		$content = do_shortcode($content);// get content without shortcode
 		$content_pattern = "/<.+?>([^<>].*?[^<>])<\/.+?>/";
+		$content = preg_replace_callback($content_pattern, [$this, 'fiad_replace_email_with_link'], $content);
+/*		$content = preg_replace_callback('/<.+?>(<br *\/?>)\s*([^<>].*?[^<>])<\/.+?>/', [*/
+//			$this,
+//			'fiad_replace_email_with_link',
+//		], $content);
 		
-		return preg_replace_callback($content_pattern, [$this, 'fiad_replace_email_with_link'], $content);
+		/*		$content = preg_replace_callback("/<br > ([^<>].*?[^<>])<\/.+?>/", [*/
+//			$this,
+//			'fiad_replace_email_with_link',
+//		], $content);
+		
+		return $content;
 	}
 	
 	public function fiad_replace_email_with_link($matches){
