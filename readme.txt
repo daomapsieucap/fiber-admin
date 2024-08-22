@@ -49,6 +49,6 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 == Changelog ==
 
 = 3.2.2 =
-*Release Date - 08 August 2024*
+*Release Date - 22 August 2024*
 
 * Fixed: Convert email conflicts with trailing slash in br tag.
