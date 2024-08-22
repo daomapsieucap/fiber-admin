@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 3.2.2 =
+*Release Date - 08 August 2024*
+
+* Fixed: Convert email conflicts with trailing slash in br tag.
+
 = 3.2.1 =
 *Release Date - 25 June 2024*
 

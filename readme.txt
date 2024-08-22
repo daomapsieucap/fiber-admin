@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 6.5.4
+Tested up to: 6.6.1
 Requires PHP: 7.4
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.1 =
-*Release Date - 25 June 2024*
+= 3.2.2 =
+*Release Date - 08 August 2024*
 
-* Fixed: Fix missing helper function fiad_get_file_upload_path.
+* Fixed: Convert email conflicts with trailing slash in br tag.
