@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 6.6.1
+Tested up to: 6.6.2
 Requires PHP: 7.4
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.2 =
-*Release Date - 22 August 2024*
+= 3.2.3 =
+*Release Date - 23 September 2024*
 
-* Fixed: Convert email conflicts with trailing slash in br tag.
+* Changed: Update WordPress version to 6.6.2
