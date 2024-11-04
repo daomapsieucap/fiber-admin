@@ -11,7 +11,9 @@ class Fiber_Admin_Content{
 	public function __construct(){
 		// Convert email text to link
 		if(!fiad_get_miscellaneous_option('disable_email_converter')){
-			add_filter('the_content', [$this, 'fiad_auto_convert_email_address']);
+			foreach(['the_content', 'fiad_email_converter'] as $filter){
+				add_filter($filter, [$this, 'fiad_auto_convert_email_address']);
+			}
 		}
 		
 		// Content protection
