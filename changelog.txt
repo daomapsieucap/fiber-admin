@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 3.2.4 =
+*Release Date - 04 November 2024*
+
+* Changed: Add extra filter `fiad_email_converter` to use the feature plain email address converter.
+
 = 3.2.3 =
 *Release Date - 23 September 2024*
 

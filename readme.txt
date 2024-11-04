@@ -4,7 +4,7 @@ Tags: white label, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.6.2
 Requires PHP: 7.4
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.3 =
-*Release Date - 23 September 2024*
+= 3.2.4 =
+*Release Date - 04 November 2024*
 
-* Changed: Update WordPress version to 6.6.2
+* Changed: Add extra filter `fiad_email_converter` to use the feature plain email address converter.
