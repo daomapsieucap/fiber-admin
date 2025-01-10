@@ -25,12 +25,7 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-if(!function_exists('get_plugin_data')){
-	require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-}
-$plugin_data = get_plugin_data(__FILE__);
-
-define("FIBERADMIN_VERSION", $plugin_data['Version']);
+const FIBERADMIN_VERSION  = '3.2.4';
 const FIBERADMIN_DEV_MODE = false;
 const FIBERADMIN_FILENAME = __FILE__;
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
