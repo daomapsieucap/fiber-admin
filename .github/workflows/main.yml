@@ -17,11 +17,6 @@ jobs:
 
       # Optional: If your plugin is using composer dependencies, we want to include them
       # WITHOUT the dev dependencies.
-      - name: Build
-        run: |
-          npm install
-          npm run build
-
       - name: Install SVN ( Subversion )
         run: |
           sudo apt-get update
