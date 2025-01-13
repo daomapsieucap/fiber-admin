@@ -10,6 +10,11 @@ jobs:
       - name: 🚚 Checkout code
         uses: actions/checkout@v2
 
+      - name: Install SVN ( Subversion )
+        run: |
+          sudo apt-get update
+          sudo apt-get install subversion
+          
       - name: 🗃️ WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
