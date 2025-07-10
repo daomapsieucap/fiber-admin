@@ -92,7 +92,6 @@ class Fiber_Admin_DB_Error_Settings{
             <label for="db_error_enable" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiad_db_error[db_error_enable]" id="db_error_enable"
                        value="yes" <?php checked(esc_attr(fiad_get_db_error_option('db_error_enable')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php

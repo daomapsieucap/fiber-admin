@@ -90,7 +90,6 @@ class Fiber_Admin_Miscellaneous{
             <label for="enable_auto_update" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiad_miscellaneous[enable_auto_update]" id="enable_auto_update"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_auto_update')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -119,7 +118,6 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[disable_email_converter]"
                        id="disable_email_converter"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_email_converter')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -132,7 +130,6 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[enable_svg]"
                        id="enable_svg"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_svg')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -145,7 +142,6 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[disable_content_protection]"
                        id="disable_content_protection"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_content_protection')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -158,7 +154,6 @@ class Fiber_Admin_Miscellaneous{
                 <input type="checkbox" name="fiad_miscellaneous[enable_comments]"
                        id="enable_comments"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_comments')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php

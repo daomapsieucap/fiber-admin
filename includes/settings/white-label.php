@@ -119,7 +119,6 @@ class Fiber_Admin_White_Label_Settings{
             <label for="hide_wordpress_branding" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin[hide_wordpress_branding]" id="hide_wordpress_branding"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('hide_wordpress_branding')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -131,7 +130,6 @@ class Fiber_Admin_White_Label_Settings{
             <label for="enable_admin_toolbar" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin[enable_admin_toolbar]" id="enable_admin_toolbar"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('enable_admin_toolbar')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -217,7 +215,6 @@ class Fiber_Admin_White_Label_Settings{
             <label for="form_disable_border" class="fiber-admin-toggle">
                 <input type="checkbox" name="fiber_admin[form_disable_border]" id="form_disable_border"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('form_disable_border')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
