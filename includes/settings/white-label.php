@@ -116,7 +116,7 @@ class Fiber_Admin_White_Label_Settings{
 	public function fiad_hide_wordpress_branding(){
 		?>
         <fieldset>
-            <label for="hide_wordpress_branding" class="fiber-admin-toggle">
+            <label for="hide_wordpress_branding">
                 <input type="checkbox" name="fiber_admin[hide_wordpress_branding]" id="hide_wordpress_branding"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('hide_wordpress_branding')), 'yes'); ?> />
             </label>
@@ -127,7 +127,7 @@ class Fiber_Admin_White_Label_Settings{
 	public function fiad_enable_admin_toolbar(){
 		?>
         <fieldset>
-            <label for="enable_admin_toolbar" class="fiber-admin-toggle">
+            <label for="enable_admin_toolbar">
                 <input type="checkbox" name="fiber_admin[enable_admin_toolbar]" id="enable_admin_toolbar"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('enable_admin_toolbar')), 'yes'); ?> />
             </label>
@@ -212,7 +212,7 @@ class Fiber_Admin_White_Label_Settings{
                    value="<?php echo esc_attr(fiad_get_general_option('form_btn_text_color')); ?>"/>
             <br/>
             <div class="fiber-admin-input__label"><?php echo __('Disable Form Border', 'fiber-admin'); ?></div>
-            <label for="form_disable_border" class="fiber-admin-toggle">
+            <label for="form_disable_border">
                 <input type="checkbox" name="fiber_admin[form_disable_border]" id="form_disable_border"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('form_disable_border')), 'yes'); ?> />
             </label>

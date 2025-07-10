@@ -87,7 +87,7 @@ class Fiber_Admin_Miscellaneous{
 	public function fiad_enable_auto_update(){
 		?>
         <fieldset>
-            <label for="enable_auto_update" class="fiber-admin-toggle">
+            <label for="enable_auto_update">
                 <input type="checkbox" name="fiad_miscellaneous[enable_auto_update]" id="enable_auto_update"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_auto_update')), 'yes'); ?> />
             </label>
@@ -114,7 +114,7 @@ class Fiber_Admin_Miscellaneous{
 	public function fiad_disable_email_converter(){
 		?>
         <fieldset>
-            <label for="disable_email_converter" class="fiber-admin-toggle">
+            <label for="disable_email_converter">
                 <input type="checkbox" name="fiad_miscellaneous[disable_email_converter]"
                        id="disable_email_converter"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_email_converter')), 'yes'); ?> />
@@ -126,7 +126,7 @@ class Fiber_Admin_Miscellaneous{
 	public function fiad_enable_svg(){
 		?>
         <fieldset>
-            <label for="enable_svg" class="fiber-admin-toggle">
+            <label for="enable_svg">
                 <input type="checkbox" name="fiad_miscellaneous[enable_svg]"
                        id="enable_svg"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_svg')), 'yes'); ?> />
@@ -138,7 +138,7 @@ class Fiber_Admin_Miscellaneous{
 	public function fiad_disable_content_protection(){
 		?>
         <fieldset>
-            <label for="disable_content_protection" class="fiber-admin-toggle">
+            <label for="disable_content_protection">
                 <input type="checkbox" name="fiad_miscellaneous[disable_content_protection]"
                        id="disable_content_protection"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_content_protection')), 'yes'); ?> />
@@ -150,7 +150,7 @@ class Fiber_Admin_Miscellaneous{
 	public function fiad_enable_comments(){
 		?>
         <fieldset>
-            <label for="enable_comments" class="fiber-admin-toggle">
+            <label for="enable_comments">
                 <input type="checkbox" name="fiad_miscellaneous[enable_comments]"
                        id="enable_comments"
                        value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_comments')), 'yes'); ?> />
