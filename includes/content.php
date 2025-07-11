@@ -68,70 +68,48 @@ class Fiber_Admin_Content{
 	}
 	
 	public function fiad_content_protection_scripts(){
-		if(FIBERADMIN_DEV_MODE){
-			$scripts = '';
-			if(fiad_get_miscellaneous_option('enable_text_protection')){
-				$scripts .= '
-					<script>
-						// text
-						const disable_keys = ["s","a","c","x","C","J","U","I"];
-						document.addEventListener("keydown", function(e){
-					        if(((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) && disable_keys.includes(e.key)) || e.key === "F12"){
-		                        e.preventDefault();
-					        }
-					    }, false);
-		                
-		                ["cut", "copy"].forEach(even => {
-						    document.querySelector("body").addEventListener(even, e => {
-						        e.preventDefault();
-						    });
-						});
-					</script>
-				';
-			}
-			
-			if(fiad_get_miscellaneous_option('enable_image_protection')){
-				$scripts .= '
-					<script>
-						setTimeout(function(){
-					        const currentURL = window.location.hostname,
-					            images = document.getElementsByTagName("img");
-					
-					        let imageURL = "";
-					        for(let i = 0; i < images.length; i++){
-					            imageURL = images[i].src;
-					            if(imageURL.includes(currentURL)){
-					                images[i].addEventListener("contextmenu", event => event.preventDefault());
-					                images[i].setAttribute("draggable", false);
-					            }
-					        }
-					    }, 1000);
-					</script>
-				';
-			}
-			
-			if($scripts){
-				echo $scripts;
-			}
-		}else{
-			$scripts = '';
-			if(fiad_get_miscellaneous_option('enable_text_protection')){
-				$scripts .= '
-					<script>
-						const disable_keys=["s","a","c","x","C","J","U","I"];document.addEventListener("keydown",(function(e){((navigator.platform.match("Mac")?e.metaKey:e.ctrlKey)&&disable_keys.includes(e.key)||"F12"===e.key)&&e.preventDefault()}),!1),["cut","copy"].forEach((e=>{document.querySelector("body").addEventListener(e,(e=>{e.preventDefault()}))}));
-					</script>
-				';
-			}
-			
-			if(fiad_get_miscellaneous_option('enable_image_protection')){
-				$scripts .= '
-					<script>setTimeout((function(){const e=window.location.hostname,t=document.getElementsByTagName("img");let n="";for(let o=0;o<t.length;o++)n=t[o].src,n.includes(e)&&(t[o].addEventListener("contextmenu",(e=>e.preventDefault())),t[o].setAttribute("draggable",!1))}),1e3);</script>
-				';
-			}
-			
-			if($scripts){
-				echo $scripts;
-			}
+		$scripts = '';
+		
+		if(fiad_get_miscellaneous_option('enable_text_protection')){
+			$scripts .= FIBERADMIN_DEV_MODE ?
+				'<script>
+	                const disableKeys = ["s", "a", "c", "x", "C", "J", "U", "I"];
+	                document.addEventListener("keydown", function(e) {
+	                    const isModifierPressed = navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey;
+	                    if ((isModifierPressed && disableKeys.includes(e.key)) || e.key === "F12") {
+	                        e.preventDefault();
+	                    }
+	                }, false);
+	                
+	                ["cut", "copy"].forEach(eventType => {
+	                    document.body.addEventListener(eventType, e => {
+	                        e.preventDefault();
+	                    });
+	                });
+	            </script>' :
+				'<script>const disableKeys=["s","a","c","x","C","J","U","I"];document.addEventListener("keydown",(function(e){((navigator.platform.match("Mac")?e.metaKey:e.ctrlKey)&&disableKeys.includes(e.key)||"F12"===e.key)&&e.preventDefault()}),!1),["cut","copy"].forEach((e=>{document.body.addEventListener(e,(e=>{e.preventDefault()}))}));</script>';
+		}
+		
+		if(fiad_get_miscellaneous_option('enable_image_protection')){
+			$scripts .= FIBERADMIN_DEV_MODE ?
+				'<script>
+	                setTimeout(function() {
+	                    const currentHostname = window.location.hostname;
+	                    const images = document.getElementsByTagName("img");
+	                    
+	                    Array.from(images).forEach(img => {
+	                        if (img.src.includes(currentHostname)) {
+	                            img.addEventListener("contextmenu", e => e.preventDefault());
+	                            img.setAttribute("draggable", false);
+	                        }
+	                    });
+	                }, 1000);
+	            </script>' :
+				'<script>setTimeout((function(){const e=window.location.hostname,t=document.getElementsByTagName("img");Array.from(t).forEach((t=>{t.src.includes(e)&&(t.addEventListener("contextmenu",(e=>e.preventDefault())),t.setAttribute("draggable",!1))}))}),1e3);</script>';
+		}
+		
+		if($scripts){
+			echo $scripts;
 		}
 	}
 	
