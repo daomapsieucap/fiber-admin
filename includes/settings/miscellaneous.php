@@ -65,9 +65,17 @@ class Fiber_Admin_Miscellaneous{
 		);
 		
 		add_settings_field(
-			'disable_content_protection', // id
-			'Disable Content Protection', // title
-			[$this, 'fiad_disable_content_protection'], // callback
+			'enable_text_protection', // id
+			'Enable Text Protection', // title
+			[$this, 'fiad_enable_text_protection'], // callback
+			'fiber-admin-miscellaneous', // page
+			'fiad_content_section' // section
+		);
+		
+		add_settings_field(
+			'enable_image_protection', // id
+			'Enable Image Protection', // title
+			[$this, 'fiad_enable_image_protection'], // callback
 			'fiber-admin-miscellaneous', // page
 			'fiad_content_section' // section
 		);
@@ -135,13 +143,25 @@ class Fiber_Admin_Miscellaneous{
 		<?php
 	}
 	
-	public function fiad_disable_content_protection(){
+	public function fiad_enable_text_protection(){
 		?>
         <fieldset>
-            <label for="disable_content_protection">
-                <input type="checkbox" name="fiad_miscellaneous[disable_content_protection]"
-                       id="disable_content_protection"
-                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('disable_content_protection')), 'yes'); ?> />
+            <label for="enable_text_protection">
+                <input type="checkbox" name="fiad_miscellaneous[enable_text_protection]"
+                       id="enable_text_protection"
+                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_text_protection')), 'yes'); ?> />
+            </label>
+        </fieldset>
+		<?php
+	}
+	
+	public function fiad_enable_image_protection(){
+		?>
+        <fieldset>
+            <label for="enable_image_protection">
+                <input type="checkbox" name="fiad_miscellaneous[enable_image_protection]"
+                       id="enable_image_protection"
+                       value="yes" <?php checked(esc_attr(fiad_get_miscellaneous_option('enable_image_protection')), 'yes'); ?> />
             </label>
         </fieldset>
 		<?php
