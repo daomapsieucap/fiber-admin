@@ -96,11 +96,10 @@ class Fiber_Admin_Setting_CPO{
 	public function fiad_cpo_override_query(){
 		?>
         <fieldset>
-            <label for="override_default_query" class="fiber-admin-toggle">
+            <label for="override_default_query">
                 <input type="checkbox" name="fiad_cpo[override_default_query]"
                        id="override_default_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_query')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
@@ -152,11 +151,10 @@ class Fiber_Admin_Setting_CPO{
 	public function fiad_cpo_override_tax_query(){
 		?>
         <fieldset>
-            <label for="override_default_tax_query" class="fiber-admin-toggle">
+            <label for="override_default_tax_query">
                 <input type="checkbox" name="fiad_cpo[override_default_tax_query]"
                        id="override_default_tax_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_tax_query')), 'yes'); ?> />
-                <span class="slider round"></span>
             </label>
         </fieldset>
 		<?php
