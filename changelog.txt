@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 3.2.6 =
+*Release Date - 11 July 2025*
+
+* Changed: Update WordPress version to 6.8.1.
+* Changed: Use default WordPress admin setting UI instead of creating custom admin style.
+* Changed: Create 2 new options: Enable Text Protection and Enable Image Protection.
+
 = 3.2.5 =
 *Release Date - 13 January 2025*
 

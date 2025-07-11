@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 6.6.2
+Tested up to: 6.8.1
 Requires PHP: 7.4
-Stable tag: 3.2.5
+Stable tag: 3.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,9 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.5 =
-*Release Date - 13 January 2025*
+= 3.2.6 =
+*Release Date - 11 July 2025*
 
-* Fixed: Fix warning "gives error _load_textdomain_just_in_time was called incorrectly" with WordPress 6.7.1
+* Changed: Update WordPress version to 6.8.1.
+* Changed: Use default WordPress admin setting UI instead of creating custom admin style.
+* Changed: Create 2 new options: Enable Text Protection and Enable Image Protection.
