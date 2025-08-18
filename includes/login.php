@@ -16,9 +16,11 @@ class Fiber_Admin_Login{
     public function fiad_login_css(){
         // General CSS
         $general_css = '
-        body.login{display: grid;place-items: center;height: 100vh;}
-        body #login{padding:0;}
-        body.login form{margin-top:0;}
+        body.login{display: flex;flex-direction: column;justify-content: center;min-height: 100vh;margin: 0;}
+        body.login div#login{margin: auto;padding:0;}
+        body.login .language-switcher {text-align: center;padding-bottom:0;}
+        body.login div#login form#loginform{margin-top:0;}
+        body.login div#login .privacy-policy-page-link{margin-bottom:0;}
         ';
 
         // Logo CSS
