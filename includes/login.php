@@ -5,15 +5,9 @@ if(!defined('ABSPATH')){
 }
 
 class Fiber_Admin_Login{
-	/**
-	 * CSS cache key
-	 */
-	private const CACHE_KEY = 'fiad_admin_login_cache';
-	
-	/**
-	 * CSS cache expiration (24 hours)
-	 */
-	private const CACHE_EXPIRATION = 24 * HOUR_IN_SECONDS;
+	private const MAX_LOGO_WIDTH = 320;
+	private const CACHE_KEY = 'fiad_admin_login_cache'; // CSS cache key
+	private const CACHE_EXPIRATION = 24 * HOUR_IN_SECONDS; // CSS cache expiration (24 hours)
 	
 	/**
 	 * Constructor - Initialize hooks
@@ -92,7 +86,7 @@ class Fiber_Admin_Login{
 		$css .= 'max-width: 100%;';
 		
 		// width
-		$css .= $logo_width > 0 && $logo_width <= 320 ? sprintf('width: %dpx;', $logo_width) : 'width: auto;';
+		$css .= $logo_width > 0 && $logo_width <= self::MAX_LOGO_WIDTH ? sprintf('width: %dpx;', $logo_width) : 'width: auto;';
 		
 		// height
 		$css .= $logo_height > 0 ? sprintf('height: %dpx;', $logo_height) : '';
@@ -204,7 +198,7 @@ class Fiber_Admin_Login{
 	 * Maybe clear cache when options are updated
 	 */
 	public function fiad_maybe_clear_cache($option_name){
-		if(str_contains($option_name, 'fiber_admin')){
+		if($option_name === 'fiber_admin'){
 			$this->clear_css_cache();
 		}
 	}
