@@ -20,7 +20,7 @@ class Fiber_Admin_Login{
         body.login div#login{margin: auto;padding:0;}
         body.login .language-switcher {text-align: center;padding-bottom:0;}
         body.login div#login form#loginform{margin:0;}
-        body.login div#login .privacy-policy-page-link{margin-bottom:0;}
+        body.login div#login .privacy-policy-page-link{margin:40px 0 0 0;}
         ';
 
         // Logo CSS
@@ -52,7 +52,7 @@ class Fiber_Admin_Login{
         $login_logo_css .= $logo_background_size;
 
         // Add bottom spacing
-        $login_logo_css .= 'margin-bottom: 3em!important;';
+        $login_logo_css .= 'margin-bottom: 40px !important;';
 
         $login_logo_css .= '}';
 
