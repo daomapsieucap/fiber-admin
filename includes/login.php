@@ -124,24 +124,6 @@ class Fiber_Admin_Login{
         </style>
         <?php
     }
-
-    public function fiad_admin_bar_logo(){
-        $logo_url = fiad_get_general_option('admin_bar_logo');
-        echo '<style>
-		    #wpadminbar #wp-admin-bar-wp-logo>.ab-item {
-                padding: 0 7px;
-                background-image: url(' . $logo_url . ') !important;
-                background-size: 70%;
-                background-position: center;
-                background-repeat: no-repeat;
-                opacity: 0.8;
-            }
-            #wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
-                content: " ";
-                top: 2px;
-            }
-		  </style>';
-    }
 }
 
 new Fiber_Admin_Login();
