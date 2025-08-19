@@ -6,18 +6,40 @@ if(!defined('ABSPATH')){
 
 class Fiber_Admin_Login{
 	/**
+	 * CSS cache key
+	 */
+	private const CACHE_KEY = 'fiad_admin_login_cache';
+	
+	/**
+	 * CSS cache expiration (24 hours)
+	 */
+	private const CACHE_EXPIRATION = 24 * HOUR_IN_SECONDS;
+	
+	/**
 	 * Constructor - Initialize hooks
 	 */
 	public function __construct(){
+		// enqueue styles
 		add_action('login_enqueue_scripts', [$this, 'fiad_enqueue_login_styles']);
+		
+		// clear cache
+		add_action('updated_option', [$this, 'fiad_maybe_clear_cache']);
+		add_action('added_option', [$this, 'fiad_maybe_clear_cache']);
+		add_action('deleted_option', [$this, 'fiad_maybe_clear_cache']);
 	}
 	
 	/**
 	 * Enqueue login page styles
 	 */
 	public function fiad_enqueue_login_styles(){
-		$cached_css = $this->generate_login_css();
-		if($cached_css){
+		$cached_css = get_transient(self::CACHE_KEY);
+		
+		if(false === $cached_css){
+			$cached_css = $this->generate_login_css();
+			set_transient(self::CACHE_KEY, $cached_css, self::CACHE_EXPIRATION);
+		}
+		
+		if(!empty($cached_css)){
 			wp_add_inline_style('login', $cached_css);
 		}
 	}
@@ -176,6 +198,22 @@ class Fiber_Admin_Login{
 		$extra_css = fiad_get_general_option('login_extra_css');
 		
 		return $extra_css ? wp_strip_all_tags($extra_css) : '';
+	}
+	
+	/**
+	 * Maybe clear cache when options are updated
+	 */
+	public function fiad_maybe_clear_cache($option_name){
+		if(str_contains($option_name, 'fiber_admin')){
+			$this->clear_css_cache();
+		}
+	}
+	
+	/**
+	 * Clear CSS cache transient
+	 */
+	public function clear_css_cache(){
+		return delete_transient(self::CACHE_KEY);
 	}
 }
 
