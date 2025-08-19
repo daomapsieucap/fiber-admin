@@ -24,7 +24,7 @@ class Fiber_Admin_Login{
         ';
 
         // Logo CSS
-        $login_logo_css = '#login h1 a, .login h1 a { ';
+        $login_logo_css = 'body.login div#login h1 a, body.login h1 a { ';
         if($login_logo = fiad_get_general_option('login_logo')){
             $login_logo_css .= 'background-image: url(' . $login_logo . ');';
         }
@@ -75,12 +75,12 @@ class Fiber_Admin_Login{
         $form_css = '';
 
         if($form_bg_color = fiad_get_general_option('form_bg_color')){
-            $form_css .= '#loginform{ background-color:' . $form_bg_color . '}';
+            $form_css .= 'body.login div#login form#loginform{ background-color:' . $form_bg_color . '}';
         }
 
         // Form Border
         if(fiad_get_general_option('form_disable_border')){
-            $form_css .= '#loginform{ border: none !important; box-shadow: none !important;}';
+            $form_css .= 'body.login div#login form#loginform{ border: none !important; box-shadow: none !important;}';
         }
 
         // Button
@@ -88,7 +88,7 @@ class Fiber_Admin_Login{
         $form_btn_color      = fiad_get_general_option('form_button_color');
 
         if($form_btn_text_color || $form_btn_color){
-            $form_css .= '#loginform input[type=submit]{ ';
+            $form_css .= 'body.login div#login form#loginform input[type=submit]{ ';
 
             if($form_btn_text_color){
                 $form_css .= 'color:' . $form_btn_text_color . '!important;';
@@ -106,7 +106,7 @@ class Fiber_Admin_Login{
 
         // Link
         if($form_link_color = fiad_get_general_option('link_color')){
-            $form_css .= '#login a{ color: ' . $form_link_color . ';}';
+            $form_css .= 'body.login div#login a{ color: ' . $form_link_color . ';}';
         }
 
         // Extra CSS
