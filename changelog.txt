@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 3.2.7 =
+*Release Date - 15 September 2025*
+
+* Changed: Improve Admin Login UI
+
 = 3.2.6 =
 *Release Date - 11 July 2025*
 

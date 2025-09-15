@@ -48,9 +48,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.6 =
-*Release Date - 11 July 2025*
+= 3.2.7 =
+*Release Date - 15 September 2025*
 
-* Changed: Update WordPress version to 6.8.1.
-* Changed: Use default WordPress admin setting UI instead of creating custom admin style.
-* Changed: Create 2 new options: Enable Text Protection and Enable Image Protection.
+* Changed: Improve Admin Login UI
