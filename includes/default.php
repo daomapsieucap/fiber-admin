@@ -151,7 +151,11 @@ class Fiber_Admin_Default{
 	public function fiad_remove_meta_generators(){
 		// WPBakery Page Builder
 		if(class_exists('Vc_Manager')){
-			remove_action('wp_head', [visual_composer(), 'addMetaData']);
+			if(function_exists('wpbakery')){
+				remove_action('wp_head', [wpbakery(), 'addMetaData']);
+			}else{
+				remove_action('wp_head', [visual_composer(), 'addMetaData']);
+			}
 		}
 		
 		// WPML
