@@ -4,7 +4,7 @@ Tags: white label, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 6.8.1
 Requires PHP: 7.4
-Stable tag: 3.2.7
+Stable tag: 3.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.7 =
-*Release Date - 15 September 2025*
+= 3.2.8 =
+*Release Date - 01 April 2026*
 
-* Changed: Improve Admin Login UI
+* Fixed: Remove warning "Deprecated: visual_composer() is deprecated: Use wpbakery() instead." when using WPBakery Page Builder plugin.
