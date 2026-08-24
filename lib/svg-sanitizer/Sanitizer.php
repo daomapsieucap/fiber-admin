@@ -416,7 +416,7 @@ class Sanitizer
              * Such as xlink:href when the xlink namespace isn't imported.
              * We have to do this as the link is still ran in this case.
              */
-            if (false !== strpos($attrName, 'href')) {
+            if (false !== strpos(strtolower($attrName), 'href')) {
                 $href = $element->getAttribute($attrName);
                 if (false === $this->isHrefSafeValue($href)) {
                     $element->removeAttribute($attrName);

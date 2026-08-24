@@ -140,9 +140,13 @@ class Fiber_Admin_Image{
 		
 		// Pass it to the sanitizer and get it back clean
 		$cleanSVG = $sanitizer->sanitize($dirtySVG);
-		
+
+		if($cleanSVG === false){
+			return false;
+		}
+
 		file_put_contents($file_path, $cleanSVG);
-		
+
 		return true;
 	}
 }
