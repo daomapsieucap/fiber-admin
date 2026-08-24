@@ -166,13 +166,16 @@ class Fiber_Admin_Default{
 	}
 	
 	public function fiad_favicon_admin_logo(){
-		echo '<style>
+		$fiad_wp_version = wp_get_wp_version();
+		if(version_compare($fiad_wp_version, '7.1', '<')){
+			echo '<style>
 			   .wp-admin #wpadminbar #wp-admin-bar-site-name>.ab-item:before{
 			  	content:"";
 			  	background:transparent url("' . get_site_icon_url() . '") no-repeat center/contain !important;
 			  	width: 20px; height: 20px;
 			   }
 			  </style>';
+		}
 	}
 	
 	public function fiad_deregister_styles(){
