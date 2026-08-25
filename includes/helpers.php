@@ -165,3 +165,36 @@ if(!function_exists('fiad_get_file_upload_path')){
 		return explode('wp-content', $url)[1];
 	}
 }
+
+/**
+ * Detect popular caching plugins and clear their cache programmatically.
+ */
+if(!function_exists('fiad_clear_cache')){
+	function fiad_clear_cache(){
+		// WP Rocket
+		if(function_exists('rocket_clean_domain')){
+			rocket_clean_domain();
+		}
+
+		// W3 Total Cache
+		if(function_exists('w3tc_flush_all')){
+			w3tc_flush_all();
+		}
+
+		// WP Super Cache
+		if(function_exists('wp_cache_clear_cache')){
+			wp_cache_clear_cache();
+		}
+
+		// WP Fastest Cache
+		if(class_exists('WpFastestCache')){
+			$wp_fastest_cache = new WpFastestCache();
+			$wp_fastest_cache->deleteCache(true);
+		}
+
+		// LiteSpeed Cache
+		if(has_action('litespeed_purge_all')){
+			do_action('litespeed_purge_all');
+		}
+	}
+}
