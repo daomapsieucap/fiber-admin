@@ -2,9 +2,9 @@
 Contributors: daomapsieucap
 Tags: white label, duplicate post, content protection
 Requires at least: 4.7
-Tested up to: 6.8.1
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.8
+Stable tag: 3.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,14 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 5. Miscellaneous settings.
 
 == Changelog ==
+
+= 3.2.9 =
+*Release Date - 25 August 2026*
+
+* Changed: Remove translation from plugin text settings.
+* Fixed: Remove duplicate WordPress site icon / site logo on version 7.1.
+* Changed: Upgrade SVG Sanitizer to v0.22.0 and add extra security checks.
+* Fixed: Clear cache after drag and drop custom post type order.
 
 = 3.2.8 =
 *Release Date - 01 April 2026*

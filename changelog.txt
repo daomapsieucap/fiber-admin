@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 3.2.9 =
+*Release Date - 25 August 2026*
+
+* Changed: Remove translation from plugin text settings.
+* Fixed: Remove duplicate WordPress site icon / site logo on version 7.1.
+* Changed: Upgrade SVG Sanitizer to v0.22.0 and add extra security checks.
+* Fixed: Clear cache after drag and drop custom post type order.
+
 = 3.2.8 =
 *Release Date - 01 April 2026*
 
