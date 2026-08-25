@@ -1,6 +1,15 @@
 # [Fiber Admin](https://wordpress.org/plugins/fiber-admin/)
 
+<div align="left">
+
+[![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/fiber-admin.svg)](https://wordpress.org/plugins/fiber-admin/)
+[![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/fiber-admin.svg)](https://wordpress.org/plugins/fiber-admin/)
+
+</div>
+
 > Bring multiple customization features to make your own WordPress admin.
+
+<hr >
 
 <img src="https://ps.w.org/fiber-admin/assets/banner-772x250.jpg" />
 
