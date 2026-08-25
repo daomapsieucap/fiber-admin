@@ -100,11 +100,13 @@ class Fiber_Admin_CPO{
 					$order_start ++;
 				}
 			}
+
+			fiad_clear_cache();
 		}
-		
+
 		die();
 	}
-	
+
 	public function fiad_cpo_insert($post_id, $post, $update){
 		$post_types = fiad_get_cpo_option('post_types');
 		if(!$update && $post_types){
@@ -205,11 +207,13 @@ class Fiber_Admin_CPO{
 					$order_start ++;
 				}
 			}
+
+			fiad_clear_cache();
 		}
-		
+
 		die();
 	}
-	
+
 	public function fiad_cpo_update_term_order($orderby, $query_vars, $taxonomies){
 		if(is_admin()){
 			// Change taxonomy order by default in admin
