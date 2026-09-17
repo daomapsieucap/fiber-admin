@@ -8,6 +8,7 @@
     margin:.35em 0 .75em !important;
 }
 .fiber-admin .wp-picker-container {margin-bottom:1em;}
+.fiber-admin .fiber-admin-input__size {display:flex;align-items:center;gap:.5em;}
 .fiber-admin-image-thumbnail {
     display:flex;align-items:center;justify-content:center;
     box-sizing:border-box;

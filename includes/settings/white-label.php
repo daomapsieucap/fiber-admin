@@ -145,19 +145,14 @@ class Fiber_Admin_White_Label_Settings{
 	}
 	
 	public function fiad_login_logo_size(){
-		?>
-        <fieldset class="fiber-admin-input__multiples">
-            <label class="fiber-admin-input__label"
-                   for="login_logo_width"><?php echo __('Width', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiber_admin[login_logo_width]" id="login_logo_width"
-                   value="<?php echo esc_attr(fiad_get_general_option('login_logo_width')); ?>"/> px
-            <br/>
-            <label class="fiber-admin-input__label"
-                   for="login_logo_height"><?php echo __('Height', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiber_admin[login_logo_height]" id="login_logo_height"
-                   value="<?php echo esc_attr(fiad_get_general_option('login_logo_height')); ?>"/> px
-        </fieldset>
-		<?php
+		fiad_logo_size_field(
+			'fiber_admin',
+			'login_logo_width',
+			'login_logo_height',
+			fiad_get_general_option('login_logo_width'),
+			fiad_get_general_option('login_logo_height'),
+			__('Logo size', 'fiber-admin')
+		);
 	}
 	
 	public function fiad_login_bg(){
