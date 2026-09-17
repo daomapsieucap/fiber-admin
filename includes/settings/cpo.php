@@ -19,42 +19,49 @@ class Fiber_Admin_Setting_CPO{
 		);
 		
 		add_settings_section(
-			'fiad_cpo_section',
-			'<span class="dashicons dashicons-list-view"></span> Setting',
+			'fiad_cpo_post_types_section',
+			'<span class="dashicons dashicons-admin-post"></span> Post Types',
 			[$this, 'fiad_section_info'],
 			'fiber-admin-cpo'
 		);
-		
+
 		add_settings_field(
 			'post_types', // id
 			'Post Types', // title
 			[$this, 'fiad_cpo_post_types'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_post_types_section' // section
 		);
-		
+
 		add_settings_field(
 			'override_default_query', // id
 			'Override Default Query', // title
 			[$this, 'fiad_cpo_override_query'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_post_types_section' // section
 		);
-		
+
+		add_settings_section(
+			'fiad_cpo_taxonomies_section',
+			'<span class="dashicons dashicons-category"></span> Taxonomies',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-cpo'
+		);
+
 		add_settings_field(
 			'taxonomies', // id
 			'Taxonomies', // title
 			[$this, 'fiad_cpo_taxonomies'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_taxonomies_section' // section
 		);
-		
+
 		add_settings_field(
 			'override_default_tax_query', // id
 			'Override Default Taxonomy Query', // title
 			[$this, 'fiad_cpo_override_tax_query'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_taxonomies_section' // section
 		);
 	}
 	
