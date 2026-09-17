@@ -7,12 +7,18 @@
     display:inline-block;min-width:10em;vertical-align:middle;
     margin:.35em 0 .75em !important;
 }
-.fiber-admin-input__img label {margin-top:0 !important;}
 .fiber-admin .wp-picker-container {margin-bottom:1em;}
-.fiber-admin-preview img {
-    display:block;height:auto;max-width:100px;
-    padding-bottom:10px;
+.fiber-admin-image-thumbnail {
+    display:flex;align-items:center;justify-content:center;
+    box-sizing:border-box;
+    max-width:200px;min-height:90px;
+    padding:10px;border:1px dashed #c3c4c7;
+    text-align:center;cursor:pointer;
+    transition:border-color .15s ease-in-out,background-color .15s ease-in-out;
 }
+.fiber-admin-image-thumbnail:hover {border-color:#787c82;background-color:#f6f7f7;}
+.fiber-admin-image-thumbnail img {display:block;max-width:100%;height:auto;}
+.fiber-admin-remove-wrap {margin-top:5px;}
 .fiber-admin textarea {
     width:80%;min-height:300px;
     padding:10px 10px 10px 20px;

@@ -2,44 +2,34 @@ jQuery(document).ready(function($){
     /**
      * Upload field
      */
+    $('.fiber-admin-input__img').each(function(){
+        const $fieldset = $(this),
+            $input = $fieldset.find('.fiber-admin-image-value'),
+            $thumb = $fieldset.find('.fiber-admin-image-thumbnail'),
+            $removeWrap = $fieldset.find('.fiber-admin-remove-wrap');
 
-    // $preview
-    $('.fiber-admin-input__img input[type="text"]').on('change', function(){
-        let $preview = $(this).closest('fieldset').find('img'),
-            $input = $(this).closest('fieldset').find('input');
-        if(!$(this).val()){
-            $preview.hide();
-        }else{
-            if(!$preview.attr('src')){
-                $preview.attr('src', $input.val());
+        let frame;
+
+        function setImage(url){
+            $input.val(url);
+            if(url){
+                $thumb.removeClass('fiber-admin-image-thumbnail--empty').html($('<img/>', {src: url}));
+                $removeWrap.show();
+            }else{
+                $thumb.addClass('fiber-admin-image-thumbnail--empty').text($thumb.data('empty-label'));
+                $removeWrap.hide();
             }
-            $preview.show();
-        }
-    });
-
-    // image upload
-    $('.fiber-admin-upload').each(function(){
-        const $uploadElement = $(this),
-            $target = $uploadElement.closest('fieldset').find('input'),
-            $preview = $uploadElement.closest('fieldset').find('img');
-
-        let customUploader;
-
-        if(!$preview.attr('src')){
-            $preview.hide();
         }
 
-        $uploadElement.click(function(e){
+        $thumb.on('click', function(e){
             e.preventDefault();
 
-            //If the uploader object has already been created, reopen the dialog
-            if(customUploader){
-                customUploader.open();
+            if(frame){
+                frame.open();
                 return;
             }
 
-            //Extend the wp.media object
-            customUploader = wp.media.frames.file_frame = wp.media({
+            frame = wp.media({
                 title: 'Choose Image',
                 button: {
                     text: 'Choose Image'
@@ -47,15 +37,17 @@ jQuery(document).ready(function($){
                 multiple: false
             });
 
-            //When a file is selected, grab the URL and set it as the text field's value
-            customUploader.on('select', function(){
-                const attachment = customUploader.state().get('selection').first().toJSON();
-                $target.val(attachment.url);
-                $preview.attr('src', attachment.url).show();
+            frame.on('select', function(){
+                const attachment = frame.state().get('selection').first().toJSON();
+                setImage(attachment.url);
             });
 
-            //Open the uploader dialog
-            customUploader.open();
+            frame.open();
+        });
+
+        $fieldset.find('.fiber-admin-remove-image').on('click', function(e){
+            e.preventDefault();
+            setImage('');
         });
     });
 

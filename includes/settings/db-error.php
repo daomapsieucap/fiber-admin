@@ -110,20 +110,12 @@ class Fiber_Admin_DB_Error_Settings{
 	}
 	
 	public function fiad_db_error_logo(){
-		$logo = fiad_get_db_error_option('db_error_logo');
-		?>
-        <fieldset class="fiber-admin-input__img">
-            <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-            </div>
-            <label>
-                <input class="regular-text" type="text" name="fiad_db_error[db_error_logo]"
-                       placeholder="<?php echo __('Input / Choose your logo image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($logo); ?>"/>
-            </label>
-            <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>
-        </fieldset>
-		<?php
+		fiad_image_upload_field(
+			'fiad_db_error[db_error_logo]',
+			fiad_get_db_error_option('db_error_logo'),
+			__('Set logo image', 'fiber-admin'),
+			__('Remove logo image', 'fiber-admin')
+		);
 	}
 	
 	public function fiad_db_error_logo_size(){

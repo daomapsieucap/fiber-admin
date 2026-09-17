@@ -160,6 +160,32 @@ if(!function_exists('fiad_file_get_content')){
 	}
 }
 
+if(!function_exists('fiad_image_upload_field')){
+	/* Renders a core-style image upload field (thumbnail + set/remove links, backed by wp.media()). */
+	function fiad_image_upload_field($name, $value, $set_label, $remove_label, $description = ''){
+		?>
+        <fieldset class="fiber-admin-input__img">
+            <input type="hidden" class="fiber-admin-image-value" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_url($value); ?>"/>
+            <p class="hide-if-no-js">
+                <a href="#" class="fiber-admin-image-thumbnail <?php echo $value ? '' : 'fiber-admin-image-thumbnail--empty'; ?>" data-empty-label="<?php echo esc_attr($set_label); ?>">
+                    <?php if($value): ?>
+                        <img src="<?php echo esc_url($value); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                    <?php else: ?>
+                        <?php echo esc_html($set_label); ?>
+                    <?php endif; ?>
+                </a>
+            </p>
+            <p class="hide-if-no-js fiber-admin-remove-wrap" <?php echo $value ? '' : 'style="display:none;"'; ?>>
+                <a href="#" class="fiber-admin-remove-image"><?php echo esc_html($remove_label); ?></a>
+            </p>
+			<?php if($description): ?>
+                <p class="description"><?php echo esc_html($description); ?></p>
+			<?php endif; ?>
+        </fieldset>
+		<?php
+	}
+}
+
 if(!function_exists('fiad_get_file_upload_path')){
 	function fiad_get_file_upload_path($url){
 		return explode('wp-content', $url)[1];
