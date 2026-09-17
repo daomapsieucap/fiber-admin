@@ -136,20 +136,12 @@ class Fiber_Admin_White_Label_Settings{
 	}
 	
 	public function fiad_login_logo(){
-		$logo = fiad_get_general_option('login_logo');
-		?>
-        <fieldset class="fiber-admin-input__img">
-            <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-            </div>
-            <label>
-                <input class="regular-text" type="text" name="fiber_admin[login_logo]"
-                       placeholder="<?php echo __('Input / Choose your logo image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($logo); ?>"/>
-            </label>
-            <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>
-        </fieldset>
-		<?php
+		fiad_image_upload_field(
+			'fiber_admin[login_logo]',
+			fiad_get_general_option('login_logo'),
+			__('Set logo image', 'fiber-admin'),
+			__('Remove logo image', 'fiber-admin')
+		);
 	}
 	
 	public function fiad_login_logo_size(){
@@ -169,7 +161,6 @@ class Fiber_Admin_White_Label_Settings{
 	}
 	
 	public function fiad_login_bg(){
-		$bg_img = fiad_get_general_option('login_bg_img');
 		?>
         <fieldset>
             <label>
@@ -177,19 +168,16 @@ class Fiber_Admin_White_Label_Settings{
                        value="<?php echo esc_attr(fiad_get_general_option('login_bg_color')); ?>"/>
             </label>
         </fieldset>
-        <fieldset class="fiber-admin-input__img">
-            <div class="fiber-admin-preview">
-                <img src="<?php echo esc_url($bg_img); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
-            </div>
-            <label>
-                <input class="regular-text" type="text" name="fiber_admin[login_bg_img]"
-                       placeholder="<?php echo __('Input / Choose your background image', 'fiber-admin'); ?>"
-                       value="<?php echo esc_url($bg_img); ?>"/>
-            </label>
-            <button class="button fiber-admin-upload"><?php echo __('Insert / Replace Image', 'fiber-admin'); ?></button>
-            <p class="description"><?php echo __('The minimum sizes should be 2000px width and 1000px height', 'fiber-admin'); ?></p>
-        </fieldset>
 		<?php
+		fiad_image_upload_field(
+			'fiber_admin[login_bg_img]',
+			fiad_get_general_option('login_bg_img'),
+			__('Set background image', 'fiber-admin'),
+			__('Remove background image', 'fiber-admin'),
+			__('Minimum size 1920x900px. Recommended 1920x1080px (Full HD) for the sharpest result.', 'fiber-admin'),
+			1920,
+			900
+		);
 	}
 	
 	public function fiad_form(){

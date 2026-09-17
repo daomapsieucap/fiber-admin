@@ -160,6 +160,33 @@ if(!function_exists('fiad_file_get_content')){
 	}
 }
 
+if(!function_exists('fiad_image_upload_field')){
+	/* Renders a core-style image upload field (thumbnail + set/remove links, backed by wp.media()), optionally enforcing a minimum image size. */
+	function fiad_image_upload_field($name, $value, $set_label, $remove_label, $description = '', $min_width = 0, $min_height = 0){
+		?>
+        <fieldset class="fiber-admin-input__img" data-min-width="<?php echo esc_attr($min_width); ?>" data-min-height="<?php echo esc_attr($min_height); ?>">
+            <input type="hidden" class="fiber-admin-image-value" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_url($value); ?>"/>
+            <div class="fiber-admin-image-wrap hide-if-no-js">
+                <a href="#" class="fiber-admin-image-thumbnail <?php echo $value ? '' : 'fiber-admin-image-thumbnail--empty'; ?>" data-empty-label="<?php echo esc_attr($set_label); ?>">
+                    <?php if($value): ?>
+                        <img src="<?php echo esc_url($value); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"/>
+                    <?php else: ?>
+                        <?php echo esc_html($set_label); ?>
+                    <?php endif; ?>
+                </a>
+                <button type="button" class="fiber-admin-remove-image" <?php echo $value ? '' : 'style="display:none;"'; ?> title="<?php echo esc_attr($remove_label); ?>">
+                    <span class="dashicons dashicons-no-alt"></span>
+                    <span class="screen-reader-text"><?php echo esc_html($remove_label); ?></span>
+                </button>
+            </div>
+			<?php if($description): ?>
+                <p class="hide-if-no-js howto fiber-admin-image-description"><?php echo esc_html($description); ?></p>
+			<?php endif; ?>
+        </fieldset>
+		<?php
+	}
+}
+
 if(!function_exists('fiad_get_file_upload_path')){
 	function fiad_get_file_upload_path($url){
 		return explode('wp-content', $url)[1];
