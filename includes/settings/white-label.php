@@ -86,8 +86,16 @@ class Fiber_Admin_White_Label_Settings{
 
 		add_settings_field(
 			'login_bg_color',
-			'Background Color / Image',
-			[$this, 'fiad_login_bg'],
+			'Background Color',
+			[$this, 'fiad_login_bg_color'],
+			'fiber-admin-white-label',
+			'fiad_login_background_section'
+		);
+
+		add_settings_field(
+			'login_bg_img',
+			'Background Image',
+			[$this, 'fiad_login_bg_image'],
 			'fiber-admin-white-label',
 			'fiad_login_background_section'
 		);
@@ -178,15 +186,19 @@ class Fiber_Admin_White_Label_Settings{
 		);
 	}
 	
-	public function fiad_login_bg(){
+	public function fiad_login_bg_color(){
 		?>
-        <fieldset class="fiber-admin-input__multiples fiber-color-group">
-            <label class="fiber-admin-input__label"
-                   for="login_bg_color"><?php echo __('Background Color', 'fiber-admin'); ?></label>
-            <input id="login_bg_color" class="fiber-color-field" name="fiber_admin[login_bg_color]" type="text"
-                   value="<?php echo esc_attr(fiad_get_general_option('login_bg_color')); ?>"/>
+        <fieldset class="fiber-admin-color-field--with-note">
+            <label>
+                <input class="fiber-color-field" name="fiber_admin[login_bg_color]" type="text"
+                       value="<?php echo esc_attr(fiad_get_general_option('login_bg_color')); ?>"/>
+            </label>
+            <p class="fiber-admin-field-note"><?php echo __('Takes priority over the Background Image field below. Clear it to use the image instead.', 'fiber-admin'); ?></p>
         </fieldset>
 		<?php
+	}
+
+	public function fiad_login_bg_image(){
 		fiad_image_upload_field(
 			'fiber_admin[login_bg_img]',
 			fiad_get_general_option('login_bg_img'),

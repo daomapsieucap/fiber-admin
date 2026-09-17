@@ -180,7 +180,7 @@ if(!function_exists('fiad_image_upload_field')){
                 </button>
             </div>
 			<?php if($description): ?>
-                <p class="hide-if-no-js howto fiber-admin-image-description"><?php echo esc_html($description); ?></p>
+                <p class="hide-if-no-js fiber-admin-field-note"><?php echo esc_html($description); ?></p>
 			<?php endif; ?>
         </fieldset>
 		<?php
