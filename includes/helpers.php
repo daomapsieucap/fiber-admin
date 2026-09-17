@@ -198,7 +198,7 @@ if(!function_exists('fiad_logo_size_field')){
             <label for="<?php echo esc_attr($width_key); ?>"><?php _e('Width', 'fiber-admin'); ?></label>
             <input name="<?php echo esc_attr($width_name); ?>" type="number" step="1" min="0"
                    id="<?php echo esc_attr($width_key); ?>" class="small-text"
-                   value="<?php echo esc_attr($width_value); ?>"/>
+                   value="<?php echo esc_attr($width_value); ?>"/> px
             <span aria-hidden="true">x</span>
             <label for="<?php echo esc_attr($height_key); ?>"><?php _e('Height', 'fiber-admin'); ?></label>
             <input name="<?php echo esc_attr($height_name); ?>" type="number" step="1" min="0"
