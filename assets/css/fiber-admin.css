@@ -19,6 +19,7 @@
 .fiber-admin-image-thumbnail:hover {border-color:#787c82;background-color:#f6f7f7;}
 .fiber-admin-image-thumbnail img {display:block;max-width:100%;height:auto;}
 .fiber-admin-remove-wrap {margin-top:5px;}
+.fiber-admin-image-description {font-size:12px;}
 .media-modal .attachment.fiber-admin-attachment-disabled .thumbnail {opacity:0.25 !important;}
 .media-modal .attachment.fiber-admin-attachment-disabled .attachment-preview:before {
     background:rgba(0,0,0,0.15);z-index:1;position:relative;

@@ -179,7 +179,7 @@ if(!function_exists('fiad_image_upload_field')){
                 <a href="#" class="fiber-admin-remove-image"><?php echo esc_html($remove_label); ?></a>
             </p>
 			<?php if($description): ?>
-                <p class="description"><?php echo esc_html($description); ?></p>
+                <p class="hide-if-no-js howto fiber-admin-image-description"><?php echo esc_html($description); ?></p>
 			<?php endif; ?>
         </fieldset>
 		<?php
