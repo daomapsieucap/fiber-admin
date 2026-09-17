@@ -19,42 +19,49 @@ class Fiber_Admin_Setting_CPO{
 		);
 		
 		add_settings_section(
-			'fiad_cpo_section',
-			'<span class="dashicons dashicons-list-view"></span> Setting',
+			'fiad_cpo_post_types_section',
+			'<span class="dashicons dashicons-admin-post"></span> Post Types',
 			[$this, 'fiad_section_info'],
 			'fiber-admin-cpo'
 		);
-		
+
 		add_settings_field(
 			'post_types', // id
 			'Post Types', // title
 			[$this, 'fiad_cpo_post_types'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_post_types_section' // section
 		);
-		
+
 		add_settings_field(
 			'override_default_query', // id
-			'Override Default Query', // title
+			'Apply Order to Frontend', // title
 			[$this, 'fiad_cpo_override_query'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_post_types_section' // section
 		);
-		
+
+		add_settings_section(
+			'fiad_cpo_taxonomies_section',
+			'<span class="dashicons dashicons-category"></span> Taxonomies',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-cpo'
+		);
+
 		add_settings_field(
 			'taxonomies', // id
 			'Taxonomies', // title
 			[$this, 'fiad_cpo_taxonomies'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_taxonomies_section' // section
 		);
-		
+
 		add_settings_field(
 			'override_default_tax_query', // id
-			'Override Default Taxonomy Query', // title
+			'Apply Order to Frontend', // title
 			[$this, 'fiad_cpo_override_tax_query'], // callback
 			'fiber-admin-cpo', // page
-			'fiad_cpo_section' // section
+			'fiad_cpo_taxonomies_section' // section
 		);
 	}
 	
@@ -67,50 +74,59 @@ class Fiber_Admin_Setting_CPO{
 		if(!$selected_post_types){
 			$selected_post_types = [];
 		}
+		$post_type_order = array_flip(array_keys($post_types));
+		uasort($post_types, function($a, $b) use ($post_type_order){
+			if($a->_builtin !== $b->_builtin){
+				return $a->_builtin ? -1 : 1;
+			}
+			return $post_type_order[$a->name] <=> $post_type_order[$b->name];
+		});
 		?>
         <fieldset>
-            <label for="post_types">
-                <select class="fiber-admin-selection--multiple" id="post_types" name='fiad_cpo[post_types][]' multiple>
+            <div class="fiber-admin-checkbox-list" id="post_types">
 					<?php
 					if($post_types){
 						foreach($post_types as $slug => $post_type){
-							$selected = '';
-							if(in_array($slug, $selected_post_types)){
-								$selected = 'selected';
-							}
 							?>
-                            <option value="<?php echo $slug; ?>" <?php echo $selected; ?>><?php echo $post_type->label; ?></option>
+                            <label>
+                                <input type="checkbox" name='fiad_cpo[post_types][]' value="<?php echo esc_attr($slug); ?>" <?php checked(in_array($slug, $selected_post_types), true); ?> />
+                                <?php echo $post_type->label; ?>
+                            </label>
 							<?php
 						}
 					}
 					?>
-                </select>
-            </label>
-            <p class="description">
-                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
-            </p>
+            </div>
         </fieldset>
 		<?php
 	}
-	
+
 	public function fiad_cpo_override_query(){
 		?>
         <fieldset>
-            <label for="override_default_query">
+            <label class="fiber-admin-checkbox-field" for="override_default_query">
                 <input type="checkbox" name="fiad_cpo[override_default_query]"
                        id="override_default_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_query')), 'yes'); ?> />
+                Also apply this order site-wide, not just in the admin area.
             </label>
         </fieldset>
 		<?php
 	}
-	
+
 	public function fiad_cpo_taxonomies(){
 		$taxonomies          = get_taxonomies([], 'objects');
 		$selected_taxonomies = fiad_get_cpo_option('taxonomies');
 		if(!$selected_taxonomies){
 			$selected_taxonomies = [];
 		}
+		$taxonomy_order = array_flip(array_keys($taxonomies));
+		uasort($taxonomies, function($a, $b) use ($taxonomy_order){
+			if($a->_builtin !== $b->_builtin){
+				return $a->_builtin ? -1 : 1;
+			}
+			return $taxonomy_order[$a->name] <=> $taxonomy_order[$b->name];
+		});
 		$exclude_slugs = [
 			'nav_menu',
 			'link_category',
@@ -122,28 +138,22 @@ class Fiber_Admin_Setting_CPO{
 		];
 		?>
         <fieldset>
-            <label for="taxonomies">
-                <select class="fiber-admin-selection--multiple" id="taxonomies" name='fiad_cpo[taxonomies][]' multiple>
+            <div class="fiber-admin-checkbox-list" id="taxonomies">
 					<?php
 					if($taxonomies){
 						foreach($taxonomies as $slug => $taxonomy){
 							if(!in_array($slug, $exclude_slugs)){
-								$selected = '';
-								if(in_array($slug, $selected_taxonomies)){
-									$selected = 'selected';
-								}
 								?>
-                                <option value="<?php echo $slug; ?>" <?php echo $selected; ?>><?php echo $taxonomy->label; ?></option>
+                                <label>
+                                    <input type="checkbox" name='fiad_cpo[taxonomies][]' value="<?php echo esc_attr($slug); ?>" <?php checked(in_array($slug, $selected_taxonomies), true); ?> />
+                                    <?php echo $taxonomy->label; ?>
+                                </label>
 								<?php
 							}
 						}
 					}
 					?>
-                </select>
-            </label>
-            <p class="description">
-                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
-            </p>
+            </div>
         </fieldset>
 		<?php
 	}
@@ -151,10 +161,11 @@ class Fiber_Admin_Setting_CPO{
 	public function fiad_cpo_override_tax_query(){
 		?>
         <fieldset>
-            <label for="override_default_tax_query">
+            <label class="fiber-admin-checkbox-field" for="override_default_tax_query">
                 <input type="checkbox" name="fiad_cpo[override_default_tax_query]"
                        id="override_default_tax_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_tax_query')), 'yes'); ?> />
+                Also apply this order site-wide, not just in the admin area.
             </label>
         </fieldset>
 		<?php

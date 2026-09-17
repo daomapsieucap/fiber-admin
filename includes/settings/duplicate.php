@@ -43,33 +43,32 @@ class Fiber_Admin_Setting_Duplicate{
 		if(!$selected_post_types){
 			$selected_post_types = [];
 		}
+		$post_type_order = array_flip(array_keys($post_types));
+		uasort($post_types, function($a, $b) use ($post_type_order){
+			if($a->_builtin !== $b->_builtin){
+				return $a->_builtin ? -1 : 1;
+			}
+			return $post_type_order[$a->name] <=> $post_type_order[$b->name];
+		});
 		?>
         <fieldset>
-            <label for="post_types">
-                <select class="fiber-admin-selection--multiple" id="exclude_post_types"
-                        name='fiad_duplicate[exclude_post_types][]'
-                        multiple>
+            <div class="fiber-admin-checkbox-list" id="exclude_post_types">
 					<?php
 					if($post_types){
 						foreach($post_types as $slug => $post_type){
 							if($slug == 'attachment'){
 								continue;
 							}
-							$selected = '';
-							if(in_array($slug, $selected_post_types)){
-								$selected = 'selected';
-							}
 							?>
-                            <option value="<?php echo $slug; ?>" <?php echo $selected; ?>><?php echo $post_type->label; ?></option>
+                            <label>
+                                <input type="checkbox" name='fiad_duplicate[exclude_post_types][]' value="<?php echo esc_attr($slug); ?>" <?php checked(in_array($slug, $selected_post_types), true); ?> />
+                                <?php echo $post_type->label; ?>
+                            </label>
 							<?php
 						}
 					}
 					?>
-                </select>
-            </label>
-            <p class="description">
-                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
-            </p>
+            </div>
         </fieldset>
 		<?php
 	}
