@@ -30,7 +30,8 @@
 }
 .fiber-admin-remove-image .dashicons {width:16px;height:16px;font-size:16px;color:#3c434a;}
 .fiber-admin-remove-image:hover .dashicons {color:#d63638;}
-.fiber-admin-image-description {font-size:12px;}
+.fiber-admin .fiber-admin-field-note {margin:6px 0 0; font-size:12px; font-style:italic; color:#646970;}
+.fiber-admin .fiber-admin-color-field--with-note .wp-picker-container {margin-bottom:0;}
 .media-modal .attachment.fiber-admin-attachment-disabled .thumbnail {opacity:0.25 !important;}
 .media-modal .attachment.fiber-admin-attachment-disabled .attachment-preview:before {
     background:rgba(0,0,0,0.15);z-index:1;position:relative;
