@@ -43,6 +43,13 @@ class Fiber_Admin_Setting_Duplicate{
 		if(!$selected_post_types){
 			$selected_post_types = [];
 		}
+		$post_type_order = array_flip(array_keys($post_types));
+		uasort($post_types, function($a, $b) use ($post_type_order){
+			if($a->_builtin !== $b->_builtin){
+				return $a->_builtin ? -1 : 1;
+			}
+			return $post_type_order[$a->name] <=> $post_type_order[$b->name];
+		});
 		?>
         <fieldset>
             <div class="fiber-admin-checkbox-list" id="exclude_post_types">

@@ -67,6 +67,13 @@ class Fiber_Admin_Setting_CPO{
 		if(!$selected_post_types){
 			$selected_post_types = [];
 		}
+		$post_type_order = array_flip(array_keys($post_types));
+		uasort($post_types, function($a, $b) use ($post_type_order){
+			if($a->_builtin !== $b->_builtin){
+				return $a->_builtin ? -1 : 1;
+			}
+			return $post_type_order[$a->name] <=> $post_type_order[$b->name];
+		});
 		?>
         <fieldset>
             <div class="fiber-admin-checkbox-list" id="post_types">
@@ -105,6 +112,13 @@ class Fiber_Admin_Setting_CPO{
 		if(!$selected_taxonomies){
 			$selected_taxonomies = [];
 		}
+		$taxonomy_order = array_flip(array_keys($taxonomies));
+		uasort($taxonomies, function($a, $b) use ($taxonomy_order){
+			if($a->_builtin !== $b->_builtin){
+				return $a->_builtin ? -1 : 1;
+			}
+			return $taxonomy_order[$a->name] <=> $taxonomy_order[$b->name];
+		});
 		$exclude_slugs = [
 			'nav_menu',
 			'link_category',
