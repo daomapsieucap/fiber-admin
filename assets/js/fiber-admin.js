@@ -38,7 +38,7 @@ jQuery(document).ready(function($){
         const $fieldset = $(this),
             $input = $fieldset.find('.fiber-admin-image-value'),
             $thumb = $fieldset.find('.fiber-admin-image-thumbnail'),
-            $removeWrap = $fieldset.find('.fiber-admin-remove-wrap'),
+            $removeButton = $fieldset.find('.fiber-admin-remove-image'),
             minWidth = parseInt($fieldset.data('min-width'), 10) || 0,
             minHeight = parseInt($fieldset.data('min-height'), 10) || 0;
 
@@ -48,10 +48,10 @@ jQuery(document).ready(function($){
             $input.val(url);
             if(url){
                 $thumb.removeClass('fiber-admin-image-thumbnail--empty').html($('<img/>', {src: url}));
-                $removeWrap.show();
+                $removeButton.show();
             }else{
                 $thumb.addClass('fiber-admin-image-thumbnail--empty').text($thumb.data('empty-label'));
-                $removeWrap.hide();
+                $removeButton.hide();
             }
         }
 
@@ -94,7 +94,7 @@ jQuery(document).ready(function($){
             frame.open();
         });
 
-        $fieldset.find('.fiber-admin-remove-image').on('click', function(e){
+        $removeButton.on('click', function(e){
             e.preventDefault();
             setImage('');
         });
