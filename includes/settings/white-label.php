@@ -55,58 +55,79 @@ class Fiber_Admin_White_Label_Settings{
 		);
 		
 		add_settings_section(
-			'fiad_white_label_section',
-			'<span class="dashicons dashicons-admin-network"></span> Login',
+			'fiad_login_logo_section',
+			'<span class="dashicons dashicons-format-image"></span> Login Logo',
 			[$this, 'fiad_section_info'],
 			'fiber-admin-white-label'
 		);
-		
+
 		add_settings_field(
 			'login_logo',
 			'Logo',
 			[$this, 'fiad_login_logo'],
 			'fiber-admin-white-label',
-			'fiad_white_label_section'
+			'fiad_login_logo_section'
 		);
-		
+
 		add_settings_field(
 			'login_logo_size',
-			'Logo size',
+			'Logo Size',
 			[$this, 'fiad_login_logo_size'],
 			'fiber-admin-white-label',
-			'fiad_white_label_section'
+			'fiad_login_logo_section'
 		);
-		
+
+		add_settings_section(
+			'fiad_login_background_section',
+			'<span class="dashicons dashicons-art"></span> Login Background',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-white-label'
+		);
+
 		add_settings_field(
 			'login_bg_color',
 			'Background Color / Image',
 			[$this, 'fiad_login_bg'],
 			'fiber-admin-white-label',
-			'fiad_white_label_section'
+			'fiad_login_background_section'
 		);
-		
+
+		add_settings_section(
+			'fiad_login_colors_section',
+			'<span class="dashicons dashicons-admin-appearance"></span> Login Colors',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-white-label'
+		);
+
 		add_settings_field(
 			'form_color',
-			'Form',
+			'Form Colors',
 			[$this, 'fiad_form'],
 			'fiber-admin-white-label',
-			'fiad_white_label_section'
+			'fiad_login_colors_section'
 		);
-		
+
 		add_settings_field(
 			'link_color',
-			'Link',
+			'Link Color',
 			[$this, 'fiad_link'],
 			'fiber-admin-white-label',
-			'fiad_white_label_section'
+			'fiad_login_colors_section'
 		);
-		
+
+		add_settings_section(
+			'fiad_login_advanced_section',
+			'<span class="dashicons dashicons-editor-code"></span> Login Custom CSS',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-white-label'
+		);
+
 		add_settings_field(
 			'login_extra_css',
-			'Extra CSS',
+			'CSS',
 			[$this, 'fiad_login_extra_css'],
 			'fiber-admin-white-label',
-			'fiad_white_label_section'
+			'fiad_login_advanced_section'
 		);
 	}
 	
@@ -116,9 +137,10 @@ class Fiber_Admin_White_Label_Settings{
 	public function fiad_hide_wordpress_branding(){
 		?>
         <fieldset>
-            <label for="hide_wordpress_branding">
+            <label class="fiber-admin-checkbox-field" for="hide_wordpress_branding">
                 <input type="checkbox" name="fiber_admin[hide_wordpress_branding]" id="hide_wordpress_branding"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('hide_wordpress_branding')), 'yes'); ?> />
+                <?php echo __('Remove "WordPress" text and logos from the dashboard, login page, and admin bar.', 'fiber-admin'); ?>
             </label>
         </fieldset>
 		<?php
@@ -127,9 +149,10 @@ class Fiber_Admin_White_Label_Settings{
 	public function fiad_enable_admin_toolbar(){
 		?>
         <fieldset>
-            <label for="enable_admin_toolbar">
+            <label class="fiber-admin-checkbox-field" for="enable_admin_toolbar">
                 <input type="checkbox" name="fiber_admin[enable_admin_toolbar]" id="enable_admin_toolbar"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('enable_admin_toolbar')), 'yes'); ?> />
+                <?php echo __('Keep the front-end admin bar visible to admins. Only applies when Hide WordPress Branding is on.', 'fiber-admin'); ?>
             </label>
         </fieldset>
 		<?php
@@ -157,11 +180,11 @@ class Fiber_Admin_White_Label_Settings{
 	
 	public function fiad_login_bg(){
 		?>
-        <fieldset>
-            <label>
-                <input class="fiber-color-field" name="fiber_admin[login_bg_color]" type="text"
-                       value="<?php echo esc_attr(fiad_get_general_option('login_bg_color')); ?>"/>
-            </label>
+        <fieldset class="fiber-admin-input__multiples fiber-color-group">
+            <label class="fiber-admin-input__label"
+                   for="login_bg_color"><?php echo __('Background Color', 'fiber-admin'); ?></label>
+            <input id="login_bg_color" class="fiber-color-field" name="fiber_admin[login_bg_color]" type="text"
+                   value="<?php echo esc_attr(fiad_get_general_option('login_bg_color')); ?>"/>
         </fieldset>
 		<?php
 		fiad_image_upload_field(
@@ -223,6 +246,7 @@ class Fiber_Admin_White_Label_Settings{
             <textarea
                     id=<?= $id; ?>
                     name="fiber_admin[login_extra_css]"><?php echo esc_html(fiad_get_general_option('login_extra_css')); ?></textarea>
+            <p class="description"><?php echo __('Applied only to the login page, after all other styles above.', 'fiber-admin'); ?></p>
         </fieldset>
 		<?php
 	}
