@@ -119,19 +119,14 @@ class Fiber_Admin_DB_Error_Settings{
 	}
 	
 	public function fiad_db_error_logo_size(){
-		?>
-        <fieldset class="fiber-admin-input__multiples">
-            <label class="fiber-admin-input__label"
-                   for="db_error_logo_width"><?php echo __('Width', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiad_db_error[db_error_logo_width]" id="db_error_logo_width"
-                   value="<?php echo esc_attr(fiad_get_db_error_option('db_error_logo_width')); ?>"/> px
-            <br/>
-            <label class="fiber-admin-input__label"
-                   for="db_error_logo_height"><?php echo __('Height', 'fiber-admin'); ?></label>
-            <input class="small-text" type="number" name="fiad_db_error[db_error_logo_height]" id="db_error_logo_height"
-                   value="<?php echo esc_attr(fiad_get_db_error_option('db_error_logo_height')); ?>"/> px
-        </fieldset>
-		<?php
+		fiad_logo_size_field(
+			'fiad_db_error',
+			'db_error_logo_width',
+			'db_error_logo_height',
+			fiad_get_db_error_option('db_error_logo_width'),
+			fiad_get_db_error_option('db_error_logo_height'),
+			__('Logo size', 'fiber-admin')
+		);
 	}
 	
 	public function fiad_db_error_bg(){

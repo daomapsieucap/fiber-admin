@@ -187,6 +187,28 @@ if(!function_exists('fiad_image_upload_field')){
 	}
 }
 
+if(!function_exists('fiad_logo_size_field')){
+	/* Renders a core-style width/height field pair, matching WP core's Settings > Media Thumbnail size field. */
+	function fiad_logo_size_field($name_prefix, $width_key, $height_key, $width_value, $height_value, $legend_text){
+		$width_name  = $name_prefix . '[' . $width_key . ']';
+		$height_name = $name_prefix . '[' . $height_key . ']';
+		?>
+        <fieldset class="fiber-admin-input__size">
+            <legend class="screen-reader-text"><span><?php echo esc_html($legend_text); ?></span></legend>
+            <label for="<?php echo esc_attr($width_key); ?>"><?php _e('Width', 'fiber-admin'); ?></label>
+            <input name="<?php echo esc_attr($width_name); ?>" type="number" step="1" min="0"
+                   id="<?php echo esc_attr($width_key); ?>" class="small-text"
+                   value="<?php echo esc_attr($width_value); ?>"/> px
+            <span aria-hidden="true">x</span>
+            <label for="<?php echo esc_attr($height_key); ?>"><?php _e('Height', 'fiber-admin'); ?></label>
+            <input name="<?php echo esc_attr($height_name); ?>" type="number" step="1" min="0"
+                   id="<?php echo esc_attr($height_key); ?>" class="small-text"
+                   value="<?php echo esc_attr($height_value); ?>"/> px
+        </fieldset>
+		<?php
+	}
+}
+
 if(!function_exists('fiad_get_file_upload_path')){
 	function fiad_get_file_upload_path($url){
 		return explode('wp-content', $url)[1];
