@@ -161,10 +161,10 @@ if(!function_exists('fiad_file_get_content')){
 }
 
 if(!function_exists('fiad_image_upload_field')){
-	/* Renders a core-style image upload field (thumbnail + set/remove links, backed by wp.media()). */
-	function fiad_image_upload_field($name, $value, $set_label, $remove_label, $description = ''){
+	/* Renders a core-style image upload field (thumbnail + set/remove links, backed by wp.media()), optionally enforcing a minimum image size. */
+	function fiad_image_upload_field($name, $value, $set_label, $remove_label, $description = '', $min_width = 0, $min_height = 0){
 		?>
-        <fieldset class="fiber-admin-input__img">
+        <fieldset class="fiber-admin-input__img" data-min-width="<?php echo esc_attr($min_width); ?>" data-min-height="<?php echo esc_attr($min_height); ?>">
             <input type="hidden" class="fiber-admin-image-value" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_url($value); ?>"/>
             <p class="hide-if-no-js">
                 <a href="#" class="fiber-admin-image-thumbnail <?php echo $value ? '' : 'fiber-admin-image-thumbnail--empty'; ?>" data-empty-label="<?php echo esc_attr($set_label); ?>">

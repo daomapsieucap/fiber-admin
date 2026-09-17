@@ -174,7 +174,9 @@ class Fiber_Admin_White_Label_Settings{
 			fiad_get_general_option('login_bg_img'),
 			__('Set background image', 'fiber-admin'),
 			__('Remove background image', 'fiber-admin'),
-			__('The minimum sizes should be 2000px width and 1000px height', 'fiber-admin')
+			__('The minimum sizes should be 2000px width and 1000px height', 'fiber-admin'),
+			2000,
+			1000
 		);
 	}
 	
