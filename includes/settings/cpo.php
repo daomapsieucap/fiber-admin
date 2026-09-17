@@ -69,30 +69,24 @@ class Fiber_Admin_Setting_CPO{
 		}
 		?>
         <fieldset>
-            <label for="post_types">
-                <select class="fiber-admin-selection--multiple" id="post_types" name='fiad_cpo[post_types][]' multiple>
+            <div class="fiber-admin-checkbox-list" id="post_types">
 					<?php
 					if($post_types){
 						foreach($post_types as $slug => $post_type){
-							$selected = '';
-							if(in_array($slug, $selected_post_types)){
-								$selected = 'selected';
-							}
 							?>
-                            <option value="<?php echo $slug; ?>" <?php echo $selected; ?>><?php echo $post_type->label; ?></option>
+                            <label>
+                                <input type="checkbox" name='fiad_cpo[post_types][]' value="<?php echo esc_attr($slug); ?>" <?php checked(in_array($slug, $selected_post_types), true); ?> />
+                                <?php echo $post_type->label; ?>
+                            </label>
 							<?php
 						}
 					}
 					?>
-                </select>
-            </label>
-            <p class="description">
-                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
-            </p>
+            </div>
         </fieldset>
 		<?php
 	}
-	
+
 	public function fiad_cpo_override_query(){
 		?>
         <fieldset>
@@ -122,28 +116,22 @@ class Fiber_Admin_Setting_CPO{
 		];
 		?>
         <fieldset>
-            <label for="taxonomies">
-                <select class="fiber-admin-selection--multiple" id="taxonomies" name='fiad_cpo[taxonomies][]' multiple>
+            <div class="fiber-admin-checkbox-list" id="taxonomies">
 					<?php
 					if($taxonomies){
 						foreach($taxonomies as $slug => $taxonomy){
 							if(!in_array($slug, $exclude_slugs)){
-								$selected = '';
-								if(in_array($slug, $selected_taxonomies)){
-									$selected = 'selected';
-								}
 								?>
-                                <option value="<?php echo $slug; ?>" <?php echo $selected; ?>><?php echo $taxonomy->label; ?></option>
+                                <label>
+                                    <input type="checkbox" name='fiad_cpo[taxonomies][]' value="<?php echo esc_attr($slug); ?>" <?php checked(in_array($slug, $selected_taxonomies), true); ?> />
+                                    <?php echo $taxonomy->label; ?>
+                                </label>
 								<?php
 							}
 						}
 					}
 					?>
-                </select>
-            </label>
-            <p class="description">
-                Select multiple items with <strong>Ctrl-Click</strong> for Windows or <strong>Cmd-Click</strong> for Mac
-            </p>
+            </div>
         </fieldset>
 		<?php
 	}
