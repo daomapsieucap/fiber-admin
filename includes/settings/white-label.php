@@ -51,7 +51,8 @@ class Fiber_Admin_White_Label_Settings{
 			'Enable Admin Toolbar', // title
 			[$this, 'fiad_enable_admin_toolbar'], // callback
 			'fiber-admin-white-label', // page
-			'fiad_branding_section' // section
+			'fiad_branding_section', // section
+			['class' => 'fiad-row-enable-admin-toolbar'] // args
 		);
 		
 		add_settings_section(
@@ -160,7 +161,7 @@ class Fiber_Admin_White_Label_Settings{
             <label class="fiber-admin-checkbox-field" for="enable_admin_toolbar">
                 <input type="checkbox" name="fiber_admin[enable_admin_toolbar]" id="enable_admin_toolbar"
                        value="yes" <?php checked(esc_attr(fiad_get_general_option('enable_admin_toolbar')), 'yes'); ?> />
-                <?php echo __('Keep the front-end admin bar visible to admins. Only applies when Hide WordPress Branding is on.', 'fiber-admin'); ?>
+                <?php echo __('Keep the front-end admin bar visible to admins.', 'fiber-admin'); ?>
             </label>
         </fieldset>
 		<?php

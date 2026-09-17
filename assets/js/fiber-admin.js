@@ -104,4 +104,19 @@ jQuery(document).ready(function($){
      * Color picker field
      */
     $('.fiber-color-field').wpColorPicker();
+
+    /**
+     * Toggle Enable Admin Toolbar row with Hide WordPress Branding
+     */
+    const $hideWpBranding    = $('#hide_wordpress_branding'),
+        $adminToolbarRow = $('.fiad-row-enable-admin-toolbar');
+
+    function toggleAdminToolbarRow(){
+        $adminToolbarRow.toggle($hideWpBranding.is(':checked'));
+    }
+
+    if($hideWpBranding.length && $adminToolbarRow.length){
+        toggleAdminToolbarRow();
+        $hideWpBranding.on('change', toggleAdminToolbarRow);
+    }
 });
