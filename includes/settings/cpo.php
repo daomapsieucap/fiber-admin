@@ -35,7 +35,7 @@ class Fiber_Admin_Setting_CPO{
 
 		add_settings_field(
 			'override_default_query', // id
-			'Override Default Query', // title
+			'Apply Order to Frontend', // title
 			[$this, 'fiad_cpo_override_query'], // callback
 			'fiber-admin-cpo', // page
 			'fiad_cpo_post_types_section' // section
@@ -58,7 +58,7 @@ class Fiber_Admin_Setting_CPO{
 
 		add_settings_field(
 			'override_default_tax_query', // id
-			'Override Default Taxonomy Query', // title
+			'Apply Order to Frontend', // title
 			[$this, 'fiad_cpo_override_tax_query'], // callback
 			'fiber-admin-cpo', // page
 			'fiad_cpo_taxonomies_section' // section
@@ -104,15 +104,16 @@ class Fiber_Admin_Setting_CPO{
 	public function fiad_cpo_override_query(){
 		?>
         <fieldset>
-            <label for="override_default_query">
+            <label class="fiber-admin-checkbox-field" for="override_default_query">
                 <input type="checkbox" name="fiad_cpo[override_default_query]"
                        id="override_default_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_query')), 'yes'); ?> />
+                Also apply this order site-wide, not just in the admin area.
             </label>
         </fieldset>
 		<?php
 	}
-	
+
 	public function fiad_cpo_taxonomies(){
 		$taxonomies          = get_taxonomies([], 'objects');
 		$selected_taxonomies = fiad_get_cpo_option('taxonomies');
@@ -160,10 +161,11 @@ class Fiber_Admin_Setting_CPO{
 	public function fiad_cpo_override_tax_query(){
 		?>
         <fieldset>
-            <label for="override_default_tax_query">
+            <label class="fiber-admin-checkbox-field" for="override_default_tax_query">
                 <input type="checkbox" name="fiad_cpo[override_default_tax_query]"
                        id="override_default_tax_query"
                        value="yes" <?php checked(esc_attr(fiad_get_cpo_option('override_default_tax_query')), 'yes'); ?> />
+                Also apply this order site-wide, not just in the admin area.
             </label>
         </fieldset>
 		<?php
