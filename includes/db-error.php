@@ -38,10 +38,39 @@ class Fiber_Admin_DB_Error{
 			$logo_width       = fiad_get_db_error_option('db_error_logo_width');
 			$logo_height      = fiad_get_db_error_option('db_error_logo_height');
 			$bg_color         = fiad_get_db_error_option('db_error_bg');
-			$style            = $bg_color ? 'body {background-color: ' . $bg_color . '}' : '';
+			$style            = $bg_color ? 'body.db-error {background-color: ' . $bg_color . '}' : '';
 			$server           = $_SERVER;
 			$http             = fiad_array_key_exists('HTTPS', $server) ? "https://" : "http://";
 			$http_host        = $http . fiad_array_key_exists('HTTP_HOST', $server);
+
+			// inherit colors and fonts from the active theme's own front-end output, falling back to a neutral default
+			$theme_style      = fiad_get_theme_style();
+			$page_bg          = fiad_array_key_exists('background', $theme_style, '#f6f3ee');
+			$page_text        = fiad_array_key_exists('text', $theme_style, '#1c1a17');
+			$accent           = fiad_array_key_exists('accent', $theme_style, '#c05621');
+			$body_font        = fiad_array_key_exists('body_font_css', $theme_style, '');
+			$heading_font     = fiad_array_key_exists('heading_font_css', $theme_style, '');
+			$font_face_css    = fiad_array_key_exists('font_face_css', $theme_style, '');
+			$font_links       = fiad_array_key_exists('font_links', $theme_style, []);
+
+			if(!$body_font && !$heading_font){
+				// nothing usable found on the theme's own pages: fall back to our own default pairing + its Google Fonts import
+				$body_font    = "'IBM Plex Sans', -apple-system, sans-serif";
+				$heading_font = "'Fraunces', Georgia, serif";
+				$font_links[] = 'https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Sans:wght@400;500&display=swap';
+			}else{
+				// a font was found for one slot only: keep the other on safe system fonts rather than guessing an external font to load
+				$body_font    = $body_font ? : "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+				$heading_font = $heading_font ? : 'Georgia, serif';
+			}
+
+			$card_bg          = fiad_is_dark_color($page_bg) ? fiad_mix_colors($page_bg, '#ffffff', 0.08) : '#ffffff';
+			$muted_text       = fiad_mix_colors($page_text, $card_bg, 0.45);
+
+			$font_link_tags = '';
+			foreach($font_links as $font_link){
+				$font_link_tags .= '<link rel="stylesheet" href="' . esc_url($font_link) . '"/>';
+			}
 			
 			$php = '<?php';
 			$php .= PHP_EOL;
@@ -59,53 +88,47 @@ class Fiber_Admin_DB_Error{
 			$html .= '<!DOCTYPE HTML>';
 			$html .= '<html ' . get_language_attributes() . '>';
 			$html .= '<head>';
+			$html .= '<meta charset="' . get_bloginfo('charset') . '"/>';
+			$html .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>';
 			$html .= '<title>' . $title . '</title>';
+			$html .= $font_link_tags;
 			$html .= "<style>
-					@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;900&display=swap');
-			        * {-webkit-box-sizing:border-box;box-sizing:border-box}
-			        body {font-family:'Maven Pro', sans-serif;padding:0;margin:0}
+					" . $font_face_css . "
+			        * {box-sizing:border-box}
+			        body.db-error {margin:0;padding:0;font-family:" . $body_font . ";background:" . $page_bg . ";color:" . $page_text . "}
 			        " . $style . "
-			        .db-error__container {position:relative;height:100vh}
-			        .db-error__container .db-error__inner {position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
-			        .db-error__inner {max-width:920px;width:100%;line-height:1.4;text-align:center;padding-left:15px;padding-right:15px}
-			        .db-error__inner .db-error__logo {margin:0 auto 100px auto; max-width:300px; text-align:center;}
-			        .db-error__inner .db-error__logo img {max-width:300px;}
-			        .db-error__inner .db-error__content {position:relative;}
-			        .db-error__inner .db-error__error-503 {position:absolute;height:100px;top:0;left:50%;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%);z-index:-1}
-			        .db-error__inner .db-error__error-503 h1 {color:#ececec;font-weight:900;font-size:276px;margin:0;position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
-			        .db-error__inner h2, .db-error__inner h3, .db-error__inner h4, .db-error__inner h5 {font-size:46px;color:#000;font-weight:900;text-transform:uppercase;margin:0}
-			        .db-error__inner p {font-size:16px;color:#000;font-weight:400;text-transform:uppercase;margin-top:15px}
+			        .db-error__container {min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+			        .db-error__card {width:100%;max-width:480px;background:" . $card_bg . ";border-top:3px solid " . $accent . ";border-radius:12px;padding:48px 40px;box-shadow:0 20px 40px -20px rgba(0,0,0,.2);text-align:center}
+			        .db-error__logo {margin:0 auto 24px;max-width:200px}
+			        .db-error__logo img {max-width:100%;height:auto;display:block;margin:0 auto}
+			        .db-error__content h1, .db-error__content h2, .db-error__content h3, .db-error__content h4, .db-error__content h5, .db-error__content h6 {font-family:" . $heading_font . ";font-weight:600;font-size:26px;line-height:1.3;margin:0 0 12px;color:" . $page_text . "}
+			        .db-error__content p {font-size:15px;line-height:1.6;color:" . $muted_text . ";font-weight:400;margin:0}
+			        .db-error__content a {color:" . $accent . "}
 			        @media only screen and (max-width:480px) {
-			            .db-error__inner .db-error__error-503 h1 {font-size:162px}
-			            .db-error__inner h2 {font-size:26px}
+			            .db-error__card {padding:36px 24px}
+			            .db-error__content h1, .db-error__content h2, .db-error__content h3, .db-error__content h4, .db-error__content h5, .db-error__content h6 {font-size:22px}
 			        }
 					</style>";
 			$html .= '<link rel="icon" type="image/png" href="<?= $absolute_url; ?>' . fiad_get_file_upload_path(get_site_icon_url()) . '"/>';
 			$html .= '</head>';
 			$html .= '<body class="db-error">';
-			
+
 			$html .= '<div class="db-error__container">';
-			$html .= '<div class="db-error__inner">';
-			
+			$html .= '<div class="db-error__card">';
+
 			if($logo){
 				$html .= '<div class="db-error__logo">';
 				$html .= '<img src="<?= $absolute_url; ?>' . fiad_get_file_upload_path($logo) . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
 				$html .= '</div>';
 			}
-			
+
 			$html .= '<div class="db-error__content">';
-			
-			$html .= '<div class="db-error__error-503"><h1>503</h1></div>';
-			
-			$html .= '<div class="db-error__error-message">';
 			$html .= stripslashes($db_error_message);
 			$html .= '</div>';
-			
-			$html .= '</div>'; // db-error__content
-			
-			$html .= '</div>'; // db-error__inner
+
+			$html .= '</div>'; // db-error__card
 			$html .= '</div>'; // db-error__container
-			
+
 			$html .= '</body>'; // db-error
 			$html .= '</html>';
 			
@@ -133,4 +156,4 @@ class Fiber_Admin_DB_Error{
 	}
 }
 
-new Fiber_Admin_DB_Error();
+new Fiber_Admin_DB_Error();

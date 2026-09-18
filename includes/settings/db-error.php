@@ -34,52 +34,80 @@ class Fiber_Admin_DB_Error_Settings{
 			'fiad_db_error_section' // section
 		);
 		
-		add_settings_field(
-			'db_error_title',
-			'Title',
-			[$this, 'fiad_db_error_title'],
-			'fiber-admin-db-error',
-			'fiad_db_error_section'
+		add_settings_section(
+			'fiad_db_error_logo_section',
+			'<span class="dashicons dashicons-format-image"></span> Logo',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-db-error'
 		);
-		
+
 		add_settings_field(
 			'db_error_logo',
 			'Logo',
 			[$this, 'fiad_db_error_logo'],
 			'fiber-admin-db-error',
-			'fiad_db_error_section'
+			'fiad_db_error_logo_section'
 		);
-		
+
 		add_settings_field(
 			'db_error_logo_size',
 			'Logo size',
 			[$this, 'fiad_db_error_logo_size'],
 			'fiber-admin-db-error',
-			'fiad_db_error_section'
+			'fiad_db_error_logo_section'
 		);
-		
+
+		add_settings_section(
+			'fiad_db_error_background_section',
+			'<span class="dashicons dashicons-art"></span> Background',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-db-error'
+		);
+
 		add_settings_field(
 			'db_error_bg_color',
 			'Background Color',
 			[$this, 'fiad_db_error_bg'],
 			'fiber-admin-db-error',
-			'fiad_db_error_section'
+			'fiad_db_error_background_section'
 		);
-		
+
+		add_settings_section(
+			'fiad_db_error_content_section',
+			'<span class="dashicons dashicons-editor-alignleft"></span> Content',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-db-error'
+		);
+
+		add_settings_field(
+			'db_error_title',
+			'Title',
+			[$this, 'fiad_db_error_title'],
+			'fiber-admin-db-error',
+			'fiad_db_error_content_section'
+		);
+
 		add_settings_field(
 			'db_error_message',
 			'Error Message',
 			[$this, 'fiad_db_error_message'],
 			'fiber-admin-db-error',
-			'fiad_db_error_section'
+			'fiad_db_error_content_section'
 		);
-		
+
+		add_settings_section(
+			'fiad_db_error_advanced_section',
+			'<span class="dashicons dashicons-editor-code"></span> Advanced',
+			[$this, 'fiad_section_info'],
+			'fiber-admin-db-error'
+		);
+
 		add_settings_field(
 			'db_error_extra_css',
 			'Extra CSS',
 			[$this, 'fiad_db_error_extra_css'],
 			'fiber-admin-db-error',
-			'fiad_db_error_section'
+			'fiad_db_error_advanced_section'
 		);
 	}
 	
@@ -145,7 +173,7 @@ class Fiber_Admin_DB_Error_Settings{
         <fieldset class="fiber-admin-editor">
 			<?php
 			$db_error_message      = stripslashes(fiad_get_db_error_option('db_error_message'));
-			$default_error_message = "<h4 style='text-align: center;'>503 Service Temporarily Unavailable</h4><p style='text-align: center;'>We're currently experiencing technical issues connecting to the database. Please check back soon.</p>";
+			$default_error_message = "<h4>We'll be right back</h4><p>We're currently experiencing technical issues connecting to the database. Please check back soon.</p>";
 			if(empty($db_error_message)){
 				$db_error_message = $default_error_message;
 			}
