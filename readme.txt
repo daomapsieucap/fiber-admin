@@ -4,7 +4,7 @@ Tags: white label, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.9
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,15 +48,17 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 
 == Changelog ==
 
-= 3.2.9 =
-*Release Date - 25 August 2026*
+= 4.0.0 =
+*Release Date - 18 September 2026*
 
-* Changed: Remove translation from plugin text settings.
-* Fixed: Remove duplicate WordPress site icon / site logo on version 7.1.
-* Changed: Upgrade SVG Sanitizer to v0.22.0 and add extra security checks.
-* Fixed: Clear cache after drag and drop custom post type order.
-
-= 3.2.8 =
-*Release Date - 01 April 2026*
-
-* Fixed: Remove warning "Deprecated: visual_composer() is deprecated: Use wpbakery() instead." when using WPBakery Page Builder plugin.
+* Changed: Redesign settings page header and tab navigation to align with core WordPress admin style.
+* Added: Donate link in the settings page header.
+* Changed: Use core-style image fields with width/height inputs and icon-overlay remove link for White Label logo and background image.
+* Added: Minimum size enforcement and recommended dimensions for the White Label background image.
+* Changed: Split White Label Login fields and Background Color/Image into grouped sections, with Admin Toolbar toggle moved next to Hide WordPress Branding.
+* Changed: Replace multi-select with a checkbox list for Post/Taxonomy Order settings, listing core post types and taxonomies before custom ones.
+* Added: Database Error page now inherits colors and fonts from the active theme.
+* Fixed: Database Error page no longer guesses Google Fonts for custom/self-hosted fonts.
+* Changed: Split Database Error settings fields into grouped sections.
+* Fixed: Core admin notices no longer break the settings page header layout.
+* Changed: Upgrade SVG Sanitizer to v1.0.0.
