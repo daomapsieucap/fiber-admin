@@ -173,7 +173,7 @@ class Fiber_Admin_DB_Error_Settings{
         <fieldset class="fiber-admin-editor">
 			<?php
 			$db_error_message      = stripslashes(fiad_get_db_error_option('db_error_message'));
-			$default_error_message = "<h4 style='text-align: center;'>503 Service Temporarily Unavailable</h4><p style='text-align: center;'>We're currently experiencing technical issues connecting to the database. Please check back soon.</p>";
+			$default_error_message = "<h4>We'll be right back</h4><p>We're currently experiencing technical issues connecting to the database. Please check back soon.</p>";
 			if(empty($db_error_message)){
 				$db_error_message = $default_error_message;
 			}

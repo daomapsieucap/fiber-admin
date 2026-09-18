@@ -98,6 +98,166 @@ if(!function_exists('fiad_check_db_error_file')){
 	}
 }
 
+if(!function_exists('fiad_resolve_theme_preset')){
+	/* Resolves a theme.json "var:preset|type|slug" reference to its actual value from the active theme's global settings. */
+	function fiad_resolve_theme_preset($value, $settings){
+		if(!$value || strpos($value, 'var:preset|') !== 0){
+			return $value;
+		}
+
+		$parts = explode('|', $value);
+		if(count($parts) !== 3){
+			return '';
+		}
+
+		list(, $type, $slug) = $parts;
+		$presets = [
+			'color'       => $settings['color']['palette'] ?? [],
+			'font-family' => $settings['typography']['fontFamilies'] ?? [],
+		];
+		$value_key = ($type === 'color') ? 'color' : 'fontFamily';
+
+		foreach($presets[$type] ?? [] as $preset){
+			if(($preset['slug'] ?? '') === $slug){
+				return $preset[$value_key] ?? '';
+			}
+		}
+
+		return '';
+	}
+}
+
+if(!function_exists('fiad_get_google_font_name')){
+	/* Extracts a loadable Google Fonts family name from a CSS font-family value, or '' if it's a generic/system stack. */
+	function fiad_get_google_font_name($font_family_css){
+		$first_font = trim(explode(',', $font_family_css)[0], " \t\n\r\0\x0B\"'");
+		$generic    = ['inherit', 'serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', '-apple-system', 'ui-sans-serif', 'ui-serif', 'ui-monospace'];
+
+		if(!$first_font || in_array(strtolower($first_font), $generic, true)){
+			return '';
+		}
+
+		return $first_font;
+	}
+}
+
+if(!function_exists('fiad_get_theme_style')){
+	/* Pulls background/text/accent colors and body/heading fonts from the active theme's global styles (theme.json), so generated pages can inherit the site's own look instead of a fixed default. */
+	function fiad_get_theme_style(){
+		$theme_style = [];
+
+		if(!function_exists('wp_get_global_settings') || !function_exists('wp_get_global_styles')){
+			return $theme_style;
+		}
+
+		$settings = wp_get_global_settings();
+		$styles   = wp_get_global_styles();
+
+		$background = fiad_resolve_theme_preset($styles['color']['background'] ?? '', $settings);
+		$text       = fiad_resolve_theme_preset($styles['color']['text'] ?? '', $settings);
+
+		if($background){
+			$theme_style['background'] = $background;
+		}
+		if($text){
+			$theme_style['text'] = $text;
+		}
+
+		$palette = $settings['color']['palette'] ?? [];
+		foreach(['primary', 'accent', 'contrast', 'tertiary'] as $slug){
+			foreach($palette as $entry){
+				if(($entry['slug'] ?? '') === $slug && !empty($entry['color'])){
+					$theme_style['accent'] = $entry['color'];
+					break 2;
+				}
+			}
+		}
+		if(empty($theme_style['accent']) && !empty($palette[0]['color'])){
+			$theme_style['accent'] = $palette[0]['color'];
+		}
+
+		$body_font    = fiad_resolve_theme_preset($styles['typography']['fontFamily'] ?? '', $settings);
+		$heading_font = fiad_resolve_theme_preset($styles['elements']['heading']['typography']['fontFamily'] ?? '', $settings);
+
+		$google_fonts = [];
+
+		if($body_font){
+			$theme_style['body_font_css'] = $body_font;
+			$name = fiad_get_google_font_name($body_font);
+			if($name){
+				$google_fonts[] = $name;
+			}
+		}
+
+		if($heading_font){
+			$theme_style['heading_font_css'] = $heading_font;
+			$name = fiad_get_google_font_name($heading_font);
+			if($name){
+				$google_fonts[] = $name;
+			}
+		}
+
+		$google_fonts = array_unique($google_fonts);
+		if($google_fonts){
+			$families = [];
+			foreach($google_fonts as $font_name){
+				$families[] = 'family=' . str_replace(' ', '+', $font_name) . ':wght@400;500;600;700';
+			}
+			$theme_style['font_import'] = 'https://fonts.googleapis.com/css2?' . implode('&', $families) . '&display=swap';
+		}
+
+		return $theme_style;
+	}
+}
+
+if(!function_exists('fiad_hex_to_rgb')){
+	/* Converts a 3- or 6-digit hex color to an [r, g, b] array, or null if the value isn't a hex color. */
+	function fiad_hex_to_rgb($color){
+		if(!preg_match('/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i', trim($color), $matches)){
+			return null;
+		}
+
+		$hex = $matches[1];
+		if(strlen($hex) === 3){
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+
+		return array_map('hexdec', str_split($hex, 2));
+	}
+}
+
+if(!function_exists('fiad_mix_colors')){
+	/* Blends $color toward $mix_with by $weight (0-1). Returns $color unchanged if either value isn't a hex color. */
+	function fiad_mix_colors($color, $mix_with, $weight){
+		$rgb_a = fiad_hex_to_rgb($color);
+		$rgb_b = fiad_hex_to_rgb($mix_with);
+		if(!$rgb_a || !$rgb_b){
+			return $color;
+		}
+
+		$mixed = [];
+		foreach($rgb_a as $i => $channel){
+			$mixed[] = (int) round($channel + ($rgb_b[$i] - $channel) * $weight);
+		}
+
+		return sprintf('#%02x%02x%02x', $mixed[0], $mixed[1], $mixed[2]);
+	}
+}
+
+if(!function_exists('fiad_is_dark_color')){
+	/* Estimates whether a hex color is dark, to decide if a surface on top of it needs light or dark text. */
+	function fiad_is_dark_color($color){
+		$rgb = fiad_hex_to_rgb($color);
+		if(!$rgb){
+			return false;
+		}
+
+		$luminance = (0.299 * $rgb[0] + 0.587 * $rgb[1] + 0.114 * $rgb[2]) / 255;
+
+		return $luminance < 0.5;
+	}
+}
+
 if(!function_exists('fiad_array_key_exists')){
 	function fiad_array_key_exists($key, $array, $default = ''){
 		if($array && is_array($array)){
