@@ -149,7 +149,7 @@ class Fiber_Admin_Setting{
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
 			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. ' . $message, 'fiber-admin'); ?></p>
+                <p class="fiber-admin-field-note"><?php echo __('Preview is not available. ' . $message, 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');

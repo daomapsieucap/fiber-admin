@@ -259,7 +259,7 @@ class Fiber_Admin_White_Label_Settings{
             <textarea
                     id=<?= $id; ?>
                     name="fiber_admin[login_extra_css]"><?php echo esc_html(fiad_get_general_option('login_extra_css')); ?></textarea>
-            <p class="description"><?php echo __('Applied only to the login page, after all other styles above.', 'fiber-admin'); ?></p>
+            <p class="fiber-admin-field-note"><?php echo __('Applied only to the login page, after all other styles above.', 'fiber-admin'); ?></p>
         </fieldset>
 		<?php
 	}
