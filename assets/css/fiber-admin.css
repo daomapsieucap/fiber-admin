@@ -2,6 +2,26 @@
  * Setting page
  */
 
+.fiber-admin-wrap {margin-top:20px;}
+.fiber-admin-header {
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:8px 16px;
+    margin-bottom:8px;
+    border-bottom:1px solid #dcdcde;
+}
+.fiber-admin-header__main .dashicons {vertical-align:middle;color:#2271b1;}
+.fiber-admin-header__donate {
+    display:inline-flex;align-items:center;line-height:1;
+    color:#2271b1;font-family:Consolas,Monaco,monospace;font-size:12px;
+    text-decoration:none;white-space:nowrap;
+}
+.fiber-admin-header__donate:hover,
+.fiber-admin-header__donate:focus {color:#135e96;text-decoration:underline;}
+.fiber-admin-tabs {display:flex;flex-wrap:wrap;gap:4px;}
+.fiber-admin-tabs .nav-tab {display:inline-flex;align-items:center;gap:6px;}
+.fiber-admin-tabs .nav-tab .dashicons {width:16px;height:16px;font-size:16px;}
+.fiber-admin-panel {padding:20px 24px 20px 0;}
+
 .fiber-admin button {vertical-align:middle !important;}
 .fiber-admin .fiber-admin-input__multiples .fiber-admin-input__label {
     display:inline-block;min-width:10em;vertical-align:middle;

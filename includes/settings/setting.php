@@ -54,21 +54,27 @@ class Fiber_Admin_Setting{
 		$current_tab = esc_attr(fiad_array_key_exists('tab', $_GET));
 		$form_action = $current_tab ? admin_url("options-general.php?page=fiber-admin&tab=" . $current_tab) : admin_url("options-general.php?page=fiber-admin");
 		
-		echo '<div class="wrap">';
-		
-		echo '<h1>Fiber Admin</h1>';
-		
+		echo '<div class="wrap fiber-admin-wrap">';
+
+		echo '<div class="fiber-admin-header">';
+		echo '<div class="fiber-admin-header__main">';
+		echo '<h1 class="wp-heading-inline"><span class="dashicons dashicons-admin-customizer"></span> Fiber Admin</h1>';
+		echo '<span class="subtitle">v' . esc_html(FIBERADMIN_VERSION) . '</span>';
+		echo '</div>';
+		echo '<a class="fiber-admin-header__donate" href="' . esc_url(FIBERADMIN_DONATE_URL) . '" target="_blank" rel="noopener noreferrer">' . esc_html__('☕ buy_me_a_coffee()', 'fiber-admin') . '</a>';
+		echo '</div>';
+
 		// nav
-		echo '<nav class="nav-tab-wrapper">';
+		echo '<nav class="nav-tab-wrapper fiber-admin-tabs">';
 		if($current_tab){
 			$this->fiad_setting_tab_navs($current_tab);
 		}else{
 			$this->fiad_setting_tab_navs();
 		}
 		echo '</nav>';
-		
+
 		// content
-		echo '<div class="tab-content">';
+		echo '<div class="tab-content fiber-admin-panel">';
 		echo '<form class="fiber-admin" method="POST" action="' . $form_action . '">';
 		
 		wp_nonce_field("fiber-admin");
@@ -84,20 +90,21 @@ class Fiber_Admin_Setting{
 	
 	public function fiad_setting_tabs(){
 		return [
-			'white-label'   => 'White Label',
-			'cpo'           => 'Custom Post Order',
-			'duplicate'     => 'Duplicate Post',
-			'db-error'      => 'Database Error',
-			'miscellaneous' => 'Miscellaneous',
+			'white-label'   => ['label' => 'White Label', 'icon' => 'dashicons-wordpress'],
+			'cpo'           => ['label' => 'Custom Post Order', 'icon' => 'dashicons-sort'],
+			'duplicate'     => ['label' => 'Duplicate Post', 'icon' => 'dashicons-admin-page'],
+			'db-error'      => ['label' => 'Database Error', 'icon' => 'dashicons-database'],
+			'miscellaneous' => ['label' => 'Miscellaneous', 'icon' => 'dashicons-admin-tools'],
 		];
 	}
-	
+
 	public function fiad_setting_tab_navs($current = 'white-label'){
 		$tabs = $this->fiad_setting_tabs();
-		foreach($tabs as $tab => $name){
+		foreach($tabs as $tab => $data){
 			$class = ($tab == $current) ? ' nav-tab-active' : '';
-			echo "<a class='nav-tab$class' href='?page=fiber-admin&tab=$tab' title='$name'>$name</a>";
-			
+			$name  = $data['label'];
+			echo "<a class='nav-tab$class' href='?page=fiber-admin&tab=$tab' title='$name'><span class='dashicons {$data['icon']}'></span> $name</a>";
+
 		}
 	}
 	
@@ -145,7 +152,7 @@ class Fiber_Admin_Setting{
 			echo '<input type="submit" name="fiber-admin-submit" id="fiber-admin-submit" class="button button-primary" value="Save Changes">';
 			if(!$can_preview){
 				?>
-                <p class="description"><?php echo __('Preview is not available. ' . $message, 'fiber-admin'); ?></p>
+                <p class="fiber-admin-field-note"><?php echo __('Preview is not available. ' . $message, 'fiber-admin'); ?></p>
 				<?php
 			}else{
 				$txt_preview = __('Preview', 'fiber-admin');

@@ -25,9 +25,10 @@ if(!defined('ABSPATH')){
  * Definitions
  */
 
-const FIBERADMIN_VERSION  = '3.2.9';
-const FIBERADMIN_DEV_MODE = false;
-const FIBERADMIN_FILENAME = __FILE__;
+const FIBERADMIN_VERSION    = '3.2.9';
+const FIBERADMIN_DEV_MODE   = false;
+const FIBERADMIN_FILENAME   = __FILE__;
+const FIBERADMIN_DONATE_URL = 'https://buymeacoffee.com/daomapsieucap';
 define("FIBERADMIN_DIR", plugin_dir_path(__FILE__));
 define("FIBERADMIN_ASSETS_URL", plugin_dir_url(__FILE__) . 'assets/');
 
