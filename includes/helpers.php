@@ -123,17 +123,20 @@ if(!function_exists('fiad_resolve_relative_url')){
 		}
 
 		$base = wp_parse_url($base_url);
-		if(!$base || empty($base['host'])){
+		$host = fiad_array_key_exists('host', $base);
+		if(!$host){
 			return $url;
 		}
 
-		$origin = $base['scheme'] . '://' . $base['host'] . (isset($base['port']) ? ':' . $base['port'] : '');
+		$port   = fiad_array_key_exists('port', $base);
+		$origin = fiad_array_key_exists('scheme', $base) . '://' . $host . ($port ? ':' . $port : '');
 
 		if(strpos($url, '/') === 0){
 			return $origin . $url;
 		}
 
-		$segments = explode('/', trim(isset($base['path']) ? dirname($base['path']) : '/', '/'));
+		$path     = fiad_array_key_exists('path', $base, '/');
+		$segments = explode('/', trim(dirname($path), '/'));
 		foreach(explode('/', $url) as $part){
 			if($part === '.' || $part === ''){
 				continue;
@@ -194,11 +197,14 @@ if(!function_exists('fiad_resolve_css_var')){
 		}
 
 		if(preg_match('/^var\(\s*(--[a-zA-Z0-9-_]+)\s*(?:,\s*(.+))?\)$/i', trim($value), $matches)){
-			if(isset($props[$matches[1]])){
-				return fiad_resolve_css_var($props[$matches[1]], $props, $depth + 1);
+			$referenced = fiad_array_key_exists($matches[1], $props);
+			if($referenced){
+				return fiad_resolve_css_var($referenced, $props, $depth + 1);
 			}
 
-			return isset($matches[2]) ? trim($matches[2]) : $value;
+			$fallback = fiad_array_key_exists(2, $matches);
+
+			return $fallback ? trim($fallback) : $value;
 		}
 
 		return $value;
