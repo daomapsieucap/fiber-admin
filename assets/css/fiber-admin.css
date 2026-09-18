@@ -17,6 +17,7 @@
 }
 .fiber-admin-header__donate:hover,
 .fiber-admin-header__donate:focus {color:#135e96;text-decoration:underline;}
+.fiber-admin-wrap .notice {margin:16px 0;}
 .fiber-admin-tabs {display:flex;flex-wrap:wrap;gap:4px;}
 .fiber-admin-tabs .nav-tab {display:inline-flex;align-items:center;gap:6px;}
 .fiber-admin-tabs .nav-tab .dashicons {width:16px;height:16px;font-size:16px;}
