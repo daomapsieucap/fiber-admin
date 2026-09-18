@@ -46,4 +46,4 @@ class Usage
     {
         return $this->count;
     }
-}
+}

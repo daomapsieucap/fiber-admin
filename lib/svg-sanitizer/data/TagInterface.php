@@ -16,4 +16,4 @@ interface TagInterface
      */
     public static function getTags();
 
-}
+}
