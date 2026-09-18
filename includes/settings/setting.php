@@ -63,6 +63,7 @@ class Fiber_Admin_Setting{
 		echo '</div>';
 		echo '<a class="fiber-admin-header__donate" href="' . esc_url(FIBERADMIN_DONATE_URL) . '" target="_blank" rel="noopener noreferrer">' . esc_html__('☕ buy_me_a_coffee()', 'fiber-admin') . '</a>';
 		echo '</div>';
+		echo '<hr class="wp-header-end">';
 
 		// nav
 		echo '<nav class="nav-tab-wrapper fiber-admin-tabs">';
