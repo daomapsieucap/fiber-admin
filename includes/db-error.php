@@ -43,17 +43,34 @@ class Fiber_Admin_DB_Error{
 			$http             = fiad_array_key_exists('HTTPS', $server) ? "https://" : "http://";
 			$http_host        = $http . fiad_array_key_exists('HTTP_HOST', $server);
 
-			// inherit colors and fonts from the active theme, falling back to a neutral default
+			// inherit colors and fonts from the active theme's own front-end output, falling back to a neutral default
 			$theme_style      = fiad_get_theme_style();
 			$page_bg          = fiad_array_key_exists('background', $theme_style, '#f6f3ee');
 			$page_text        = fiad_array_key_exists('text', $theme_style, '#1c1a17');
 			$accent           = fiad_array_key_exists('accent', $theme_style, '#c05621');
-			$body_font        = fiad_array_key_exists('body_font_css', $theme_style, "'IBM Plex Sans', -apple-system, sans-serif");
-			$heading_font     = fiad_array_key_exists('heading_font_css', $theme_style, "'Fraunces', Georgia, serif");
-			$font_import      = fiad_array_key_exists('font_import', $theme_style, 'https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Sans:wght@400;500&display=swap');
+			$body_font        = fiad_array_key_exists('body_font_css', $theme_style, '');
+			$heading_font     = fiad_array_key_exists('heading_font_css', $theme_style, '');
+			$font_face_css    = fiad_array_key_exists('font_face_css', $theme_style, '');
+			$font_links       = fiad_array_key_exists('font_links', $theme_style, []);
+
+			if(!$body_font && !$heading_font){
+				// nothing usable found on the theme's own pages: fall back to our own default pairing + its Google Fonts import
+				$body_font    = "'IBM Plex Sans', -apple-system, sans-serif";
+				$heading_font = "'Fraunces', Georgia, serif";
+				$font_links[] = 'https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Sans:wght@400;500&display=swap';
+			}else{
+				// a font was found for one slot only: keep the other on safe system fonts rather than guessing an external font to load
+				$body_font    = $body_font ? : "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+				$heading_font = $heading_font ? : 'Georgia, serif';
+			}
 
 			$card_bg          = fiad_is_dark_color($page_bg) ? fiad_mix_colors($page_bg, '#ffffff', 0.08) : '#ffffff';
 			$muted_text       = fiad_mix_colors($page_text, $card_bg, 0.45);
+
+			$font_link_tags = '';
+			foreach($font_links as $font_link){
+				$font_link_tags .= '<link rel="stylesheet" href="' . esc_url($font_link) . '"/>';
+			}
 			
 			$php = '<?php';
 			$php .= PHP_EOL;
@@ -74,8 +91,9 @@ class Fiber_Admin_DB_Error{
 			$html .= '<meta charset="' . get_bloginfo('charset') . '"/>';
 			$html .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>';
 			$html .= '<title>' . $title . '</title>';
+			$html .= $font_link_tags;
 			$html .= "<style>
-					@import url('" . $font_import . "');
+					" . $font_face_css . "
 			        * {box-sizing:border-box}
 			        body.db-error {margin:0;padding:0;font-family:" . $body_font . ";background:" . $page_bg . ";color:" . $page_text . "}
 			        " . $style . "
@@ -138,4 +156,4 @@ class Fiber_Admin_DB_Error{
 	}
 }
 
-new Fiber_Admin_DB_Error();
+new Fiber_Admin_DB_Error();
