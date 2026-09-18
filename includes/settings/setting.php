@@ -57,8 +57,11 @@ class Fiber_Admin_Setting{
 		echo '<div class="wrap fiber-admin-wrap">';
 
 		echo '<div class="fiber-admin-header">';
-		echo '<h1 class="fiber-admin-header__title"><span class="dashicons dashicons-admin-customizer"></span> Fiber Admin</h1>';
-		echo '<span class="fiber-admin-header__version">v' . esc_html(FIBERADMIN_VERSION) . '</span>';
+		echo '<div class="fiber-admin-header__main">';
+		echo '<h1 class="wp-heading-inline"><span class="dashicons dashicons-admin-customizer"></span> Fiber Admin</h1>';
+		echo '<span class="subtitle">v' . esc_html(FIBERADMIN_VERSION) . '</span>';
+		echo '</div>';
+		echo '<a class="fiber-admin-header__donate" href="' . esc_url(FIBERADMIN_DONATE_URL) . '" target="_blank" rel="noopener noreferrer">' . esc_html__('☕ buy_me_a_coffee()', 'fiber-admin') . '</a>';
 		echo '</div>';
 
 		// nav
