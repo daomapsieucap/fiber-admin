@@ -36,6 +36,7 @@ jQuery(document).ready(function($){
                         type: 'POST',
                         data: {
                             action: 'fiad_cpo_tax_update',
+                            nonce: fiad_cpo.nonce,
                             cpo_data: $(this).sortable('serialize'),
                             taxonomy: $('input[name="taxonomy"]').val()
                         },
@@ -49,6 +50,7 @@ jQuery(document).ready(function($){
                         type: 'POST',
                         data: {
                             action: 'fiad_cpo_update',
+                            nonce: fiad_cpo.nonce,
                             cpo_data: $(this).sortable('serialize'),
                             post_type: $('input[name="post_type"]').val(),
                             post_status: $('input[name="post_status"]').val(),
@@ -61,4 +63,4 @@ jQuery(document).ready(function($){
             }
         });
     }
-});
+});

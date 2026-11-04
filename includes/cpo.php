@@ -14,10 +14,8 @@ class Fiber_Admin_CPO{
 		
 		add_action('wp_insert_post', [$this, 'fiad_cpo_insert'], 10, 3);
 		add_action("wp_ajax_fiad_cpo_update", [$this, 'fiad_cpo_update']);
-		add_action("wp_ajax_nopriv_fiad_cpo_update", [$this, 'fiad_cpo_update']);
 		
 		add_action("wp_ajax_fiad_cpo_tax_update", [$this, 'fiad_cpo_tax_update']);
-		add_action("wp_ajax_nopriv_fiad_cpo_tax_update", [$this, 'fiad_cpo_tax_update']);
 		
 		add_action('pre_get_posts', [$this, 'fiad_cpo_update_order']);
 		add_filter('create_term', [$this, 'fiad_cpo_create_term_order'], 10, 3);
@@ -39,15 +37,25 @@ class Fiber_Admin_CPO{
 			wp_localize_script(
 				'fiber-admin-cpo',
 				'fiad_cpo',
-				['ajax_url' => admin_url('admin-ajax.php')]
+				[
+					'ajax_url' => admin_url('admin-ajax.php'),
+					'nonce'    => wp_create_nonce('fiad_cpo_nonce'),
+					]
 			);
 		}
 	}
 	
 	public function fiad_cpo_update(){
 		
+		check_ajax_referer('fiad_cpo_nonce', 'nonce');
+		
 		if(!$_POST || (!$_POST['cpo_data'] && !$_POST['post_type'])){
 			return false;
+		}
+		
+		$post_type_object = get_post_type_object(sanitize_key(wp_unslash($_POST['post_type'] ?? '')));
+		if(!$post_type_object || !current_user_can($post_type_object->cap->edit_others_posts)){
+			wp_send_json_error(['message' => 'Forbidden'], 403);
 		}
 		
 		parse_str($_POST['cpo_data'], $cpo_order);
@@ -162,8 +170,15 @@ class Fiber_Admin_CPO{
 	
 	public function fiad_cpo_tax_update(){
 		
+		check_ajax_referer('fiad_cpo_nonce', 'nonce');
+		
 		if(!$_POST || (!$_POST['cpo_data'] && !$_POST['taxonomy'])){
 			return false;
+		}
+		
+		$taxonomy_object = get_taxonomy(sanitize_key(wp_unslash($_POST['taxonomy'] ?? '')));
+		if(!$taxonomy_object || !current_user_can($taxonomy_object->cap->manage_terms)){
+			wp_send_json_error(['message' => 'Forbidden'], 403);
 		}
 		
 		global $wpdb;
@@ -290,4 +305,4 @@ class Fiber_Admin_CPO{
 	}
 }
 
-new Fiber_Admin_CPO();
+new Fiber_Admin_CPO();
