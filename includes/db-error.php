@@ -9,9 +9,18 @@ if(!defined('ABSPATH')){
  */
 class Fiber_Admin_DB_Error{
 	public function __construct(){
-		add_action('admin_init', [$this, 'fiad_db_error_file']);
+		add_action('admin_init', [$this, 'fiad_maybe_db_error_file']);
 		register_activation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_db_error_file']);
 		register_deactivation_hook(FIBERADMIN_FILENAME, [$this, 'fiad_remove_db_error_file']);
+	}
+
+	/* Regenerate the DB Error file on admin_init only for users allowed to manage options. */
+	public function fiad_maybe_db_error_file(){
+		if(!current_user_can('manage_options')){
+			return;
+		}
+
+		$this->fiad_db_error_file();
 	}
 	
 	public function fiad_db_error_file(){
