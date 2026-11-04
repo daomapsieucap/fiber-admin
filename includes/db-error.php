@@ -48,9 +48,7 @@ class Fiber_Admin_DB_Error{
 			$logo_height      = fiad_get_db_error_option('db_error_logo_height');
 			$bg_color         = fiad_get_db_error_option('db_error_bg');
 			$style            = $bg_color ? 'body.db-error {background-color: ' . $bg_color . '}' : '';
-			$server           = $_SERVER;
-			$http             = fiad_array_key_exists('HTTPS', $server) ? "https://" : "http://";
-			$http_host        = $http . fiad_array_key_exists('HTTP_HOST', $server);
+			$content_url      = content_url();
 
 			// inherit colors and fonts from the active theme's own front-end output, falling back to a neutral default
 			$theme_style      = fiad_get_theme_style();
@@ -89,12 +87,9 @@ class Fiber_Admin_DB_Error{
 			$php .= PHP_EOL;
 			$php .= 'header(\'Retry-After: 3600\');';
 			$php .= PHP_EOL;
-			$php .= '$absolute_url = "' . $http_host . '" . explode($_SERVER[\'DOCUMENT_ROOT\'], __DIR__)[1];';
-			$php .= PHP_EOL;
 			$php .= '?>';
-			
-			$html = $php;
-			$html .= '<!DOCTYPE HTML>';
+
+			$html = '<!DOCTYPE HTML>';
 			$html .= '<html ' . get_language_attributes() . '>';
 			$html .= '<head>';
 			$html .= '<meta charset="' . get_bloginfo('charset') . '"/>';
@@ -118,7 +113,10 @@ class Fiber_Admin_DB_Error{
 			            .db-error__content h1, .db-error__content h2, .db-error__content h3, .db-error__content h4, .db-error__content h5, .db-error__content h6 {font-size:22px}
 			        }
 					</style>";
-			$html .= '<link rel="icon" type="image/png" href="<?= $absolute_url; ?>' . fiad_get_file_upload_path(get_site_icon_url()) . '"/>';
+			$site_icon = get_site_icon_url();
+			if($site_icon){
+				$html .= '<link rel="icon" type="image/png" href="' . esc_url($content_url . fiad_get_file_upload_path($site_icon)) . '"/>';
+			}
 			$html .= '</head>';
 			$html .= '<body class="db-error">';
 
@@ -127,7 +125,7 @@ class Fiber_Admin_DB_Error{
 
 			if($logo){
 				$html .= '<div class="db-error__logo">';
-				$html .= '<img src="<?= $absolute_url; ?>' . fiad_get_file_upload_path($logo) . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
+				$html .= '<img src="' . esc_url($content_url . fiad_get_file_upload_path($logo)) . '"  alt="' . get_bloginfo('name') . '" width="' . $logo_width . '" height="' . $logo_height . '"/>';
 				$html .= '</div>';
 			}
 
@@ -141,7 +139,7 @@ class Fiber_Admin_DB_Error{
 			$html .= '</body>'; // db-error
 			$html .= '</html>';
 			
-			file_put_contents(WP_CONTENT_DIR . '/db-error.php', $html);
+			file_put_contents(WP_CONTENT_DIR . '/db-error.php', $php . $html);
 			
 			$db_error_option['db_error_added'] = true;
 		}else{
