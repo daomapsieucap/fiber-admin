@@ -4,7 +4,7 @@ Tags: white label, duplicate post, content protection
 Requires at least: 4.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,12 @@ At the first time using this setting, Fiber Admin will ask you to save it to cre
 5. Miscellaneous settings.
 
 == Changelog ==
+
+= 4.0.1 =
+*Release Date - 04 November 2026*
+
+* Fixed: Prevent unauthenticated code injection when generating the Database Error page. Reported by Naoki Kawahigashi.
+* Fixed: Require a nonce and capability for drag and drop post / taxonomy order updates. Reported by Enrico Marcolini, Claudio Marchesini and Dottor Marc.
 
 = 4.0.0 =
 *Release Date - 18 September 2026*
