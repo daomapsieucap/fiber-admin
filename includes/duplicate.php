@@ -62,7 +62,7 @@ class Fiber_Admin_Duplicate{
 					],
 					'admin.php'
 				),
-				basename(__FILE__),
+				basename(__FILE__) . $post->ID,
 				'duplicate_nonce'
 			);
 			
@@ -82,22 +82,30 @@ class Fiber_Admin_Duplicate{
 		
 		// if post data exists
 		if($post){
+			$post_type_object = get_post_type_object($post->post_type);
+			if(!$post_type_object || !current_user_can('edit_post', $post_id) || !current_user_can($post_type_object->cap->create_posts)){
+				return false;
+			}
+
 			// insert new post
 			$args        = [
 				'comment_status' => $post->comment_status,
 				'ping_status'    => $post->ping_status,
 				'post_author'    => $new_post_author,
-				'post_content'   => $post->post_content,
-				'post_excerpt'   => $post->post_excerpt,
+				'post_content'   => wp_slash($post->post_content),
+				'post_excerpt'   => wp_slash($post->post_excerpt),
 				'post_name'      => $post->post_name,
 				'post_parent'    => $post->post_parent,
 				'post_password'  => $post->post_password,
 				'post_status'    => 'draft',
-				'post_title'     => $post->post_title,
+				'post_title'     => wp_slash($post->post_title),
 				'post_type'      => $post->post_type,
 				'to_ping'        => $post->to_ping,
 			];
 			$new_post_id = wp_insert_post($args);
+			if(is_wp_error($new_post_id) || !$new_post_id){
+				return false;
+			}
 			
 			// copy taxonomies
 			$taxonomies = get_object_taxonomies(get_post_type($post));
@@ -117,11 +125,15 @@ class Fiber_Admin_Duplicate{
 					}
 					
 					foreach($meta_values as $meta_value){
-						add_post_meta($new_post_id, $meta_key, maybe_unserialize($meta_value));
+						add_post_meta($new_post_id, $meta_key, wp_slash(maybe_unserialize($meta_value)));
 					}
 				}
 			}
+
+			return $new_post_id;
 		}
+
+		return false;
 	}
 	
 	public function fiad_duplicate_post_as_draft(){
@@ -130,22 +142,24 @@ class Fiber_Admin_Duplicate{
 			wp_die('No post to duplicate has been provided!');
 		}
 		
-		// nonce verification
-		if(!isset($_GET['duplicate_nonce']) || !wp_verify_nonce($_GET['duplicate_nonce'], basename(__FILE__))){
-			return;
-		}
-		
 		// get the original post id
 		$post_id = absint($_GET['post']);
-		
+
+		// nonce verification
+		if(!isset($_GET['duplicate_nonce']) || !wp_verify_nonce($_GET['duplicate_nonce'], basename(__FILE__) . $post_id)){
+			wp_die('Security check failed.', '', ['response' => 403]);
+		}
+
 		$post = get_post($post_id);
 		
 		// if post data exists
 		if($post){
 			
 			// duplicate post
-			$this->fiad_duplicate_post($post_id);
-			
+			if(!$this->fiad_duplicate_post($post_id)){
+				wp_die('You are not allowed to duplicate this item, or the duplication failed.', '', ['response' => 403]);
+			}
+
 			// finish
 			wp_safe_redirect(
 				add_query_arg(
@@ -177,14 +191,17 @@ class Fiber_Admin_Duplicate{
 		// bulk duplicate
 		if($doaction == 'fiad_duplicate'){
 			
+			$created = 0;
 			foreach($object_ids as $post_id){
-				$this->fiad_duplicate_post($post_id);
+				if($this->fiad_duplicate_post(absint($post_id))){
+					$created++;
+				}
 			}
-			
+
 			// do not forget to add query args to URL because we will show notices later
 			$redirect = add_query_arg(
 				'fiad_duplicate_created',
-				count($object_ids),
+				$created,
 				$redirect);
 			
 		}
