@@ -87,17 +87,20 @@ class Fiber_Admin_Duplicate{
 				'comment_status' => $post->comment_status,
 				'ping_status'    => $post->ping_status,
 				'post_author'    => $new_post_author,
-				'post_content'   => $post->post_content,
-				'post_excerpt'   => $post->post_excerpt,
+				'post_content'   => wp_slash($post->post_content),
+				'post_excerpt'   => wp_slash($post->post_excerpt),
 				'post_name'      => $post->post_name,
 				'post_parent'    => $post->post_parent,
 				'post_password'  => $post->post_password,
 				'post_status'    => 'draft',
-				'post_title'     => $post->post_title,
+				'post_title'     => wp_slash($post->post_title),
 				'post_type'      => $post->post_type,
 				'to_ping'        => $post->to_ping,
 			];
 			$new_post_id = wp_insert_post($args);
+			if(is_wp_error($new_post_id) || !$new_post_id){
+				return;
+			}
 			
 			// copy taxonomies
 			$taxonomies = get_object_taxonomies(get_post_type($post));
@@ -117,7 +120,7 @@ class Fiber_Admin_Duplicate{
 					}
 					
 					foreach($meta_values as $meta_value){
-						add_post_meta($new_post_id, $meta_key, maybe_unserialize($meta_value));
+						add_post_meta($new_post_id, $meta_key, wp_slash(maybe_unserialize($meta_value)));
 					}
 				}
 			}
